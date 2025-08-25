@@ -212,7 +212,7 @@
                 & 
                 <a href="https://www.instagram.com/kkn20mekarmukti2/">KKN Universitas Muhammadiyah Bandung</a>
                 <br>
-                <small class="text-muted">Kelompok 20 Mekarmukti (Kelompok ke-2) • 2024</small>
+                <small class="text-muted">Kelompok 20 Mekarmukti (Kelompok ke-2) • 2025</small>
             </div>
         </div>
     </footer><!-- End Footer -->
