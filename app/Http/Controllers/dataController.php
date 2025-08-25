@@ -150,6 +150,16 @@ private function createSampleData($type)
                 ['data' => 'sumberair', 'label' => 'Mata Air', 'total' => 50, 'created_at' => now(), 'updated_at' => now()],
             ]);
             break;
+            
+        case 'agama':
+            DB::table('data')->insert([
+                ['data' => 'agama', 'label' => 'Islam', 'total' => 2180, 'created_at' => now(), 'updated_at' => now()],
+                ['data' => 'agama', 'label' => 'Kristen', 'total' => 180, 'created_at' => now(), 'updated_at' => now()],
+                ['data' => 'agama', 'label' => 'Katolik', 'total' => 55, 'created_at' => now(), 'updated_at' => now()],
+                ['data' => 'agama', 'label' => 'Hindu', 'total' => 12, 'created_at' => now(), 'updated_at' => now()],
+                ['data' => 'agama', 'label' => 'Buddha', 'total' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ]);
+            break;
     }
 }
 

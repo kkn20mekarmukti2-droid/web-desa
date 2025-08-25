@@ -24,22 +24,50 @@
             </div>
 
             <div class="row">
-                <!-- Chart Penduduk -->
-                <div class="col-md-6">
+                <!-- Chart 1: Penduduk berdasarkan Jenis Kelamin -->
+                <div class="col-md-4">
                     <div class="card mb-4">
-                        <div class="card-header">Statistik Data Penduduk</div>
+                        <div class="card-header bg-primary text-white">
+                            <i class="bi bi-people-fill me-2"></i>
+                            Data Penduduk berdasarkan Jenis Kelamin
+                        </div>
                         <div class="card-body">
-                            <canvas id="chartPenduduk"></canvas>
+                            <canvas id="chartJenisKelamin"></canvas>
+                            <div class="mt-3 text-center">
+                                <small class="text-muted">Total: <span id="totalJenisKelamin" class="fw-bold">-</span> jiwa</small>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Chart KK -->
-                <div class="col-md-6">
+                <!-- Chart 2: Penduduk berdasarkan Agama -->
+                <div class="col-md-4">
                     <div class="card mb-4">
-                        <div class="card-header">Statistik Data KK</div>
+                        <div class="card-header bg-success text-white">
+                            <i class="bi bi-peace me-2"></i>
+                            Data Penduduk berdasarkan Agama
+                        </div>
                         <div class="card-body">
-                            <canvas id="chartKK"></canvas>
+                            <canvas id="chartAgama"></canvas>
+                            <div class="mt-3 text-center">
+                                <small class="text-muted">Total: <span id="totalAgama" class="fw-bold">-</span> jiwa</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Penduduk berdasarkan Pekerjaan -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header bg-warning text-white">
+                            <i class="bi bi-briefcase-fill me-2"></i>
+                            Data Penduduk berdasarkan Pekerjaan
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartPekerjaan"></canvas>
+                            <div class="mt-3 text-center">
+                                <small class="text-muted">Total: <span id="totalPekerjaan" class="fw-bold">-</span> jiwa</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,61 +78,124 @@
 </main>
 
 <script>
-    // Setup Chart.js Pie Chart
-    function createPieChart(ctx, labels, data, colors) {
+    // Enhanced Chart.js Configuration
+    Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+    Chart.defaults.font.size = 12;
+
+    // Color Palettes for each chart
+    const genderColors = ['#3B82F6', '#EC4899']; // Blue & Pink
+    const religionColors = ['#10B981', '#F59E0B', '#8B5CF6', '#EF4444', '#6B7280']; // Green, Yellow, Purple, Red, Gray
+    const jobColors = ['#059669', '#DC2626', '#7C3AED', '#EA580C']; // Green, Red, Purple, Orange
+
+    // Create Enhanced Pie Chart
+    function createEnhancedPieChart(ctx, colors, title) {
         return new Chart(ctx, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
-                labels: labels,
+                labels: [],
                 datasets: [{
                     label: 'Jumlah',
-                    data: data,
-                    backgroundColor: colors
+                    data: [],
+                    backgroundColor: colors,
+                    borderColor: '#ffffff',
+                    borderWidth: 3,
+                    hoverBorderWidth: 4,
+                    hoverOffset: 10
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
                 plugins: {
-                    legend: { position: 'bottom' },
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            font: {
+                                size: 11
+                            }
+                        }
+                    },
                     tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        borderColor: '#374151',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: true,
                         callbacks: {
                             label: function (context) {
-                                return context.label + ': ' + context.parsed.toLocaleString() + ' orang';
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.parsed.toLocaleString() + ' jiwa (' + percentage + '%)';
                             }
                         }
                     }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart'
                 }
             }
         });
     }
 
-    function updateChart(chart, url) {
+    function updateChart(chart, url, totalElementId) {
         fetch(url)
             .then(res => res.json())
             .then(data => {
                 chart.data.labels = data.labels;
                 chart.data.datasets[0].data = data.data;
-                chart.update();
+                chart.update('active');
+                
+                // Update total counter
+                if (totalElementId) {
+                    const total = data.data.reduce((a, b) => a + b, 0);
+                    document.getElementById(totalElementId).textContent = total.toLocaleString();
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                // Show error state
+                if (totalElementId) {
+                    document.getElementById(totalElementId).textContent = 'Error';
+                }
             });
     }
 
-    // Chart instances
-    const chartPenduduk = createPieChart(
-        document.getElementById('chartPenduduk').getContext('2d'),
-        [],
-        [],
-        ['#36A2EB', '#FF6384']
+    // Initialize Charts
+    const chartJenisKelamin = createEnhancedPieChart(
+        document.getElementById('chartJenisKelamin').getContext('2d'),
+        genderColors,
+        'Jenis Kelamin'
     );
 
-    const chartKK = createPieChart(
-        document.getElementById('chartKK').getContext('2d'),
-        [],
-        [],
-        ['#4BC0C0', '#FF9F40']
+    const chartAgama = createEnhancedPieChart(
+        document.getElementById('chartAgama').getContext('2d'),
+        religionColors,
+        'Agama'
     );
 
-    // Load data
-    updateChart(chartPenduduk, '{{ route("getdatades", ["type" => "penduduk"]) }}');
-    updateChart(chartKK, '{{ route("getdatades", ["type" => "kk"]) }}');
+    const chartPekerjaan = createEnhancedPieChart(
+        document.getElementById('chartPekerjaan').getContext('2d'),
+        jobColors,
+        'Pekerjaan'
+    );
+
+    // Load Data with staggered animation
+    setTimeout(() => updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalJenisKelamin'), 200);
+    setTimeout(() => updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}', 'totalAgama'), 500);
+    setTimeout(() => updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}', 'totalPekerjaan'), 800);
+
+    // Auto refresh every 30 seconds
+    setInterval(() => {
+        updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalJenisKelamin');
+        updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}', 'totalAgama');
+        updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}', 'totalPekerjaan');
+    }, 30000);
 </script>
 @endsection
