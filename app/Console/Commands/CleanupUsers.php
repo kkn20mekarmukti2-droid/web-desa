@@ -23,7 +23,7 @@ class CleanupUsers extends Command
         $this->table(
             ['ID', 'Name', 'Email', 'Created At', 'Articles Count'],
             $users->map(function ($user) {
-                $articleCount = artikelModel::where('user_id', $user->id)->count();
+                $articleCount = artikelModel::where('created_by', $user->id)->count();
                 return [
                     $user->id,
                     $user->name,

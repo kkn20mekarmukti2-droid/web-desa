@@ -31,7 +31,7 @@ php artisan tinker --execute="
 echo 'Total users: ' . \$users->count() . PHP_EOL;
 echo str_repeat('-', 60) . PHP_EOL;
 foreach(\$users as \$user) {
-    \$articles = App\Models\artikelModel::where('user_id', \$user->id)->count();
+    \$articles = App\Models\artikelModel::where('created_by', \$user->id)->count();
     echo sprintf('ID: %-2s | %-25s | %-30s | Articles: %s', 
         \$user->id, 
         substr(\$user->name, 0, 25), 
@@ -84,9 +84,13 @@ case $choice in
                 
                 foreach(\$deleteUsers as \$delUser) {
                     // Migrate articles
-                    \$migrated = App\Models\artikelModel::where('user_id', \$delUser->id)
-                        ->update(['user_id' => \$keepUser->id]);
-                    echo 'Migrated ' . \$migrated . ' articles from ' . \$delUser->email . ' to ' . \$keepUser->email . PHP_EOL;
+                    \$migrated = App\Models\artikelModel::where('created_by', \$delUser->id)
+                        ->update(['created_by' => \$keepUser->id]);
+                    echo 'Migrated ' . \$migrated . ' articles (created_by) from ' . \$delUser->email . ' to ' . \$keepUser->email . PHP_EOL;
+                    
+                    \$updated = App\Models\artikelModel::where('updated_by', \$delUser->id)
+                        ->update(['updated_by' => \$keepUser->id]);
+                    echo 'Migrated ' . \$updated . ' articles (updated_by) from ' . \$delUser->email . ' to ' . \$keepUser->email . PHP_EOL;
                     
                     // Delete user
                     \$delUser->delete();
@@ -127,10 +131,15 @@ case $choice in
             );
             echo 'Standard admin: ' . \$admin->email . ' (ID: ' . \$admin->id . ')' . PHP_EOL;
             
-            // Migrate all articles
-            \$migrated = App\Models\artikelModel::where('user_id', '!=', \$admin->id)
-                ->update(['user_id' => \$admin->id]);
-            echo 'Articles migrated: ' . \$migrated . PHP_EOL;
+            // Migrate all articles (created_by)
+            \$migrated1 = App\Models\artikelModel::where('created_by', '!=', \$admin->id)
+                ->update(['created_by' => \$admin->id]);
+            echo 'Articles migrated (created_by): ' . \$migrated1 . PHP_EOL;
+            
+            // Migrate all articles (updated_by)  
+            \$migrated2 = App\Models\artikelModel::where('updated_by', '!=', \$admin->id)
+                ->update(['updated_by' => \$admin->id]);
+            echo 'Articles migrated (updated_by): ' . \$migrated2 . PHP_EOL;
             
             // Delete other users
             \$otherUsers = App\Models\User::where('id', '!=', \$admin->id)->get();
@@ -180,7 +189,7 @@ echo 'Total articles: ' . App\Models\artikelModel::count() . PHP_EOL . PHP_EOL;
 \$users = App\Models\User::orderBy('id')->get();
 echo 'REMAINING USERS:' . PHP_EOL;
 foreach(\$users as \$user) {
-    \$articles = App\Models\artikelModel::where('user_id', \$user->id)->count();
+    \$articles = App\Models\artikelModel::where('created_by', \$user->id)->count();
     echo '✅ ' . \$user->email . ' (' . \$user->name . ') - ' . \$articles . ' articles' . PHP_EOL;
 }
 "
