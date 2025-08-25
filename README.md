@@ -1,66 +1,222 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏛️ Web Desa Mekarmukti
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-11.45.2-red?style=for-the-badge&logo=laravel" alt="Laravel">
+  <img src="https://img.shields.io/badge/PHP-8.2+-blue?style=for-the-badge&logo=php" alt="PHP">
+  <img src="https://img.shields.io/badge/TailwindCSS-3.4.6-cyan?style=for-the-badge&logo=tailwindcss" alt="TailwindCSS">
+  <img src="https://img.shields.io/badge/MySQL-Production-orange?style=for-the-badge&logo=mysql" alt="MySQL">
 </p>
 
-## About Laravel
+<p align="center">
+  <strong>Sistem Informasi Desa Modern untuk Desa Mekarmukti</strong><br>
+  Portal berita, informasi, dan layanan digital untuk masyarakat desa
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Tentang Proyek
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Web Desa Mekarmukti** adalah sistem informasi desa berbasis web yang dikembangkan untuk meningkatkan transparansi dan layanan publik di Desa Mekarmukti. Aplikasi ini menyediakan platform digital untuk publikasi berita desa, informasi kegiatan, pengumuman, dan layanan administrasi online.
 
-## Learning Laravel
+### 🎯 Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **📰 Manajemen Berita Desa** - Publikasi berita dan artikel dengan sistem kategori
+- **🖼️ Galeri Foto** - Dokumentasi kegiatan dan fasilitas desa  
+- **👨‍💼 Admin Dashboard** - Panel admin untuk pengelolaan konten
+- **📱 Responsive Design** - Tampilan optimal di desktop dan mobile
+- **🔐 Sistem Autentikasi** - Login admin dengan keamanan yang baik
+- **🗂️ Kategori Artikel** - Organisasi konten berdasarkan topik
+- **🔍 Sistem Pencarian** - Pencarian artikel dan informasi
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Teknologi yang Digunakan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Backend
+- **Laravel 11.45.2** - PHP Framework
+- **PHP 8.2+** - Server-side scripting
+- **MySQL** - Database production
+- **Composer** - Dependency management
 
-## Laravel Sponsors
+### Frontend  
+- **TailwindCSS 3.4.6** - Utility-first CSS framework
+- **Bootstrap 5** - UI components (hybrid approach)
+- **Vite 5.0** - Modern build tool
+- **JavaScript/jQuery** - Client-side interactions
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Tools & Services
+- **Git** - Version control
+- **Firebase** - Push notifications (configured)
+- **cPanel** - Production hosting environment
 
-### Premium Partners
+## 🚀 Instalasi & Setup
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Prerequisites
+- PHP 8.2 atau lebih tinggi
+- Composer
+- Node.js & NPM
+- MySQL database
+- Web server (Apache/Nginx)
 
-## Contributing
+### Langkah Instalasi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/kkn20mekarmukti2-droid/web-desa.git
+   cd web-desa
+   ```
 
-## Code of Conduct
+2. **Install Dependencies**
+   ```bash
+   # PHP dependencies
+   composer install
+   
+   # Node.js dependencies  
+   npm install
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Environment Setup**
+   ```bash
+   # Copy environment file
+   cp .env.example .env
+   
+   # Generate application key
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+4. **Database Configuration**
+   ```bash
+   # Edit .env file dengan kredensial database
+   # Jalankan migrasi
+   php artisan migrate
+   
+   # Seed data (opsional)
+   php artisan db:seed
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Build Assets**
+   ```bash
+   npm run build
+   ```
 
-## License
+6. **Storage Link**
+   ```bash
+   php artisan storage:link
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🌐 Deployment ke cPanel
+
+### Deployment Otomatis
+```bash
+# Jalankan script deployment
+bash cpanel-deploy.sh
+```
+
+### Manual Deployment
+1. **Upload files ke cPanel**
+2. **Update dependencies:**
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   ```
+3. **Fix storage link:**
+   ```bash
+   bash fix-storage-link.sh
+   ```
+
+📖 **Panduan lengkap:** Lihat `DEPLOYMENT_GUIDE.md`
+
+## 👨‍💼 Manajemen Admin
+
+### Login Admin
+- **URL:** `/login`
+- **Default credentials:** admin123 (untuk semua akun)
+
+### Reset Password Admin
+```bash
+# Reset password admin
+php artisan admin:reset-password
+
+# Cleanup duplikat user
+bash simple-cleanup.sh
+```
+
+### Manajemen User
+- Cleanup duplikat: `simple-cleanup.sh`
+- Reset multi-admin: `php artisan admin:multi-reset`
+
+## 📁 Struktur Project
+
+```
+web-desa/
+├── app/
+│   ├── Console/Commands/     # Artisan commands
+│   ├── Http/Controllers/     # Controllers
+│   ├── Models/              # Eloquent models
+│   └── Providers/           # Service providers
+├── database/
+│   ├── migrations/          # Database migrations
+│   └── seeders/            # Database seeders
+├── public/                  # Public assets
+├── resources/
+│   ├── views/              # Blade templates
+│   ├── css/                # Stylesheets
+│   └── js/                 # JavaScript
+├── routes/                  # Route definitions
+├── storage/                # Storage & logs
+├── cpanel-deploy.sh        # Deployment script
+├── simple-cleanup.sh       # User cleanup tool
+└── fix-storage-link.sh     # Storage fix untuk cPanel
+```
+
+## 🔧 Maintenance & Tools
+
+### Scripts Tersedia
+- `cpanel-deploy.sh` - Deployment automation
+- `simple-cleanup.sh` - User management & cleanup  
+- `fix-storage-link.sh` - Storage link fixes
+- `force-cleanup-update.sh` - Emergency cleanup
+
+### Artisan Commands
+- `php artisan admin:reset-password` - Reset admin password
+- `php artisan admin:multi-reset` - Multi-admin management
+- `php artisan admin:cleanup-users-fixed` - Advanced user cleanup
+
+📖 **Dokumentasi tools:** Lihat `SCRIPTS_README.md`
+
+## 🎨 Kustomisasi
+
+### Theme & Styling
+- **Main CSS:** `resources/css/app.css`
+- **TailwindCSS Config:** `tailwind.config.js`
+- **Vite Config:** `vite.config.js`
+
+### Views & Templates
+- **Layout:** `resources/views/layouts/app.blade.php`
+- **Home:** `resources/views/home.blade.php`  
+- **Admin:** `resources/views/admin/`
+
+## 🤝 Kontribusi
+
+Proyek ini dikembangkan sebagai bagian dari program KKN 2024. Kontribusi dan saran perbaikan sangat diterima:
+
+1. Fork repository
+2. Buat branch fitur (`git checkout -b feature/AmazingFeature`)
+3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buka Pull Request
+
+## 📞 Support & Kontak
+
+**Tim Pengembang KKN 2024**
+- **Repository:** [kkn20mekarmukti2-droid/web-desa](https://github.com/kkn20mekarmukti2-droid/web-desa)
+- **Issues:** [GitHub Issues](https://github.com/kkn20mekarmukti2-droid/web-desa/issues)
+
+## 📄 Lisensi
+
+Proyek ini dikembangkan untuk kepentingan publik Desa Mekarmukti. 
+Framework Laravel yang digunakan berlisensi [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+<p align="center">
+  <strong>🏛️ Dikembangkan dengan ❤️ untuk Desa Mekarmukti</strong><br>
+  <em>KKN 2024 - Membangun Desa Digital</em>
+</p>
