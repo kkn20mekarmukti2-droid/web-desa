@@ -210,7 +210,7 @@
                 Designed by 
                 <a href="https://www.instagram.com/kkn_mekarmuktiplb/">KKN Politeknik LP3I Bandung</a> 
                 & 
-                <a href="#">KKN Universitas Muhammadiyah Bandung</a>
+                <a href="https://www.instagram.com/kkn20mekarmukti2/">KKN Universitas Muhammadiyah Bandung</a>
                 <br>
                 <small class="text-muted">Kelompok 20 Mekarmukti (Kelompok ke-2) • 2024</small>
             </div>
