@@ -67,64 +67,43 @@
 
                 </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent border-0 shadow-none">
-  <div class="container">
-    <a class="navbar-brand" href="{{ route('home') }}">
-      <!-- Logo atau teks bisa di sini -->
-    </a>
-
-    <!-- Tombol hamburger (Bootstrap 5) -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Menu -->
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('home') }}">
-            <i class="fas fa-home"></i>
-          </a>
-        </li>
+                <nav id="navbar" class="navbar">
+      <ul>
+        <li><a href="{{ route('home') }}"><i class="bx bx-home"></i></a></li>
 
         <!-- Profile Desa -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Profile Desa
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-            <li><a class="dropdown-item" href="{{ route('sejarah') }}">Sejarah</a></li>
-            <li><a class="dropdown-item" href="{{ route('visi') }}">Visi & Misi</a></li>
-            <li><a class="dropdown-item" href="{{ route('pemerintahan') }}">Struktur Organisasi</a></li>
+        <li class="dropdown">
+          <a href="#"><span>Profile Desa</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <ul>
+            <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+            <li><a href="{{ route('visi') }}">Visi & Misi</a></li>
+            <li><a href="{{ route('pemerintahan') }}">Struktur Organisasi</a></li>
           </ul>
         </li>
 
         <!-- Informasi Desa -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="infoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Informasi Desa
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="infoDropdown">
-            <li><a class="dropdown-item" href="{{ route('berita') }}">Berita</a></li>
-            <li><a class="dropdown-item" href="{{ route('galeri') }}">Galeri</a></li>
-            <li><a class="dropdown-item" href="{{ route('potensidesa') }}">Potensi Desa</a></li>
+        <li class="dropdown">
+          <a href="#"><span>Informasi Desa</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <ul>
+            <li><a href="{{ route('berita') }}">Berita</a></li>
+            <li><a href="{{ route('galeri') }}">Galeri</a></li>
+            <li><a href="{{ route('potensidesa') }}">Potensi Desa</a></li>
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('data.penduduk') }}">Data Statistik</a>
-        </li>
+        <li><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('kontak') }}">Kontak</a>
-        </li>
+        <li><a href="{{ route('kontak') }}">Kontak</a></li>
 
-        <li class="nav-item">
+        <li>
             <!-- Tombol untuk membuka modal -->
 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#formPengaduan">
     Buat Pengaduan 🚀
 </button>
+        </li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
 
 <div class="modal fade" id="formPengaduan" tabindex="-1" aria-labelledby="formPengaduanLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">

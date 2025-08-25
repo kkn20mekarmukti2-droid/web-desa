@@ -35,7 +35,7 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             @else
-                <img src="{{ asset('img\/') . $artikel->sampul }}" alt="" class="w-full bg-cover mt-10">
+                <img src="{{ asset('img/' . $artikel->sampul) }}" alt="" class="w-full bg-cover mt-10">
             @endif
             <div class="my-10 mx-5 prose">{!! $artikel->deskripsi !!}</div>
         </div>
@@ -61,7 +61,7 @@
                                     <img src="https://img.youtube.com/vi/{{ $thumbnail }}/hqdefault.jpg" alt=""
                                         class="w-1/4">
                                 @else
-                                    <img src="{{ asset('img\/') . $i->sampul }}" alt="" class="w-1/4">
+                                    <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="w-1/4">
                                 @endif
                                 <div class="ml-1">
                                     <p class="group-hover:font-bold transition-all text-xs">

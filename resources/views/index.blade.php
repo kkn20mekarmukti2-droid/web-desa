@@ -140,7 +140,7 @@
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             @else
-                                <img src="{{ asset('img\/') . $i->sampul }}" alt="" class="w-full h-[90%]">
+                                <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="w-full h-[90%]">
                             @endif
                         </div>
                     @endforeach

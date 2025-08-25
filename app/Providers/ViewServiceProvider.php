@@ -6,6 +6,7 @@ use App\Models\rwModel;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 
 
 class ViewServiceProvider extends ServiceProvider
@@ -23,10 +24,15 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       $rws = Cache::remember('rws', 600, function () {
-        return rwModel::all();
-    });
+        // Check if the table exists before trying to access it
+        if (Schema::hasTable('rw')) {
+            $rws = Cache::remember('rws', 600, function () {
+                return rwModel::all();
+            });
 
-    View::share('rws', $rws);
+            View::share('rws', $rws);
+        } else {
+            View::share('rws', collect());
+        }
     }
 }
