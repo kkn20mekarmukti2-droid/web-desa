@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ck-editor {
+    @apply prose max-w-full;
+}
+
+/* Hanya aktif di desktop (hover) */
+@media (min-width: 992px) {
+  .navbar .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+  }
+}
+
+/* Hapus override display agar klik di HP normal */
+.navbar .dropdown-menu.show {
+    /* Biarkan Bootstrap yang atur display saat show */
+}
+
+/* Bentuk dan warna dropdown */
+.navbar .dropdown-menu {
+    background-color: #ffffff !important;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 8px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1050;
+}
+
+/* Item di dalam dropdown */
+.navbar .dropdown-menu .dropdown-item,
+.navbar .dropdown-menu a.dropdown-item {
+    color: #000000 !important;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover */
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu a.dropdown-item:hover {
+    background-color: #f1f1f1 !important;
+    color: #000000 !important;
+    border-radius: 8px;
+}
