@@ -82,7 +82,7 @@
                         });
 
                         function updateChart() {
-                            fetch('{{ route('getData', ['type' => 'kesenian']) }}')
+                            fetch('{{ route('getdatades', ['type' => 'kesenian']) }}')
                                 .then(response => response.json())
                                 .then(data => {
                                     Charts.data.labels = data.labels;

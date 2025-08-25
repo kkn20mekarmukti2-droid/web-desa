@@ -80,7 +80,7 @@
                         });
 
                         function updateChart() {
-                            fetch('{{ route('getData', ['type' => 'sumberair']) }}')
+                            fetch('{{ route('getdatades', ['type' => 'sumberair']) }}')
                                 .then(response => response.json())
                                 .then(data => {
                                     Charts.data.labels = data.labels;

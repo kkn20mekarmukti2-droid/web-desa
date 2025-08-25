@@ -82,7 +82,7 @@
                         });
 
                         function updateChart() {
-                            fetch('{{ route('getData', ['type' => 'klub']) }}')
+                            fetch('{{ route('getdatades', ['type' => 'klub']) }}')
                                 .then(response => response.json())
                                 .then(data => {
                                     Charts.data.labels = data.labels;

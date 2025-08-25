@@ -82,7 +82,7 @@
                         });
 
                         function updateChart() {
-                            fetch('{{ secure_url(route('getData', ['type' => 'profesi'])) }}')
+                            fetch('{{ route('getdatades', ['type' => 'profesi']) }}')
                                 .then(response => response.json())
                                 .then(data => {
                                     Charts.data.labels = data.labels;
