@@ -56,6 +56,11 @@ Route::prefix('data')->group(function () {
 Route::get('/getdatades', [dataController::class, 'getChartData'])->name('getdatades');
 Route::post('/save-token', [NotificationTokenController::class, 'saveToken'])->name('save.token');
 
+// Debug route for troubleshooting chart data
+Route::get('/debug-chart-data', function () {
+    return view('debug-chart-data');
+})->name('debug.chart');
+
 // Admin Data Management Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/data-management', [App\Http\Controllers\AdminDataController::class, 'index'])->name('data.index');

@@ -125,9 +125,17 @@
                         displayColors: true,
                         callbacks: {
                             label: function (context) {
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = ((context.parsed / total) * 100).toFixed(1);
-                                return context.label + ': ' + context.parsed.toLocaleString() + ' jiwa (' + percentage + '%)';
+                                // Get data with proper type conversion
+                                const currentValue = Number(context.parsed) || Number(context.raw) || 0;
+                                const dataValues = context.dataset.data.map(val => Number(val) || 0);
+                                const total = dataValues.reduce((a, b) => a + b, 0);
+                                
+                                if (total === 0) {
+                                    return context.label + ': ' + currentValue.toLocaleString() + ' jiwa (0%)';
+                                }
+                                
+                                const percentage = ((currentValue / total) * 100).toFixed(1);
+                                return context.label + ': ' + currentValue.toLocaleString() + ' jiwa (' + percentage + '%)';
                             }
                         }
                     }
@@ -144,20 +152,31 @@
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                chart.data.labels = data.labels;
-                chart.data.datasets[0].data = data.data;
+                console.log('Chart data received:', data); // Debug log
+                
+                // Ensure data is properly converted to numbers
+                const labels = data.labels || [];
+                const values = (data.data || []).map(val => {
+                    const num = Number(val);
+                    return isNaN(num) ? 0 : num;
+                });
+                
+                console.log('Processed values:', values); // Debug log
+                
+                chart.data.labels = labels;
+                chart.data.datasets[0].data = values;
                 chart.update('active');
                 
-                // Update total counter
-                if (totalElementId) {
-                    const total = data.data.reduce((a, b) => a + b, 0);
+                // Update total counter (if element exists)
+                if (totalElementId && document.getElementById(totalElementId)) {
+                    const total = values.reduce((a, b) => a + b, 0);
                     document.getElementById(totalElementId).textContent = total.toLocaleString();
                 }
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching chart data:', error);
                 // Show error state
-                if (totalElementId) {
+                if (totalElementId && document.getElementById(totalElementId)) {
                     document.getElementById(totalElementId).textContent = 'Error';
                 }
             });

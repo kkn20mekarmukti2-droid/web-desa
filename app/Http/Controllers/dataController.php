@@ -64,7 +64,17 @@ public function getChartData(Request $request)
     }
 
     $labels = $dataRecords->pluck('label')->toArray();
-    $data = $dataRecords->pluck('total')->toArray();
+    // Ensure all data values are properly converted to integers
+    $data = $dataRecords->pluck('total')->map(function($value) {
+        return (int) $value;
+    })->toArray();
+
+    // Add debug logging for production troubleshooting
+    \Log::info("Chart data for {$type}", [
+        'labels' => $labels,
+        'data' => $data,
+        'record_count' => count($dataRecords)
+    ]);
 
     return response()->json([
         'labels' => $labels,
