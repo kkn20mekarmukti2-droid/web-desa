@@ -56,6 +56,15 @@ Route::prefix('data')->group(function () {
 Route::get('/getdatades', [dataController::class, 'getChartData'])->name('getdatades');
 Route::post('/save-token', [NotificationTokenController::class, 'saveToken'])->name('save.token');
 
+// Admin Data Management Routes
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/data-management', [App\Http\Controllers\AdminDataController::class, 'index'])->name('data.index');
+    Route::get('/data-management/{category}', [App\Http\Controllers\AdminDataController::class, 'show'])->name('data.show');
+    Route::put('/data-management/{category}', [App\Http\Controllers\AdminDataController::class, 'update'])->name('data.update');
+    Route::post('/data-management/{category}', [App\Http\Controllers\AdminDataController::class, 'store'])->name('data.store');
+    Route::delete('/data-management/record/{id}', [App\Http\Controllers\AdminDataController::class, 'destroy'])->name('data.destroy');
+    Route::get('/data-management/{category}/export', [App\Http\Controllers\AdminDataController::class, 'export'])->name('data.export');
+});
 
 Route::get('/admin', [authController::class, 'formlogin'])->name('formlogin');
 Route::get('/login', fn () => redirect()->route('formlogin'));

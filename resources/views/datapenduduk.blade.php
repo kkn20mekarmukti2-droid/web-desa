@@ -1,5 +1,7 @@
 @extends('layout.app')
-@section('judul', 'Data Penduduk Desa Mekarmukti')
+@section('judul', 'Data Penduduk Des                        <div class="card-body">
+                            <canvas id="chartProfesi"></canvas>
+                        </div>rmukti')
 @section('nav', 'data')
 @section('content')
 <main id="main">
@@ -33,9 +35,6 @@
                         </div>
                         <div class="card-body">
                             <canvas id="chartJenisKelamin"></canvas>
-                            <div class="mt-3 text-center">
-                                <small class="text-muted">Total: <span id="totalJenisKelamin" class="fw-bold">-</span> jiwa</small>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,9 +48,6 @@
                         </div>
                         <div class="card-body">
                             <canvas id="chartAgama"></canvas>
-                            <div class="mt-3 text-center">
-                                <small class="text-muted">Total: <span id="totalAgama" class="fw-bold">-</span> jiwa</small>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,8 +94,8 @@
                     data: [],
                     backgroundColor: colors,
                     borderColor: '#ffffff',
-                    borderWidth: 3,
-                    hoverBorderWidth: 4,
+                    borderWidth: 1,
+                    hoverBorderWidth: 2,
                     hoverOffset: 10
                 }]
             },
