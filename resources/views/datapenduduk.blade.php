@@ -61,9 +61,6 @@
                         </div>
                         <div class="card-body">
                             <canvas id="chartPekerjaan"></canvas>
-                            <div class="mt-3 text-center">
-                                <small class="text-muted">Total: <span id="totalPekerjaan" class="fw-bold">-</span> jiwa</small>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,13 +201,13 @@
     // Load Data with staggered animation
     setTimeout(() => updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalJenisKelamin'), 200);
     setTimeout(() => updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}', 'totalAgama'), 500);
-    setTimeout(() => updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}', 'totalPekerjaan'), 800);
+    setTimeout(() => updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}'), 800);
 
     // Auto refresh every 30 seconds
     setInterval(() => {
         updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalJenisKelamin');
         updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}', 'totalAgama');
-        updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}', 'totalPekerjaan');
+        updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}');
     }, 30000);
 </script>
 @endsection
