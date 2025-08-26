@@ -48,6 +48,69 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <style>
+        /* Minimal Modern Enhancements - Navbar Original Style */
+        #navbar a {
+            font-size: 15px;
+            font-weight: 500;
+            color: white;
+            white-space: nowrap;
+            transition: 0.3s;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+        #navbar a i {
+            font-size: 18px;
+        }
+        #navbar a:hover {
+            color: #f8d92e;
+            background: transparent;
+            transform: none;
+        }
+        #navbar .dropdown ul a:hover {
+            background: rgba(255, 216, 46, 0.1);
+            color: #f8d92e;
+        }
+        /* Logo presisi dengan proporsi yang tepat */
+        .logo h1 {
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .logo h1 a {
+            color: white !important;
+            text-decoration: none;
+        }
+        /* Footer styling untuk konsistensi */
+        #footer {
+            color: white;
+        }
+        #footer h3, #footer h4 {
+            color: white;
+        }
+        #footer .social-links a {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        #footer .social-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        .modal-content {
+            border-radius: 12px !important;
+            overflow: hidden !important;
+        }
+        .btn {
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+        }
+        .btn:hover {
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+        }
+    </style>
 
 
 
@@ -56,25 +119,25 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top d-flex align-items-center ">
+    <header id="header" class="fixed-top d-flex align-items-center" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(59, 130, 246, 0.95)); backdrop-filter: blur(10px);">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <img src="{{ asset('assets/img/motekar-bg.png') }}" alt="" width="45px" class="m-lg-auto">
+            <img src="{{ asset('assets/img/motekar-bg.png') }}" alt="" width="45px" class="m-lg-auto" style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <div class="container d-flex justify-content-between align-items-center">
 
                 <div class="logo">
-                    <h1 class="text-light"> <a href="index.html"><span>Mekarmukti</span></a></h1>
-                    <h6 class="text-light max-sm:text-xs">Kec.Cihampelas, Kab.Bandung Barat, Jawa Barat</h6>
-
+                    <h1 class="text-light" style="font-size: 2.2rem; margin-bottom: 0; line-height: 1; font-weight: 700;"> 
+                        <a href="index.html"><span>MEKARMUKTI</span></a>
+                    </h1>
                 </div>
 
                 <nav id="navbar" class="navbar">
-      <ul class="d-flex align-items-center justify-content-center">
-        <li class="mx-2"><a href="{{ route('home') }}"><i class="bx bx-home"></i></a></li>
+      <ul>
+        <li><a href="{{ route('home') }}"><i class="bx bx-home"></i></a></li>
 
         <!-- Profile Desa -->
-        <li class="dropdown mx-2">
-          <a href="#"><span>Profile Desa</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+        <li class="dropdown">
+          <a href="#"><span>Profile Desa</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
             <li><a href="{{ route('visi') }}">Visi & Misi</a></li>
@@ -83,8 +146,8 @@
         </li>
 
         <!-- Informasi Desa -->
-        <li class="dropdown mx-2">
-          <a href="#"><span>Informasi Desa</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+        <li class="dropdown">
+          <a href="#"><span>Informasi Desa</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a href="{{ route('berita') }}">Berita</a></li>
             <li><a href="{{ route('galeri') }}">Galeri</a></li>
@@ -92,11 +155,11 @@
           </ul>
         </li>
 
-        <li class="mx-2"><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
+        <li><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
 
-        <li class="mx-2"><a href="{{ route('kontak') }}">Kontak</a></li>
+        <li><a href="{{ route('kontak') }}">Kontak</a></li>
 
-        <li class="mx-2">
+        <li>
             <!-- Tombol untuk membuka modal -->
             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#formPengaduan">
                 Buat Pengaduan
@@ -160,9 +223,10 @@
     @yield('content')
 
 
-    <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" 
+            style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(59, 130, 246, 0.95)); backdrop-filter: blur(10px);">
 
-        <div class="footer-top">
+        <div class="footer-top" style="background: transparent;">
             <div class="container">
                 <div class="row">
 
@@ -203,17 +267,15 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Desa Mekarmukti</span></strong>.
+        <div class="container" style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;">
+            <div class="copyright" style="color: white; text-align: center;">
+                &copy; Copyright <strong><span>Desa Mekarmukti</span></strong>. All rights reserved.
             </div>
-            <div class="credits">
+            <div class="credits" style="color: rgba(255,255,255,0.8); text-align: center; margin-top: 10px;">
                 Designed by 
-                <a href="https://www.instagram.com/kkn_mekarmuktiplb/">KKN Politeknik LP3I Bandung</a> 
+                <a href="https://www.instagram.com/kkn_mekarmuktiplb/" style="color: #f8d92e;">KKN Politeknik LP3I Bandung</a> 
                 & 
-                <a href="https://www.instagram.com/kkn20mekarmukti2/">KKN Universitas Muhammadiyah Bandung</a>
-                <br>
-                <!-- Kelompok 20 Mekarmukti (Kelompok ke-2) dihapus sesuai permintaan -->
+                <a href="https://www.instagram.com/kkn20mekarmukti2/" style="color: #f8d92e;">KKN Universitas Muhammadiyah Bandung</a>
             </div>
         </div>
     </footer><!-- End Footer -->
