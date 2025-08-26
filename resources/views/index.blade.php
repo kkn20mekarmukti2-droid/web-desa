@@ -4,80 +4,135 @@
 
 @section('content')
 
-{{-- Custom CSS for 3-Card Layout --}}
+{{-- Custom CSS for Brand-Consistent 3-Card Layout --}}
 <style>
-/* Enhanced Services Section for 3 Cards Layout */
+/* Enhanced Services Section - No Gap from Hero */
+.services {
+    position: relative;
+    z-index: 10;
+}
+
 .services .icon-box {
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    padding: 30px 25px;
-    transition: all 0.3s ease-in-out;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 35px 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
     height: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Hover Effects with Orange Brand Color */
 .services .icon-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    border-color: #F59E0B;
 }
 
-.services .icon-box .icon {
-    margin-bottom: 20px;
+.services .icon-box:focus-within {
+    outline: 3px solid rgba(245, 158, 11, 0.3);
+    outline-offset: 2px;
 }
 
-.services .icon-box .icon i {
-    font-size: 48px;
-    line-height: 1;
-    margin-bottom: 15px;
+/* Icon Badge Styles */
+.services .icon-badge {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
+.services .icon-badge i {
+    font-size: 32px;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.services .icon-box:hover .icon-badge i {
+    transform: scale(1.1);
+}
+
+/* Brand Color Variations */
+/* Orange Accent - Primary Brand */
+.services .icon-box-orange .bg-orange {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+}
+
+.services .icon-box-orange:hover .bg-orange {
+    background: linear-gradient(135deg, #D97706, #B45309);
+}
+
+/* Dark Accent with Orange Hover */
+.services .icon-box-dark .bg-dark {
+    background: linear-gradient(135deg, #374151, #111827);
+}
+
+.services .icon-box-dark:hover .bg-dark {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+}
+
+/* Blue Accent with Orange Hover */
+.services .icon-box-blue .bg-blue {
+    background: linear-gradient(135deg, #3B82F6, #2563EB);
+}
+
+.services .icon-box-blue:hover .bg-blue {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+}
+
+/* Typography */
 .services .icon-box .title {
-    margin-bottom: 15px;
-    font-size: 18px;
+    margin-bottom: 20px;
+    font-size: 20px;
     font-weight: 700;
+    line-height: 1.3;
 }
 
 .services .icon-box .title a {
-    color: #333;
+    color: #1F2937;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
-.services .icon-box .title a:hover {
+.services .icon-box:hover .title a {
     color: #F59E0B;
 }
 
 .services .icon-box .description {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.6;
-    color: #666;
+    color: #6B7280;
     margin: 0;
 }
 
-/* Icon Color Styles */
-.services .icon-box-pink .icon i {
-    color: #ff689b;
-}
-
-.services .icon-box-cyan .icon i {
-    color: #3fcdc7;
-}
-
-.services .icon-box-green .icon i {
-    color: #41cf2e;
-}
-
-/* Responsive adjustments for better mobile experience */
+/* Responsive Grid Adjustments */
 @media (max-width: 767.98px) {
     .services .icon-box {
+        margin-bottom: 25px;
+        padding: 30px 25px;
+    }
+    
+    .services .icon-badge {
+        width: 60px;
+        height: 60px;
         margin-bottom: 20px;
+    }
+    
+    .services .icon-badge i {
+        font-size: 28px;
     }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-    /* Tablet: 2 cards in first row, 1 centered in second row */
+    /* Tablet: 2+1 layout with centered third card */
     .services .row > .col-md-12 {
         display: flex;
         justify-content: center;
@@ -85,10 +140,22 @@
 }
 
 @media (min-width: 992px) {
-    /* Desktop: All 3 cards in one row */
+    /* Desktop: Perfect 3-column layout */
     .services .icon-box {
-        min-height: 280px;
+        min-height: 320px;
     }
+}
+
+/* Subtle Background Pattern */
+.services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.02) 0%, rgba(245, 158, 11, 0.01) 100%);
+    pointer-events: none;
 }
 </style>
 
@@ -97,33 +164,39 @@
 
   <main id="main">
 
-        <!-- ======= Services Section dengan background wave color ======= -->
-        <section class="services" style="background-color: #EAF2F7; padding-top: 60px; margin-top: -1px;">
-            <div class="container">
+        <!-- ======= Services Section - No Gap dari Hero ======= -->
+        <section class="services" style="background-color: #EAF2F7; padding-top: 0; margin-top: 0;">
+            <div class="container" style="padding-top: 40px;">
 
                 <div class="row justify-content-center">
-                    <!-- Card 1: Sejarah Terbentuk Desa -->
+                    <!-- Card 1: Sejarah Terbentuk Desa - Orange Accent -->
                     <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up">
-                        <div class="icon-box icon-box-pink w-100">
-                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                        <div class="icon-box icon-box-orange w-100">
+                            <div class="icon-badge bg-orange">
+                                <i class="bx bxl-dribbble"></i>
+                            </div>
                             <h4 class="title"><a href="#" class="text-dark fw-bold">Sejarah Terbentuk Desa</a></h4>
                             <p class="description text-muted">Desa Mekarmukti adalah sebuah Desa yang merupakan Pamekaran dari Desa Cihampelas yang pada waktu itu Kecamatan Cililin, Kawedanaan Cililin, Kabupaten Bandung.</p>
                         </div>
                     </div>
 
-                    <!-- Card 2: Sejarah Pembangunan Desa -->
+                    <!-- Card 2: Sejarah Pembangunan Desa - Dark Accent with Orange Hover -->
                     <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="icon-box icon-box-cyan w-100">
-                            <div class="icon"><i class="bx bx-file"></i></div>
+                        <div class="icon-box icon-box-dark w-100">
+                            <div class="icon-badge bg-dark">
+                                <i class="bx bx-file"></i>
+                            </div>
                             <h4 class="title"><a href="#" class="text-dark fw-bold">Sejarah Pembangunan Desa</a></h4>
                             <p class="description text-muted">Desa Mekarmukti Kecamatan Cihampelas adalah salah satu Desa termaju dalam Pembangunan disegala Bidang, baik Pembangunan sarana dan prasarana, Pembangunan Ekonomi, UMKM dan Pendidikan.</p>
                         </div>
                     </div>
 
-                    <!-- Card 3: Topografi Desa -->
+                    <!-- Card 3: Topografi Desa - Blue Accent with Orange Hover -->
                     <div class="col-12 col-md-12 col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="icon-box icon-box-green w-100">
-                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                        <div class="icon-box icon-box-blue w-100">
+                            <div class="icon-badge bg-blue">
+                                <i class="bx bx-tachometer"></i>
+                            </div>
                             <h4 class="title"><a href="#" class="text-dark fw-bold">Topografi Desa</a></h4>
                             <p class="description text-muted">Desa Mekarmukti merupakan desa yang berada di daerah perbukitan dengan ketinggian antara 274 Meter (diatas permukaan laut).</p>
                         </div>
