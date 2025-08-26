@@ -6,7 +6,76 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <meta content="@yield('judul', 'Desa Mekarmukti, pemekaran Desa Cihampelas pada 1980, adalah desa termuda di Kecamatan Cihampelas, Kabupaten Bandung Barat. Temukan lebih lanjut di sini!')" name="description">
-    <meta content="desa, mekarmukti, cihampelas, berita desa,desa mekarmukti" name="keywords">
+    <meta cont            <!-- Navigation Links -->
+            <nav style="padding: 1rem 0;">
+                <div>
+                    <a href="javascript:void(0)" onclick="toggleMobileDropdown('profileDropdown')" style="
+                        display: block;
+                        color: white;
+                        text-decoration: none;
+                        padding: 1rem 1.5rem;
+                        font-size: 16px;
+                        font-weight: 500;
+                        border-bottom: 1px solid #374151;
+                        transition: all 0.25s ease;
+                        position: relative;
+                    " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
+                       onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
+                        Profile Desa
+                        <span style="
+                            position: absolute;
+                            right: 1.5rem;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            transition: transform 0.25s ease;
+                            font-size: 12px;
+                        " id="profileChevron">▼</span>
+                    </a>
+                    
+                    <div id="profileDropdown" style="
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.25s ease-in-out;
+                        background: #0f172a;
+                    ">
+                        <a href="{{ route('sejarah') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Sejarah
+                        </a>
+                        <a href="{{ route('visi') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Visi & Misi
+                        </a>
+                        <a href="{{ route('pemerintahan') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Struktur Organisasi
+                        </a>
+                    </div>
+                </div>rmukti, cihampelas, berita desa,desa mekarmukti" name="keywords">
     <meta property="og:title" content="@yield('judul', 'Desa Mekarmukti')">
     <meta property="og:description" content="@yield('judul', 'Desa Mekarmukti, pemekaran Desa Cihampelas pada 1980, adalah desa termuda di Kecamatan Cihampelas, Kabupaten Bandung Barat. Temukan lebih lanjut di sini!')">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -119,7 +188,7 @@
             border-color: #D97706 !important;
         }
         
-        /* Mobile-specific button styling */
+        /* Mobile-specific styling for slide-in drawer */
         @media (max-width: 991px) {
             .btn-warning, .btn.btn-warning {
                 padding: 10px 20px !important;
@@ -127,19 +196,19 @@
                 min-height: 44px !important;
             }
             
-            /* Fresh Mobile Navigation - Override Everything */
+            /* Mobile Navigation Toggle */
             .mobile-nav-toggle {
                 display: block !important;
                 color: #fff !important;
-                font-size: 32px !important;
+                font-size: 28px !important;
                 cursor: pointer !important;
-                padding: 12px !important;
+                padding: 8px !important;
                 margin: 0 !important;
                 border: none !important;
                 background: transparent !important;
                 line-height: 1 !important;
                 transition: all 0.3s ease !important;
-                z-index: 99999 !important;
+                z-index: 100000 !important;
                 position: relative !important;
             }
             
@@ -148,86 +217,9 @@
                 transform: scale(1.1) !important;
             }
             
-            /* Force hide navbar on mobile */
+            /* Hide desktop navbar on mobile */
             #navbar > ul {
                 display: none !important;
-            }
-            
-            /* Mobile menu overlay - completely new */
-            .mobile-menu-overlay {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                background: rgba(0, 0, 0, 0.8) !important;
-                z-index: 99998 !important;
-                display: none !important;
-            }
-            
-            .mobile-menu-overlay.active {
-                display: block !important;
-            }
-            
-            .mobile-menu-content {
-                position: absolute !important;
-                top: 80px !important;
-                left: 20px !important;
-                right: 20px !important;
-                background: white !important;
-                border-radius: 12px !important;
-                padding: 20px 0 !important;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
-                max-height: calc(100vh - 120px) !important;
-                overflow-y: auto !important;
-            }
-            
-            .mobile-menu-content ul {
-                list-style: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            
-            .mobile-menu-content li {
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            
-            .mobile-menu-content li a {
-                display: block !important;
-                padding: 15px 25px !important;
-                color: #333 !important;
-                text-decoration: none !important;
-                font-size: 16px !important;
-                border-bottom: 1px solid #f0f0f0 !important;
-                transition: all 0.3s ease !important;
-            }
-            
-            .mobile-menu-content li a:hover {
-                background: #F59E0B !important;
-                color: white !important;
-            }
-            
-            .mobile-menu-content .dropdown > a::after {
-                content: ' ▼' !important;
-                float: right !important;
-                font-size: 12px !important;
-            }
-            
-            .mobile-menu-content .dropdown ul {
-                display: none !important;
-                background: #f8f9fa !important;
-                margin: 0 !important;
-            }
-            
-            .mobile-menu-content .dropdown ul.show {
-                display: block !important;
-            }
-            
-            .mobile-menu-content .dropdown ul li a {
-                padding-left: 40px !important;
-                font-size: 14px !important;
-                background: transparent !important;
             }
         }
         
@@ -388,40 +380,198 @@
             </button>
         </li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle" onclick="toggleMobileMenu()"></i>
+      <i class="bi bi-list mobile-nav-toggle" onclick="openMobileMenu()"></i>
     </nav><!-- .navbar -->
 
-    <!-- Fresh Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-        <div class="mobile-menu-content">
-            <ul>
-                <li><a href="{{ route('home') }}"><i class="bx bx-home"></i> Beranda</a></li>
-                <li class="dropdown">
-                    <a href="#" onclick="toggleDropdown(this)">Profile Desa</a>
-                    <ul>
-                        <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
-                        <li><a href="{{ route('visi') }}">Visi & Misi</a></li>
-                        <li><a href="{{ route('pemerintahan') }}">Struktur Organisasi</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" onclick="toggleDropdown(this)">Informasi Desa</a>
-                    <ul>
-                        <li><a href="{{ route('berita') }}">Berita</a></li>
-                        <li><a href="{{ route('galeri') }}">Galeri</a></li>
-                        <li><a href="{{ route('potensidesa') }}">Potensi Desa</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
-                <li><a href="{{ route('kontak') }}">Kontak</a></li>
-                <li style="padding: 15px 25px; border-bottom: 1px solid #f0f0f0;">
-                    <button type="button" class="btn btn-warning btn-sm w-100" data-bs-toggle="modal" data-bs-target="#formPengaduan">
-                        Buat Pengaduan
-                    </button>
-                </li>
-            </ul>
+        <!-- Mobile Navigation - Slide-in Drawer System -->
+        <!-- Overlay -->
+        <div id="mobileOverlay" style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99998;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        " onclick="closeMobileMenu()"></div>
+
+        <!-- Slide-in Panel -->
+        <div id="mobileMenuPanel" style="
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 70%;
+            max-width: 320px;
+            height: 100vh;
+            background: #111827;
+            z-index: 99999;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+        ">
+            <!-- Header with Close Button -->
+            <div style="
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid #374151;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                min-height: 60px;
+            ">
+                <button onclick="closeMobileMenu()" id="closeMobileBtn" style="
+                    background: none;
+                    border: none;
+                    color: #F59E0B;
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding: 8px;
+                    border-radius: 4px;
+                    transition: background-color 0.2s ease;
+                    line-height: 1;
+                " onmouseover="this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
+                   onmouseout="this.style.backgroundColor='transparent'">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav style="padding: 1rem 0;">
+                <a href="{{ route('home') }}" onclick="closeMobileMenu()" style="
+                    display: block;
+                    color: white;
+                    text-decoration: none;
+                    padding: 1rem 1.5rem;
+                    font-size: 16px;
+                    font-weight: 500;
+                    border-bottom: 1px solid #374151;
+                    transition: all 0.25s ease;
+                " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
+                   onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
+                    Profile Desa
+                </a>
+
+                <div>
+                    <a href="javascript:void(0)" onclick="toggleMobileDropdown('informasiDropdown')" style="
+                        display: block;
+                        color: white;
+                        text-decoration: none;
+                        padding: 1rem 1.5rem;
+                        font-size: 16px;
+                        font-weight: 500;
+                        border-bottom: 1px solid #374151;
+                        transition: all 0.25s ease;
+                        position: relative;
+                    " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
+                       onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
+                        Informasi Desa
+                        <span style="
+                            position: absolute;
+                            right: 1.5rem;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            transition: transform 0.25s ease;
+                            font-size: 12px;
+                        " id="informasiChevron">▼</span>
+                    </a>
+                    
+                    <div id="informasiDropdown" style="
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.25s ease-in-out;
+                        background: #0f172a;
+                    ">
+                        <a href="{{ route('berita') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Berita
+                        </a>
+                        <a href="{{ route('galeri') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Galeri
+                        </a>
+                        <a href="{{ route('potensidesa') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Potensi Desa
+                        </a>
+                    </div>
+                </div>
+
+                <a href="{{ route('data.penduduk') }}" onclick="closeMobileMenu()" style="
+                    display: block;
+                    color: white;
+                    text-decoration: none;
+                    padding: 1rem 1.5rem;
+                    font-size: 16px;
+                    font-weight: 500;
+                    border-bottom: 1px solid #374151;
+                    transition: all 0.25s ease;
+                " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
+                   onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
+                    Data Statistik
+                </a>
+
+                <a href="{{ route('kontak') }}" onclick="closeMobileMenu()" style="
+                    display: block;
+                    color: white;
+                    text-decoration: none;
+                    padding: 1rem 1.5rem;
+                    font-size: 16px;
+                    font-weight: 500;
+                    border-bottom: 1px solid #374151;
+                    transition: all 0.25s ease;
+                " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
+                   onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
+                    Kontak
+                </a>
+
+                <button type="button" onclick="openPengaduanModal()" style="
+                    display: block;
+                    width: calc(100% - 3rem);
+                    color: white;
+                    text-decoration: none;
+                    padding: 1rem 1.5rem;
+                    margin: 1rem 1.5rem 0 1.5rem;
+                    font-size: 16px;
+                    font-weight: 500;
+                    background: #F59E0B;
+                    border: none;
+                    border-radius: 6px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                " onmouseover="this.style.backgroundColor='#D97706'; this.style.transform='translateY(-1px)'" 
+                   onmouseout="this.style.backgroundColor='#F59E0B'; this.style.transform='translateY(0)'">
+                    Buat Pengaduan
+                </button>
+            </nav>
         </div>
-    </div>
 
 <div class="modal fade" id="formPengaduan" tabindex="-1" aria-labelledby="formPengaduanLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -580,69 +730,124 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/notifs.js') }}" type="module"></script>
 
-    <!-- Fresh Mobile Navigation JavaScript -->
+    <!-- Mobile Navigation JavaScript - Slide-in Drawer -->
     <script>
-        // Simple mobile menu toggle
-        function toggleMobileMenu() {
-            const overlay = document.getElementById('mobileMenuOverlay');
+        // Open mobile menu with slide-in animation
+        function openMobileMenu() {
+            const overlay = document.getElementById('mobileOverlay');
+            const panel = document.getElementById('mobileMenuPanel');
             const toggle = document.querySelector('.mobile-nav-toggle');
             
-            if (overlay.classList.contains('active')) {
-                // Close menu
-                overlay.classList.remove('active');
-                toggle.classList.remove('bi-x');
-                toggle.classList.add('bi-list');
-                document.body.style.overflow = '';
-            } else {
-                // Open menu
-                overlay.classList.add('active');
-                toggle.classList.remove('bi-list');
-                toggle.classList.add('bi-x');
-                document.body.style.overflow = 'hidden';
-            }
+            // Show overlay first
+            overlay.style.display = 'block';
+            
+            // Force reflow and animate
+            requestAnimationFrame(() => {
+                overlay.style.opacity = '1';
+                panel.style.transform = 'translateX(0)';
+            });
+            
+            // Change hamburger to X
+            toggle.classList.remove('bi-list');
+            toggle.classList.add('bi-x');
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            
+            console.log('Mobile menu opened with slide-in animation');
         }
         
-        // Dropdown toggle in mobile menu
-        function toggleDropdown(element) {
-            event.preventDefault();
-            const dropdown = element.nextElementSibling;
-            if (dropdown.classList.contains('show')) {
-                dropdown.classList.remove('show');
-            } else {
-                // Close all other dropdowns
-                document.querySelectorAll('.mobile-menu-content .dropdown ul').forEach(dd => {
-                    dd.classList.remove('show');
-                });
-                dropdown.classList.add('show');
-            }
+        // Close mobile menu with slide-out animation
+        function closeMobileMenu() {
+            const overlay = document.getElementById('mobileOverlay');
+            const panel = document.getElementById('mobileMenuPanel');
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            
+            // Hide panel first
+            panel.style.transform = 'translateX(100%)';
+            overlay.style.opacity = '0';
+            
+            // Hide overlay after animation
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+            
+            // Change X back to hamburger
+            toggle.classList.remove('bi-x');
+            toggle.classList.add('bi-list');
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+            
+            console.log('Mobile menu closed with slide-out animation');
         }
         
-        // Close mobile menu when clicking overlay
-        document.addEventListener('DOMContentLoaded', function() {
-            const overlay = document.getElementById('mobileMenuOverlay');
-            if (overlay) {
-                overlay.addEventListener('click', function(e) {
-                    if (e.target === overlay) {
-                        toggleMobileMenu();
-                    }
-                });
+        // Toggle dropdown in mobile menu
+        function toggleMobileDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            let chevron;
+            
+            if (dropdownId === 'profileDropdown') {
+                chevron = document.getElementById('profileChevron');
+            } else if (dropdownId === 'informasiDropdown') {
+                chevron = document.getElementById('informasiChevron');
             }
             
-            // Close mobile menu on window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 991) {
-                    const overlay = document.getElementById('mobileMenuOverlay');
-                    const toggle = document.querySelector('.mobile-nav-toggle');
-                    if (overlay && overlay.classList.contains('active')) {
-                        overlay.classList.remove('active');
-                        toggle.classList.remove('bi-x');
-                        toggle.classList.add('bi-list');
-                        document.body.style.overflow = '';
+            // Close all other dropdowns first
+            const allDropdowns = ['profileDropdown', 'informasiDropdown'];
+            const allChevrons = ['profileChevron', 'informasiChevron'];
+            
+            allDropdowns.forEach((id, index) => {
+                if (id !== dropdownId) {
+                    const otherDropdown = document.getElementById(id);
+                    const otherChevron = document.getElementById(allChevrons[index]);
+                    if (otherDropdown && otherChevron) {
+                        otherDropdown.style.maxHeight = '0';
+                        otherChevron.style.transform = 'translateY(-50%) rotate(0deg)';
                     }
                 }
             });
             
-            console.log('Fresh mobile navigation initialized!');
+            // Toggle current dropdown
+            if (dropdown.style.maxHeight === '250px') {
+                // Close dropdown
+                dropdown.style.maxHeight = '0';
+                chevron.style.transform = 'translateY(-50%) rotate(0deg)';
+            } else {
+                // Open dropdown
+                dropdown.style.maxHeight = '250px';
+                chevron.style.transform = 'translateY(-50%) rotate(180deg)';
+            }
+        }
+        
+        // Open pengaduan modal and close menu
+        function openPengaduanModal() {
+            closeMobileMenu();
+            // Wait for menu to close, then open modal
+            setTimeout(() => {
+                const modal = new bootstrap.Modal(document.getElementById('formPengaduan'));
+                modal.show();
+            }, 350);
+        }
+        
+        // Initialize mobile navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close mobile menu on window resize (desktop)
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 991) {
+                    const overlay = document.getElementById('mobileOverlay');
+                    if (overlay.style.display === 'block') {
+                        closeMobileMenu();
+                    }
+                }
+            });
+            
+            // Prevent page scroll when overlay is active
+            document.getElementById('mobileOverlay').addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            console.log('Slide-in drawer navigation initialized successfully!');
         });
     </script>
     <script>
