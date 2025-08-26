@@ -65,69 +65,142 @@
             font-size: 18px;
         }
         #navbar a:hover {
-            color: #60A5FA;
-            background: rgba(96, 165, 250, 0.1);
+            color: #FFA500;
+            background: rgba(255, 165, 0, 0.1);
             transform: none;
         }
         #navbar .dropdown ul a:hover {
-            background: rgba(255, 216, 46, 0.1);
-            color: #f8d92e;
+            background: rgba(255, 165, 0, 0.1);
+            color: #F59E0B;
         }
-        /* Dropdown menu styling fix */
+        /* Dropdown menu styling dengan Motekar theme */
         #navbar .dropdown ul {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         #navbar .dropdown ul a {
-            color: #374151 !important;
+            color: #FFFFFF !important;
             font-weight: 500;
             padding: 8px 15px;
             border-radius: 6px;
             margin: 2px 8px;
         }
         #navbar .dropdown ul a:hover {
-            background: rgba(255, 216, 46, 0.1) !important;
-            color: #1f2937 !important;
+            background: rgba(255, 165, 0, 0.1) !important;
+            color: #F59E0B !important;
         }
-        /* Logo presisi dengan proporsi yang tepat */
+        
+        /* Button styling dengan warna logo Motekar */
+        .btn-warning, .btn.btn-warning {
+            background: linear-gradient(135deg, #F59E0B, #FFA500, #FF8C00) !important;
+            border: 1px solid #F59E0B !important;
+            color: white !important;
+            font-weight: 600 !important;
+            padding: 8px 16px !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3) !important;
+        }
+        .btn-warning:hover, .btn.btn-warning:hover {
+            background: linear-gradient(135deg, #D97706, #FF8C00, #E67E22) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4) !important;
+            color: white !important;
+            border-color: #D97706 !important;
+        }
+        .btn-secondary, .btn.btn-secondary {
+            background: linear-gradient(135deg, #6B7280, #4B5563, #374151) !important;
+            border: none !important;
+            color: white !important;
+            font-weight: 600 !important;
+            padding: 8px 16px !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3) !important;
+        }
+        .btn-secondary:hover, .btn.btn-secondary:hover {
+            background: linear-gradient(135deg, #4B5563, #374151, #1F2937) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(107, 114, 128, 0.4) !important;
+            color: white !important;
+        }
+        /* Logo styling sesuai Motekar theme */
         .logo h1 {
             font-family: 'Roboto', sans-serif;
             letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .logo h1 a {
-            color: white !important;
+            color: #FFFFFF !important;
             text-decoration: none;
+        }
+        .logo h1 a:hover {
+            color: #FFA500 !important;
         }
         /* Footer styling untuk konsistensi */
         #footer {
             color: white;
+            position: relative;
+        }
+        #footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 60%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        #footer > * {
+            position: relative;
+            z-index: 1;
         }
         #footer h3, #footer h4 {
-            color: white;
+            color: #FFFFFF;
+        }
+        #footer p {
+            color: #D1D5DB;
         }
         #footer .social-links a {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            color: #FFFFFF;
+            transition: all 0.3s ease;
         }
         #footer .social-links a:hover {
-            background: rgba(255,255,255,0.2);
+            background: #F59E0B;
+            color: #000000;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
         }
+        /* Modal dengan aksen Motekar */
         .modal-content {
             border-radius: 12px !important;
             overflow: hidden !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2) !important;
+            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #F59E0B, #FFA500) !important;
+            color: white !important;
+            border: none !important;
+        }
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1) !important;
         }
         .btn {
             border-radius: 8px !important;
             transition: all 0.3s ease !important;
+            font-weight: 600 !important;
         }
         .btn:hover {
             transform: translateY(-1px) !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
         }
     </style>
 
@@ -138,7 +211,7 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top d-flex align-items-center" style="background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(55, 65, 81, 0.95)); backdrop-filter: blur(10px);">
+    <header id="header" class="fixed-top d-flex align-items-center" style="background: linear-gradient(135deg, #000000, #1f2937, #374151); border-bottom: 2px solid #F59E0B; backdrop-filter: blur(10px);">
         <div class="container d-flex justify-content-between align-items-center">
 
             <img src="{{ asset('assets/img/motekar-bg.png') }}" alt="" width="45px" class="m-lg-auto" style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -243,9 +316,14 @@
 
 
     <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" 
-            style="background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(55, 65, 81, 0.95)); backdrop-filter: blur(10px);">
+            style="background: #000000; position: relative; overflow: hidden;">
+        
+        <!-- Logo Watermark Background -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.05; z-index: 0; pointer-events: none;">
+            <img src="{{ asset('assets/img/motekar-bg.png') }}" alt="Watermark" style="width: 300px; height: 300px;">
+        </div>
 
-        <div class="footer-top" style="background: transparent;">
+        <div class="footer-top" style="background: transparent; position: relative; z-index: 1;">
             <div class="container">
                 <div class="row">
 
@@ -292,9 +370,9 @@
             </div>
             <div class="credits" style="color: rgba(255,255,255,0.8); text-align: center; margin-top: 10px;">
                 Designed by 
-                <a href="https://www.instagram.com/kkn_mekarmuktiplb/" style="color: #60A5FA;">KKN Politeknik LP3I Bandung</a> 
+                <a href="https://www.instagram.com/kkn_mekarmuktiplb/" style="color: #F59E0B; transition: all 0.3s;" onmouseover="this.style.color='#FFA500'" onmouseout="this.style.color='#F59E0B'">KKN Politeknik LP3I Bandung</a> 
                 & 
-                <a href="https://www.instagram.com/kkn20mekarmukti2/" style="color: #60A5FA;">KKN Universitas Muhammadiyah Bandung</a>
+                <a href="https://www.instagram.com/kkn20mekarmukti2/" style="color: #F59E0B; transition: all 0.3s;" onmouseover="this.style.color='#FFA500'" onmouseout="this.style.color='#F59E0B'">KKN Universitas Muhammadiyah Bandung</a>
             </div>
         </div>
     </footer><!-- End Footer -->
