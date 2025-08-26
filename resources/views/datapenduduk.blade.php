@@ -1,7 +1,5 @@
 @extends('layout.app')
-@section('judul', 'Data Penduduk Des                        <div class="card-body">
-                            <canvas id="chartProfesi"></canvas>
-                        </div>rmukti')
+@section('judul', 'Data Penduduk Desa Mekarmukti')
 @section('nav', 'data')
 @section('content')
 <main id="main">
@@ -78,7 +76,7 @@
     // Color Palettes for each chart
     const genderColors = ['#3B82F6', '#EC4899']; // Blue & Pink
     const religionColors = ['#10B981', '#F59E0B', '#8B5CF6', '#EF4444', '#6B7280']; // Green, Yellow, Purple, Red, Gray
-    const jobColors = ['#059669', '#DC2626', '#7C3AED', '#EA580C']; // Green, Red, Purple, Orange
+    const jobColors = ['#059669', '#DC2626', '#7C3AED', '#EA580C', '#6366F1']; // Green, Red, Purple, Orange, Indigo (5 colors)
 
     // Create Enhanced Pie Chart
     function createEnhancedPieChart(ctx, colors, title) {

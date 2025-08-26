@@ -40,18 +40,12 @@ INSERT INTO data (data, label, total, created_at, updated_at) VALUES
 ('pendidikan', 'Diploma/S1', 135, NOW(), NOW()),
 ('pendidikan', 'S2/S3', 15, NOW(), NOW());
 
--- Occupation Data
+-- Occupation Data (Kategori Clean - OPSI C)
 INSERT INTO data (data, label, total, created_at, updated_at) VALUES
+('profesi', 'PNS & Aparatur', 225, NOW(), NOW()),
+('profesi', 'Pegawai Swasta', 630, NOW(), NOW()),
 ('profesi', 'Petani', 680, NOW(), NOW()),
-('profesi', 'Buruh Tani', 420, NOW(), NOW()),
-('profesi', 'Wiraswasta', 350, NOW(), NOW()),
-('profesi', 'Karyawan Swasta', 280, NOW(), NOW()),
-('profesi', 'PNS/TNI/Polri', 95, NOW(), NOW()),
-('profesi', 'Guru', 75, NOW(), NOW()),
-('profesi', 'Pedagang', 180, NOW(), NOW()),
-('profesi', 'Tukang', 120, NOW(), NOW()),
-('profesi', 'Pensiunan', 65, NOW(), NOW()),
-('profesi', 'Ibu Rumah Tangga', 485, NOW(), NOW()),
+('profesi', 'Tidak Bekerja', 545, NOW(), NOW()),
 ('profesi', 'Pelajar/Mahasiswa', 240, NOW(), NOW());
 
 -- Health Data

@@ -66,19 +66,13 @@ class PopulateRealVillageData extends Command
                 ['label' => 'S2/S3', 'total' => 15],
             ],
 
-            // Data Profesi/Pekerjaan
+            // Data Profesi/Pekerjaan (Kategori Clean - OPSI C)
             'profesi' => [
-                ['label' => 'Petani', 'total' => 680],
-                ['label' => 'Buruh Tani', 'total' => 420],
-                ['label' => 'Wiraswasta', 'total' => 350],
-                ['label' => 'Karyawan Swasta', 'total' => 280],
-                ['label' => 'PNS/TNI/Polri', 'total' => 95],
-                ['label' => 'Guru', 'total' => 75],
-                ['label' => 'Pedagang', 'total' => 180],
-                ['label' => 'Tukang', 'total' => 120],
-                ['label' => 'Pensiunan', 'total' => 65],
-                ['label' => 'Ibu Rumah Tangga', 'total' => 485],
-                ['label' => 'Pelajar/Mahasiswa', 'total' => 240],
+                ['label' => 'PNS & Aparatur', 'total' => 225], // PNS + TNI/Polri + Guru PNS
+                ['label' => 'Pegawai Swasta', 'total' => 630], // Wiraswasta + Buruh + Pedagang + Tukang
+                ['label' => 'Petani', 'total' => 680], // Sektor utama desa
+                ['label' => 'Tidak Bekerja', 'total' => 545], // IRT + Pengangguran + Pensiunan
+                ['label' => 'Pelajar/Mahasiswa', 'total' => 240], // Pelajar dan Mahasiswa
             ],
 
             // Data Kesehatan
