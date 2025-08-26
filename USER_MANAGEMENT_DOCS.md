@@ -2,24 +2,18 @@
 
 ## 📊 Current User Accounts
 
-### 🏆 Admin Account
+### 🏆 Admin Account (ID: 4)
 - **Name**: Admin
 - **Email**: `admin@webdesa.com` 
 - **Password**: `admin123`
 - **Role**: 0 (Super Admin)
 - **Permissions**: Full access to all content and features
 
-### ✍️ Writer Accounts
-- **Name**: Writer Desa
+### ✍️ Writer Account (ID: 5)
+- **Name**: Writer
 - **Email**: `writer@webdesa.com`
 - **Password**: `writer123` 
 - **Role**: 1 (Writer/Editor)
-- **Permissions**: Can only see own content
-
-- **Name**: Editor Desa
-- **Email**: `editor@webdesa.com`
-- **Password**: `editor123`
-- **Role**: 1 (Writer/Editor) 
 - **Permissions**: Can only see own content
 
 ## 🔐 Role System
@@ -101,19 +95,30 @@ php artisan admin:reset-password --show-users
 
 ## 🔄 Recent Changes
 
-1. **Added missing columns**: `role` and `foto` columns added to users table
-2. **Set proper roles**: Admin user set to role 0, new users default to role 1
-3. **Created test users**: Writer and Editor accounts for testing
-4. **Role-based permissions**: Gallery and article access based on user role
+1. **Database Cleanup**: Removed old users (ID 1-3), created clean setup with specific IDs
+2. **User Restructure**: Only 2 users remain - Admin (ID: 4) and Writer (ID: 5)
+3. **Role System Active**: Admin has role 0 (full access), Writer has role 1 (limited access)
+4. **Auto Increment**: Set to continue from ID 6 for future users
 
-## 💡 Usage Tips
+## 🛠️ Management Scripts
 
-1. **Login as Admin** for full system access
-2. **Login as Writer/Editor** to test content creation permissions
-3. **Role 0** users can see everything, **Role 1** users see only their content
-4. **Default password policy**: Simple passwords for development, change in production
+### User Cleanup
+```bash
+php user-cleanup.php
+```
+
+### Check Users
+```bash
+php check_database.php
+```
+
+### Create Test Users (Legacy)
+```bash
+php create_test_users.php
+```
 
 ---
 **Last Updated**: Agustus 2025  
-**Total Users**: 3 (1 Admin, 2 Writers)  
-**Status**: ✅ Role System Active
+**Total Users**: 2 (1 Admin, 1 Writer)  
+**User IDs**: Admin=4, Writer=5  
+**Status**: ✅ Clean Database Setup
