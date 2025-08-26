@@ -39,40 +39,59 @@
 @media (max-width: 1024px) {
     .hero-bg { background-position: center 30%; }
 }
+
+@media (max-width: 768px) {
+    .hero-bg { 
+        background-position: center 25%; 
+        min-height: 60vh;
+    }
+    
+    /* Better mobile spacing */
+    .hero-content {
+        padding: 0 1rem;
+    }
+    
+    /* Touch-friendly button */
+    .hero-cta-button {
+        min-height: 48px;
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+}
 </style>
 
 {{-- Hero Section --}}
-<section class="relative h-[70vh] md:h-[80vh] hero-bg">
+<section class="relative h-[60vh] md:h-[70vh] lg:h-[80vh] hero-bg">
     {{-- Background Overlay Gradasi --}}
     <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
     
     {{-- Grid Container --}}
-    <div class="relative z-10 container mx-auto px-4 h-full">
+    <div class="relative z-10 container mx-auto px-4 h-full hero-content">
         <div class="grid grid-cols-12 h-full items-center">
             {{-- Konten Kiri (6 kolom) --}}
-            <div class="lg:col-span-6 col-span-12 space-y-6" style="animation: fadeInLeft 1.5s ease-out;">
+            <div class="lg:col-span-6 col-span-12 space-y-4 md:space-y-6" style="animation: fadeInLeft 1.5s ease-out;">
                 
                 {{-- Caption Kecil --}}
-                <p class="text-white/80 text-sm md:text-base font-medium tracking-wide uppercase">
+                <p class="text-white/80 text-xs md:text-sm lg:text-base font-medium tracking-wide uppercase">
                     Selamat Datang di Website Resmi
                 </p>
                 
                 {{-- Judul Utama --}}
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                     <span class="text-white">Desa</span>
-                    <span class="block text-[#F59E0B] mt-2">Mekarmukti</span>
+                    <span class="block text-[#F59E0B] mt-1 md:mt-2">Mekarmukti</span>
                 </h1>
                 
                 {{-- Subline Motto --}}
-                <p class="text-white/90 text-lg md:text-xl font-light tracking-wider">
+                <p class="text-white/90 text-sm md:text-lg lg:text-xl font-light tracking-wider">
                     MAJU • PROFESIONAL • TANGGUH • KREATIF • RELIGIUS
                 </p>
                 
                 {{-- Call to Action Button --}}
-                <div class="pt-6">
+                <div class="pt-4 md:pt-6">
                     <a href="{{ route('data.penduduk') }}" 
-                       class="inline-flex items-center px-8 py-4 bg-[#F59E0B] text-black font-semibold text-lg rounded-lg hover:bg-[#F59E0B]/90 focus:ring-4 focus:ring-[#F59E0B]/50 transition-all duration-300 transform hover:scale-105 shadow-xl">
-                        <i class="bi bi-graph-up me-3"></i>
+                       class="hero-cta-button inline-flex items-center px-6 md:px-8 py-3 md:py-4 bg-[#F59E0B] text-black font-semibold text-base md:text-lg rounded-lg hover:bg-[#F59E0B]/90 focus:ring-4 focus:ring-[#F59E0B]/50 transition-all duration-300 transform hover:scale-105 shadow-xl">
+                        <i class="bi bi-graph-up me-2 md:me-3"></i>
                         Jelajahi Data Desa
                     </a>
                 </div>

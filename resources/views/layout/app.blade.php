@@ -109,6 +109,7 @@
             border-radius: 8px !important;
             transition: all 0.3s ease !important;
             box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3) !important;
+            min-height: 40px !important;
         }
         .btn-warning:hover, .btn.btn-warning:hover {
             background: linear-gradient(135deg, #D97706, #FF8C00, #E67E22) !important;
@@ -116,6 +117,20 @@
             box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4) !important;
             color: white !important;
             border-color: #D97706 !important;
+        }
+        
+        /* Mobile-specific button styling */
+        @media (max-width: 768px) {
+            .btn-warning, .btn.btn-warning {
+                padding: 10px 20px !important;
+                font-size: 14px !important;
+                min-height: 44px !important;
+            }
+            
+            .mobile-nav-toggle {
+                font-size: 24px !important;
+                padding: 8px !important;
+            }
         }
         .btn-secondary, .btn.btn-secondary {
             background: linear-gradient(135deg, #6B7280, #4B5563, #374151) !important;
