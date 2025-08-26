@@ -225,42 +225,6 @@
         </div>
     </footer>
     
-    <!-- Modal Pengaduan -->
-    <div class="modal fade" id="formPengaduan" tabindex="-1" aria-labelledby="formPengaduanLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-warning text-dark">
-                    <h5 class="modal-title" id="formPengaduanLabel">Form Pengaduan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="pengaduanForm" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label class="form-label">Nama Lengkap</label>
-                            <input type="text" name="nama" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">No. Telepon / WhatsApp</label>
-                            <input type="text" name="telepon" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Isi Pengaduan</label>
-                            <textarea name="isi_pengaduan" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Lampiran (Opsional)</label>
-                            <input type="file" name="lampiran" class="form-control">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" form="pengaduanForm" class="btn btn-warning">Kirim Pengaduan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
