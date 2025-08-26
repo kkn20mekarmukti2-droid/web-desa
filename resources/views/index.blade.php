@@ -9,7 +9,8 @@
 
   <main id="main">
 
-        <section class="services">
+        <!-- ======= Services Section dengan background wave color ======= -->
+        <section class="services" style="background-color: #EAF2F7; padding-top: 0;">
             <div class="container">
 
                 <div class="row">
