@@ -1,59 +1,13 @@
-@extends('layout.app')
+@extends('layouts.app')
+
+@section('title', 'Beranda - Desa Mekarmukti')
+
 @section('content')
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex justify-cntent-center align-items-center">
-        <div id="heroCarousel" class="container carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
-            <!-- Slide 1 -->
-            <div class="carousel-item active slide-1">
-                <div class="carousel-container">
-                    <h2 class="animate__animated animate__fadeInDown" style="color: white;">Selamat Datang di <span>Desa Mekarmukti</span>
-                    </h2>
-                    <p class="animate__animated animate__fadeInUp"></p>
-                    <a href="/about" class="btn-get-started animate__animated animate__fadeInUp" style="color: black;">Baca Lainnya</a>
-                </div>
-            </div>
+{{-- Include Hero Welcome Component --}}
+@include('components.hero-welcome')
 
-            <!-- Slide 2 -->
-            <div class="carousel-item slide-2">
-                <div class="carousel-container">
-                    <h2 class="animate__animated animate__fadeInDown">Sejarah Pembangunan Desa</h2>
-                    <p class="animate__animated animate__fadeInUp">Desa Mekarmukti Kecamatan Cihampelas adalah salah
-                        satu Desa
-                        termaju dalam Pembangunan disegala Bidang, baik Pembangunan sarana dan prasarana, Pembangunan
-                        Ekonomi,
-                        Pendidikan, Kesehatan, UMKM maupun Pembangunan Sosial lainnya bila dibanding dengan Desa lain
-                        yang ada di
-                        kecamatan Cihampelas. </p>
-                    <a href="/pemerintahan" class="btn-get-started animate__animated animate__fadeInUp">Baca Lainnya</a>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="carousel-item slide-3">
-                <div class="carousel-container">
-                    <h2 class="animate__animated animate__fadeInDown">Karakteristik Desa</h2>
-                    <p class="animate__animated animate__fadeInUp">Desa Mekarmukti merupakan perdesaan dengan mata
-                        pencaharian
-                        sebagian besar penduduk adalah sector industri rumah tangga yang bergerak dibidang Wajit,
-                        Gurilem, Pindang, dll.
-                    </p>
-                    <a href="/potensi-desa" class="btn-get-started animate__animated animate__fadeInUp">Baca Lainnya</a>
-                </div>
-            </div>
-
-            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
-            </a>
-
-            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-                <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
-            </a>
-
-        </div>
-    </section>
-
-    <main id="main">
+  <main id="main">
 
         <section class="services">
             <div class="container">
@@ -117,39 +71,12 @@
         </div>
 
 
-        <section class="why-us " data-aos="fade-up" date-aos-delay="200">
-            <div class="container">
-
-                <div class="w-full text-center">
-                    <h3 class="pt-10 text-4xl">Kabar Desa</h3>
-                    <p class="border-b md:mx-60 max-sm:text-sm">Informasi Mengenai Perkembangan dan Berita Desa Terbaru.
-                    </p>
                 </div>
-
-                <div class="grid grid-cols-2 gap-5 max-sm:grid-cols-1 mb-5">
-                    @foreach ($artikel as $i)
-                        <div class="border-b-2  p-3">
-                            <a
-                                href="{{ route('detailartikel', ['tanggal' => $i->created_at->format('Y-m-d'), 'judul' => Str::slug($i->judul, '-')]) }}">
-                                <h3 class="mt-2 text-xl">{{ $i->judul }}</h3>
-                                <p>{{ $i->header }}</p>
-                            </a>
-                            @if (strpos($i->sampul, 'youtube'))
-                                <iframe class="h-[90%] w-full min-h-80 max-sm:min-h-60" src="{{ $i->sampul }}"
-                                    title="YouTube video player" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            @else
-                                <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="w-full h-[90%]">
-                            @endif
-                        </div>
-                    @endforeach
-
-                </div>
-                <button type="button" class="btn btn-primary mb-3 ms-auto"> <a href="{{ route('berita') }}">Berita
-                        Lainnya</a> </button>
-            </div>
-        </section>
+      </div>
+    </section><!-- End Services Section -->
+    
+    {{-- End Main Content --}}
+  </main><!-- End #main -->
 
     </main>
 @endsection
