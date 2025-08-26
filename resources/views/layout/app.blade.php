@@ -127,27 +127,107 @@
                 min-height: 44px !important;
             }
             
-            /* Mobile nav toggle - override default style.css */
+            /* Fresh Mobile Navigation - Override Everything */
             .mobile-nav-toggle {
-                color: #fff !important;
-                font-size: 28px !important;
-                cursor: pointer !important;
                 display: block !important;
-                line-height: 0 !important;
-                transition: 0.5s !important;
-                padding: 8px !important;
-                z-index: 9999 !important;
+                color: #fff !important;
+                font-size: 32px !important;
+                cursor: pointer !important;
+                padding: 12px !important;
+                margin: 0 !important;
                 border: none !important;
                 background: transparent !important;
+                line-height: 1 !important;
+                transition: all 0.3s ease !important;
+                z-index: 99999 !important;
+                position: relative !important;
             }
             
             .mobile-nav-toggle:hover {
                 color: #F59E0B !important;
+                transform: scale(1.1) !important;
             }
             
-            /* Ensure navbar ul is hidden on mobile */
-            #navbar ul {
+            /* Force hide navbar on mobile */
+            #navbar > ul {
                 display: none !important;
+            }
+            
+            /* Mobile menu overlay - completely new */
+            .mobile-menu-overlay {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                background: rgba(0, 0, 0, 0.8) !important;
+                z-index: 99998 !important;
+                display: none !important;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block !important;
+            }
+            
+            .mobile-menu-content {
+                position: absolute !important;
+                top: 80px !important;
+                left: 20px !important;
+                right: 20px !important;
+                background: white !important;
+                border-radius: 12px !important;
+                padding: 20px 0 !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+                max-height: calc(100vh - 120px) !important;
+                overflow-y: auto !important;
+            }
+            
+            .mobile-menu-content ul {
+                list-style: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .mobile-menu-content li {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .mobile-menu-content li a {
+                display: block !important;
+                padding: 15px 25px !important;
+                color: #333 !important;
+                text-decoration: none !important;
+                font-size: 16px !important;
+                border-bottom: 1px solid #f0f0f0 !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            .mobile-menu-content li a:hover {
+                background: #F59E0B !important;
+                color: white !important;
+            }
+            
+            .mobile-menu-content .dropdown > a::after {
+                content: ' ▼' !important;
+                float: right !important;
+                font-size: 12px !important;
+            }
+            
+            .mobile-menu-content .dropdown ul {
+                display: none !important;
+                background: #f8f9fa !important;
+                margin: 0 !important;
+            }
+            
+            .mobile-menu-content .dropdown ul.show {
+                display: block !important;
+            }
+            
+            .mobile-menu-content .dropdown ul li a {
+                padding-left: 40px !important;
+                font-size: 14px !important;
+                background: transparent !important;
             }
         }
         
@@ -308,8 +388,40 @@
             </button>
         </li>
       </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
+      <i class="bi bi-list mobile-nav-toggle" onclick="toggleMobileMenu()"></i>
     </nav><!-- .navbar -->
+
+    <!-- Fresh Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content">
+            <ul>
+                <li><a href="{{ route('home') }}"><i class="bx bx-home"></i> Beranda</a></li>
+                <li class="dropdown">
+                    <a href="#" onclick="toggleDropdown(this)">Profile Desa</a>
+                    <ul>
+                        <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+                        <li><a href="{{ route('visi') }}">Visi & Misi</a></li>
+                        <li><a href="{{ route('pemerintahan') }}">Struktur Organisasi</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" onclick="toggleDropdown(this)">Informasi Desa</a>
+                    <ul>
+                        <li><a href="{{ route('berita') }}">Berita</a></li>
+                        <li><a href="{{ route('galeri') }}">Galeri</a></li>
+                        <li><a href="{{ route('potensidesa') }}">Potensi Desa</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
+                <li><a href="{{ route('kontak') }}">Kontak</a></li>
+                <li style="padding: 15px 25px; border-bottom: 1px solid #f0f0f0;">
+                    <button type="button" class="btn btn-warning btn-sm w-100" data-bs-toggle="modal" data-bs-target="#formPengaduan">
+                        Buat Pengaduan
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 <div class="modal fade" id="formPengaduan" tabindex="-1" aria-labelledby="formPengaduanLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -468,7 +580,71 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/notifs.js') }}" type="module"></script>
 
-    <!-- Mobile Navigation Fix -->
+    <!-- Fresh Mobile Navigation JavaScript -->
+    <script>
+        // Simple mobile menu toggle
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            
+            if (overlay.classList.contains('active')) {
+                // Close menu
+                overlay.classList.remove('active');
+                toggle.classList.remove('bi-x');
+                toggle.classList.add('bi-list');
+                document.body.style.overflow = '';
+            } else {
+                // Open menu
+                overlay.classList.add('active');
+                toggle.classList.remove('bi-list');
+                toggle.classList.add('bi-x');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Dropdown toggle in mobile menu
+        function toggleDropdown(element) {
+            event.preventDefault();
+            const dropdown = element.nextElementSibling;
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            } else {
+                // Close all other dropdowns
+                document.querySelectorAll('.mobile-menu-content .dropdown ul').forEach(dd => {
+                    dd.classList.remove('show');
+                });
+                dropdown.classList.add('show');
+            }
+        }
+        
+        // Close mobile menu when clicking overlay
+        document.addEventListener('DOMContentLoaded', function() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) {
+                        toggleMobileMenu();
+                    }
+                });
+            }
+            
+            // Close mobile menu on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 991) {
+                    const overlay = document.getElementById('mobileMenuOverlay');
+                    const toggle = document.querySelector('.mobile-nav-toggle');
+                    if (overlay && overlay.classList.contains('active')) {
+                        overlay.classList.remove('active');
+                        toggle.classList.remove('bi-x');
+                        toggle.classList.add('bi-list');
+                        document.body.style.overflow = '';
+                    }
+                }
+            });
+            
+            console.log('Fresh mobile navigation initialized!');
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Ensure mobile nav toggle works
