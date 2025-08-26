@@ -137,16 +137,21 @@
                 border: none !important;
                 background: transparent !important;
                 line-height: 1 !important;
-                transition: color 0.3s ease !important;
-                z-index: 9999 !important;
+                transition: all 0.3s ease !important;
+                z-index: 10001 !important;
                 position: relative !important;
-                /* Fixed: Remove transform to prevent layout shift */
                 border-radius: 4px !important;
+                font-family: 'bootstrap-icons' !important;
+            }
+            
+            /* Ensure X icon is visible when active */
+            .mobile-nav-toggle.bi-x {
+                color: #F59E0B !important;
+                background-color: rgba(245, 158, 11, 0.1) !important;
             }
             
             .mobile-nav-toggle:hover {
                 color: #F59E0B !important;
-                /* Fixed: Remove scale transform that causes shift */
                 background-color: rgba(245, 158, 11, 0.1) !important;
             }
             
@@ -325,28 +330,28 @@
     </header><!-- End Header -->
 
         <!-- Mobile Navigation - Slide-in Drawer System -->
-        <!-- Overlay - Fixed to not cover header area -->
+        <!-- Overlay - Positioned below header to not interfere -->
         <div id="mobileOverlay" style="
             display: none;
             position: fixed;
-            top: 70px;
+            top: 80px;
             left: 0;
             width: 100%;
-            height: calc(100vh - 70px);
-            background: rgba(0, 0, 0, 0.5);
+            height: calc(100vh - 80px);
+            background: rgba(0, 0, 0, 0.3);
             z-index: 9998;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
         " onclick="closeMobileMenu()"></div>
 
-        <!-- Slide-in Panel - Fixed to start below header -->
+        <!-- Slide-in Panel - Positioned below header to avoid overlap -->
         <div id="mobileMenuPanel" style="
             position: fixed;
-            top: 70px;
+            top: 80px;
             right: 0;
             width: 70%;
             max-width: 320px;
-            height: calc(100vh - 70px);
+            height: calc(100vh - 80px);
             background: #111827;
             z-index: 9999;
             transform: translateX(100%);
@@ -709,6 +714,9 @@
             const panel = document.getElementById('mobileMenuPanel');
             const toggle = document.querySelector('.mobile-nav-toggle');
             
+            // Debug log
+            console.log('Opening mobile menu - toggle element:', toggle);
+            
             // Show overlay first
             overlay.style.display = 'block';
             
@@ -718,9 +726,12 @@
                 panel.style.transform = 'translateX(0)';
             });
             
-            // Change hamburger to X
-            toggle.classList.remove('bi-list');
-            toggle.classList.add('bi-x');
+            // Change hamburger to X with better logic
+            if (toggle) {
+                toggle.classList.remove('bi-list');
+                toggle.classList.add('bi-x');
+                console.log('Icon changed to X, classes:', toggle.classList.toString());
+            }
             
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
@@ -734,6 +745,9 @@
             const panel = document.getElementById('mobileMenuPanel');
             const toggle = document.querySelector('.mobile-nav-toggle');
             
+            // Debug log
+            console.log('Closing mobile menu - toggle element:', toggle);
+            
             // Hide panel first
             panel.style.transform = 'translateX(100%)';
             overlay.style.opacity = '0';
@@ -743,9 +757,12 @@
                 overlay.style.display = 'none';
             }, 300);
             
-            // Change X back to hamburger
-            toggle.classList.remove('bi-x');
-            toggle.classList.add('bi-list');
+            // Change X back to hamburger with better logic
+            if (toggle) {
+                toggle.classList.remove('bi-x');
+                toggle.classList.add('bi-list');
+                console.log('Icon changed to hamburger, classes:', toggle.classList.toString());
+            }
             
             // Restore body scroll
             document.body.style.overflow = '';
