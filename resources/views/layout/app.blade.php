@@ -65,8 +65,8 @@
             font-size: 18px;
         }
         #navbar a:hover {
-            color: #f8d92e;
-            background: transparent;
+            color: #60A5FA;
+            background: rgba(96, 165, 250, 0.1);
             transform: none;
         }
         #navbar .dropdown ul a:hover {
@@ -138,7 +138,7 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top d-flex align-items-center" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(59, 130, 246, 0.95)); backdrop-filter: blur(10px);">
+    <header id="header" class="fixed-top d-flex align-items-center" style="background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(55, 65, 81, 0.95)); backdrop-filter: blur(10px);">
         <div class="container d-flex justify-content-between align-items-center">
 
             <img src="{{ asset('assets/img/motekar-bg.png') }}" alt="" width="45px" class="m-lg-auto" style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -243,7 +243,7 @@
 
 
     <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" 
-            style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(59, 130, 246, 0.95)); backdrop-filter: blur(10px);">
+            style="background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(55, 65, 81, 0.95)); backdrop-filter: blur(10px);">
 
         <div class="footer-top" style="background: transparent;">
             <div class="container">
@@ -292,9 +292,9 @@
             </div>
             <div class="credits" style="color: rgba(255,255,255,0.8); text-align: center; margin-top: 10px;">
                 Designed by 
-                <a href="https://www.instagram.com/kkn_mekarmuktiplb/" style="color: #f8d92e;">KKN Politeknik LP3I Bandung</a> 
+                <a href="https://www.instagram.com/kkn_mekarmuktiplb/" style="color: #60A5FA;">KKN Politeknik LP3I Bandung</a> 
                 & 
-                <a href="https://www.instagram.com/kkn20mekarmukti2/" style="color: #f8d92e;">KKN Universitas Muhammadiyah Bandung</a>
+                <a href="https://www.instagram.com/kkn20mekarmukti2/" style="color: #60A5FA;">KKN Universitas Muhammadiyah Bandung</a>
             </div>
         </div>
     </footer><!-- End Footer -->
