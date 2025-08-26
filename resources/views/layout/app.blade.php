@@ -99,7 +99,7 @@
         <li>
             <!-- Tombol untuk membuka modal -->
 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#formPengaduan">
-    Buat Pengaduan 🚀
+    Buat Pengaduan
 </button>
         </li>
       </ul>
