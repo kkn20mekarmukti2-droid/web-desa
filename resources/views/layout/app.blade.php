@@ -24,33 +24,77 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     
-    <!-- Fonts -->
+    <!-- Fonts - Enhanced Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
     
-    <!-- CSS Framework & Icons -->
+    <!-- CSS Framework & Assets -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
-    <!-- Custom Tailwind Config -->
+    <!-- Enhanced CSS Libraries -->
+    <link href="{{ asset('assets/vendor/animate.css/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/994f229ca1.js" crossorigin="anonymous"></script>
+    
+    <!-- Custom Styles -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    
+    <!-- Enhanced Tailwind Config & Custom Styles -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'sans': ['Open Sans', 'Roboto', 'system-ui', 'sans-serif'],
+                        'heading': ['Roboto', 'Open Sans', 'sans-serif'],
                     },
                     colors: {
                         'primary': {
                             50: '#fefbf3',
+                            100: '#fef3c7',
+                            200: '#fde68a', 
+                            300: '#fcd34d',
+                            400: '#fbbf24',
                             500: '#F59E0B',
                             600: '#d97706',
-                            700: '#b45309'
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f'
                         },
                         'gray': {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
                             800: '#1f2937',
                             900: '#111827'
+                        }
+                    },
+                    animation: {
+                        'fadeIn': 'fadeIn 0.5s ease-in-out',
+                        'slideIn': 'slideIn 0.3s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(0)' }
                         }
                     }
                 }
@@ -58,12 +102,187 @@
         }
     </script>
     
+    <style>
+        /* Enhanced UI/UX Styling */
+        body {
+            font-family: 'Open Sans', 'Roboto', sans-serif;
+        }
+        
+        /* Enhanced Header Styling */
+        #header {
+            background: linear-gradient(135deg, #000000, #1f2937, #374151);
+            border-bottom: 3px solid #F59E0B;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Enhanced Navigation Styling */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #F59E0B;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Enhanced Dropdown Styling */
+        .dropdown-menu {
+            background: rgba(0, 0, 0, 0.95) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(245, 158, 11, 0.3) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+            padding: 8px !important;
+        }
+        
+        .dropdown-item {
+            color: #fff !important;
+            border-radius: 8px !important;
+            margin: 2px 0 !important;
+            transition: all 0.3s ease !important;
+            font-weight: 500 !important;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(245, 158, 11, 0.2) !important;
+            color: #F59E0B !important;
+            transform: translateX(5px) !important;
+        }
+        
+        /* Enhanced Button Styling */
+        .btn-enhanced {
+            background: linear-gradient(135deg, #F59E0B, #FFA500, #FF8C00) !important;
+            border: none !important;
+            color: white !important;
+            font-weight: 600 !important;
+            border-radius: 12px !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3) !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+        
+        .btn-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-enhanced:hover {
+            background: linear-gradient(135deg, #D97706, #FF8C00, #E67E22) !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4) !important;
+            color: white !important;
+        }
+        
+        .btn-enhanced:hover::before {
+            left: 100%;
+        }
+        
+        /* Enhanced Mobile Menu Styling */
+        .mobile-menu-panel {
+            background: linear-gradient(135deg, #111827, #1f2937) !important;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5) !important;
+            border-left: 3px solid #F59E0B !important;
+        }
+        
+        .mobile-menu-item {
+            transition: all 0.3s ease !important;
+            border-radius: 10px !important;
+            margin: 4px 0 !important;
+        }
+        
+        .mobile-menu-item:hover {
+            background: rgba(245, 158, 11, 0.1) !important;
+            transform: translateX(8px) !important;
+            border-left: 3px solid #F59E0B !important;
+            padding-left: 1rem !important;
+        }
+        
+        /* Enhanced Mobile Menu Button */
+        #mobileMenuButton {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        #mobileMenuButton:hover {
+            transform: scale(1.1);
+            background: rgba(245, 158, 11, 0.2);
+            border-radius: 8px;
+        }
+        
+        /* Enhanced Close Button */
+        #closeMobileMenu {
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        #closeMobileMenu:hover {
+            background: rgba(245, 158, 11, 0.3);
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        /* Logo Enhancement */
+        .logo-img {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .logo-img:hover {
+            transform: rotate(5deg) scale(1.05);
+            border-color: #F59E0B;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+        }
+        
+        /* Brand Text Enhancement */
+        .brand-text {
+            background: linear-gradient(135deg, #ffffff, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-text:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+        }
+    </style>
+    
     @stack('styles')
 </head>
 
 <body class="font-sans antialiased">
     <!-- Header -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-black via-gray-800 to-gray-700 border-b-2 border-primary-500 backdrop-blur-md">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16 lg:h-20">
                 
@@ -71,10 +290,10 @@
                 <div class="flex items-center space-x-4">
                     <img src="{{ asset('assets/img/motekar-bg.png') }}" 
                          alt="Logo Mekarmukti" 
-                         class="w-10 h-10 lg:w-12 lg:h-12 rounded-lg shadow-md">
+                         class="logo-img w-10 h-10 lg:w-12 lg:h-12 rounded-lg shadow-md">
                     <div class="text-white">
-                        <h1 class="text-xl lg:text-2xl font-bold leading-none">
-                            <a href="{{ route('home') }}" class="hover:text-primary-500 transition-colors">
+                        <h1 class="text-xl lg:text-2xl font-bold leading-none font-heading">
+                            <a href="{{ route('home') }}" class="brand-text hover:text-primary-500 transition-all duration-300">
                                 MEKARMUKTI
                             </a>
                         </h1>
@@ -83,51 +302,73 @@
                 
                 <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-8">
-                    <a href="{{ route('home') }}" class="text-white hover:text-primary-500 transition-colors">
-                        <i class="bi bi-house"></i>
+                    <a href="{{ route('home') }}" class="nav-link text-white hover:text-primary-500 transition-all duration-300">
+                        <i class="bi bi-house-door-fill text-lg"></i>
                     </a>
                     
                     <!-- Profile Desa Dropdown -->
                     <div class="relative group">
-                        <button class="flex items-center space-x-1 text-white hover:text-primary-500 transition-colors">
+                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                            <i class="bi bi-people-fill"></i>
                             <span>Profile Desa</span>
-                            <i class="bi bi-chevron-down text-sm"></i>
+                            <i class="bi bi-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
                         </button>
-                        <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                            <a href="{{ route('sejarah') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 first:rounded-t-lg">Sejarah</a>
-                            <a href="{{ route('visi') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700">Visi & Misi</a>
-                            <a href="{{ route('pemerintahan') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 last:rounded-b-lg">Struktur Organisasi</a>
+                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translateY-0 translateY-2">
+                            <a href="{{ route('sejarah') }}" class="dropdown-item block px-4 py-3">
+                                <i class="bi bi-clock-history me-2"></i>Sejarah
+                            </a>
+                            <a href="{{ route('visi') }}" class="dropdown-item block px-4 py-3">
+                                <i class="bi bi-eye-fill me-2"></i>Visi & Misi
+                            </a>
+                            <a href="{{ route('pemerintahan') }}" class="dropdown-item block px-4 py-3">
+                                <i class="bi bi-diagram-3-fill me-2"></i>Struktur Organisasi
+                            </a>
                         </div>
                     </div>
                     
                     <!-- Informasi Desa Dropdown -->
                     <div class="relative group">
-                        <button class="flex items-center space-x-1 text-white hover:text-primary-500 transition-colors">
+                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                            <i class="bi bi-info-circle-fill"></i>
                             <span>Informasi Desa</span>
-                            <i class="bi bi-chevron-down text-sm"></i>
+                            <i class="bi bi-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
                         </button>
-                        <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                            <a href="{{ route('berita') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 first:rounded-t-lg">Berita</a>
-                            <a href="{{ route('galeri') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700">Galeri</a>
-                            <a href="{{ route('potensidesa') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 last:rounded-b-lg">Potensi Desa</a>
+                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translateY-0 translateY-2">
+                            <a href="{{ route('berita') }}" class="dropdown-item block px-4 py-3">
+                                <i class="bi bi-newspaper me-2"></i>Berita
+                            </a>
+                            <a href="{{ route('galeri') }}" class="dropdown-item block px-4 py-3">
+                                <i class="bi bi-images me-2"></i>Galeri
+                            </a>
+                            <a href="{{ route('potensidesa') }}" class="dropdown-item block px-4 py-3">
+                                <i class="bi bi-gem me-2"></i>Potensi Desa
+                            </a>
                         </div>
                     </div>
                     
-                    <a href="{{ route('data.penduduk') }}" class="text-white hover:text-primary-500 transition-colors">Data Statistik</a>
-                    <a href="{{ route('kontak') }}" class="text-white hover:text-primary-500 transition-colors">Kontak</a>
+                    <a href="{{ route('data.penduduk') }}" class="nav-link text-white hover:text-primary-500 transition-all duration-300 flex items-center space-x-2 font-medium">
+                        <i class="bi bi-bar-chart-fill"></i>
+                        <span>Data Statistik</span>
+                    </a>
                     
-                    <!-- CTA Button -->
+                    <a href="{{ route('kontak') }}" class="nav-link text-white hover:text-primary-500 transition-all duration-300 flex items-center space-x-2 font-medium">
+                        <i class="bi bi-envelope-fill"></i>
+                        <span>Kontak</span>
+                    </a>
+                    
+                    <!-- Enhanced CTA Button -->
                     <button type="button" 
-                            class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg font-medium transition-colors text-sm"
+                            class="btn-enhanced px-6 py-3 text-sm font-semibold flex items-center space-x-2"
                             data-bs-toggle="modal" 
                             data-bs-target="#formPengaduan">
-                        Buat Pengaduan
+                        <i class="bi bi-chat-dots-fill"></i>
+                        <span>Buat Pengaduan</span>
                     </button>
                 </nav>
                 
-                <!-- Mobile Menu Button -->
+                <!-- Enhanced Mobile Menu Button -->
                 <button id="mobileMenuButton" 
-                        class="lg:hidden text-white text-2xl p-2 hover:text-primary-500 transition-colors">
+                        class="lg:hidden text-white text-2xl p-3 hover:text-primary-500 transition-all duration-300 rounded-lg">
                     <i class="bi bi-list"></i>
                 </button>
                 
@@ -135,76 +376,106 @@
         </div>
     </header>
     
-    <!-- Mobile Navigation Panel -->
+    <!-- Enhanced Mobile Navigation Panel -->
     <div id="mobileMenu" class="fixed inset-0 z-40 lg:hidden transform translate-x-full transition-transform duration-300 ease-in-out">
-        <!-- Overlay -->
-        <div id="mobileOverlay" class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <!-- Enhanced Overlay -->
+        <div id="mobileOverlay" class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm"></div>
         
-        <!-- Panel -->
-        <div class="absolute top-0 right-0 h-full w-80 max-w-[80vw] bg-gray-900">
+        <!-- Enhanced Panel -->
+        <div class="mobile-menu-panel absolute top-0 right-0 h-full w-80 max-w-[85vw]">
             <div class="flex flex-col h-full">
-                <!-- Panel Header -->
-                <div class="flex items-center justify-between p-4 border-b border-gray-700">
-                    <span class="text-white font-semibold">Menu</span>
-                    <button id="closeMobileMenu" class="text-white text-2xl hover:text-primary-500 transition-colors">
-                        <i class="bi bi-x"></i>
+                <!-- Enhanced Panel Header -->
+                <div class="flex items-center justify-between p-6 border-b border-gray-600">
+                    <div class="flex items-center space-x-3">
+                        <img src="{{ asset('assets/img/motekar-bg.png') }}" 
+                             alt="Logo" 
+                             class="w-8 h-8 rounded-lg">
+                        <span class="text-white font-bold text-lg">Menu</span>
+                    </div>
+                    <button id="closeMobileMenu" 
+                            class="text-white text-2xl hover:text-primary-500 transition-all duration-300"
+                            aria-label="Close Menu">
+                        <i class="bi bi-x-lg"></i>
                     </button>
                 </div>
                 
-                <!-- Panel Content -->
-                <nav class="flex-1 overflow-y-auto p-4">
-                    <div class="space-y-2">
-                        <a href="{{ route('home') }}" class="flex items-center space-x-3 text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">
-                            <i class="bi bi-house"></i>
-                            <span>Beranda</span>
+                <!-- Enhanced Panel Content -->
+                <nav class="flex-1 overflow-y-auto p-6">
+                    <div class="space-y-3">
+                        <!-- Home -->
+                        <a href="{{ route('home') }}" class="mobile-menu-item flex items-center space-x-4 text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition-all duration-300">
+                            <i class="bi bi-house-door-fill text-primary-500 text-xl"></i>
+                            <span class="font-medium">Beranda</span>
                         </a>
                         
                         <!-- Profile Desa -->
-                        <div class="space-y-1">
-                            <button class="mobile-dropdown-toggle flex items-center justify-between w-full text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors" 
+                        <div class="space-y-2">
+                            <button class="mobile-dropdown-toggle mobile-menu-item flex items-center justify-between w-full text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition-all duration-300" 
                                     data-target="profileDropdown">
-                                <span>Profile Desa</span>
-                                <i class="bi bi-chevron-down transition-transform duration-200"></i>
+                                <div class="flex items-center space-x-4">
+                                    <i class="bi bi-people-fill text-primary-500 text-xl"></i>
+                                    <span class="font-medium">Profile Desa</span>
+                                </div>
+                                <i class="bi bi-chevron-down transition-transform duration-300"></i>
                             </button>
-                            <div id="profileDropdown" class="hidden ml-6 space-y-1">
-                                <a href="{{ route('sejarah') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Sejarah</a>
-                                <a href="{{ route('visi') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Visi & Misi</a>
-                                <a href="{{ route('pemerintahan') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Struktur Organisasi</a>
+                            <div id="profileDropdown" class="hidden ml-12 space-y-2">
+                                <a href="{{ route('sejarah') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                    <i class="bi bi-clock-history me-2"></i>Sejarah
+                                </a>
+                                <a href="{{ route('visi') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                    <i class="bi bi-eye-fill me-2"></i>Visi & Misi
+                                </a>
+                                <a href="{{ route('pemerintahan') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                    <i class="bi bi-diagram-3-fill me-2"></i>Struktur Organisasi
+                                </a>
                             </div>
                         </div>
                         
                         <!-- Informasi Desa -->
-                        <div class="space-y-1">
-                            <button class="mobile-dropdown-toggle flex items-center justify-between w-full text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors" 
+                        <div class="space-y-2">
+                            <button class="mobile-dropdown-toggle mobile-menu-item flex items-center justify-between w-full text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition-all duration-300" 
                                     data-target="informasiDropdown">
-                                <span>Informasi Desa</span>
-                                <i class="bi bi-chevron-down transition-transform duration-200"></i>
+                                <div class="flex items-center space-x-4">
+                                    <i class="bi bi-info-circle-fill text-primary-500 text-xl"></i>
+                                    <span class="font-medium">Informasi Desa</span>
+                                </div>
+                                <i class="bi bi-chevron-down transition-transform duration-300"></i>
                             </button>
-                            <div id="informasiDropdown" class="hidden ml-6 space-y-1">
-                                <a href="{{ route('berita') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Berita</a>
-                                <a href="{{ route('galeri') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Galeri</a>
-                                <a href="{{ route('potensidesa') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Potensi Desa</a>
+                            <div id="informasiDropdown" class="hidden ml-12 space-y-2">
+                                <a href="{{ route('berita') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                    <i class="bi bi-newspaper me-2"></i>Berita
+                                </a>
+                                <a href="{{ route('galeri') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                    <i class="bi bi-images me-2"></i>Galeri
+                                </a>
+                                <a href="{{ route('potensidesa') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                    <i class="bi bi-gem me-2"></i>Potensi Desa
+                                </a>
                             </div>
                         </div>
                         
-                        <a href="{{ route('data.penduduk') }}" class="flex items-center space-x-3 text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">
-                            <i class="bi bi-bar-chart"></i>
-                            <span>Data Statistik</span>
+                        <!-- Data Statistik -->
+                        <a href="{{ route('data.penduduk') }}" class="mobile-menu-item flex items-center space-x-4 text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition-all duration-300">
+                            <i class="bi bi-bar-chart-fill text-primary-500 text-xl"></i>
+                            <span class="font-medium">Data Statistik</span>
                         </a>
                         
-                        <a href="{{ route('kontak') }}" class="flex items-center space-x-3 text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">
-                            <i class="bi bi-envelope"></i>
-                            <span>Kontak</span>
+                        <!-- Kontak -->
+                        <a href="{{ route('kontak') }}" class="mobile-menu-item flex items-center space-x-4 text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition-all duration-300">
+                            <i class="bi bi-envelope-fill text-primary-500 text-xl"></i>
+                            <span class="font-medium">Kontak</span>
                         </a>
                         
-                        <!-- CTA Button -->
-                        <button type="button" 
-                                class="w-full mt-4 bg-primary-500 hover:bg-primary-600 text-white px-4 py-3 rounded-lg font-medium transition-colors"
-                                data-bs-toggle="modal" 
-                                data-bs-target="#formPengaduan">
-                            <i class="bi bi-chat-dots me-2"></i>
-                            Buat Pengaduan
-                        </button>
+                        <!-- Enhanced CTA Button -->
+                        <div class="pt-4 border-t border-gray-600 mt-6">
+                            <button type="button" 
+                                    class="btn-enhanced w-full px-6 py-4 text-center font-semibold flex items-center justify-center space-x-3"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#formPengaduan">
+                                <i class="bi bi-chat-dots-fill text-lg"></i>
+                                <span>Buat Pengaduan</span>
+                            </button>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -261,52 +532,172 @@
         </div>
     </div>
     
-    <!-- Scripts -->
+    <!-- Enhanced Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Mobile Navigation Script -->
+    <!-- Enhanced Asset Scripts -->
+    <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    
+    <!-- Enhanced Mobile Navigation Script -->
     <script>
-        // Mobile Menu functionality
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-        const mobileMenuIcon = mobileMenuButton.querySelector('i');
-        
-        // Open mobile menu
-        mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.remove('translate-x-full');
-            mobileMenuIcon.className = 'bi bi-x';
-            document.body.style.overflow = 'hidden';
-        });
-        
-        // Close mobile menu
-        function closeMobileMenuPanel() {
-            mobileMenu.classList.add('translate-x-full');
-            mobileMenuIcon.className = 'bi bi-list';
-            document.body.style.overflow = '';
-        }
-        
-        closeMobileMenu.addEventListener('click', closeMobileMenuPanel);
-        mobileOverlay.addEventListener('click', closeMobileMenuPanel);
-        
-        // Mobile dropdown functionality
-        const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
-        dropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const target = this.getAttribute('data-target');
-                const dropdown = document.getElementById(target);
-                const chevron = this.querySelector('i');
-                
-                dropdown.classList.toggle('hidden');
-                chevron.classList.toggle('rotate-180');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced Mobile Menu functionality with better error handling
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            const mobileMenuIcon = mobileMenuButton ? mobileMenuButton.querySelector('i') : null;
+            
+            console.log('Mobile menu elements:', {
+                button: !!mobileMenuButton,
+                menu: !!mobileMenu,
+                closeBtn: !!closeMobileMenu,
+                overlay: !!mobileOverlay,
+                icon: !!mobileMenuIcon
             });
+            
+            // Enhanced open mobile menu function
+            function openMobileMenu() {
+                if (!mobileMenu) return;
+                
+                mobileMenu.classList.remove('translate-x-full');
+                if (mobileMenuIcon) {
+                    mobileMenuIcon.className = 'bi bi-x-lg';
+                }
+                document.body.style.overflow = 'hidden';
+                
+                // Add animation class
+                mobileMenu.classList.add('animate-slideIn');
+                
+                console.log('Mobile menu opened');
+            }
+            
+            // Enhanced close mobile menu function  
+            function closeMobileMenuPanel() {
+                if (!mobileMenu) return;
+                
+                mobileMenu.classList.add('translate-x-full');
+                if (mobileMenuIcon) {
+                    mobileMenuIcon.className = 'bi bi-list';
+                }
+                document.body.style.overflow = '';
+                
+                // Remove animation class after transition
+                setTimeout(() => {
+                    mobileMenu.classList.remove('animate-slideIn');
+                }, 300);
+                
+                console.log('Mobile menu closed');
+            }
+            
+            // Enhanced event listeners with error handling
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openMobileMenu();
+                });
+            }
+            
+            if (closeMobileMenu) {
+                closeMobileMenu.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeMobileMenuPanel();
+                    console.log('Close button clicked');
+                });
+            }
+            
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeMobileMenuPanel();
+                    console.log('Overlay clicked');
+                });
+            }
+            
+            // Enhanced mobile dropdown functionality
+            const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const target = this.getAttribute('data-target');
+                    const dropdown = document.getElementById(target);
+                    const chevron = this.querySelector('i.bi-chevron-down');
+                    
+                    if (dropdown && chevron) {
+                        dropdown.classList.toggle('hidden');
+                        chevron.classList.toggle('rotate-180');
+                        
+                        // Add smooth animation
+                        if (!dropdown.classList.contains('hidden')) {
+                            dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
+                        } else {
+                            dropdown.style.maxHeight = '0px';
+                        }
+                    }
+                });
+            });
+            
+            // Enhanced window resize handler
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) {
+                    closeMobileMenuPanel();
+                }
+            });
+            
+            // Initialize enhanced libraries if available
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true,
+                    mirror: false
+                });
+            }
+            
+            if (typeof GLightbox !== 'undefined') {
+                GLightbox({
+                    selector: '.glightbox'
+                });
+            }
+            
+            // Enhanced smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            console.log('Enhanced mobile navigation initialized successfully');
         });
         
-        // Close mobile menu on window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 1024) {
-                closeMobileMenuPanel();
+        // Additional enhanced functionality
+        document.addEventListener('keydown', function(e) {
+            // Close mobile menu with Escape key
+            if (e.key === 'Escape') {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                    const mobileMenuIcon = document.querySelector('#mobileMenuButton i');
+                    
+                    mobileMenu.classList.add('translate-x-full');
+                    if (mobileMenuIcon) {
+                        mobileMenuIcon.className = 'bi bi-list';
+                    }
+                    document.body.style.overflow = '';
+                }
             }
         });
     </script>
