@@ -4,6 +4,94 @@
 
 @section('content')
 
+{{-- Custom CSS for 3-Card Layout --}}
+<style>
+/* Enhanced Services Section for 3 Cards Layout */
+.services .icon-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: 30px 25px;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.services .icon-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.services .icon-box .icon {
+    margin-bottom: 20px;
+}
+
+.services .icon-box .icon i {
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.services .icon-box .title {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.services .icon-box .title a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.services .icon-box .title a:hover {
+    color: #F59E0B;
+}
+
+.services .icon-box .description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+}
+
+/* Icon Color Styles */
+.services .icon-box-pink .icon i {
+    color: #ff689b;
+}
+
+.services .icon-box-cyan .icon i {
+    color: #3fcdc7;
+}
+
+.services .icon-box-green .icon i {
+    color: #41cf2e;
+}
+
+/* Responsive adjustments for better mobile experience */
+@media (max-width: 767.98px) {
+    .services .icon-box {
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Tablet: 2 cards in first row, 1 centered in second row */
+    .services .row > .col-md-12 {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 992px) {
+    /* Desktop: All 3 cards in one row */
+    .services .icon-box {
+        min-height: 280px;
+    }
+}
+</style>
+
 {{-- Include Hero Welcome Component --}}
 @include('components.hero-welcome')
 
@@ -13,48 +101,33 @@
         <section class="services" style="background-color: #EAF2F7; padding-top: 60px; margin-top: -1px;">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
-                        <div class="icon-box icon-box-pink">
+                <div class="row justify-content-center">
+                    <!-- Card 1: Sejarah Terbentuk Desa -->
+                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up">
+                        <div class="icon-box icon-box-pink w-100">
                             <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                            <h4 class="title"><a href="#">Sejarah Terbentuk Desa</a></h4>
-                            <p class="description">Desa Mekarmukti adalah sebuah Desa yang merupakan Pamekaran dari Desa Cihampelas yang pada waktu itu Kecamatan Cililin, Kawedanaan Cililin,  Kabupaten Bandung.  </p>
+                            <h4 class="title"><a href="#" class="text-dark fw-bold">Sejarah Terbentuk Desa</a></h4>
+                            <p class="description text-muted">Desa Mekarmukti adalah sebuah Desa yang merupakan Pamekaran dari Desa Cihampelas yang pada waktu itu Kecamatan Cililin, Kawedanaan Cililin, Kabupaten Bandung.</p>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                        <div class="icon-box icon-box-cyan">
+                    <!-- Card 2: Sejarah Pembangunan Desa -->
+                    <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="icon-box icon-box-cyan w-100">
                             <div class="icon"><i class="bx bx-file"></i></div>
-                            <h4 class="title"><a href="#">Sejarah Pembangunan Desa</a></h4>
-                            <p class="description">Desa Mekarmukti Kecamatan Cihampelas adalah salah satu Desa termaju
-                                dalam
-                                Pembangunan disegala Bidang, baik Pembangunan sarana dan prasarana, Pembangunan Ekonomi,
-                                UMKM dan Pendidikan.
-                            </p>
+                            <h4 class="title"><a href="#" class="text-dark fw-bold">Sejarah Pembangunan Desa</a></h4>
+                            <p class="description text-muted">Desa Mekarmukti Kecamatan Cihampelas adalah salah satu Desa termaju dalam Pembangunan disegala Bidang, baik Pembangunan sarana dan prasarana, Pembangunan Ekonomi, UMKM dan Pendidikan.</p>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                        <div class="icon-box icon-box-green">
+                    <!-- Card 3: Topografi Desa -->
+                    <div class="col-12 col-md-12 col-lg-4 d-flex align-items-stretch mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="icon-box icon-box-green w-100">
                             <div class="icon"><i class="bx bx-tachometer"></i></div>
-                            <h4 class="title"><a href="#">Topografi Desa</a></h4>
-                            <p class="description">Desa Mekarmukti merupakan desa yang berada di daerah perbukitan
-                                dengan ketinggian
-                                antara 274 Meter (diatas permukaan laut). </p>
+                            <h4 class="title"><a href="#" class="text-dark fw-bold">Topografi Desa</a></h4>
+                            <p class="description text-muted">Desa Mekarmukti merupakan desa yang berada di daerah perbukitan dengan ketinggian antara 274 Meter (diatas permukaan laut).</p>
                         </div>
                     </div>
-
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                        <div class="icon-box icon-box-blue">
-                            <div class="icon"><i class="bx bx-world"></i></div>
-                            <h4 class="title"><a href="">Isu Strategis Yang dihadapi
-                                </a></h4>
-                            <p class="description">Isu strategis merupakan permasalahan yang berkaitan
-                                dengan fenomena atau belum dapat deselesaikan pada periode
-                                lima tahun sebelumnya.</p>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
