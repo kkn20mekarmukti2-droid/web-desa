@@ -130,6 +130,49 @@
             .mobile-nav-toggle {
                 font-size: 24px !important;
                 padding: 8px !important;
+                color: #fff !important;
+                cursor: pointer !important;
+                display: block !important;
+                line-height: 1 !important;
+                transition: all 0.3s ease !important;
+                z-index: 9999 !important;
+            }
+            
+            .mobile-nav-toggle:hover {
+                color: #F59E0B !important;
+            }
+            
+            /* Ensure navbar is hidden on mobile by default */
+            #navbar ul {
+                display: none !important;
+            }
+            
+            /* Mobile navbar overlay */
+            .navbar-mobile ul {
+                display: block !important;
+                position: fixed !important;
+                top: 70px !important;
+                right: 15px !important;
+                bottom: 15px !important;
+                left: 15px !important;
+                padding: 10px 0 !important;
+                border-radius: 10px !important;
+                background-color: #fff !important;
+                overflow-y: auto !important;
+                transition: 0.3s !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+                z-index: 9998 !important;
+            }
+        }
+        
+        /* Desktop: hide mobile nav toggle */
+        @media (min-width: 992px) {
+            .mobile-nav-toggle {
+                display: none !important;
+            }
+            
+            #navbar ul {
+                display: flex !important;
             }
         }
         .btn-secondary, .btn.btn-secondary {
@@ -438,6 +481,61 @@
     </script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/notifs.js') }}" type="module"></script>
+
+    <!-- Mobile Navigation Fix -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure mobile nav toggle works
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const navbar = document.querySelector('#navbar');
+            
+            if (mobileNavToggle && navbar) {
+                mobileNavToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Toggle navbar-mobile class
+                    navbar.classList.toggle('navbar-mobile');
+                    
+                    // Toggle icon between list and x
+                    this.classList.toggle('bi-list');
+                    this.classList.toggle('bi-x');
+                    
+                    console.log('Mobile nav toggle clicked', navbar.classList.contains('navbar-mobile'));
+                });
+                
+                // Close mobile menu when clicking on nav links
+                const navLinks = document.querySelectorAll('#navbar ul li a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (navbar.classList.contains('navbar-mobile')) {
+                            navbar.classList.remove('navbar-mobile');
+                            mobileNavToggle.classList.remove('bi-x');
+                            mobileNavToggle.classList.add('bi-list');
+                        }
+                    });
+                });
+                
+                // Handle dropdown in mobile
+                const dropdownLinks = document.querySelectorAll('#navbar .dropdown > a');
+                dropdownLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        if (navbar.classList.contains('navbar-mobile')) {
+                            e.preventDefault();
+                            const dropdown = this.nextElementSibling;
+                            if (dropdown) {
+                                dropdown.classList.toggle('dropdown-active');
+                            }
+                        }
+                    });
+                });
+            } else {
+                console.error('Mobile nav elements not found:', {
+                    toggle: !!mobileNavToggle,
+                    navbar: !!navbar
+                });
+            }
+        });
+    </script>
 
 </body>
 
