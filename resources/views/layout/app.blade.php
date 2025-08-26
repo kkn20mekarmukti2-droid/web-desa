@@ -69,11 +69,11 @@
                 </div>
 
                 <nav id="navbar" class="navbar">
-      <ul>
-        <li><a href="{{ route('home') }}"><i class="bx bx-home"></i></a></li>
+      <ul class="d-flex align-items-center justify-content-center">
+        <li class="mx-2"><a href="{{ route('home') }}"><i class="bx bx-home"></i></a></li>
 
         <!-- Profile Desa -->
-        <li class="dropdown">
+        <li class="dropdown mx-2">
           <a href="#"><span>Profile Desa</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
           <ul>
             <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
@@ -83,7 +83,7 @@
         </li>
 
         <!-- Informasi Desa -->
-        <li class="dropdown">
+        <li class="dropdown mx-2">
           <a href="#"><span>Informasi Desa</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
           <ul>
             <li><a href="{{ route('berita') }}">Berita</a></li>
@@ -92,15 +92,16 @@
           </ul>
         </li>
 
-        <li><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
+        <li class="mx-2"><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
 
-        <li><a href="{{ route('kontak') }}">Kontak</a></li>
-    <li class="ms-2">
-      <!-- Tombol untuk membuka modal -->
-      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#formPengaduan">
-        Buat Pengaduan
-      </button>
-    </li>
+        <li class="mx-2"><a href="{{ route('kontak') }}">Kontak</a></li>
+
+        <li class="mx-2">
+            <!-- Tombol untuk membuka modal -->
+            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#formPengaduan">
+                Buat Pengaduan
+            </button>
+        </li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
