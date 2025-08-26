@@ -42,13 +42,13 @@
 </style>
 
 {{-- Hero Section --}}
-<section class="relative min-h-screen hero-bg">
+<section class="relative h-[70vh] md:h-[80vh] hero-bg">
     {{-- Background Overlay Gradasi --}}
     <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
     
     {{-- Grid Container --}}
-    <div class="relative z-10 container mx-auto px-4 min-h-screen">
-        <div class="grid grid-cols-12 min-h-screen items-center">
+    <div class="relative z-10 container mx-auto px-4 h-full">
+        <div class="grid grid-cols-12 h-full items-center">
             {{-- Konten Kiri (6 kolom) --}}
             <div class="lg:col-span-6 col-span-12 space-y-6" style="animation: fadeInLeft 1.5s ease-out;">
                 
@@ -70,7 +70,7 @@
                 
                 {{-- Call to Action Button --}}
                 <div class="pt-6">
-                    <a href="/data" 
+                    <a href="{{ route('data.penduduk') }}" 
                        class="inline-flex items-center px-8 py-4 bg-[#F59E0B] text-black font-semibold text-lg rounded-lg hover:bg-[#F59E0B]/90 focus:ring-4 focus:ring-[#F59E0B]/50 transition-all duration-300 transform hover:scale-105 shadow-xl">
                         <i class="bi bi-graph-up me-3"></i>
                         Jelajahi Data Desa

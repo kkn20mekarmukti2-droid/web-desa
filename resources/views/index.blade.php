@@ -59,6 +59,51 @@
 
             </div>
         </section>
+        
+        {{-- ======= Berita Terbaru Section ======= --}}
+        <section class="py-12 bg-white">
+            <div class="container">
+                <div class="section-title text-center" data-aos="fade-up">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Berita Terbaru</h2>
+                    <p class="text-gray-600 mb-8">Informasi terkini dari Desa Mekarmukti</p>
+                </div>
+                
+                <div class="row" data-aos="fade-up" data-aos-delay="100">
+                    @if($artikel && $artikel->count() > 0)
+                        @foreach($artikel->take(3) as $berita)
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100 shadow-sm border-0">
+                                    @if($berita->gambar)
+                                        <img src="{{ asset('img/' . $berita->gambar) }}" class="card-img-top" alt="{{ $berita->judul }}" style="height: 200px; object-fit: cover;">
+                                    @else
+                                        <div class="card-img-top bg-gray-200 d-flex align-items-center justify-content-center" style="height: 200px;">
+                                            <i class="bi bi-image text-gray-400" style="font-size: 3rem;"></i>
+                                        </div>
+                                    @endif
+                                    <div class="card-body d-flex flex-column">
+                                        <small class="text-muted mb-2">{{ $berita->created_at->format('d M Y') }}</small>
+                                        <h5 class="card-title">{{ Str::limit($berita->judul, 50) }}</h5>
+                                        <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($berita->konten), 100) }}</p>
+                                        <a href="{{ route('detailartikel', ['tanggal' => $berita->created_at->format('Y-m-d'), 'judul' => Str::slug($berita->judul)]) }}" 
+                                           class="btn btn-outline-primary mt-auto">Baca Selengkapnya</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Belum ada berita tersedia.</p>
+                        </div>
+                    @endif
+                </div>
+                
+                <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="{{ route('berita') }}" class="btn btn-primary btn-lg">Lihat Semua Berita</a>
+                </div>
+            </div>
+        </section>
+        {{-- End Berita Section --}}
+        
         <div class="flex flex-col sm:flex-row  items-center justify-between bg-gray-100 p-6 space-y-4 sm:space-y-0 sm:w-[1280px] mx-auto rounded-md"
             data-aos="fade-up" date-aos-delay="200">
             <p class="text-center sm:text-left text-gray-700 text-lg font-medium">
