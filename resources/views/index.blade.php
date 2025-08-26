@@ -251,10 +251,18 @@
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100 shadow-sm border-0">
                                     @if($berita->sampul)
-                                        <img src="{{ asset('img/' . $berita->sampul) }}" class="card-img-top" alt="{{ $berita->judul }}" style="height: 180px; object-fit: cover;">
+                                        <img src="{{ asset('img/' . $berita->sampul) }}" 
+                                             class="card-img-top img-fluid" 
+                                             alt="{{ $berita->judul }}" 
+                                             style="height: 180px; object-fit: cover; width: 100%;"
+                                             loading="lazy"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="card-img-top bg-light d-none align-items-center justify-content-center" style="height: 180px; background: #f8f9fa;">
+                                            <i class="bi bi-image text-muted" style="font-size: 2.5rem;"></i>
+                                        </div>
                                     @else
-                                        <div class="card-img-top bg-gray-200 d-flex align-items-center justify-content-center" style="height: 180px;">
-                                            <i class="bi bi-image text-gray-400" style="font-size: 2.5rem;"></i>
+                                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 180px; background: #f8f9fa;">
+                                            <i class="bi bi-image text-muted" style="font-size: 2.5rem;"></i>
                                         </div>
                                     @endif
                                     <div class="card-body d-flex flex-column p-3 md:p-4">

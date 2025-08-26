@@ -120,52 +120,38 @@
         }
         
         /* Mobile-specific button styling */
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
             .btn-warning, .btn.btn-warning {
                 padding: 10px 20px !important;
                 font-size: 14px !important;
                 min-height: 44px !important;
             }
             
+            /* Mobile nav toggle - override default style.css */
             .mobile-nav-toggle {
-                font-size: 24px !important;
-                padding: 8px !important;
                 color: #fff !important;
+                font-size: 28px !important;
                 cursor: pointer !important;
                 display: block !important;
-                line-height: 1 !important;
-                transition: all 0.3s ease !important;
+                line-height: 0 !important;
+                transition: 0.5s !important;
+                padding: 8px !important;
                 z-index: 9999 !important;
+                border: none !important;
+                background: transparent !important;
             }
             
             .mobile-nav-toggle:hover {
                 color: #F59E0B !important;
             }
             
-            /* Ensure navbar is hidden on mobile by default */
+            /* Ensure navbar ul is hidden on mobile */
             #navbar ul {
                 display: none !important;
             }
-            
-            /* Mobile navbar overlay */
-            .navbar-mobile ul {
-                display: block !important;
-                position: fixed !important;
-                top: 70px !important;
-                right: 15px !important;
-                bottom: 15px !important;
-                left: 15px !important;
-                padding: 10px 0 !important;
-                border-radius: 10px !important;
-                background-color: #fff !important;
-                overflow-y: auto !important;
-                transition: 0.3s !important;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
-                z-index: 9998 !important;
-            }
         }
         
-        /* Desktop: hide mobile nav toggle */
+        /* Desktop: hide mobile nav toggle and show navbar */
         @media (min-width: 992px) {
             .mobile-nav-toggle {
                 display: none !important;
