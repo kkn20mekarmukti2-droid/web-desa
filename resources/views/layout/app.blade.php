@@ -833,59 +833,6 @@
             console.log('Slide-in drawer navigation initialized successfully!');
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ensure mobile nav toggle works
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-            const navbar = document.querySelector('#navbar');
-            
-            if (mobileNavToggle && navbar) {
-                mobileNavToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Toggle navbar-mobile class
-                    navbar.classList.toggle('navbar-mobile');
-                    
-                    // Toggle icon between list and x
-                    this.classList.toggle('bi-list');
-                    this.classList.toggle('bi-x');
-                    
-                    console.log('Mobile nav toggle clicked', navbar.classList.contains('navbar-mobile'));
-                });
-                
-                // Close mobile menu when clicking on nav links
-                const navLinks = document.querySelectorAll('#navbar ul li a');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        if (navbar.classList.contains('navbar-mobile')) {
-                            navbar.classList.remove('navbar-mobile');
-                            mobileNavToggle.classList.remove('bi-x');
-                            mobileNavToggle.classList.add('bi-list');
-                        }
-                    });
-                });
-                
-                // Handle dropdown in mobile
-                const dropdownLinks = document.querySelectorAll('#navbar .dropdown > a');
-                dropdownLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        if (navbar.classList.contains('navbar-mobile')) {
-                            e.preventDefault();
-                            const dropdown = this.nextElementSibling;
-                            if (dropdown) {
-                                dropdown.classList.toggle('dropdown-active');
-                            }
-                        }
-                    });
-                });
-            } else {
-                console.error('Mobile nav elements not found:', {
-                    toggle: !!mobileNavToggle,
-                    navbar: !!navbar
-                });
-            }
-        });
-    </script>
 
 </body>
 
