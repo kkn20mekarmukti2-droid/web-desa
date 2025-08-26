@@ -6,76 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <meta content="@yield('judul', 'Desa Mekarmukti, pemekaran Desa Cihampelas pada 1980, adalah desa termuda di Kecamatan Cihampelas, Kabupaten Bandung Barat. Temukan lebih lanjut di sini!')" name="description">
-    <meta cont            <!-- Navigation Links -->
-            <nav style="padding: 1rem 0;">
-                <div>
-                    <a href="javascript:void(0)" onclick="toggleMobileDropdown('profileDropdown')" style="
-                        display: block;
-                        color: white;
-                        text-decoration: none;
-                        padding: 1rem 1.5rem;
-                        font-size: 16px;
-                        font-weight: 500;
-                        border-bottom: 1px solid #374151;
-                        transition: all 0.25s ease;
-                        position: relative;
-                    " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
-                       onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
-                        Profile Desa
-                        <span style="
-                            position: absolute;
-                            right: 1.5rem;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            transition: transform 0.25s ease;
-                            font-size: 12px;
-                        " id="profileChevron">▼</span>
-                    </a>
-                    
-                    <div id="profileDropdown" style="
-                        max-height: 0;
-                        overflow: hidden;
-                        transition: max-height 0.25s ease-in-out;
-                        background: #0f172a;
-                    ">
-                        <a href="{{ route('sejarah') }}" onclick="closeMobileMenu()" style="
-                            display: block;
-                            color: #d1d5db;
-                            text-decoration: none;
-                            padding: 0.75rem 2.5rem;
-                            font-size: 14px;
-                            border-bottom: 1px solid #374151;
-                            transition: all 0.2s ease;
-                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
-                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
-                            Sejarah
-                        </a>
-                        <a href="{{ route('visi') }}" onclick="closeMobileMenu()" style="
-                            display: block;
-                            color: #d1d5db;
-                            text-decoration: none;
-                            padding: 0.75rem 2.5rem;
-                            font-size: 14px;
-                            border-bottom: 1px solid #374151;
-                            transition: all 0.2s ease;
-                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
-                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
-                            Visi & Misi
-                        </a>
-                        <a href="{{ route('pemerintahan') }}" onclick="closeMobileMenu()" style="
-                            display: block;
-                            color: #d1d5db;
-                            text-decoration: none;
-                            padding: 0.75rem 2.5rem;
-                            font-size: 14px;
-                            border-bottom: 1px solid #374151;
-                            transition: all 0.2s ease;
-                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
-                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
-                            Struktur Organisasi
-                        </a>
-                    </div>
-                </div>rmukti, cihampelas, berita desa,desa mekarmukti" name="keywords">
+    <meta content="desa, mekarmukti, cihampelas, berita desa, desa mekarmukti" name="keywords">
     <meta property="og:title" content="@yield('judul', 'Desa Mekarmukti')">
     <meta property="og:description" content="@yield('judul', 'Desa Mekarmukti, pemekaran Desa Cihampelas pada 1980, adalah desa termuda di Kecamatan Cihampelas, Kabupaten Bandung Barat. Temukan lebih lanjut di sini!')">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -118,7 +49,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -326,8 +256,6 @@
         }
     </style>
 
-
-
 </head>
 
 <body>
@@ -440,19 +368,74 @@
 
             <!-- Navigation Links -->
             <nav style="padding: 1rem 0;">
-                <a href="{{ route('home') }}" onclick="closeMobileMenu()" style="
-                    display: block;
-                    color: white;
-                    text-decoration: none;
-                    padding: 1rem 1.5rem;
-                    font-size: 16px;
-                    font-weight: 500;
-                    border-bottom: 1px solid #374151;
-                    transition: all 0.25s ease;
-                " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
-                   onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
-                    Profile Desa
-                </a>
+                <div>
+                    <a href="javascript:void(0)" onclick="toggleMobileDropdown('profileDropdown')" style="
+                        display: block;
+                        color: white;
+                        text-decoration: none;
+                        padding: 1rem 1.5rem;
+                        font-size: 16px;
+                        font-weight: 500;
+                        border-bottom: 1px solid #374151;
+                        transition: all 0.25s ease;
+                        position: relative;
+                    " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
+                       onmouseout="this.style.color='white'; this.style.backgroundColor='transparent'">
+                        Profile Desa
+                        <span style="
+                            position: absolute;
+                            right: 1.5rem;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            transition: transform 0.25s ease;
+                            font-size: 12px;
+                        " id="profileChevron">▼</span>
+                    </a>
+                    
+                    <div id="profileDropdown" style="
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.25s ease-in-out;
+                        background: #0f172a;
+                    ">
+                        <a href="{{ route('sejarah') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Sejarah
+                        </a>
+                        <a href="{{ route('visi') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Visi & Misi
+                        </a>
+                        <a href="{{ route('pemerintahan') }}" onclick="closeMobileMenu()" style="
+                            display: block;
+                            color: #d1d5db;
+                            text-decoration: none;
+                            padding: 0.75rem 2.5rem;
+                            font-size: 14px;
+                            border-bottom: 1px solid #374151;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
+                           onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
+                            Struktur Organisasi
+                        </a>
+                    </div>
+                </div>
 
                 <div>
                     <a href="javascript:void(0)" onclick="toggleMobileDropdown('informasiDropdown')" style="
@@ -649,9 +632,9 @@
                             Desa Mekarmukti <br>
                             Kec.Cihampelas, 40562 <br>
                             Bandung Barat, Jawa Barat <br><br>
-                            <strong>Telepon:</strong>+62 851-5762-2980<br>
+                            <strong>Telepon:</strong>+62 851-5762-2980<br>
                             <strong>Email:</strong> desamotekar00@gmail.com<br>
-                            <strong>Ambulance:</strong> +62 831‑3836‑4566<br>
+                            <strong>Ambulance:</strong> +62 831‑3836‑4566<br>
                         </p>
                     </div>
 
