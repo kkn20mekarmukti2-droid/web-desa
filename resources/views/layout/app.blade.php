@@ -73,6 +73,25 @@
             background: rgba(255, 216, 46, 0.1);
             color: #f8d92e;
         }
+        /* Dropdown menu styling fix */
+        #navbar .dropdown ul {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        #navbar .dropdown ul a {
+            color: #374151 !important;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin: 2px 8px;
+        }
+        #navbar .dropdown ul a:hover {
+            background: rgba(255, 216, 46, 0.1) !important;
+            color: #1f2937 !important;
+        }
         /* Logo presisi dengan proporsi yang tepat */
         .logo h1 {
             font-family: 'Roboto', sans-serif;
@@ -127,7 +146,7 @@
 
                 <div class="logo">
                     <h1 class="text-light" style="font-size: 2.2rem; margin-bottom: 0; line-height: 1; font-weight: 700;"> 
-                        <a href="index.html"><span>MEKARMUKTI</span></a>
+                        <a href="{{ route('home') }}"><span>MEKARMUKTI</span></a>
                     </h1>
                 </div>
 
