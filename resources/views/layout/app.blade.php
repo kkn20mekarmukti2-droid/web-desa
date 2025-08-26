@@ -126,30 +126,38 @@
                 min-height: 44px !important;
             }
             
-            /* Mobile Navigation Toggle */
+            /* Mobile Navigation Toggle - Fixed positioning */
             .mobile-nav-toggle {
                 display: block !important;
                 color: #fff !important;
                 font-size: 28px !important;
                 cursor: pointer !important;
-                padding: 8px !important;
+                padding: 8px 12px !important;
                 margin: 0 !important;
                 border: none !important;
                 background: transparent !important;
                 line-height: 1 !important;
-                transition: all 0.3s ease !important;
-                z-index: 100000 !important;
+                transition: color 0.3s ease !important;
+                z-index: 9999 !important;
                 position: relative !important;
+                /* Fixed: Remove transform to prevent layout shift */
+                border-radius: 4px !important;
             }
             
             .mobile-nav-toggle:hover {
                 color: #F59E0B !important;
-                transform: scale(1.1) !important;
+                /* Fixed: Remove scale transform that causes shift */
+                background-color: rgba(245, 158, 11, 0.1) !important;
             }
             
             /* Hide desktop navbar on mobile */
             #navbar > ul {
                 display: none !important;
+            }
+            
+            /* Ensure header stays on top */
+            #header {
+                z-index: 10000 !important;
             }
         }
         
@@ -261,17 +269,19 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top d-flex align-items-center" style="background: linear-gradient(135deg, #000000, #1f2937, #374151); border-bottom: 2px solid #F59E0B; backdrop-filter: blur(10px);">
+    <header id="header" class="fixed-top d-flex align-items-center" style="background: linear-gradient(135deg, #000000, #1f2937, #374151); border-bottom: 2px solid #F59E0B; backdrop-filter: blur(10px); z-index: 10000;">
         <div class="container d-flex justify-content-between align-items-center">
-
-            <img src="{{ asset('assets/img/motekar-bg.png') }}" alt="" width="45px" class="m-lg-auto" style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <div class="container d-flex justify-content-between align-items-center">
-
+            <!-- Left: Logo Section -->
+            <div class="d-flex align-items-center">
+                <img src="{{ asset('assets/img/motekar-bg.png') }}" alt="" width="45px" style="border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-right: 15px;">
                 <div class="logo">
                     <h1 class="text-light" style="font-size: 2.2rem; margin-bottom: 0; line-height: 1; font-weight: 700;"> 
                         <a href="{{ route('home') }}"><span>MEKARMUKTI</span></a>
                     </h1>
                 </div>
+            </div>
+
+            <!-- Right: Navigation Section -->
 
                 <nav id="navbar" class="navbar">
       <ul>
@@ -310,62 +320,40 @@
       </ul>
       <i class="bi bi-list mobile-nav-toggle" onclick="openMobileMenu()"></i>
     </nav><!-- .navbar -->
+            
+        </div><!-- End container -->
+    </header><!-- End Header -->
 
         <!-- Mobile Navigation - Slide-in Drawer System -->
-        <!-- Overlay -->
+        <!-- Overlay - Fixed to not cover header area -->
         <div id="mobileOverlay" style="
             display: none;
             position: fixed;
-            top: 0;
+            top: 70px;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: calc(100vh - 70px);
             background: rgba(0, 0, 0, 0.5);
-            z-index: 99998;
+            z-index: 9998;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
         " onclick="closeMobileMenu()"></div>
 
-        <!-- Slide-in Panel -->
+        <!-- Slide-in Panel - Fixed to start below header -->
         <div id="mobileMenuPanel" style="
             position: fixed;
-            top: 0;
+            top: 70px;
             right: 0;
             width: 70%;
             max-width: 320px;
-            height: 100vh;
+            height: calc(100vh - 70px);
             background: #111827;
-            z-index: 99999;
+            z-index: 9999;
             transform: translateX(100%);
             transition: transform 0.3s ease-in-out;
             overflow-y: auto;
             box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
         ">
-            <!-- Header with Close Button -->
-            <div style="
-                padding: 1rem 1.5rem;
-                border-bottom: 1px solid #374151;
-                display: flex;
-                justify-content: flex-end;
-                align-items: center;
-                min-height: 60px;
-            ">
-                <button onclick="closeMobileMenu()" id="closeMobileBtn" style="
-                    background: none;
-                    border: none;
-                    color: #F59E0B;
-                    font-size: 20px;
-                    cursor: pointer;
-                    padding: 8px;
-                    border-radius: 4px;
-                    transition: background-color 0.2s ease;
-                    line-height: 1;
-                " onmouseover="this.style.backgroundColor='rgba(245, 158, 11, 0.1)'" 
-                   onmouseout="this.style.backgroundColor='transparent'">
-                    ✕
-                </button>
-            </div>
-
             <!-- Navigation Links -->
             <nav style="padding: 1rem 0;">
                 <div>
