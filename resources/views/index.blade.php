@@ -250,32 +250,18 @@
                         @foreach($artikel->take(3) as $berita)
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100 shadow-sm border-0">
-                                    @if($berita->sampul)
-                                        <!-- Debug: Show image path -->
-                                        <div class="position-relative">
-                                            <img src="{{ asset('img/' . $berita->sampul) }}" 
-                                                 class="card-img-top img-fluid w-100" 
-                                                 alt="{{ $berita->judul }}" 
-                                                 style="height: 180px; object-fit: cover;"
-                                                 loading="lazy"
-                                                 onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                            <!-- Fallback placeholder -->
-                                            <div class="card-img-top bg-light d-none align-items-center justify-content-center position-absolute top-0 start-0 w-100 h-100" 
-                                                 style="height: 180px; background: #f8f9fa;">
-                                                <div class="text-center">
-                                                    <i class="bi bi-image text-muted" style="font-size: 2.5rem;"></i>
-                                                    <small class="d-block text-muted mt-2">Gambar tidak ditemukan</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Debug info - remove in production -->
-                                        <small class="text-muted px-2">Path: {{ asset('img/' . $berita->sampul) }}</small>
+                                    @if($berita->sampul && file_exists(public_path('img/' . $berita->sampul)))
+                                        <img src="{{ asset('img/' . $berita->sampul) }}" 
+                                             class="card-img-top img-fluid w-100" 
+                                             alt="{{ $berita->judul }}" 
+                                             style="height: 180px; object-fit: cover;"
+                                             loading="lazy">
                                     @else
-                                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
-                                             style="height: 180px; background: #f8f9fa;">
+                                        <div class="card-img-top bg-gradient-to-br from-blue-100 to-blue-200 d-flex align-items-center justify-content-center" 
+                                             style="height: 180px;">
                                             <div class="text-center">
-                                                <i class="bi bi-image text-muted" style="font-size: 2.5rem;"></i>
-                                                <small class="d-block text-muted mt-2">Tidak ada gambar</small>
+                                                <i class="bi bi-newspaper text-blue-500" style="font-size: 3rem;"></i>
+                                                <small class="d-block text-blue-600 mt-2 fw-medium">Artikel Berita</small>
                                             </div>
                                         </div>
                                     @endif

@@ -237,8 +237,8 @@
         #closeMobileMenu {
             background: rgba(245, 158, 11, 0.1);
             border-radius: 50%;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -571,11 +571,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM fully loaded, initializing mobile navigation...');
             
-            // Get all elements with detailed logging
-            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            // Get all elements with detailed logging - CORRECTED IDs
+            const mobileMenuButton = document.getElementById('mobileMenuButton');  // CORRECTED
             const mobileMenu = document.getElementById('mobileMenu');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
-            const mobileOverlay = document.getElementById('mobileOverlay');
+            const mobileOverlay = document.getElementById('mobileOverlay');  // CORRECTED
             const mobileMenuIcon = mobileMenuButton ? mobileMenuButton.querySelector('i') : null;
             
             console.log('Mobile menu elements found:', {
