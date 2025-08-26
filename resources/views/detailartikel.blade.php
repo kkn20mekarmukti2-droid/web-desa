@@ -34,8 +34,16 @@
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
+                <img src="{{ asset('img/' . $artikel->sampul) }}" alt="" class="w-full bg-cover mt-10 rounded-lg">
             @else
-                <img src="{{ asset('img/' . $artikel->sampul) }}" alt="" class="w-full bg-cover mt-10">
+                {{-- Placeholder untuk detail artikel --}}
+                <div class="w-full h-64 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mt-10 rounded-lg">
+                    <div class="text-center">
+                        <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
+                        <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
+                    </div>
+                </div>
             @endif
             <div class="my-10 mx-5 prose">{!! $artikel->deskripsi !!}</div>
         </div>

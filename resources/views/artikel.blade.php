@@ -39,9 +39,16 @@
                                         title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                @elseif($i->sampul && file_exists(public_path('img/' . $i->sampul)))
+                                    <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="w-full object-cover rounded-md">
                                 @else
-                                    <img src="{{ asset('img/' . $i->sampul) }}" alt=""
-                                        class="w-full object-contain">
+                                    {{-- Placeholder untuk artikel tanpa gambar --}}
+                                    <div class="w-full aspect-video bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-md">
+                                        <div class="text-center">
+                                            <i class="bi bi-newspaper text-blue-500" style="font-size: 2rem;"></i>
+                                            <small class="d-block text-blue-600 mt-1 text-xs">Artikel Berita</small>
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                             <div class="col-span-2 py-3">
@@ -118,8 +125,13 @@
                                                 @endphp
                                                 <img src="https://img.youtube.com/vi/{{ $thumbnail }}/hqdefault.jpg"
                                                     alt="" class="w-1/4">
+                                            @elseif($i->sampul && file_exists(public_path('img/' . $i->sampul)))
+                                                <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="w-1/4 object-cover">
                                             @else
-                                                <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="w-1/4">
+                                                {{-- Mini placeholder untuk sidebar --}}
+                                                <div class="w-1/4 aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                                                    <i class="bi bi-image text-gray-400 text-lg"></i>
+                                                </div>
                                             @endif
                                             <div class="ml-1">
                                                 <p class="group-hover:font-bold transition-all text-xs">

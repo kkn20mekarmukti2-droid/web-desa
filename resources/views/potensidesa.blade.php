@@ -39,9 +39,16 @@
                                         title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                @elseif($i->sampul && file_exists(public_path('img/' . $i->sampul)))
+                                    <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="card-img-top object-cover">
                                 @else
-                                    <img src="{{ asset('img/' . $i->sampul) }}" alt=""
-                                        class="card-img-top">
+                                    {{-- Placeholder untuk kartu potensi desa --}}
+                                    <div class="card-img-top bg-gradient-to-br from-green-100 to-green-200 d-flex align-items-center justify-content-center" style="height: 200px;">
+                                        <div class="text-center">
+                                            <i class="bi bi-gem text-green-600" style="font-size: 3rem;"></i>
+                                            <small class="d-block text-green-700 mt-2 fw-medium">Potensi Desa</small>
+                                        </div>
+                                    </div>
                                 @endif
                                 <div class="card-body flex flex-col justify-between h-40">
                                     <div class="">

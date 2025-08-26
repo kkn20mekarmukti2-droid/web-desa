@@ -8,13 +8,16 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 use App\Models\artikelModel;
 use App\Models\galleryModel;
 
-echo "=== ARTIKEL DATA ===\n";
-$articles = artikelModel::select('judul', 'sampul', 'created_at')->take(5)->get();
+echo "=== ALL ARTIKEL DATA ===\n";
+$articles = artikelModel::select('judul', 'sampul', 'created_at')->get();
 foreach($articles as $article) {
     echo "Judul: {$article->judul}\n";
     echo "Sampul: {$article->sampul}\n";
-    echo "Path: " . asset('img/' . $article->sampul) . "\n";
-    echo "File exists: " . (file_exists(public_path('img/' . $article->sampul)) ? 'YES' : 'NO') . "\n";
+    $fileExists = file_exists(public_path('img/' . $article->sampul));
+    echo "File exists: " . ($fileExists ? 'YES' : 'NO') . "\n";
+    if ($fileExists) {
+        echo "✅ VALID IMAGE\n";
+    }
     echo "---\n";
 }
 

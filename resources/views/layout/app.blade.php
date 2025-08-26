@@ -404,8 +404,9 @@
                              class="w-8 h-8 rounded-lg">
                         <span class="text-white font-bold text-lg">Menu</span>
                     </div>
+                    <!-- Tombol close disembunyikan sementara -->
                     <button id="closeMobileMenu" 
-                            class="text-white text-2xl hover:text-primary-500 transition-all duration-300"
+                            class="text-white text-2xl hover:text-primary-500 transition-all duration-300 hidden"
                             aria-label="Close Menu">
                         <i class="bi bi-x-lg"></i>
                     </button>
