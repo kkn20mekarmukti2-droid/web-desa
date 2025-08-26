@@ -237,17 +237,28 @@
         #closeMobileMenu {
             background: rgba(245, 158, 11, 0.1);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            cursor: pointer !important;
+            border: none;
+            outline: none;
+            z-index: 10001 !important;
+            position: relative !important;
+            pointer-events: auto !important;
         }
         
         #closeMobileMenu:hover {
             background: rgba(245, 158, 11, 0.3);
             transform: rotate(90deg) scale(1.1);
+        }
+        
+        #closeMobileMenu:active {
+            transform: rotate(90deg) scale(0.95);
+            background: rgba(245, 158, 11, 0.5);
         }
         
         /* Logo Enhancement */
@@ -262,18 +273,19 @@
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
         }
         
-        /* Brand Text Enhancement */
+        /* Brand Text - Restored Original Style */
         .brand-text {
-            background: linear-gradient(135deg, #ffffff, #F59E0B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            transition: all 0.3s ease;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+            font-size: 2.2rem !important;
+            font-weight: 700 !important;
+            line-height: 1 !important;
         }
         
         .brand-text:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+            color: #F59E0B !important;
+            text-decoration: none !important;
         }
     </style>
     
@@ -291,10 +303,10 @@
                     <img src="{{ asset('assets/img/motekar-bg.png') }}" 
                          alt="Logo Mekarmukti" 
                          class="logo-img w-10 h-10 lg:w-12 lg:h-12 rounded-lg shadow-md">
-                    <div class="text-white">
-                        <h1 class="text-xl lg:text-2xl font-bold leading-none font-heading">
-                            <a href="{{ route('home') }}" class="brand-text hover:text-primary-500 transition-all duration-300">
-                                MEKARMUKTI
+                    <div class="logo">
+                        <h1 class="text-white mb-0 leading-none font-heading">
+                            <a href="{{ route('home') }}" class="brand-text">
+                                <span>MEKARMUKTI</span>
                             </a>
                         </h1>
                     </div>
@@ -487,11 +499,25 @@
         @yield('content')
     </main>
     
-    <!-- Footer -->
+    <!-- Enhanced Footer -->
     <footer class="bg-gray-900 text-white">
         <div class="container mx-auto px-4 py-8">
-            <div class="text-center">
-                <p>&copy; {{ date('Y') }} Desa Mekarmukti. Semua hak dilindungi.</p>
+            <div class="text-center border-t border-gray-700 pt-6">
+                <div class="mb-4">
+                    <p>&copy; Copyright <strong><span>Desa Mekarmukti</span></strong>. All rights reserved.</p>
+                </div>
+                <div class="text-gray-300 text-sm">
+                    Designed by 
+                    <a href="https://www.instagram.com/kkn_mekarmuktiplb/" 
+                       class="text-primary-500 hover:text-primary-400 transition-colors duration-300 font-medium">
+                        KKN Politeknik LP3I Bandung
+                    </a> 
+                    & 
+                    <a href="https://www.instagram.com/kkn20mekarmukti2/" 
+                       class="text-primary-500 hover:text-primary-400 transition-colors duration-300 font-medium">
+                        KKN Universitas Muhammadiyah Bandung
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
@@ -543,84 +569,127 @@
     <!-- Enhanced Mobile Navigation Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Enhanced Mobile Menu functionality with better error handling
+            console.log('DOM fully loaded, initializing mobile navigation...');
+            
+            // Get all elements with detailed logging
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const mobileMenu = document.getElementById('mobileMenu');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
             const mobileOverlay = document.getElementById('mobileOverlay');
             const mobileMenuIcon = mobileMenuButton ? mobileMenuButton.querySelector('i') : null;
             
-            console.log('Mobile menu elements:', {
-                button: !!mobileMenuButton,
-                menu: !!mobileMenu,
-                closeBtn: !!closeMobileMenu,
-                overlay: !!mobileOverlay,
-                icon: !!mobileMenuIcon
+            console.log('Mobile menu elements found:', {
+                mobileMenuButton: !!mobileMenuButton,
+                mobileMenu: !!mobileMenu,
+                closeMobileMenu: !!closeMobileMenu,
+                mobileOverlay: !!mobileOverlay,
+                mobileMenuIcon: !!mobileMenuIcon
             });
+            
+            if (closeMobileMenu) {
+                console.log('Close button element:', closeMobileMenu);
+                console.log('Close button classes:', closeMobileMenu.className);
+            }
             
             // Enhanced open mobile menu function
             function openMobileMenu() {
-                if (!mobileMenu) return;
+                console.log('Opening mobile menu...');
+                if (!mobileMenu) {
+                    console.error('Mobile menu element not found!');
+                    return;
+                }
                 
                 mobileMenu.classList.remove('translate-x-full');
                 if (mobileMenuIcon) {
                     mobileMenuIcon.className = 'bi bi-x-lg';
+                    console.log('Changed hamburger to X icon');
                 }
                 document.body.style.overflow = 'hidden';
                 
                 // Add animation class
                 mobileMenu.classList.add('animate-slideIn');
                 
-                console.log('Mobile menu opened');
+                console.log('Mobile menu opened successfully');
             }
             
             // Enhanced close mobile menu function  
             function closeMobileMenuPanel() {
-                if (!mobileMenu) return;
+                console.log('Closing mobile menu...');
+                if (!mobileMenu) {
+                    console.error('Mobile menu element not found!');
+                    return;
+                }
                 
                 mobileMenu.classList.add('translate-x-full');
                 if (mobileMenuIcon) {
                     mobileMenuIcon.className = 'bi bi-list';
+                    console.log('Changed X back to hamburger icon');
                 }
                 document.body.style.overflow = '';
                 
                 // Remove animation class after transition
                 setTimeout(() => {
-                    mobileMenu.classList.remove('animate-slideIn');
+                    if (mobileMenu) {
+                        mobileMenu.classList.remove('animate-slideIn');
+                    }
                 }, 300);
                 
-                console.log('Mobile menu closed');
+                console.log('Mobile menu closed successfully');
             }
             
-            // Enhanced event listeners with error handling
+            // Enhanced event listeners with better error handling
             if (mobileMenuButton) {
+                console.log('Setting up mobile menu button event listener...');
                 mobileMenuButton.addEventListener('click', function(e) {
+                    console.log('Mobile menu button clicked');
                     e.preventDefault();
                     e.stopPropagation();
                     openMobileMenu();
                 });
+            } else {
+                console.error('Mobile menu button not found!');
             }
             
             if (closeMobileMenu) {
+                console.log('Setting up close button event listener...');
+                
+                // Multiple event listeners to ensure it works
                 closeMobileMenu.addEventListener('click', function(e) {
+                    console.log('Close button clicked via click event');
                     e.preventDefault();
                     e.stopPropagation();
                     closeMobileMenuPanel();
-                    console.log('Close button clicked');
-                });
+                }, true); // Use capture phase
+                
+                closeMobileMenu.addEventListener('touchstart', function(e) {
+                    console.log('Close button touched via touchstart event');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeMobileMenuPanel();
+                }, true);
+                
+                // Test if button is clickable
+                console.log('Close button styles:', window.getComputedStyle(closeMobileMenu));
+            } else {
+                console.error('Close mobile menu button not found!');
             }
             
             if (mobileOverlay) {
+                console.log('Setting up overlay event listener...');
                 mobileOverlay.addEventListener('click', function(e) {
+                    console.log('Overlay clicked');
                     e.preventDefault();
                     e.stopPropagation();
                     closeMobileMenuPanel();
-                    console.log('Overlay clicked');
                 });
+            } else {
+                console.error('Mobile overlay not found!');
             }
             
             // Enhanced mobile dropdown functionality
             const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+            console.log('Found', dropdownToggles.length, 'dropdown toggles');
+            
             dropdownToggles.forEach(toggle => {
                 toggle.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -647,6 +716,7 @@
             // Enhanced window resize handler
             window.addEventListener('resize', function() {
                 if (window.innerWidth >= 1024) {
+                    console.log('Window resized to desktop, closing mobile menu');
                     closeMobileMenuPanel();
                 }
             });
@@ -682,12 +752,24 @@
             });
             
             console.log('Enhanced mobile navigation initialized successfully');
+            
+            // Debug function for testing
+            window.debugMobileMenu = function() {
+                console.log('Debug info:', {
+                    mobileMenuButton: !!mobileMenuButton,
+                    mobileMenu: !!mobileMenu,
+                    closeMobileMenu: !!closeMobileMenu,
+                    mobileOverlay: !!mobileOverlay,
+                    menuVisible: mobileMenu ? !mobileMenu.classList.contains('translate-x-full') : 'N/A'
+                });
+            };
         });
         
-        // Additional enhanced functionality
+        // Enhanced keyboard support
         document.addEventListener('keydown', function(e) {
             // Close mobile menu with Escape key
             if (e.key === 'Escape') {
+                console.log('Escape key pressed');
                 const mobileMenu = document.getElementById('mobileMenu');
                 if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
                     const mobileMenuIcon = document.querySelector('#mobileMenuButton i');
@@ -697,6 +779,7 @@
                         mobileMenuIcon.className = 'bi bi-list';
                     }
                     document.body.style.overflow = '';
+                    console.log('Mobile menu closed with Escape key');
                 }
             }
         });

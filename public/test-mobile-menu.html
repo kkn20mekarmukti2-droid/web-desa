@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Mobile Menu</title>
+</head>
+<body>
+    <h1>Mobile Menu Debugging</h1>
+    <p>Open this page in browser console and run:</p>
+    <code>window.debugMobileMenu()</code>
+    <p>Then try to click the close button on the mobile menu.</p>
+    
+    <script>
+        // Auto redirect to main page for testing
+        setTimeout(() => {
+            alert('Will redirect to main page for testing. Open console and run: window.debugMobileMenu()');
+            window.location.href = '/';
+        }, 2000);
+    </script>
+</body>
+</html>
