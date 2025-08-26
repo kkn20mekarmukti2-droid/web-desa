@@ -73,8 +73,8 @@
                         @foreach($artikel->take(3) as $berita)
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100 shadow-sm border-0">
-                                    @if($berita->gambar)
-                                        <img src="{{ asset('img/' . $berita->gambar) }}" class="card-img-top" alt="{{ $berita->judul }}" style="height: 200px; object-fit: cover;">
+                                    @if($berita->sampul)
+                                        <img src="{{ asset('img/' . $berita->sampul) }}" class="card-img-top" alt="{{ $berita->judul }}" style="height: 200px; object-fit: cover;">
                                     @else
                                         <div class="card-img-top bg-gray-200 d-flex align-items-center justify-content-center" style="height: 200px;">
                                             <i class="bi bi-image text-gray-400" style="font-size: 3rem;"></i>
@@ -83,7 +83,7 @@
                                     <div class="card-body d-flex flex-column">
                                         <small class="text-muted mb-2">{{ $berita->created_at->format('d M Y') }}</small>
                                         <h5 class="card-title">{{ Str::limit($berita->judul, 50) }}</h5>
-                                        <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($berita->konten), 100) }}</p>
+                                        <p class="card-text flex-grow-1">{{ Str::limit(strip_tags($berita->deskripsi), 100) }}</p>
                                         <a href="{{ route('detailartikel', ['tanggal' => $berita->created_at->format('Y-m-d'), 'judul' => Str::slug($berita->judul)]) }}" 
                                            class="btn btn-outline-primary mt-auto">Baca Selengkapnya</a>
                                     </div>
