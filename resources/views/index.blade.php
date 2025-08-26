@@ -10,7 +10,7 @@
   <main id="main">
 
         <!-- ======= Services Section dengan background wave color ======= -->
-        <section class="services" style="background-color: #EAF2F7; padding-top: 0;">
+        <section class="services" style="background-color: #EAF2F7; padding-top: 60px; margin-top: -1px;">
             <div class="container">
 
                 <div class="row">
