@@ -95,13 +95,12 @@
         <li><a href="{{ route('data.penduduk') }}">Data Statistik</a></li>
 
         <li><a href="{{ route('kontak') }}">Kontak</a></li>
-
-        <li>
-            <!-- Tombol untuk membuka modal -->
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#formPengaduan">
-    Buat Pengaduan
-</button>
-        </li>
+    <li class="ms-2">
+      <!-- Tombol untuk membuka modal -->
+      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#formPengaduan">
+        Buat Pengaduan
+      </button>
+    </li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
@@ -213,7 +212,7 @@
                 & 
                 <a href="https://www.instagram.com/kkn20mekarmukti2/">KKN Universitas Muhammadiyah Bandung</a>
                 <br>
-                <small class="text-muted">Kelompok 20 Mekarmukti (Kelompok ke-2) • 2025</small>
+                <!-- Kelompok 20 Mekarmukti (Kelompok ke-2) dihapus sesuai permintaan -->
             </div>
         </div>
     </footer><!-- End Footer -->
