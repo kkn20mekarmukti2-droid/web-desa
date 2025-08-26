@@ -250,32 +250,15 @@
                         @foreach($artikel->take(3) as $berita)
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100 shadow-sm border-0">
-                                    @php
-                                        $placeholderImages = [
-                                            'news-placeholder-1.jpg',
-                                            'news-placeholder-2.jpg', 
-                                            'news-placeholder-3.jpg',
-                                            'news-placeholder-4.jpg'
-                                        ];
-                                        $randomPlaceholder = $placeholderImages[array_rand($placeholderImages)];
-                                    @endphp
-                                    
                                     @if($berita->sampul && file_exists(public_path('img/' . $berita->sampul)))
-                                        {{-- Gambar asli ada --}}
+                                        {{-- Gambar asli atau placeholder yang sudah ditetapkan --}}
                                         <img src="{{ asset('img/' . $berita->sampul) }}" 
                                              class="card-img-top img-fluid w-100" 
                                              alt="{{ $berita->judul }}" 
                                              style="height: 180px; object-fit: cover;"
                                              loading="lazy">
-                                    @elseif(file_exists(public_path('img/' . $randomPlaceholder)))
-                                        {{-- Gunakan random placeholder --}}
-                                        <img src="{{ asset('img/' . $randomPlaceholder) }}" 
-                                             class="card-img-top img-fluid w-100" 
-                                             alt="{{ $berita->judul }}" 
-                                             style="height: 180px; object-fit: cover; opacity: 0.9; filter: sepia(10%);"
-                                             loading="lazy">
                                     @else
-                                        {{-- Placeholder dengan icon --}}
+                                        {{-- Fallback jika benar-benar tidak ada gambar --}}
                                         <div class="card-img-top bg-gradient-to-br from-blue-100 to-blue-200 d-flex align-items-center justify-content-center" 
                                              style="height: 180px;">
                                             <div class="text-center">
