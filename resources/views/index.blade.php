@@ -6,10 +6,25 @@
 
 {{-- Custom CSS for Brand-Consistent 3-Card Layout --}}
 <style>
-/* Enhanced Services Section - No Gap from Hero */
+/* ZERO GAP: Hero to Cards - Override default main margin */
+#main {
+    margin: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+}
+
+/* Enhanced Services Section - Perfect seamless connection */
 .services {
     position: relative;
     z-index: 10;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Ensure container padding provides the spacing we want */
+.services .container {
+    padding-top: 50px !important;
+    padding-bottom: 60px !important;
 }
 
 .services .icon-box {
@@ -165,8 +180,8 @@
   <main id="main">
 
         <!-- ======= Services Section - No Gap dari Hero ======= -->
-        <section class="services" style="background-color: #EAF2F7; padding-top: 0; margin-top: 0;">
-            <div class="container" style="padding-top: 40px;">
+        <section class="services" style="background-color: #EAF2F7;">
+            <div class="container">
 
                 <div class="row justify-content-center">
                     <!-- Card 1: Sejarah Terbentuk Desa - Orange Accent -->
