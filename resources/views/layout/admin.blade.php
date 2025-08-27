@@ -75,6 +75,28 @@
                         <span class="font-QuicksandMedium">Manage Content</span>
                     </a>
                 </div>
+                
+                <div
+                    class="w-full flex items-center gap-x-1.5 group select-none {{ Request::route()->getName() == 'content.manage' ? 'group-active' : '' }}">
+                    <div
+                        class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 left-0 w-full h-[102%] group-hover:translate-y-0 {{ Request::route()->getName() == 'content.manage' ? 'translate-y-0' : 'translate-y-full' }}  bg-red-600 transition-all duration-300">
+                        </div>
+                    </div>
+                    <a class=" {{ Request::route()->getName() == 'content.manage' ? 'text-white bg-white/10' : '' }}  group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
+                        href="{{ route('content.manage') }}">
+                        <svg class="h-5 w-5  group-hover:fill-red-600 dark:fill-gray-600  transition-colors duration-200 {{ Request::route()->getName() == 'content.manage' ? '!fill-red-500' : '' }}"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M19 22H5a3 3 0 0 1-3-3V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12h4v4a3 3 0 0 1-3 3zm-1-5v2a1 1 0 0 0 2 0v-2h-2zm-2 3V4H4v15a1 1 0 0 0 1 1h11zM6 7h8v2H6V7zm0 4h8v2H6v-2zm0 4h5v2H6v-2z">
+                            </path>
+                        </svg>
+
+
+                        <span class="font-QuicksandMedium">Clean Content</span>
+                    </a>
+                </div>
                 <div
                     class="w-full flex items-center gap-x-1.5 select-none group {{ Request::route()->getName() == 'gallery.index' ? 'group-active' : '' }}">
                     <div

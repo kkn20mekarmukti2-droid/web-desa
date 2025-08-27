@@ -85,6 +85,7 @@ Route::get('/refresh-csrf', [authController::class, 'refreshCsrf'])->name('refre
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [adminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/content/manage', [adminController::class, 'manageContent'])->name('content.manage');
     Route::get('/preview/{id}', [adminController::class, 'preview'])->name('preview');
 
     // Kelola Notifikasi

@@ -23,6 +23,16 @@ class adminController extends Controller
         $kategori = kategoriModel::where('id','!=', 0)->get();
         return view('admin.content.manage', compact('profil', 'artikel', 'kategori'));
     }
+    
+    public function manageContent()
+    {
+        $profil = Auth::user();
+        $artikel = (Auth::user()->role == 0)
+            ? artikelModel::with('getKategori')->get()
+            : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->get();
+        $kategori = kategoriModel::where('id','!=', 0)->get();
+        return view('admin.content.manage-clean', compact('profil', 'artikel', 'kategori'));
+    }
     public function addartikel()
     {
         $kategori = kategoriModel::all();
