@@ -646,7 +646,7 @@
                     <div class="col-lg-3 col-md-6 footer-contact">
                         <h4>Sosial Media Kami</h4>
                         <div class="social-links mt-3">
-                            <a href="https://www.youtube.com/@desamekarmukti_motekar" class="youtube"><i
+                            <a href="https://youtube.com/@desamekarmukti_motekar?si=z9f5l2EX_JMksAeu" class="youtube"><i
                                     class="bx bxl-youtube"></i></a>
                             <a href="" class="facebook"><i class="bx bxl-facebook"></i></a>
                             <a href="https://www.instagram.com/mekarmukti_id/" class="instagram"><i
