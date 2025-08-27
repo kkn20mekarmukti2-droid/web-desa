@@ -344,6 +344,59 @@
                 height: 2rem !important;
             }
         }
+        
+        /* Enhanced Footer Styling */
+        footer {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%) !important;
+        }
+        
+        footer h3, footer h4 {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        
+        footer .social-links a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #374151;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        footer .social-links a:hover {
+            background-color: #F59E0B;
+            border-color: #F59E0B;
+            transform: translateY(-2px);
+        }
+        
+        footer .footer-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        footer .footer-link:hover {
+            color: #F59E0B !important;
+            padding-left: 4px;
+        }
+        
+        footer .contact-item {
+            transition: all 0.3s ease;
+        }
+        
+        footer .contact-item:hover {
+            transform: translateX(2px);
+        }
+        
+        /* Footer responsive */
+        @media (max-width: 768px) {
+            footer .grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+        }
     </style>
     
     @stack('styles')
@@ -559,13 +612,117 @@
     
     <!-- Enhanced Footer -->
     <footer class="bg-gray-900 text-white">
-        <div class="container mx-auto px-4 py-8">
-            <div class="text-center border-t border-gray-700 pt-6">
-                <div class="mb-4">
-                    <p>&copy; Copyright <strong><span>Desa Mekarmukti</span></strong>. All rights reserved.</p>
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- About Desa Section -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="{{ asset('assets/img/motekar-bg.png') }}" 
+                             alt="Logo Mekarmukti" 
+                             class="w-12 h-12 rounded-lg shadow-md">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Desa Mekarmukti</h3>
+                            <p class="text-gray-300 text-sm">Cihampelas, Bandung Barat</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4 leading-relaxed">
+                        Desa Mekarmukti adalah hasil pemekaran Desa Cihampelas pada tahun 1980, 
+                        menjadikannya desa termuda di Kecamatan Cihampelas, Kabupaten Bandung Barat.
+                    </p>
+                    <div class="social-links flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-facebook-f text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-youtube text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="text-gray-300 text-sm">
-                    Designed by 
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Link Cepat</h4>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="{{ route('home') }}" class="footer-link text-gray-300 hover:text-primary-500 transition-colors duration-300 flex items-center">
+                                <i class="bi bi-chevron-right text-xs mr-2"></i>
+                                Beranda
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('sejarah') }}" class="footer-link text-gray-300 hover:text-primary-500 transition-colors duration-300 flex items-center">
+                                <i class="bi bi-chevron-right text-xs mr-2"></i>
+                                Sejarah Desa
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('visi') }}" class="footer-link text-gray-300 hover:text-primary-500 transition-colors duration-300 flex items-center">
+                                <i class="bi bi-chevron-right text-xs mr-2"></i>
+                                Visi & Misi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('artikel') }}" class="footer-link text-gray-300 hover:text-primary-500 transition-colors duration-300 flex items-center">
+                                <i class="bi bi-chevron-right text-xs mr-2"></i>
+                                Berita Desa
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('kontak') }}" class="footer-link text-gray-300 hover:text-primary-500 transition-colors duration-300 flex items-center">
+                                <i class="bi bi-chevron-right text-xs mr-2"></i>
+                                Kontak
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 text-white">Kontak Kami</h4>
+                    <div class="space-y-3">
+                        <div class="contact-item flex items-start space-x-3">
+                            <i class="bi bi-geo-alt-fill text-primary-500 mt-1"></i>
+                            <div>
+                                <p class="text-gray-300 text-sm leading-relaxed">
+                                    Jl. Raya Cihampelas No. 123<br>
+                                    Desa Mekarmukti, Kec. Cihampelas<br>
+                                    Kabupaten Bandung Barat, Jawa Barat
+                                </p>
+                            </div>
+                        </div>
+                        <div class="contact-item flex items-center space-x-3">
+                            <i class="bi bi-telephone-fill text-primary-500"></i>
+                            <p class="text-gray-300 text-sm">(022) 1234-5678</p>
+                        </div>
+                        <div class="contact-item flex items-center space-x-3">
+                            <i class="bi bi-envelope-fill text-primary-500"></i>
+                            <p class="text-gray-300 text-sm">info@mekarmukti.id</p>
+                        </div>
+                        <div class="contact-item flex items-center space-x-3">
+                            <i class="bi bi-clock-fill text-primary-500"></i>
+                            <div>
+                                <p class="text-gray-300 text-sm">Senin - Jumat: 08:00 - 16:00</p>
+                                <p class="text-gray-300 text-sm">Sabtu: 08:00 - 12:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="text-center border-t border-gray-700 pt-6 mt-8">
+                <div class="mb-4">
+                    <p class="text-gray-300">&copy; {{ date('Y') }} Copyright <strong><span class="text-white">Desa Mekarmukti</span></strong>. All rights reserved.</p>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    Designed with <i class="bi bi-heart-fill text-red-500"></i> by 
                     <a href="https://www.instagram.com/kkn_mekarmuktiplb/" 
                        class="text-primary-500 hover:text-primary-400 transition-colors duration-300 font-medium">
                         KKN Politeknik LP3I Bandung
@@ -575,6 +732,9 @@
                        class="text-primary-500 hover:text-primary-400 transition-colors duration-300 font-medium">
                         KKN Universitas Muhammadiyah Bandung
                     </a>
+                </div>
+                <div class="mt-2 text-xs text-gray-500">
+                    Powered by Laravel {{ app()->version() }} • Last updated: {{ date('M Y') }}
                 </div>
             </div>
         </div>
