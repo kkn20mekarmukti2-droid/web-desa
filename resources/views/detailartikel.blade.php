@@ -3,24 +3,28 @@
 @section('penulis', $artikel->creator->name)
 @section('content')
     <style>
-        /* Styling untuk gambar artikel */
+        /* Styling untuk semua gambar */
         .article-image-container {
             border-radius: 0.5rem;
             overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/9;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .article-image-container:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
         
         .article-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
             transition: transform 0.3s ease;
         }
         
-        /* Styling untuk gambar dalam konten prose */
+        .article-image-container:hover .article-image {
+            transform: scale(1.02);
+        }
+        
+        /* Styling untuk prose dan gambar di dalamnya */
         .prose {
             width: 100%;
             max-width: 100%;
@@ -29,22 +33,67 @@
         .prose img {
             max-width: 100%;
             height: auto;
+            display: block;
+            margin: 1.5rem auto;
             border-radius: 0.5rem;
-            margin: 0 auto;
+            cursor: pointer;
         }
         
-        /* Styling untuk gambar dalam galeri */
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .image-gallery-item {
+        /* Media Card Styling */
+        .media-card {
+            background-color: white;
             border-radius: 0.5rem;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .media-card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Lightbox Styling */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1001;
         }
         
         /* Responsive fixes */
@@ -52,69 +101,68 @@
             .prose {
                 font-size: 0.95rem;
             }
-            
-            .prose h2 {
-                font-size: 1.4rem;
-            }
-            
-            .prose h3 {
-                font-size: 1.2rem;
-            }
         }
     </style>
-    <div class="container mx-auto px-4 mt-24 mb-20">
-        <div class="grid grid-cols-12 gap-8">
-            <div class="col-span-12 lg:col-span-8">
-                <!-- Breadcrumb -->
-                <div class="w-full rounded-sm bg-slate-100 flex px-2 py-2 items-center text-sm mb-6">
-                    <i class="fa-solid fa-house text-blue-500"></i>
-                    <div class="opacity-35 mx-1">/</div>
-                    <div class="font-semibold text-blue-500">Berita</div>
-                    <div class="opacity-35 mx-2">/</div> {{ \Illuminate\Support\Str::limit($artikel->judul, 50, '...') }}
-                </div>
+    <div class="container mx-auto px-4 py-8 mt-16">
+        <div class="max-w-6xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="flex items-center text-sm text-gray-600 mb-6">
+                <a href="/" class="hover:text-blue-600 transition-colors">
+                    <i class="fa-solid fa-home"></i>
+                </a>
+                <span class="mx-2">/</span>
+                <a href="/berita" class="hover:text-blue-600 transition-colors">Berita</a>
+                <span class="mx-2">/</span>
+                <span class="text-gray-400">{{ \Illuminate\Support\Str::limit($artikel->judul, 40, '...') }}</span>
+            </div>
+            
+            <!-- Article Header -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{{ $artikel->judul }}</h1>
                 
-                <!-- Article Header -->
-                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 mb-8">
-                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{{ $artikel->judul }}</h1>
-                    <h2 class="text-lg font-medium text-gray-700 mb-4">{{ $artikel->header }}</h2>
-                    
-                    <div class="flex flex-wrap items-center text-sm text-gray-600 gap-4 mb-2">
-                        @if ($artikel->kategori != '')
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-tag mr-2"></i>
-                                <span>{{ $artikel->getKategori->judul }}</span>
-                            </div>
-                        @endif
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-calendar-days mr-2"></i>
-                            <span>{{ date('d M Y', strtotime($artikel->created_at)) }}</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fa-regular fa-user mr-2"></i>
-                            <span>Oleh: {{ $artikel->creator->name }}</span>
-                        </div>
+                <div class="flex flex-wrap items-center text-sm text-gray-600 gap-x-4 gap-y-2 mb-4">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-calendar-days mr-2"></i>
+                        <span>{{ date('d M Y', strtotime($artikel->created_at)) }}</span>
+                    </div>
+                    @if ($artikel->kategori != '')
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-tag mr-2"></i>
+                        <span>{{ $artikel->getKategori->judul }}</span>
+                    </div>
+                    @endif
+                    <div class="flex items-center">
+                        <i class="fa-regular fa-user mr-2"></i>
+                        <span>{{ $artikel->creator->name }}</span>
                     </div>
                 </div>
                 
-                <!-- Article Featured Image/Video -->
-                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 mb-8">
-                    <div class="max-w-3xl mx-auto">
+                @if ($artikel->header)
+                <p class="text-gray-700 text-lg mb-2">{{ $artikel->header }}</p>
+                @endif
+            </div>
+            
+            <!-- Article Featured Media -->
+            <div class="mb-8">
+                <div class="media-card">
+                    <div class="aspect-[16/9] relative overflow-hidden">
                         @if (strpos($artikel->sampul, 'youtube'))
-                            <div class="relative overflow-hidden rounded-lg shadow-md">
-                                <iframe class="w-full aspect-video" src="{{ $artikel->sampul }}" title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            </div>
+                            <iframe src="{{ $artikel->sampul }}" 
+                                class="absolute inset-0 w-full h-full" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
                         @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
                             <div class="article-image-container">
-                                <img src="{{ asset('img/' . $artikel->sampul) }}" alt="{{ $artikel->judul }}" 
-                                    class="w-full h-auto object-contain rounded-lg shadow-md cursor-pointer article-image" 
-                                    onclick="openImagePreview(this.src)" 
-                                    data-src="{{ asset('img/' . $artikel->sampul) }}">
+                                <img src="{{ asset('img/' . $artikel->sampul) }}" 
+                                    alt="{{ $artikel->judul }}" 
+                                    class="article-image" 
+                                    onclick="openLightbox('{{ asset('img/' . $artikel->sampul) }}')">
                             </div>
                         @else
-                            <div class="w-full aspect-[16/9] bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-lg shadow-md">
+                            <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
                                 <div class="text-center">
                                     <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
                                     <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
@@ -123,119 +171,128 @@
                         @endif
                     </div>
                 </div>
-            
-                <!-- Article Content -->
-                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-                    <div class="prose max-w-3xl mx-auto">{!! $artikel->deskripsi !!}</div>
-                </div>
             </div>
             
-            <!-- Sidebar -->
-            <div class="col-span-12 lg:col-span-4">
-                <div class="bg-white rounded-lg border border-gray-200 shadow-sm sticky top-24">
-                    <div class="border-b border-gray-200">
-                        <h3 class="text-lg font-bold text-gray-900 p-4">Artikel Terkait</h3>
+            <!-- Article Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Main Content -->
+                <div class="lg:col-span-8">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <div class="prose max-w-none">{!! $artikel->deskripsi !!}</div>
                     </div>
-                    <div class="p-4">
-                        @foreach ($rekomendasi as $i)
-                            <a href="{{ route('detailartikel', ['tanggal' => $i->created_at->format('Y-m-d'), 'judul' => Str::slug($i->judul)]) }}"
-                                class="group flex items-start gap-3 pb-4 mb-4 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0">
-                                
-                                <div class="w-20 h-20 flex-shrink-0 rounded-md overflow-hidden">
-                                    @if (strpos($i->sampul, 'youtube'))
-                                        @php
-                                            $youtubeUrl = $i->sampul;
-                                            preg_match('/embed\/([^\?]*)/', $youtubeUrl, $matches);
-                                            $thumbnail = $matches[1] ?? null;
-                                        @endphp
-                                        <img src="https://img.youtube.com/vi/{{ $thumbnail }}/hqdefault.jpg" 
-                                            alt="{{ $i->judul }}"
-                                            class="w-full h-full object-cover">
-                                    @else
-                                        <img src="{{ asset('img/' . $i->sampul) }}" 
-                                            alt="{{ $i->judul }}" 
-                                            class="w-full h-full object-cover">
-                                    @endif
-                                </div>
-                                
-                                <div class="flex-1">
-                                    <h4 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 line-clamp-2 mb-1">
-                                        {{ Str::limit($i->judul, 60, '...') }}
-                                    </h4>
-                                    <div class="flex items-center text-xs text-gray-500">
-                                        <i class="fa-solid fa-calendar-days mr-1"></i>
-                                        <span>{{ date('d M Y', strtotime($i->created_at)) }}</span>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="lg:col-span-4">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 sticky top-24">
+                        <div class="p-4 border-b border-gray-100">
+                            <h3 class="text-lg font-bold text-gray-900">Artikel Terkait</h3>
+                        </div>
+                        <div class="p-4">
+                            @foreach ($rekomendasi as $i)
+                                <a href="{{ route('detailartikel', ['tanggal' => $i->created_at->format('Y-m-d'), 'judul' => Str::slug($i->judul)]) }}" 
+                                   class="group block mb-4 pb-4 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0">
+                                    <div class="flex gap-3">
+                                        <div class="w-20 h-20 flex-shrink-0 rounded-md overflow-hidden">
+                                            @if (strpos($i->sampul, 'youtube'))
+                                                @php
+                                                    $youtubeUrl = $i->sampul;
+                                                    preg_match('/embed\/([^\?]*)/', $youtubeUrl, $matches);
+                                                    $thumbnail = $matches[1] ?? null;
+                                                @endphp
+                                                <img src="https://img.youtube.com/vi/{{ $thumbnail }}/hqdefault.jpg" 
+                                                     alt="{{ $i->judul }}" 
+                                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                            @else
+                                                <img src="{{ asset('img/' . $i->sampul) }}" 
+                                                     alt="{{ $i->judul }}" 
+                                                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                            @endif
+                                        </div>
+                                        <div class="flex-1">
+                                            <h4 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 line-clamp-2 transition-colors">
+                                                {{ Str::limit($i->judul, 60, '...') }}
+                                            </h4>
+                                            <div class="flex items-center mt-2 text-xs text-gray-500">
+                                                <i class="fa-solid fa-calendar-days mr-1"></i>
+                                                <span>{{ date('d M Y', strtotime($i->created_at)) }}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        @endforeach
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    
-    <!-- Lightbox untuk preview gambar -->
-    <div id="image-preview-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center p-4">
-        <div class="relative max-w-4xl w-full">
-            <button onclick="closeImagePreview()" class="absolute -top-10 right-0 text-white text-2xl font-bold">&times;</button>
-            <img id="preview-image" src="" alt="Preview" class="max-w-full max-h-[80vh] mx-auto object-contain">
         </div>
     </div>
-
+    
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-image" class="lightbox-content" src="" alt="Gambar artikel">
+    </div>
+    
     <script>
-        // Fungsi untuk membuka lightbox
-        function openImagePreview(src) {
-            const modal = document.getElementById('image-preview-modal');
-            const previewImage = document.getElementById('preview-image');
+        // Fungsi untuk menangani lightbox
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
             
-            previewImage.src = src;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
             
-            // Tambahkan event listener untuk menutup modal dengan klik di luar gambar
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeImagePreview();
-                }
-            });
-            
-            // Tambahkan event listener untuk menutup modal dengan tombol escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeImagePreview();
-                }
-            });
+            // Mencegah scroll pada body
+            document.body.style.overflow = 'hidden';
         }
         
-        // Fungsi untuk menutup lightbox
-        function closeImagePreview() {
-            const modal = document.getElementById('image-preview-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            
+            // Mengembalikan scroll pada body
+            document.body.style.overflow = '';
         }
         
-        // Proses gambar yang ada dalam konten artikel
+        // Close lightbox with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+        
+        // Proses gambar dalam konten artikel
         document.addEventListener('DOMContentLoaded', function() {
-            // Mencari semua gambar dalam konten artikel (div dengan class 'prose')
+            // Mencari semua gambar dalam konten artikel
             const contentImages = document.querySelectorAll('.prose img');
             
             contentImages.forEach(img => {
-                // Bungkus dengan container untuk styling konsisten
+                // Membuat container untuk gambar
                 const container = document.createElement('div');
-                container.className = 'flex justify-center my-4';
+                container.className = 'my-6';
                 
+                // Membuat wrapper dengan styling konsisten
                 const wrapper = document.createElement('div');
-                wrapper.className = 'max-w-3xl w-full rounded-lg shadow-sm overflow-hidden';
-                wrapper.style.maxWidth = '100%';
+                wrapper.className = 'media-card';
                 
-                // Salin gambar ke dalam wrapper baru
-                const newImg = img.cloneNode(true);
-                newImg.className = 'w-full h-auto object-contain cursor-pointer hover:opacity-95 transition-opacity';
-                newImg.setAttribute('onclick', 'openImagePreview(this.src)');
+                // Membuat div untuk aspect ratio
+                const aspectRatioDiv = document.createElement('div');
+                aspectRatioDiv.className = 'article-image-container';
+                
+                // Salin gambar ke dalam struktur baru
+                const newImg = document.createElement('img');
+                newImg.src = img.src;
+                newImg.alt = img.alt || 'Gambar artikel';
+                newImg.className = 'article-image';
+                newImg.setAttribute('onclick', `openLightbox('${img.src}')`);
+                
+                // Bangun struktur DOM
+                aspectRatioDiv.appendChild(newImg);
+                wrapper.appendChild(aspectRatioDiv);
+                container.appendChild(wrapper);
                 
                 // Gantikan gambar asli dengan struktur baru
-                wrapper.appendChild(newImg);
-                container.appendChild(wrapper);
                 img.parentNode.replaceChild(container, img);
             });
         });
