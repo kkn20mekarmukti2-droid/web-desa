@@ -150,6 +150,7 @@
             border-radius: 12px !important;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
             padding: 8px !important;
+            z-index: 1000 !important;
         }
         
         .dropdown-item {
@@ -158,12 +159,29 @@
             margin: 2px 0 !important;
             transition: all 0.3s ease !important;
             font-weight: 500 !important;
+            display: block !important;
         }
         
         .dropdown-item:hover {
             background: rgba(245, 158, 11, 0.2) !important;
             color: #F59E0B !important;
             transform: translateX(5px) !important;
+        }
+
+        /* Desktop Dropdown Hover Enhancement */
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
+            pointer-events: auto !important;
+        }
+
+        .nav-dropdown .dropdown-menu {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translateY(-10px) !important;
+            transition: all 0.3s ease !important;
+            pointer-events: none !important;
         }
         
         /* Enhanced Button Styling */
@@ -429,40 +447,40 @@
                     </a>
                     
                     <!-- Profile Desa Dropdown -->
-                    <div class="relative group">
+                    <div class="nav-dropdown relative">
                         <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-people-fill"></i>
                             <span>Profile Desa</span>
-                            <i class="bi bi-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                            <i class="bi bi-chevron-down text-xs transition-transform duration-300"></i>
                         </button>
-                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translateY-0 translateY-2">
-                            <a href="{{ route('sejarah') }}" class="dropdown-item block px-4 py-3">
+                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52">
+                            <a href="{{ route('sejarah') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-clock-history me-2"></i>Sejarah
                             </a>
-                            <a href="{{ route('visi') }}" class="dropdown-item block px-4 py-3">
+                            <a href="{{ route('visi') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-eye-fill me-2"></i>Visi & Misi
                             </a>
-                            <a href="{{ route('pemerintahan') }}" class="dropdown-item block px-4 py-3">
+                            <a href="{{ route('pemerintahan') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-diagram-3-fill me-2"></i>Struktur Organisasi
                             </a>
                         </div>
                     </div>
                     
                     <!-- Informasi Desa Dropdown -->
-                    <div class="relative group">
+                    <div class="nav-dropdown relative">
                         <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-info-circle-fill"></i>
                             <span>Informasi Desa</span>
-                            <i class="bi bi-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                            <i class="bi bi-chevron-down text-xs transition-transform duration-300"></i>
                         </button>
-                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translateY-0 translateY-2">
-                            <a href="{{ route('berita') }}" class="dropdown-item block px-4 py-3">
+                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52">
+                            <a href="{{ route('berita') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-newspaper me-2"></i>Berita
                             </a>
-                            <a href="{{ route('galeri') }}" class="dropdown-item block px-4 py-3">
+                            <a href="{{ route('galeri') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-images me-2"></i>Galeri
                             </a>
-                            <a href="{{ route('potensidesa') }}" class="dropdown-item block px-4 py-3">
+                            <a href="{{ route('potensidesa') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-gem me-2"></i>Potensi Desa
                             </a>
                         </div>
@@ -631,16 +649,16 @@
                         menjadikannya desa termuda di Kecamatan Cihampelas, Kabupaten Bandung Barat.
                     </p>
                     <div class="social-links flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <a href="https://www.facebook.com/desamekarmukti" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="Facebook Desa Mekarmukti">
                             <i class="fab fa-facebook-f text-lg"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <a href="https://www.instagram.com/desamekarmukti" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="Instagram Desa Mekarmukti">
                             <i class="fab fa-instagram text-lg"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <a href="https://www.youtube.com/@desamekarmukti" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="YouTube Desa Mekarmukti">
                             <i class="fab fa-youtube text-lg"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <a href="https://wa.me/6282123456789" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="WhatsApp Desa Mekarmukti">
                             <i class="fab fa-whatsapp text-lg"></i>
                         </a>
                     </div>
@@ -722,19 +740,16 @@
                     <p class="text-gray-300">&copy; {{ date('Y') }} Copyright <strong><span class="text-white">Desa Mekarmukti</span></strong>. All rights reserved.</p>
                 </div>
                 <div class="text-gray-400 text-sm">
-                    Designed with <i class="bi bi-heart-fill text-red-500"></i> by 
-                    <a href="https://www.instagram.com/kkn_mekarmuktiplb/" 
+                    Designed by 
+                    <a href="https://www.instagram.com/kkn_mekarmuktiplb/" target="_blank"
                        class="text-primary-500 hover:text-primary-400 transition-colors duration-300 font-medium">
                         KKN Politeknik LP3I Bandung
                     </a> 
                     & 
-                    <a href="https://www.instagram.com/kkn20mekarmukti2/" 
+                    <a href="https://www.instagram.com/kkn20mekarmukti2/" target="_blank"
                        class="text-primary-500 hover:text-primary-400 transition-colors duration-300 font-medium">
                         KKN Universitas Muhammadiyah Bandung
                     </a>
-                </div>
-                <div class="mt-2 text-xs text-gray-500">
-                    Powered by Laravel {{ app()->version() }} • Last updated: {{ date('M Y') }}
                 </div>
             </div>
         </div>
