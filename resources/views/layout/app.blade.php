@@ -142,7 +142,7 @@
             width: 100%;
         }
         
-        /* Enhanced Dropdown Styling */
+        /* Bootstrap Dropdown Enhancement */
         .dropdown-menu {
             background: rgba(0, 0, 0, 0.95) !important;
             backdrop-filter: blur(15px) !important;
@@ -150,7 +150,6 @@
             border-radius: 12px !important;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
             padding: 8px !important;
-            z-index: 1000 !important;
             margin-top: 8px !important;
         }
         
@@ -160,50 +159,27 @@
             margin: 2px 0 !important;
             transition: all 0.3s ease !important;
             font-weight: 500 !important;
-            display: block !important;
             text-decoration: none !important;
         }
         
-        .dropdown-item:hover {
+        .dropdown-item:hover, .dropdown-item:focus {
             background: rgba(245, 158, 11, 0.2) !important;
             color: #F59E0B !important;
-            transform: translateX(5px) !important;
             text-decoration: none !important;
         }
-
-        /* Desktop Dropdown Hover Enhancement */
-        .nav-dropdown {
-            position: relative;
+        
+        .dropdown-toggle::after {
+            border-top: 0.4em solid;
+            border-right: 0.4em solid transparent;
+            border-left: 0.4em solid transparent;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
         }
         
-        .nav-dropdown:hover .dropdown-menu {
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: translateY(0) !important;
-            pointer-events: auto !important;
-        }
-        
-        .nav-dropdown:hover .dropdown-chevron {
-            transform: rotate(180deg) !important;
+        .dropdown-toggle[aria-expanded="true"]::after {
+            transform: rotate(180deg);
         }
 
-        .nav-dropdown .dropdown-menu {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            transform: translateY(-10px) !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            pointer-events: none !important;
-            position: absolute !important;
-            top: 100% !important;
-            left: 0 !important;
-            z-index: 9999 !important;
-            min-width: 220px !important;
-        }
-        
-        .dropdown-chevron {
-            transition: transform 0.3s ease !important;
-        }
-        
         /* Enhanced Button Styling */
         .btn-enhanced {
             background: linear-gradient(135deg, #F59E0B, #FFA500, #FF8C00) !important;
@@ -466,44 +442,44 @@
                         <i class="bi bi-house-door-fill text-lg"></i>
                     </a>
                     
-                    <!-- Profile Desa Dropdown -->
-                    <div class="nav-dropdown">
-                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                    <!-- Profile Desa Dropdown - Bootstrap Style -->
+                    <div class="dropdown">
+                        <a href="#" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium dropdown-toggle" 
+                           data-bs-toggle="dropdown" aria-expanded="false" id="profileDropdown">
                             <i class="bi bi-people-fill"></i>
                             <span>Profile Desa</span>
-                            <i class="bi bi-chevron-down text-xs dropdown-chevron"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="{{ route('sejarah') }}" class="dropdown-item px-4 py-3">
-                                <i class="bi bi-clock-history me-2"></i>Sejarah
-                            </a>
-                            <a href="{{ route('visi') }}" class="dropdown-item px-4 py-3">
-                                <i class="bi bi-eye-fill me-2"></i>Visi & Misi
-                            </a>
-                            <a href="{{ route('pemerintahan') }}" class="dropdown-item px-4 py-3">
-                                <i class="bi bi-diagram-3-fill me-2"></i>Struktur Organisasi
-                            </a>
-                        </div>
+                        </a>
+                        <ul class="dropdown-menu bg-dark border-0 shadow-lg" aria-labelledby="profileDropdown" style="background: rgba(0, 0, 0, 0.95) !important; backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3) !important; border-radius: 12px;">
+                            <li><a class="dropdown-item text-white py-2" href="{{ route('sejarah') }}" style="border-radius: 8px; margin: 2px;">
+                                <i class="bi bi-clock-history me-2 text-warning"></i>Sejarah
+                            </a></li>
+                            <li><a class="dropdown-item text-white py-2" href="{{ route('visi') }}" style="border-radius: 8px; margin: 2px;">
+                                <i class="bi bi-eye-fill me-2 text-warning"></i>Visi & Misi
+                            </a></li>
+                            <li><a class="dropdown-item text-white py-2" href="{{ route('pemerintahan') }}" style="border-radius: 8px; margin: 2px;">
+                                <i class="bi bi-diagram-3-fill me-2 text-warning"></i>Struktur Organisasi
+                            </a></li>
+                        </ul>
                     </div>
                     
-                    <!-- Informasi Desa Dropdown -->
-                    <div class="nav-dropdown">
-                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                    <!-- Informasi Desa Dropdown - Bootstrap Style -->
+                    <div class="dropdown">
+                        <a href="#" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium dropdown-toggle" 
+                           data-bs-toggle="dropdown" aria-expanded="false" id="infoDropdown">
                             <i class="bi bi-info-circle-fill"></i>
                             <span>Informasi Desa</span>
-                            <i class="bi bi-chevron-down text-xs dropdown-chevron"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a href="{{ route('berita') }}" class="dropdown-item px-4 py-3">
-                                <i class="bi bi-newspaper me-2"></i>Berita
-                            </a>
-                            <a href="{{ route('galeri') }}" class="dropdown-item px-4 py-3">
-                                <i class="bi bi-images me-2"></i>Galeri
-                            </a>
-                            <a href="{{ route('potensidesa') }}" class="dropdown-item px-4 py-3">
-                                <i class="bi bi-gem me-2"></i>Potensi Desa
-                            </a>
-                        </div>
+                        </a>
+                        <ul class="dropdown-menu bg-dark border-0 shadow-lg" aria-labelledby="infoDropdown" style="background: rgba(0, 0, 0, 0.95) !important; backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3) !important; border-radius: 12px;">
+                            <li><a class="dropdown-item text-white py-2" href="{{ route('berita') }}" style="border-radius: 8px; margin: 2px;">
+                                <i class="bi bi-newspaper me-2 text-warning"></i>Berita
+                            </a></li>
+                            <li><a class="dropdown-item text-white py-2" href="{{ route('galeri') }}" style="border-radius: 8px; margin: 2px;">
+                                <i class="bi bi-images me-2 text-warning"></i>Galeri
+                            </a></li>
+                            <li><a class="dropdown-item text-white py-2" href="{{ route('potensidesa') }}" style="border-radius: 8px; margin: 2px;">
+                                <i class="bi bi-gem me-2 text-warning"></i>Potensi Desa
+                            </a></li>
+                        </ul>
                     </div>
                     
                     <a href="{{ route('data.penduduk') }}" class="nav-link text-white hover:text-primary-500 transition-all duration-300 flex items-center space-x-2 font-medium">
@@ -1006,65 +982,13 @@
             
             console.log('Enhanced mobile navigation initialized successfully');
             
-            // Initialize Desktop Dropdown Navigation
-            const navDropdowns = document.querySelectorAll('.nav-dropdown');
-            console.log(`Found ${navDropdowns.length} dropdown menus`);
-            
-            navDropdowns.forEach((dropdown, index) => {
-                const button = dropdown.querySelector('button');
-                const menu = dropdown.querySelector('.dropdown-menu');
-                const chevron = dropdown.querySelector('.dropdown-chevron');
-                
-                console.log(`Dropdown ${index + 1}:`, {
-                    hasButton: !!button,
-                    hasMenu: !!menu,
-                    hasChevron: !!chevron
-                });
-                
-                if (button && menu) {
-                    // Set initial styles
-                    menu.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                    
-                    // Mouse events
-                    dropdown.addEventListener('mouseenter', function() {
-                        console.log(`Dropdown ${index + 1} - mouseenter`);
-                        menu.style.opacity = '1';
-                        menu.style.visibility = 'visible';
-                        menu.style.transform = 'translateY(0)';
-                        menu.style.pointerEvents = 'auto';
-                        if (chevron) chevron.style.transform = 'rotate(180deg)';
-                    });
-                    
-                    dropdown.addEventListener('mouseleave', function() {
-                        console.log(`Dropdown ${index + 1} - mouseleave`);
-                        menu.style.opacity = '0';
-                        menu.style.visibility = 'hidden';
-                        menu.style.transform = 'translateY(-10px)';
-                        menu.style.pointerEvents = 'none';
-                        if (chevron) chevron.style.transform = 'rotate(0deg)';
-                    });
-                    
-                    // Click event for testing (removable later)
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        console.log(`Dropdown ${index + 1} - button clicked`);
-                        const isVisible = menu.style.visibility === 'visible';
-                        if (isVisible) {
-                            menu.style.opacity = '0';
-                            menu.style.visibility = 'hidden';
-                            menu.style.transform = 'translateY(-10px)';
-                            if (chevron) chevron.style.transform = 'rotate(0deg)';
-                        } else {
-                            menu.style.opacity = '1';
-                            menu.style.visibility = 'visible';
-                            menu.style.transform = 'translateY(0)';
-                            if (chevron) chevron.style.transform = 'rotate(180deg)';
-                        }
-                    });
-                }
+            // Initialize Bootstrap Dropdowns (just in case)
+            const dropdownTriggerList = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+            const dropdownList = [...dropdownTriggerList].map(dropdownTriggerEl => {
+                return new bootstrap.Dropdown(dropdownTriggerEl);
             });
             
-            console.log('Desktop dropdown navigation initialized successfully');
+            console.log(`Initialized ${dropdownList.length} Bootstrap dropdowns`);
             
             // Debug function for testing
             window.debugMobileMenu = function() {
