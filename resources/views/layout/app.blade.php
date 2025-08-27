@@ -645,20 +645,19 @@
                         </div>
                     </div>
                     <p class="text-gray-300 mb-4 leading-relaxed">
-                        Desa Mekarmukti adalah hasil pemekaran Desa Cihampelas pada tahun 1980, 
-                        menjadikannya desa termuda di Kecamatan Cihampelas, Kabupaten Bandung Barat.
+                        Desa Mekarmukti Kecamatan Cihampelas Kabupaten Bandung Barat adalah Desa yang merupakan Pamekaran dari Desa Cihampelas yang pada waktu itu Kecamatan Cililin, Kawedanaan Cililin, Kabupaten Bandung.
                     </p>
                     <div class="social-links flex space-x-4">
                         <a href="https://www.facebook.com/desamekarmukti" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="Facebook Desa Mekarmukti">
                             <i class="fab fa-facebook-f text-lg"></i>
                         </a>
-                        <a href="https://www.instagram.com/desamekarmukti" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="Instagram Desa Mekarmukti">
+                        <a href="https://www.instagram.com/mekarmukti_id/" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="Instagram Desa Mekarmukti">
                             <i class="fab fa-instagram text-lg"></i>
                         </a>
-                        <a href="https://www.youtube.com/@desamekarmukti" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="YouTube Desa Mekarmukti">
+                        <a href="https://www.youtube.com/@mekarmukti_id" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="YouTube Desa Mekarmukti">
                             <i class="fab fa-youtube text-lg"></i>
                         </a>
-                        <a href="https://wa.me/6282123456789" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="WhatsApp Desa Mekarmukti">
+                        <a href="https://wa.me/6285157622980" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="WhatsApp Desa Mekarmukti">
                             <i class="fab fa-whatsapp text-lg"></i>
                         </a>
                     </div>
@@ -709,25 +708,26 @@
                             <i class="bi bi-geo-alt-fill text-primary-500 mt-1"></i>
                             <div>
                                 <p class="text-gray-300 text-sm leading-relaxed">
-                                    Jl. Raya Cihampelas No. 123<br>
-                                    Desa Mekarmukti, Kec. Cihampelas<br>
-                                    Kabupaten Bandung Barat, Jawa Barat
+                                    Desa Mekarmukti<br>
+                                    Kec.Cihampelas, 40562<br>
+                                    Bandung Barat, Jawa Barat
                                 </p>
                             </div>
                         </div>
                         <div class="contact-item flex items-center space-x-3">
                             <i class="bi bi-telephone-fill text-primary-500"></i>
-                            <p class="text-gray-300 text-sm">(022) 1234-5678</p>
+                            <p class="text-gray-300 text-sm">+62 851-5762-2980</p>
                         </div>
                         <div class="contact-item flex items-center space-x-3">
                             <i class="bi bi-envelope-fill text-primary-500"></i>
-                            <p class="text-gray-300 text-sm">info@mekarmukti.id</p>
+                            <p class="text-gray-300 text-sm">desamotekar00@gmail.com</p>
                         </div>
                         <div class="contact-item flex items-center space-x-3">
-                            <i class="bi bi-clock-fill text-primary-500"></i>
+                            <i class="bi bi-truck text-primary-500"></i>
                             <div>
-                                <p class="text-gray-300 text-sm">Senin - Jumat: 08:00 - 16:00</p>
-                                <p class="text-gray-300 text-sm">Sabtu: 08:00 - 12:00</p>
+                                <p class="text-gray-300 text-sm"><strong>Ambulance:</strong> +62 831‑3836‑4566</p>
+                            </div>
+                        </div>
                             </div>
                         </div>
                     </div>
