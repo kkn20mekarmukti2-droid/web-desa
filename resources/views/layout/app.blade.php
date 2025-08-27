@@ -273,19 +273,76 @@
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
         }
         
-        /* Brand Text - Restored Original Style */
+        /* Brand Text - Enhanced Responsive Style */
         .brand-text {
             color: #ffffff !important;
             text-decoration: none !important;
             transition: all 0.3s ease !important;
-            font-size: 2.2rem !important;
+            font-size: 1.6rem !important; /* Reduced for mobile */
             font-weight: 700 !important;
             line-height: 1 !important;
+            white-space: nowrap !important; /* Prevent text wrapping */
         }
         
         .brand-text:hover {
             color: #F59E0B !important;
             text-decoration: none !important;
+        }
+        
+        /* Desktop size for brand text */
+        @media (min-width: 768px) {
+            .brand-text {
+                font-size: 2.2rem !important;
+            }
+        }
+        
+        /* Header flex improvements */
+        .header-container {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 1rem !important;
+            width: 100% !important;
+        }
+        
+        .logo-section {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.75rem !important;
+            flex-shrink: 1 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+        }
+        
+        /* Enhanced Mobile Menu Button Positioning */
+        #mobileMenuButton {
+            position: relative !important;
+            transition: all 0.3s ease !important;
+            flex-shrink: 0 !important; /* Prevent hamburger from shrinking */
+            min-width: 44px !important;
+            min-height: 44px !important;
+            z-index: 1001 !important;
+        }
+        
+        /* Mobile container padding optimization */
+        @media (max-width: 767px) {
+            .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            .header-container {
+                gap: 0.5rem !important;
+            }
+            
+            .logo-section {
+                gap: 0.5rem !important;
+            }
+            
+            .logo-img {
+                width: 2rem !important;
+                height: 2rem !important;
+            }
         }
     </style>
     
@@ -296,13 +353,13 @@
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16 lg:h-20">
+            <div class="header-container h-16 lg:h-20">
                 
                 <!-- Logo & Brand -->
-                <div class="flex items-center space-x-4">
+                <div class="logo-section">
                     <img src="{{ asset('assets/img/motekar-bg.png') }}" 
                          alt="Logo Mekarmukti" 
-                         class="logo-img w-10 h-10 lg:w-12 lg:h-12 rounded-lg shadow-md">
+                         class="logo-img w-8 h-8 lg:w-12 lg:h-12 rounded-lg shadow-md flex-shrink-0">
                     <div class="logo">
                         <h1 class="text-white mb-0 leading-none font-heading">
                             <a href="{{ route('home') }}" class="brand-text">
