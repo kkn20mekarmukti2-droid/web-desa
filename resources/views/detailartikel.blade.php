@@ -21,142 +21,164 @@
         }
         
         /* Styling untuk gambar dalam konten prose */
+        .prose {
+            width: 100%;
+            max-width: 100%;
+        }
+        
         .prose img {
             max-width: 100%;
             height: auto;
             border-radius: 0.5rem;
-            margin: 1.5rem auto;
+            margin: 0 auto;
         }
         
-        /* Gallery grid untuk multiple images */
+        /* Styling untuk gambar dalam galeri */
         .image-gallery {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
             margin: 1.5rem 0;
         }
         
-        .image-gallery img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 0.375rem;
-            cursor: pointer;
-        }
-        
-        /* Zoom effect pada hover */
-        .zoom-effect {
+        .image-gallery-item {
+            border-radius: 0.5rem;
             overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .zoom-effect img {
-            transition: transform 0.5s ease;
-        }
-        
-        .zoom-effect:hover img {
-            transform: scale(1.05);
+        /* Responsive fixes */
+        @media (max-width: 768px) {
+            .prose {
+                font-size: 0.95rem;
+            }
+            
+            .prose h2 {
+                font-size: 1.4rem;
+            }
+            
+            .prose h3 {
+                font-size: 1.2rem;
+            }
         }
     </style>
-    <div class="grid grid-cols-8 max-sm:grid-cols-1 mx-80 max-sm:mx-10 mt-24 mb-72 max-sm:mb-40">
-
-        <div class="col-span-6 max-sm:col-span-1">
-            <div class="w-full rounded-sm bg-slate-100 flex px-2 py-2 items-center text-sm"><i
-                    class="fa-solid fa-house text-blue-500"></i>
-                <div class="opacity-35 mx-1">/</div>
-                <div class="font-semibold text-blue-500">Berita</div>
-                <div class="opacity-35 mx-2">/</div> {{ \Illuminate\Support\Str::limit($artikel->judul, 50, '...') }}
-            </div>
-            <hr class="mt-10">
-            <h1 class="text-4xl font-bold text-blue-600">{{ $artikel->judul }}
-            </h1>
-            <h2 class="text-xl font-semibold ">{{ $artikel->header }}
-            </h2>
-            <div class="flex text-primary/80 gap-5 text-xs mt-2 max-sm:gap-2 max-sm:text-[10px]">
-                @if ($artikel->kategori != '')
-                    <div class="flex items-center"><i class="fa-solid fa-tag">&nbsp;</i>
-                        <p>{{ $artikel->getKategori->judul }}</p>
-                    </div>
-                @endif
-                <div class="flex items-center"><i class="fa-solid fa-calendar-days">&nbsp;</i>
-                    <p>{{ date('d  M  Y', strtotime($artikel->created_at)) }}</p>
+    <div class="container mx-auto px-4 mt-24 mb-20">
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-12 lg:col-span-8">
+                <!-- Breadcrumb -->
+                <div class="w-full rounded-sm bg-slate-100 flex px-2 py-2 items-center text-sm mb-6">
+                    <i class="fa-solid fa-house text-blue-500"></i>
+                    <div class="opacity-35 mx-1">/</div>
+                    <div class="font-semibold text-blue-500">Berita</div>
+                    <div class="opacity-35 mx-2">/</div> {{ \Illuminate\Support\Str::limit($artikel->judul, 50, '...') }}
                 </div>
-                <div class="flex items-center"><i class="fa-regular fa-user">&nbsp;</i>
-                    <p>Oleh : {{ $artikel->creator->name }}</p>
-                </div>
-            </div>
-            <div class="my-10 flex justify-center">
-                <div class="max-w-[800px] w-full mx-auto" style="max-width: 70%;">
-                    @if (strpos($artikel->sampul, 'youtube'))
-                        <div class="relative overflow-hidden rounded-lg shadow-md">
-                            <iframe class="w-full aspect-video" src="{{ $artikel->sampul }}" title="YouTube video player"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                    @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
-                        <div class="article-image-container">
-                            <img src="{{ asset('img/' . $artikel->sampul) }}" alt="{{ $artikel->judul }}" 
-                                class="w-full h-auto object-contain rounded-lg shadow-md cursor-pointer article-image" 
-                                onclick="openImagePreview(this.src)" 
-                                data-src="{{ asset('img/' . $artikel->sampul) }}">
-                        </div>
-                    @else
-                        {{-- Placeholder untuk detail artikel --}}
-                        <div class="w-full aspect-[16/9] bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-lg shadow-md">
-                            <div class="text-center">
-                                <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
-                                <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
+                
+                <!-- Article Header -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 mb-8">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{{ $artikel->judul }}</h1>
+                    <h2 class="text-lg font-medium text-gray-700 mb-4">{{ $artikel->header }}</h2>
+                    
+                    <div class="flex flex-wrap items-center text-sm text-gray-600 gap-4 mb-2">
+                        @if ($artikel->kategori != '')
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-tag mr-2"></i>
+                                <span>{{ $artikel->getKategori->judul }}</span>
                             </div>
+                        @endif
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-calendar-days mr-2"></i>
+                            <span>{{ date('d M Y', strtotime($artikel->created_at)) }}</span>
                         </div>
-                    @endif
+                        <div class="flex items-center">
+                            <i class="fa-regular fa-user mr-2"></i>
+                            <span>Oleh: {{ $artikel->creator->name }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Article Featured Image/Video -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 mb-8">
+                    <div class="max-w-3xl mx-auto">
+                        @if (strpos($artikel->sampul, 'youtube'))
+                            <div class="relative overflow-hidden rounded-lg shadow-md">
+                                <iframe class="w-full aspect-video" src="{{ $artikel->sampul }}" title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                        @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
+                            <div class="article-image-container">
+                                <img src="{{ asset('img/' . $artikel->sampul) }}" alt="{{ $artikel->judul }}" 
+                                    class="w-full h-auto object-contain rounded-lg shadow-md cursor-pointer article-image" 
+                                    onclick="openImagePreview(this.src)" 
+                                    data-src="{{ asset('img/' . $artikel->sampul) }}">
+                            </div>
+                        @else
+                            <div class="w-full aspect-[16/9] bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-lg shadow-md">
+                                <div class="text-center">
+                                    <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
+                                    <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            
+                <!-- Article Content -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                    <div class="prose max-w-3xl mx-auto">{!! $artikel->deskripsi !!}</div>
                 </div>
             </div>
             
-            <!-- Lightbox untuk preview gambar -->
-            <div id="image-preview-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4">
-                <div class="relative max-w-4xl w-full">
-                    <button onclick="closeImagePreview()" class="absolute -top-10 right-0 text-white text-2xl font-bold">&times;</button>
-                    <img id="preview-image" src="" alt="Preview" class="max-w-full max-h-[80vh] mx-auto">
-                </div>
-            </div>
-            <div class="my-10 mx-5 prose">{!! $artikel->deskripsi !!}</div>
-        </div>
-        <div class="mt-40 ml-10 col-span-2 max-sm:col-span-1 max-sm:ml-0">
-            <div>
-                <div class="w-full flex">
-                    <h2 class="text-lg font-semibold rounded-t-md border-t-4 border-t-black border-x w-fit p-2">
-                        BERITA ACAK</h2>
-                    <div class="border-b flex-grow"></div>
-                </div>
-                <div class="rounded-b-md px-3 border-t-0 border-x border-b pt-3">
-                    @foreach ($rekomendasi as $i)
-                        <a href="{{ route('detailartikel', ['tanggal' => $i->created_at->format('Y-m-d'), 'judul' => Str::slug($i->judul)]) }}"
-                            class="group">
-
-                            <div class="border-b border-black/20 mb-3 flex">
-                                @if (strpos($i->sampul, 'youtube'))
-                                    @php
-                                        $youtubeUrl = $i->sampul;
-                                        preg_match('/embed\/([^\?]*)/', $youtubeUrl, $matches);
-                                        $thumbnail = $matches[1] ?? null;
-                                    @endphp
-                                    <img src="https://img.youtube.com/vi/{{ $thumbnail }}/hqdefault.jpg" alt=""
-                                        class="w-1/4">
-                                @else
-                                    <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="w-1/4">
-                                @endif
-                                <div class="ml-1">
-                                    <p class="group-hover:font-bold transition-all text-xs">
-                                        {{ Str::limit($i->judul, 50, '...') }}</p>
-                                    <p class="text-xs text-black/50 group-hover:text-black/90"><i
-                                            class="fa-solid fa-calendar-days"></i>
-                                        {{ date('d/m/Y', strtotime($i->created_at)) }}</p>
+            <!-- Sidebar -->
+            <div class="col-span-12 lg:col-span-4">
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm sticky top-24">
+                    <div class="border-b border-gray-200">
+                        <h3 class="text-lg font-bold text-gray-900 p-4">Artikel Terkait</h3>
+                    </div>
+                    <div class="p-4">
+                        @foreach ($rekomendasi as $i)
+                            <a href="{{ route('detailartikel', ['tanggal' => $i->created_at->format('Y-m-d'), 'judul' => Str::slug($i->judul)]) }}"
+                                class="group flex items-start gap-3 pb-4 mb-4 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0">
+                                
+                                <div class="w-20 h-20 flex-shrink-0 rounded-md overflow-hidden">
+                                    @if (strpos($i->sampul, 'youtube'))
+                                        @php
+                                            $youtubeUrl = $i->sampul;
+                                            preg_match('/embed\/([^\?]*)/', $youtubeUrl, $matches);
+                                            $thumbnail = $matches[1] ?? null;
+                                        @endphp
+                                        <img src="https://img.youtube.com/vi/{{ $thumbnail }}/hqdefault.jpg" 
+                                            alt="{{ $i->judul }}"
+                                            class="w-full h-full object-cover">
+                                    @else
+                                        <img src="{{ asset('img/' . $i->sampul) }}" 
+                                            alt="{{ $i->judul }}" 
+                                            class="w-full h-full object-cover">
+                                    @endif
                                 </div>
-                            </div>
-                        </a>
-                    @endforeach
+                                
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 line-clamp-2 mb-1">
+                                        {{ Str::limit($i->judul, 60, '...') }}
+                                    </h4>
+                                    <div class="flex items-center text-xs text-gray-500">
+                                        <i class="fa-solid fa-calendar-days mr-1"></i>
+                                        <span>{{ date('d M Y', strtotime($i->created_at)) }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
+        </div>
+    
+    <!-- Lightbox untuk preview gambar -->
+    <div id="image-preview-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full">
+            <button onclick="closeImagePreview()" class="absolute -top-10 right-0 text-white text-2xl font-bold">&times;</button>
+            <img id="preview-image" src="" alt="Preview" class="max-w-full max-h-[80vh] mx-auto object-contain">
         </div>
     </div>
 
@@ -203,12 +225,12 @@
                 container.className = 'flex justify-center my-4';
                 
                 const wrapper = document.createElement('div');
-                wrapper.className = 'max-w-[800px] w-full mx-auto rounded-lg shadow-md overflow-hidden';
-                wrapper.style.maxWidth = '70%';
+                wrapper.className = 'max-w-3xl w-full rounded-lg shadow-sm overflow-hidden';
+                wrapper.style.maxWidth = '100%';
                 
                 // Salin gambar ke dalam wrapper baru
                 const newImg = img.cloneNode(true);
-                newImg.className = 'w-full h-auto object-contain cursor-pointer';
+                newImg.className = 'w-full h-auto object-contain cursor-pointer hover:opacity-95 transition-opacity';
                 newImg.setAttribute('onclick', 'openImagePreview(this.src)');
                 
                 // Gantikan gambar asli dengan struktur baru
