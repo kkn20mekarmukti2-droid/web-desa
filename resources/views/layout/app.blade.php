@@ -142,42 +142,67 @@
             width: 100%;
         }
         
-        /* Bootstrap Dropdown Enhancement */
-        .dropdown-menu {
-            background: rgba(0, 0, 0, 0.95) !important;
-            backdrop-filter: blur(15px) !important;
-            border: 1px solid rgba(245, 158, 11, 0.3) !important;
-            border-radius: 12px !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
-            padding: 8px !important;
-            margin-top: 8px !important;
+        /* Professional Hover Dropdown Styling */
+        .dropdown-container {
+            perspective: 1000px;
         }
         
-        .dropdown-item {
-            color: #fff !important;
-            border-radius: 8px !important;
-            margin: 2px 0 !important;
-            transition: all 0.3s ease !important;
-            font-weight: 500 !important;
-            text-decoration: none !important;
+        .dropdown-menu-hover {
+            transform-origin: top center;
+            pointer-events: none;
         }
         
-        .dropdown-item:hover, .dropdown-item:focus {
-            background: rgba(245, 158, 11, 0.2) !important;
-            color: #F59E0B !important;
-            text-decoration: none !important;
+        .dropdown-container:hover .dropdown-menu-hover {
+            pointer-events: auto;
         }
         
-        .dropdown-toggle::after {
-            border-top: 0.4em solid;
-            border-right: 0.4em solid transparent;
-            border-left: 0.4em solid transparent;
-            margin-left: 8px;
-            transition: transform 0.3s ease;
+        /* Smooth dropdown animation with better easing */
+        .dropdown-menu-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
         
-        .dropdown-toggle[aria-expanded="true"]::after {
-            transform: rotate(180deg);
+        /* Enhanced item hover effects */
+        .dropdown-item-hover:hover {
+            transform: translateX(8px) !important;
+            background: rgba(245, 158, 11, 0.25) !important;
+        }
+        
+        .dropdown-item-hover:hover i {
+            transform: scale(1.2) !important;
+            color: #FFA500 !important;
+        }
+        
+        /* Subtle backdrop filter enhancement */
+        .dropdown-menu-hover {
+            backdrop-filter: blur(20px) saturate(1.2);
+            -webkit-backdrop-filter: blur(20px) saturate(1.2);
+        }
+        
+        /* Dropdown arrow pointer */
+        .dropdown-menu-hover::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 32px;
+            width: 16px;
+            height: 16px;
+            background: rgba(0, 0, 0, 0.95);
+            border-left: 1px solid rgba(245, 158, 11, 0.3);
+            border-top: 1px solid rgba(245, 158, 11, 0.3);
+            transform: rotate(45deg);
+            backdrop-filter: blur(20px);
+        }
+        
+        /* Prevent dropdown flicker on hover gaps */
+        .dropdown-container::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: transparent;
+            pointer-events: auto;
         }
 
         /* Enhanced Button Styling */
@@ -442,43 +467,75 @@
                         <i class="bi bi-house-door-fill text-lg"></i>
                     </a>
                     
-                    <!-- Profile Desa Dropdown - Simple Click -->
-                    <div class="simple-dropdown relative">
-                        <button onclick="toggleDropdown('profileDropdown')" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                    <!-- Profile Desa Dropdown - Smooth Hover -->
+                    <div class="group relative dropdown-container">
+                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-people-fill"></i>
                             <span>Profile Desa</span>
-                            <i class="bi bi-chevron-down text-xs" id="profileChevron"></i>
+                            <i class="bi bi-chevron-down text-xs transform transition-transform duration-300 group-hover:rotate-180"></i>
                         </button>
-                        <div id="profileDropdown" class="simple-dropdown-menu absolute top-full left-0 mt-2 w-52 hidden z-50" style="background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); padding: 8px;">
-                            <a href="{{ route('sejarah') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
-                                <i class="bi bi-clock-history me-2 text-yellow-500"></i>Sejarah
-                            </a>
-                            <a href="{{ route('visi') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
-                                <i class="bi bi-eye-fill me-2 text-yellow-500"></i>Visi & Misi
-                            </a>
-                            <a href="{{ route('pemerintahan') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
-                                <i class="bi bi-diagram-3-fill me-2 text-yellow-500"></i>Struktur Organisasi
-                            </a>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu-hover absolute left-0 top-full mt-2 w-64 
+                                    opacity-0 invisible translate-y-2 scale-95
+                                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:scale-100
+                                    transition-all duration-300 ease-out transform-gpu
+                                    bg-black bg-opacity-95 backdrop-blur-xl
+                                    border border-yellow-500 border-opacity-30 rounded-xl shadow-2xl
+                                    before:absolute before:-top-2 before:left-8 before:w-4 before:h-4 
+                                    before:bg-black before:bg-opacity-95 before:rotate-45 before:border-l before:border-t 
+                                    before:border-yellow-500 before:border-opacity-30 z-50">
+                            
+                            <div class="p-2 space-y-1">
+                                <a href="{{ route('sejarah') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
+                                    <i class="bi bi-clock-history text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
+                                    <span class="font-medium">Sejarah</span>
+                                </a>
+                                <a href="{{ route('visi') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
+                                    <i class="bi bi-eye-fill text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
+                                    <span class="font-medium">Visi & Misi</span>
+                                </a>
+                                <a href="{{ route('pemerintahan') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
+                                    <i class="bi bi-diagram-3-fill text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
+                                    <span class="font-medium">Struktur Organisasi</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Informasi Desa Dropdown - Simple Click -->
-                    <div class="simple-dropdown relative">
-                        <button onclick="toggleDropdown('infoDropdown')" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                    <!-- Informasi Desa Dropdown - Smooth Hover -->
+                    <div class="group relative dropdown-container">
+                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-info-circle-fill"></i>
                             <span>Informasi Desa</span>
-                            <i class="bi bi-chevron-down text-xs" id="infoChevron"></i>
+                            <i class="bi bi-chevron-down text-xs transform transition-transform duration-300 group-hover:rotate-180"></i>
                         </button>
-                        <div id="infoDropdown" class="simple-dropdown-menu absolute top-full left-0 mt-2 w-52 hidden z-50" style="background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); padding: 8px;">
-                            <a href="{{ route('berita') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
-                                <i class="bi bi-newspaper me-2 text-yellow-500"></i>Berita
-                            </a>
-                            <a href="{{ route('galeri') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
-                                <i class="bi bi-images me-2 text-yellow-500"></i>Galeri
-                            </a>
-                            <a href="{{ route('potensidesa') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
-                                <i class="bi bi-gem me-2 text-yellow-500"></i>Potensi Desa
-                            </a>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu-hover absolute left-0 top-full mt-2 w-64 
+                                    opacity-0 invisible translate-y-2 scale-95
+                                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:scale-100
+                                    transition-all duration-300 ease-out transform-gpu
+                                    bg-black bg-opacity-95 backdrop-blur-xl
+                                    border border-yellow-500 border-opacity-30 rounded-xl shadow-2xl
+                                    before:absolute before:-top-2 before:left-8 before:w-4 before:h-4 
+                                    before:bg-black before:bg-opacity-95 before:rotate-45 before:border-l before:border-t 
+                                    before:border-yellow-500 before:border-opacity-30 z-50">
+                            
+                            <div class="p-2 space-y-1">
+                                <a href="{{ route('berita') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
+                                    <i class="bi bi-newspaper text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
+                                    <span class="font-medium">Berita</span>
+                                </a>
+                                <a href="{{ route('galeri') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
+                                    <i class="bi bi-images text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
+                                    <span class="font-medium">Galeri</span>
+                                </a>
+                                <a href="{{ route('potensidesa') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
+                                    <i class="bi bi-gem text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
+                                    <span class="font-medium">Potensi Desa</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     
@@ -982,7 +1039,8 @@
             
             console.log('Enhanced mobile navigation initialized successfully');
             
-            console.log('Simple dropdown navigation ready');
+            // Enhanced hover dropdown ready
+            console.log('Professional hover dropdown navigation ready');
             
             // Debug function for testing
             window.debugMobileMenu = function() {
@@ -1015,58 +1073,10 @@
             }
         });
     </script>
-
+    
     <script>
-        // Simple Dropdown Toggle Function
-        function toggleDropdown(dropdownId) {
-            console.log('Toggling dropdown:', dropdownId);
-            
-            // Close all other dropdowns first
-            const allDropdowns = document.querySelectorAll('.simple-dropdown-menu');
-            const allChevrons = document.querySelectorAll('.simple-dropdown i[id$="Chevron"]');
-            
-            allDropdowns.forEach(dropdown => {
-                if (dropdown.id !== dropdownId) {
-                    dropdown.classList.add('hidden');
-                }
-            });
-            
-            allChevrons.forEach(chevron => {
-                if (chevron.id !== dropdownId.replace('Dropdown', 'Chevron')) {
-                    chevron.style.transform = 'rotate(0deg)';
-                }
-            });
-            
-            // Toggle the target dropdown
-            const targetDropdown = document.getElementById(dropdownId);
-            const targetChevron = document.getElementById(dropdownId.replace('Dropdown', 'Chevron'));
-            
-            if (targetDropdown) {
-                if (targetDropdown.classList.contains('hidden')) {
-                    targetDropdown.classList.remove('hidden');
-                    if (targetChevron) targetChevron.style.transform = 'rotate(180deg)';
-                    console.log('Dropdown opened:', dropdownId);
-                } else {
-                    targetDropdown.classList.add('hidden');
-                    if (targetChevron) targetChevron.style.transform = 'rotate(0deg)';
-                    console.log('Dropdown closed:', dropdownId);
-                }
-            }
-        }
-        
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            const isDropdownButton = event.target.closest('.simple-dropdown button');
-            if (!isDropdownButton) {
-                const allDropdowns = document.querySelectorAll('.simple-dropdown-menu');
-                const allChevrons = document.querySelectorAll('.simple-dropdown i[id$="Chevron"]');
-                
-                allDropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
-                allChevrons.forEach(chevron => chevron.style.transform = 'rotate(0deg)');
-            }
-        });
-        
-        console.log('Simple dropdown functionality loaded');
+        // Professional hover dropdown - CSS-only animations
+        console.log('Hover dropdown loaded - CSS animations active');
     </script>
     
     @stack('scripts')
