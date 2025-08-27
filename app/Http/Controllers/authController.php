@@ -22,14 +22,34 @@ class authController extends Controller
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
+            return redirect()->intended(route('dashboard'));
+        }
+        
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput($request->except('password'));
+    }
+    
+    public function formlogin(){
+        // Clear any existing session data to prevent CSRF issues
+        if(Auth::check()) {
             return redirect()->route('dashboard');
         }
-        throw ValidationException::withMessages([
-            'email' => [__('auth.failed')],
-        ]);
-    }
-    public function formlogin(){
+        
+        // Ensure fresh session for login form
+        session()->regenerateToken();
+        
         return view('auth.login');
+    }
+    
+    public function refreshCsrf(Request $request) {
+        if ($request->ajax()) {
+            return response()->json([
+                'token' => csrf_token()
+            ]);
+        }
+        
+        return response()->json(['error' => 'Invalid request'], 400);
     }
     public function index()
     {

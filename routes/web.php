@@ -74,6 +74,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 Route::get('/admin', [authController::class, 'formlogin'])->name('formlogin');
 Route::get('/login', fn () => redirect()->route('formlogin'));
 Route::post('/login', [authController::class, 'login'])->name('login');
+Route::get('/refresh-csrf', [authController::class, 'refreshCsrf'])->name('refresh-csrf');
 
 /*
 |--------------------------------------------------------------------------
@@ -131,7 +132,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Logout
     Route::get('/logout', function () {
         Auth::logout();
-        return redirect()->route('home');
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect()->route('formlogin', ['logout' => '1']);
     })->name('logout');
 });
 
