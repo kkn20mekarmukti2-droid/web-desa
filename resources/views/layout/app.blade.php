@@ -654,7 +654,7 @@
                         <a href="https://www.instagram.com/mekarmukti_id/" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="Instagram Desa Mekarmukti">
                             <i class="fab fa-instagram text-lg"></i>
                         </a>
-                        <a href="https://www.youtube.com/@mekarmukti_id" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="YouTube Desa Mekarmukti">
+                        <a href="https://www.youtube.com/@desamekarmukti_motekar" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="YouTube Desa Mekarmukti">
                             <i class="fab fa-youtube text-lg"></i>
                         </a>
                         <a href="https://wa.me/6285157622980" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" title="WhatsApp Desa Mekarmukti">
