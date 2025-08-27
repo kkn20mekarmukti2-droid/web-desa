@@ -442,44 +442,44 @@
                         <i class="bi bi-house-door-fill text-lg"></i>
                     </a>
                     
-                    <!-- Profile Desa Dropdown - Bootstrap Style -->
-                    <div class="dropdown">
-                        <a href="#" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium dropdown-toggle" 
-                           data-bs-toggle="dropdown" aria-expanded="false" id="profileDropdown">
+                    <!-- Profile Desa Dropdown - Simple Click -->
+                    <div class="simple-dropdown relative">
+                        <button onclick="toggleDropdown('profileDropdown')" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-people-fill"></i>
                             <span>Profile Desa</span>
-                        </a>
-                        <ul class="dropdown-menu bg-dark border-0 shadow-lg" aria-labelledby="profileDropdown" style="background: rgba(0, 0, 0, 0.95) !important; backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3) !important; border-radius: 12px;">
-                            <li><a class="dropdown-item text-white py-2" href="{{ route('sejarah') }}" style="border-radius: 8px; margin: 2px;">
-                                <i class="bi bi-clock-history me-2 text-warning"></i>Sejarah
-                            </a></li>
-                            <li><a class="dropdown-item text-white py-2" href="{{ route('visi') }}" style="border-radius: 8px; margin: 2px;">
-                                <i class="bi bi-eye-fill me-2 text-warning"></i>Visi & Misi
-                            </a></li>
-                            <li><a class="dropdown-item text-white py-2" href="{{ route('pemerintahan') }}" style="border-radius: 8px; margin: 2px;">
-                                <i class="bi bi-diagram-3-fill me-2 text-warning"></i>Struktur Organisasi
-                            </a></li>
-                        </ul>
+                            <i class="bi bi-chevron-down text-xs" id="profileChevron"></i>
+                        </button>
+                        <div id="profileDropdown" class="simple-dropdown-menu absolute top-full left-0 mt-2 w-52 hidden z-50" style="background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); padding: 8px;">
+                            <a href="{{ route('sejarah') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
+                                <i class="bi bi-clock-history me-2 text-yellow-500"></i>Sejarah
+                            </a>
+                            <a href="{{ route('visi') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
+                                <i class="bi bi-eye-fill me-2 text-yellow-500"></i>Visi & Misi
+                            </a>
+                            <a href="{{ route('pemerintahan') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
+                                <i class="bi bi-diagram-3-fill me-2 text-yellow-500"></i>Struktur Organisasi
+                            </a>
+                        </div>
                     </div>
                     
-                    <!-- Informasi Desa Dropdown - Bootstrap Style -->
-                    <div class="dropdown">
-                        <a href="#" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium dropdown-toggle" 
-                           data-bs-toggle="dropdown" aria-expanded="false" id="infoDropdown">
+                    <!-- Informasi Desa Dropdown - Simple Click -->
+                    <div class="simple-dropdown relative">
+                        <button onclick="toggleDropdown('infoDropdown')" class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-info-circle-fill"></i>
                             <span>Informasi Desa</span>
-                        </a>
-                        <ul class="dropdown-menu bg-dark border-0 shadow-lg" aria-labelledby="infoDropdown" style="background: rgba(0, 0, 0, 0.95) !important; backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3) !important; border-radius: 12px;">
-                            <li><a class="dropdown-item text-white py-2" href="{{ route('berita') }}" style="border-radius: 8px; margin: 2px;">
-                                <i class="bi bi-newspaper me-2 text-warning"></i>Berita
-                            </a></li>
-                            <li><a class="dropdown-item text-white py-2" href="{{ route('galeri') }}" style="border-radius: 8px; margin: 2px;">
-                                <i class="bi bi-images me-2 text-warning"></i>Galeri
-                            </a></li>
-                            <li><a class="dropdown-item text-white py-2" href="{{ route('potensidesa') }}" style="border-radius: 8px; margin: 2px;">
-                                <i class="bi bi-gem me-2 text-warning"></i>Potensi Desa
-                            </a></li>
-                        </ul>
+                            <i class="bi bi-chevron-down text-xs" id="infoChevron"></i>
+                        </button>
+                        <div id="infoDropdown" class="simple-dropdown-menu absolute top-full left-0 mt-2 w-52 hidden z-50" style="background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); padding: 8px;">
+                            <a href="{{ route('berita') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
+                                <i class="bi bi-newspaper me-2 text-yellow-500"></i>Berita
+                            </a>
+                            <a href="{{ route('galeri') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
+                                <i class="bi bi-images me-2 text-yellow-500"></i>Galeri
+                            </a>
+                            <a href="{{ route('potensidesa') }}" class="block px-4 py-2 text-white hover:bg-yellow-500 hover:bg-opacity-20 rounded-lg transition-all">
+                                <i class="bi bi-gem me-2 text-yellow-500"></i>Potensi Desa
+                            </a>
+                        </div>
                     </div>
                     
                     <a href="{{ route('data.penduduk') }}" class="nav-link text-white hover:text-primary-500 transition-all duration-300 flex items-center space-x-2 font-medium">
@@ -982,13 +982,7 @@
             
             console.log('Enhanced mobile navigation initialized successfully');
             
-            // Initialize Bootstrap Dropdowns (just in case)
-            const dropdownTriggerList = document.querySelectorAll('[data-bs-toggle="dropdown"]');
-            const dropdownList = [...dropdownTriggerList].map(dropdownTriggerEl => {
-                return new bootstrap.Dropdown(dropdownTriggerEl);
-            });
-            
-            console.log(`Initialized ${dropdownList.length} Bootstrap dropdowns`);
+            console.log('Simple dropdown navigation ready');
             
             // Debug function for testing
             window.debugMobileMenu = function() {
@@ -1020,6 +1014,59 @@
                 }
             }
         });
+    </script>
+
+    <script>
+        // Simple Dropdown Toggle Function
+        function toggleDropdown(dropdownId) {
+            console.log('Toggling dropdown:', dropdownId);
+            
+            // Close all other dropdowns first
+            const allDropdowns = document.querySelectorAll('.simple-dropdown-menu');
+            const allChevrons = document.querySelectorAll('.simple-dropdown i[id$="Chevron"]');
+            
+            allDropdowns.forEach(dropdown => {
+                if (dropdown.id !== dropdownId) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+            
+            allChevrons.forEach(chevron => {
+                if (chevron.id !== dropdownId.replace('Dropdown', 'Chevron')) {
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Toggle the target dropdown
+            const targetDropdown = document.getElementById(dropdownId);
+            const targetChevron = document.getElementById(dropdownId.replace('Dropdown', 'Chevron'));
+            
+            if (targetDropdown) {
+                if (targetDropdown.classList.contains('hidden')) {
+                    targetDropdown.classList.remove('hidden');
+                    if (targetChevron) targetChevron.style.transform = 'rotate(180deg)';
+                    console.log('Dropdown opened:', dropdownId);
+                } else {
+                    targetDropdown.classList.add('hidden');
+                    if (targetChevron) targetChevron.style.transform = 'rotate(0deg)';
+                    console.log('Dropdown closed:', dropdownId);
+                }
+            }
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            const isDropdownButton = event.target.closest('.simple-dropdown button');
+            if (!isDropdownButton) {
+                const allDropdowns = document.querySelectorAll('.simple-dropdown-menu');
+                const allChevrons = document.querySelectorAll('.simple-dropdown i[id$="Chevron"]');
+                
+                allDropdowns.forEach(dropdown => dropdown.classList.add('hidden'));
+                allChevrons.forEach(chevron => chevron.style.transform = 'rotate(0deg)');
+            }
+        });
+        
+        console.log('Simple dropdown functionality loaded');
     </script>
     
     @stack('scripts')
