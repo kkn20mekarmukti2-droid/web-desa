@@ -151,6 +151,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
             padding: 8px !important;
             z-index: 1000 !important;
+            margin-top: 8px !important;
         }
         
         .dropdown-item {
@@ -160,28 +161,47 @@
             transition: all 0.3s ease !important;
             font-weight: 500 !important;
             display: block !important;
+            text-decoration: none !important;
         }
         
         .dropdown-item:hover {
             background: rgba(245, 158, 11, 0.2) !important;
             color: #F59E0B !important;
             transform: translateX(5px) !important;
+            text-decoration: none !important;
         }
 
         /* Desktop Dropdown Hover Enhancement */
+        .nav-dropdown {
+            position: relative;
+        }
+        
         .nav-dropdown:hover .dropdown-menu {
             opacity: 1 !important;
             visibility: visible !important;
             transform: translateY(0) !important;
             pointer-events: auto !important;
         }
+        
+        .nav-dropdown:hover .dropdown-chevron {
+            transform: rotate(180deg) !important;
+        }
 
         .nav-dropdown .dropdown-menu {
             opacity: 0 !important;
             visibility: hidden !important;
             transform: translateY(-10px) !important;
-            transition: all 0.3s ease !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
             pointer-events: none !important;
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            z-index: 9999 !important;
+            min-width: 220px !important;
+        }
+        
+        .dropdown-chevron {
+            transition: transform 0.3s ease !important;
         }
         
         /* Enhanced Button Styling */
@@ -447,13 +467,13 @@
                     </a>
                     
                     <!-- Profile Desa Dropdown -->
-                    <div class="nav-dropdown relative">
+                    <div class="nav-dropdown">
                         <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-people-fill"></i>
                             <span>Profile Desa</span>
-                            <i class="bi bi-chevron-down text-xs transition-transform duration-300"></i>
+                            <i class="bi bi-chevron-down text-xs dropdown-chevron"></i>
                         </button>
-                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52">
+                        <div class="dropdown-menu">
                             <a href="{{ route('sejarah') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-clock-history me-2"></i>Sejarah
                             </a>
@@ -467,13 +487,13 @@
                     </div>
                     
                     <!-- Informasi Desa Dropdown -->
-                    <div class="nav-dropdown relative">
+                    <div class="nav-dropdown">
                         <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
                             <i class="bi bi-info-circle-fill"></i>
                             <span>Informasi Desa</span>
-                            <i class="bi bi-chevron-down text-xs transition-transform duration-300"></i>
+                            <i class="bi bi-chevron-down text-xs dropdown-chevron"></i>
                         </button>
-                        <div class="dropdown-menu absolute top-full left-0 mt-3 w-52">
+                        <div class="dropdown-menu">
                             <a href="{{ route('berita') }}" class="dropdown-item px-4 py-3">
                                 <i class="bi bi-newspaper me-2"></i>Berita
                             </a>
@@ -985,6 +1005,66 @@
             });
             
             console.log('Enhanced mobile navigation initialized successfully');
+            
+            // Initialize Desktop Dropdown Navigation
+            const navDropdowns = document.querySelectorAll('.nav-dropdown');
+            console.log(`Found ${navDropdowns.length} dropdown menus`);
+            
+            navDropdowns.forEach((dropdown, index) => {
+                const button = dropdown.querySelector('button');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                const chevron = dropdown.querySelector('.dropdown-chevron');
+                
+                console.log(`Dropdown ${index + 1}:`, {
+                    hasButton: !!button,
+                    hasMenu: !!menu,
+                    hasChevron: !!chevron
+                });
+                
+                if (button && menu) {
+                    // Set initial styles
+                    menu.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                    
+                    // Mouse events
+                    dropdown.addEventListener('mouseenter', function() {
+                        console.log(`Dropdown ${index + 1} - mouseenter`);
+                        menu.style.opacity = '1';
+                        menu.style.visibility = 'visible';
+                        menu.style.transform = 'translateY(0)';
+                        menu.style.pointerEvents = 'auto';
+                        if (chevron) chevron.style.transform = 'rotate(180deg)';
+                    });
+                    
+                    dropdown.addEventListener('mouseleave', function() {
+                        console.log(`Dropdown ${index + 1} - mouseleave`);
+                        menu.style.opacity = '0';
+                        menu.style.visibility = 'hidden';
+                        menu.style.transform = 'translateY(-10px)';
+                        menu.style.pointerEvents = 'none';
+                        if (chevron) chevron.style.transform = 'rotate(0deg)';
+                    });
+                    
+                    // Click event for testing (removable later)
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log(`Dropdown ${index + 1} - button clicked`);
+                        const isVisible = menu.style.visibility === 'visible';
+                        if (isVisible) {
+                            menu.style.opacity = '0';
+                            menu.style.visibility = 'hidden';
+                            menu.style.transform = 'translateY(-10px)';
+                            if (chevron) chevron.style.transform = 'rotate(0deg)';
+                        } else {
+                            menu.style.opacity = '1';
+                            menu.style.visibility = 'visible';
+                            menu.style.transform = 'translateY(0)';
+                            if (chevron) chevron.style.transform = 'rotate(180deg)';
+                        }
+                    });
+                }
+            });
+            
+            console.log('Desktop dropdown navigation initialized successfully');
             
             // Debug function for testing
             window.debugMobileMenu = function() {
