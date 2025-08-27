@@ -142,11 +142,16 @@
             width: 100%;
         }
         
-        /* Simple Pure CSS Dropdown - Guaranteed to work */
+        /* FORCE DROPDOWN TO WORK - Override all conflicts */
         .nav-dropdown-pure:hover .dropdown-content {
             opacity: 1 !important;
             visibility: visible !important;
             transform: translateY(0) !important;
+            display: block !important;
+        }
+        
+        .nav-dropdown-pure .dropdown-content {
+            display: block !important;
         }
         
         .nav-dropdown-pure:hover .dropdown-arrow {
@@ -156,6 +161,20 @@
         .dropdown-link:hover {
             background: rgba(245, 158, 11, 0.2) !important;
             transform: translateX(5px) !important;
+            color: #FFA500 !important;
+        }
+        
+        /* Additional force styling */
+        nav .nav-dropdown-pure {
+            position: relative !important;
+            display: inline-block !important;
+        }
+        
+        nav .nav-dropdown-pure .dropdown-content {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            z-index: 9999 !important;
         }
 
         /* Enhanced Button Styling */
