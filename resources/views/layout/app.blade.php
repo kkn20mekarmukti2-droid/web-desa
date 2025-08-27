@@ -669,7 +669,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('artikel') }}" class="footer-link text-gray-300 hover:text-primary-500 transition-colors duration-300 flex items-center">
+                            <a href="{{ route('berita') }}" class="footer-link text-gray-300 hover:text-primary-500 transition-colors duration-300 flex items-center">
                                 <i class="bi bi-chevron-right text-xs mr-2"></i>
                                 Berita Desa
                             </a>
