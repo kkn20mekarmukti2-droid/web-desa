@@ -142,67 +142,20 @@
             width: 100%;
         }
         
-        /* Professional Hover Dropdown Styling */
-        .dropdown-container {
-            perspective: 1000px;
+        /* Simple Pure CSS Dropdown - Guaranteed to work */
+        .nav-dropdown-pure:hover .dropdown-content {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateY(0) !important;
         }
         
-        .dropdown-menu-hover {
-            transform-origin: top center;
-            pointer-events: none;
+        .nav-dropdown-pure:hover .dropdown-arrow {
+            transform: rotate(180deg) !important;
         }
         
-        .dropdown-container:hover .dropdown-menu-hover {
-            pointer-events: auto;
-        }
-        
-        /* Smooth dropdown animation with better easing */
-        .dropdown-menu-hover {
-            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-        
-        /* Enhanced item hover effects */
-        .dropdown-item-hover:hover {
-            transform: translateX(8px) !important;
-            background: rgba(245, 158, 11, 0.25) !important;
-        }
-        
-        .dropdown-item-hover:hover i {
-            transform: scale(1.2) !important;
-            color: #FFA500 !important;
-        }
-        
-        /* Subtle backdrop filter enhancement */
-        .dropdown-menu-hover {
-            backdrop-filter: blur(20px) saturate(1.2);
-            -webkit-backdrop-filter: blur(20px) saturate(1.2);
-        }
-        
-        /* Dropdown arrow pointer */
-        .dropdown-menu-hover::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: 32px;
-            width: 16px;
-            height: 16px;
-            background: rgba(0, 0, 0, 0.95);
-            border-left: 1px solid rgba(245, 158, 11, 0.3);
-            border-top: 1px solid rgba(245, 158, 11, 0.3);
-            transform: rotate(45deg);
-            backdrop-filter: blur(20px);
-        }
-        
-        /* Prevent dropdown flicker on hover gaps */
-        .dropdown-container::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            height: 8px;
-            background: transparent;
-            pointer-events: auto;
+        .dropdown-link:hover {
+            background: rgba(245, 158, 11, 0.2) !important;
+            transform: translateX(5px) !important;
         }
 
         /* Enhanced Button Styling */
@@ -467,75 +420,139 @@
                         <i class="bi bi-house-door-fill text-lg"></i>
                     </a>
                     
-                    <!-- Profile Desa Dropdown - Smooth Hover -->
-                    <div class="group relative dropdown-container">
-                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                    <!-- Profile Desa Dropdown - Pure CSS -->
+                    <div class="nav-dropdown-pure" style="position: relative; display: inline-block;">
+                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium" style="background: none; border: none; cursor: pointer;">
                             <i class="bi bi-people-fill"></i>
                             <span>Profile Desa</span>
-                            <i class="bi bi-chevron-down text-xs transform transition-transform duration-300 group-hover:rotate-180"></i>
+                            <i class="bi bi-chevron-down text-xs dropdown-arrow" style="transition: transform 0.3s ease;"></i>
                         </button>
                         
-                        <!-- Dropdown Menu -->
-                        <div class="dropdown-menu-hover absolute left-0 top-full mt-2 w-64 
-                                    opacity-0 invisible translate-y-2 scale-95
-                                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:scale-100
-                                    transition-all duration-300 ease-out transform-gpu
-                                    bg-black bg-opacity-95 backdrop-blur-xl
-                                    border border-yellow-500 border-opacity-30 rounded-xl shadow-2xl
-                                    before:absolute before:-top-2 before:left-8 before:w-4 before:h-4 
-                                    before:bg-black before:bg-opacity-95 before:rotate-45 before:border-l before:border-t 
-                                    before:border-yellow-500 before:border-opacity-30 z-50">
-                            
-                            <div class="p-2 space-y-1">
-                                <a href="{{ route('sejarah') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
-                                    <i class="bi bi-clock-history text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
-                                    <span class="font-medium">Sejarah</span>
-                                </a>
-                                <a href="{{ route('visi') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
-                                    <i class="bi bi-eye-fill text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
-                                    <span class="font-medium">Visi & Misi</span>
-                                </a>
-                                <a href="{{ route('pemerintahan') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
-                                    <i class="bi bi-diagram-3-fill text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
-                                    <span class="font-medium">Struktur Organisasi</span>
-                                </a>
-                            </div>
+                        <div class="dropdown-content" style="
+                            position: absolute;
+                            top: 100%;
+                            left: 0;
+                            background: rgba(0, 0, 0, 0.95);
+                            backdrop-filter: blur(15px);
+                            border: 1px solid rgba(245, 158, 11, 0.3);
+                            border-radius: 12px;
+                            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+                            min-width: 220px;
+                            z-index: 1000;
+                            opacity: 0;
+                            visibility: hidden;
+                            transform: translateY(10px);
+                            transition: all 0.3s ease;
+                            margin-top: 8px;
+                            padding: 8px;
+                        ">
+                            <a href="{{ route('sejarah') }}" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 16px;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 8px;
+                                margin: 2px 0;
+                                transition: all 0.3s ease;
+                            " class="dropdown-link">
+                                <i class="bi bi-clock-history" style="color: #F59E0B; margin-right: 8px;"></i>
+                                Sejarah
+                            </a>
+                            <a href="{{ route('visi') }}" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 16px;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 8px;
+                                margin: 2px 0;
+                                transition: all 0.3s ease;
+                            " class="dropdown-link">
+                                <i class="bi bi-eye-fill" style="color: #F59E0B; margin-right: 8px;"></i>
+                                Visi & Misi
+                            </a>
+                            <a href="{{ route('pemerintahan') }}" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 16px;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 8px;
+                                margin: 2px 0;
+                                transition: all 0.3s ease;
+                            " class="dropdown-link">
+                                <i class="bi bi-diagram-3-fill" style="color: #F59E0B; margin-right: 8px;"></i>
+                                Struktur Organisasi
+                            </a>
                         </div>
                     </div>
                     
-                    <!-- Informasi Desa Dropdown - Smooth Hover -->
-                    <div class="group relative dropdown-container">
-                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium">
+                    <!-- Informasi Desa Dropdown - Pure CSS -->
+                    <div class="nav-dropdown-pure" style="position: relative; display: inline-block;">
+                        <button class="nav-link flex items-center space-x-2 text-white hover:text-primary-500 transition-all duration-300 font-medium" style="background: none; border: none; cursor: pointer;">
                             <i class="bi bi-info-circle-fill"></i>
                             <span>Informasi Desa</span>
-                            <i class="bi bi-chevron-down text-xs transform transition-transform duration-300 group-hover:rotate-180"></i>
+                            <i class="bi bi-chevron-down text-xs dropdown-arrow" style="transition: transform 0.3s ease;"></i>
                         </button>
                         
-                        <!-- Dropdown Menu -->
-                        <div class="dropdown-menu-hover absolute left-0 top-full mt-2 w-64 
-                                    opacity-0 invisible translate-y-2 scale-95
-                                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:scale-100
-                                    transition-all duration-300 ease-out transform-gpu
-                                    bg-black bg-opacity-95 backdrop-blur-xl
-                                    border border-yellow-500 border-opacity-30 rounded-xl shadow-2xl
-                                    before:absolute before:-top-2 before:left-8 before:w-4 before:h-4 
-                                    before:bg-black before:bg-opacity-95 before:rotate-45 before:border-l before:border-t 
-                                    before:border-yellow-500 before:border-opacity-30 z-50">
-                            
-                            <div class="p-2 space-y-1">
-                                <a href="{{ route('berita') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
-                                    <i class="bi bi-newspaper text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
-                                    <span class="font-medium">Berita</span>
-                                </a>
-                                <a href="{{ route('galeri') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
-                                    <i class="bi bi-images text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
-                                    <span class="font-medium">Galeri</span>
-                                </a>
-                                <a href="{{ route('potensidesa') }}" class="dropdown-item-hover flex items-center px-4 py-3 text-white rounded-lg transition-all duration-200 hover:bg-yellow-500 hover:bg-opacity-20 hover:translate-x-2 group">
-                                    <i class="bi bi-gem text-yellow-500 text-lg mr-3 transition-transform duration-200 group-hover:scale-110"></i>
-                                    <span class="font-medium">Potensi Desa</span>
-                                </a>
-                            </div>
+                        <div class="dropdown-content" style="
+                            position: absolute;
+                            top: 100%;
+                            left: 0;
+                            background: rgba(0, 0, 0, 0.95);
+                            backdrop-filter: blur(15px);
+                            border: 1px solid rgba(245, 158, 11, 0.3);
+                            border-radius: 12px;
+                            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+                            min-width: 220px;
+                            z-index: 1000;
+                            opacity: 0;
+                            visibility: hidden;
+                            transform: translateY(10px);
+                            transition: all 0.3s ease;
+                            margin-top: 8px;
+                            padding: 8px;
+                        ">
+                            <a href="{{ route('berita') }}" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 16px;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 8px;
+                                margin: 2px 0;
+                                transition: all 0.3s ease;
+                            " class="dropdown-link">
+                                <i class="bi bi-newspaper" style="color: #F59E0B; margin-right: 8px;"></i>
+                                Berita
+                            </a>
+                            <a href="{{ route('galeri') }}" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 16px;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 8px;
+                                margin: 2px 0;
+                                transition: all 0.3s ease;
+                            " class="dropdown-link">
+                                <i class="bi bi-images" style="color: #F59E0B; margin-right: 8px;"></i>
+                                Galeri
+                            </a>
+                            <a href="{{ route('potensidesa') }}" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 16px;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 8px;
+                                margin: 2px 0;
+                                transition: all 0.3s ease;
+                            " class="dropdown-link">
+                                <i class="bi bi-gem" style="color: #F59E0B; margin-right: 8px;"></i>
+                                Potensi Desa
+                            </a>
                         </div>
                     </div>
                     
