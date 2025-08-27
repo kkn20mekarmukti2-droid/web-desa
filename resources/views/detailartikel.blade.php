@@ -2,6 +2,61 @@
 @section('judul', $artikel->judul)
 @section('penulis', $artikel->creator->name)
 @section('content')
+    <style>
+        /* Styling untuk gambar artikel */
+        .article-image-container {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .article-image-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-image {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Styling untuk gambar dalam konten prose */
+        .prose img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 1.5rem auto;
+        }
+        
+        /* Gallery grid untuk multiple images */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        
+        .image-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        /* Zoom effect pada hover */
+        .zoom-effect {
+            overflow: hidden;
+        }
+        
+        .zoom-effect img {
+            transition: transform 0.5s ease;
+        }
+        
+        .zoom-effect:hover img {
+            transform: scale(1.05);
+        }
+    </style>
     <div class="grid grid-cols-8 max-sm:grid-cols-1 mx-80 max-sm:mx-10 mt-24 mb-72 max-sm:mb-40">
 
         <div class="col-span-6 max-sm:col-span-1">
@@ -29,22 +84,41 @@
                     <p>Oleh : {{ $artikel->creator->name }}</p>
                 </div>
             </div>
-            @if (strpos($artikel->sampul, 'youtube'))
-                <iframe class="w-full aspect-video my-5" src="{{ $artikel->sampul }}" title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
-                <img src="{{ asset('img/' . $artikel->sampul) }}" alt="" class="w-full bg-cover mt-10 rounded-lg">
-            @else
-                {{-- Placeholder untuk detail artikel --}}
-                <div class="w-full h-64 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mt-10 rounded-lg">
-                    <div class="text-center">
-                        <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
-                        <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
-                    </div>
+            <div class="my-10 flex justify-center">
+                <div class="max-w-[800px] w-full mx-auto" style="max-width: 70%;">
+                    @if (strpos($artikel->sampul, 'youtube'))
+                        <div class="relative overflow-hidden rounded-lg shadow-md">
+                            <iframe class="w-full aspect-video" src="{{ $artikel->sampul }}" title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
+                        <div class="article-image-container">
+                            <img src="{{ asset('img/' . $artikel->sampul) }}" alt="{{ $artikel->judul }}" 
+                                class="w-full h-auto object-contain rounded-lg shadow-md cursor-pointer article-image" 
+                                onclick="openImagePreview(this.src)" 
+                                data-src="{{ asset('img/' . $artikel->sampul) }}">
+                        </div>
+                    @else
+                        {{-- Placeholder untuk detail artikel --}}
+                        <div class="w-full aspect-[16/9] bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-lg shadow-md">
+                            <div class="text-center">
+                                <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
+                                <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
+                            </div>
+                        </div>
+                    @endif
                 </div>
-            @endif
+            </div>
+            
+            <!-- Lightbox untuk preview gambar -->
+            <div id="image-preview-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4">
+                <div class="relative max-w-4xl w-full">
+                    <button onclick="closeImagePreview()" class="absolute -top-10 right-0 text-white text-2xl font-bold">&times;</button>
+                    <img id="preview-image" src="" alt="Preview" class="max-w-full max-h-[80vh] mx-auto">
+                </div>
+            </div>
             <div class="my-10 mx-5 prose">{!! $artikel->deskripsi !!}</div>
         </div>
         <div class="mt-40 ml-10 col-span-2 max-sm:col-span-1 max-sm:ml-0">
@@ -86,4 +160,62 @@
         </div>
     </div>
 
+    <script>
+        // Fungsi untuk membuka lightbox
+        function openImagePreview(src) {
+            const modal = document.getElementById('image-preview-modal');
+            const previewImage = document.getElementById('preview-image');
+            
+            previewImage.src = src;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Tambahkan event listener untuk menutup modal dengan klik di luar gambar
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeImagePreview();
+                }
+            });
+            
+            // Tambahkan event listener untuk menutup modal dengan tombol escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeImagePreview();
+                }
+            });
+        }
+        
+        // Fungsi untuk menutup lightbox
+        function closeImagePreview() {
+            const modal = document.getElementById('image-preview-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        
+        // Proses gambar yang ada dalam konten artikel
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mencari semua gambar dalam konten artikel (div dengan class 'prose')
+            const contentImages = document.querySelectorAll('.prose img');
+            
+            contentImages.forEach(img => {
+                // Bungkus dengan container untuk styling konsisten
+                const container = document.createElement('div');
+                container.className = 'flex justify-center my-4';
+                
+                const wrapper = document.createElement('div');
+                wrapper.className = 'max-w-[800px] w-full mx-auto rounded-lg shadow-md overflow-hidden';
+                wrapper.style.maxWidth = '70%';
+                
+                // Salin gambar ke dalam wrapper baru
+                const newImg = img.cloneNode(true);
+                newImg.className = 'w-full h-auto object-contain cursor-pointer';
+                newImg.setAttribute('onclick', 'openImagePreview(this.src)');
+                
+                // Gantikan gambar asli dengan struktur baru
+                wrapper.appendChild(newImg);
+                container.appendChild(wrapper);
+                img.parentNode.replaceChild(container, img);
+            });
+        });
+    </script>
 @endsection
