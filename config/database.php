@@ -64,6 +64,26 @@ return [
 
         ],
 
+        'mysql_population' => [
+            'driver' => 'mysql',
+            'host' => env('MYSQL_POP_HOST', '127.0.0.1'),
+            'port' => env('MYSQL_POP_PORT', '3306'),
+            'database' => env('MYSQL_POP_DATABASE', 'mekh7277_desa'),
+            'username' => env('MYSQL_POP_USERNAME', 'root'),
+            'password' => env('MYSQL_POP_PASSWORD', ''),
+            'unix_socket' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                PDO::ATTR_PERSISTENT => true, 
+            ]) : [],
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),

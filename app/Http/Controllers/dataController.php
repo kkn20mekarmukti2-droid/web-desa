@@ -50,7 +50,16 @@ public function getChartData(Request $request)
 {
     $type = $request->query('type');
     
-    // Try to get data from 'data' table (the correct table)
+    // Special handling for population and KK data from MySQL database
+    if ($type === 'penduduk') {
+        return $this->getPopulationDataFromMySQL();
+    }
+    
+    if ($type === 'kk') {
+        return $this->getKKDataFromMySQL();
+    }
+    
+    // For other data types, use existing logic with local database
     $dataRecords = DB::table('data')->where('data', $type)->get();
     
     if ($dataRecords->isEmpty()) {
@@ -80,6 +89,94 @@ public function getChartData(Request $request)
         'labels' => $labels,
         'data' => $data,
     ]);
+}
+
+private function getKKDataFromMySQL()
+{
+    try {
+        // Create MySQL connection to mekh7277_desa database
+        $mysql = DB::connection('mysql_population');
+        
+        // Get KK (Kepala Keluarga) statistics from datades table using the correct field names
+        $kkData = $mysql->table('datades')->first();
+        
+        if ($kkData) {
+            $kkMaleCount = (int) $kkData->KK_laki;
+            $kkFemaleCount = (int) $kkData->KK_Cewek;
+            
+            $labels = ['KK Laki-laki', 'KK Perempuan'];
+            $data = [$kkMaleCount, $kkFemaleCount];
+            
+            // Log the results
+            \Log::info("KK data from MySQL", [
+                'labels' => $labels,
+                'data' => $data,
+                'total' => $kkMaleCount + $kkFemaleCount,
+                'source' => 'database mekh7277_desa.datades'
+            ]);
+            
+            return response()->json([
+                'labels' => $labels,
+                'data' => $data,
+            ]);
+        } else {
+            \Log::warning("No KK data found in datades table");
+            throw new \Exception("No KK data found in datades table");
+        }
+        
+    } catch (\Exception $e) {
+        \Log::error("Error getting KK data from MySQL: " . $e->getMessage());
+        
+        // Fallback to sample data if MySQL connection fails
+        return response()->json([
+            'labels' => ['KK Laki-laki', 'KK Perempuan'],
+            'data' => [420, 380],
+        ]);
+    }
+}
+
+private function getPopulationDataFromMySQL()
+{
+    try {
+        // Create MySQL connection to mekh7277_desa database
+        $mysql = DB::connection('mysql_population');
+        
+        // Get population statistics from datades table using the correct field names
+        $populationData = $mysql->table('datades')->first();
+        
+        if ($populationData) {
+            $maleCount = (int) $populationData->Penduduk_Laki;
+            $femaleCount = (int) $populationData->Penduduk_Cewek;
+            
+            $labels = ['Laki-laki', 'Perempuan'];
+            $data = [$maleCount, $femaleCount];
+            
+            // Log the results
+            \Log::info("Population data from MySQL", [
+                'labels' => $labels,
+                'data' => $data,
+                'total' => $maleCount + $femaleCount,
+                'source' => 'database mekh7277_desa.datades'
+            ]);
+            
+            return response()->json([
+                'labels' => $labels,
+                'data' => $data,
+            ]);
+        } else {
+            \Log::warning("No data found in datades table");
+            throw new \Exception("No data found in datades table");
+        }
+        
+    } catch (\Exception $e) {
+        \Log::error("Error getting population data from MySQL: " . $e->getMessage());
+        
+        // Fallback to sample data if MySQL connection fails
+        return response()->json([
+            'labels' => ['Laki-laki', 'Perempuan'],
+            'data' => [1250, 1180],
+        ]);
+    }
 }
 
 private function createSampleData($type)
