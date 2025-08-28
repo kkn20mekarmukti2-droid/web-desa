@@ -575,7 +575,7 @@
                         </div>
                     </div>
                     
-                    <a href="{{ route('data.penduduk') }}" class="nav-link text-white hover:text-primary-500 transition-all duration-300 flex items-center space-x-2 font-medium">
+                    <a href="{{ route('data.statistik') }}" class="nav-link text-white hover:text-primary-500 transition-all duration-300 flex items-center space-x-2 font-medium">
                         <i class="bi bi-bar-chart-fill"></i>
                         <span>Data Statistik</span>
                     </a>
@@ -685,7 +685,7 @@
                         </div>
                         
                         <!-- Data Statistik -->
-                        <a href="{{ route('data.penduduk') }}" class="mobile-menu-item flex items-center space-x-4 text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition-all duration-300">
+                        <a href="{{ route('data.statistik') }}" class="mobile-menu-item flex items-center space-x-4 text-white hover:bg-gray-800 px-4 py-3 rounded-xl transition-all duration-300">
                             <i class="bi bi-bar-chart-fill text-primary-500 text-xl"></i>
                             <span class="font-medium">Data Statistik</span>
                         </a>

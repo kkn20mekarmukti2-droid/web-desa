@@ -41,6 +41,7 @@ Route::post('/pengaduan', [homeController::class, 'store'])->name('pengaduan.sto
 // Data Desa
 Route::prefix('data')->group(function () {
     Route::get('/penduduk', [dataController::class, 'penduduk'])->name('data.penduduk');
+    Route::get('/statistik', function() { return view('data-statistik-baru'); })->name('data.statistik');
     Route::get('/kk', [dataController::class, 'kk'])->name('data.kk');
     Route::get('/pendidikan', [dataController::class, 'pendidikan'])->name('data.pendidikan');
     Route::get('/kesehatan', [dataController::class, 'kesehatan'])->name('data.kesehatan');

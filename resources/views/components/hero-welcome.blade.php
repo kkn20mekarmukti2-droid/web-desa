@@ -89,7 +89,7 @@
                 
                 {{-- Call to Action Button --}}
                 <div class="pt-4 md:pt-6">
-                    <a href="{{ route('data.penduduk') }}" 
+                    <a href="{{ route('data.statistik') }}" 
                        class="hero-cta-button inline-flex items-center px-6 md:px-8 py-3 md:py-4 bg-[#F59E0B] text-black font-semibold text-base md:text-lg rounded-lg hover:bg-[#F59E0B]/90 focus:ring-4 focus:ring-[#F59E0B]/50 transition-all duration-300 transform hover:scale-105 shadow-xl">
                         <i class="bi bi-graph-up me-2 md:me-3"></i>
                         Jelajahi Data Desa
