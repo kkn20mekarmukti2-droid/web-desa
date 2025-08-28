@@ -34,15 +34,6 @@ class adminController extends Controller
         return view('admin.content.manage', compact('profil', 'artikel', 'kategori')); // Kembali ke manage.blade.php yang sudah di-replace
     }
     
-    public function manageContentClean()
-    {
-        $profil = Auth::user();
-        $artikel = (Auth::user()->role == 0)
-            ? artikelModel::with('getKategori')->orderByDesc('id')->get()
-            : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->orderByDesc('id')->get();
-        $kategori = kategoriModel::where('id','!=', 0)->get();
-        return view('admin.content.manage-clean', compact('profil', 'artikel', 'kategori')); // Halaman clean yang baru
-    }
     public function addartikel()
     {
         $kategori = kategoriModel::all();

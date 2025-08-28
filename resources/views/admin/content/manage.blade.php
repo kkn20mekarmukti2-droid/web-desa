@@ -317,19 +317,19 @@
 @endforeach
 
 @if(session('success'))
-<div id="successAlert" class="fixed top-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-md z-50">
-    <div class="flex items-center">
-        <i class="fa-solid fa-check-circle mr-2"></i>
-        <span>{{ session('success') }}</span>
+<div id="successAlert" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-100 border-l-4 border-green-500 text-green-700 p-6 rounded-lg shadow-2xl z-50">
+    <div class="flex items-center justify-center">
+        <i class="fa-solid fa-check-circle mr-3 text-lg"></i>
+        <span class="font-medium text-center">{{ session('success') }}</span>
     </div>
 </div>
 @endif
 
 @if(session('error'))
-<div id="errorAlert" class="fixed top-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-md z-50">
-    <div class="flex items-center">
-        <i class="fa-solid fa-exclamation-circle mr-2"></i>
-        <span>{{ session('error') }}</span>
+<div id="errorAlert" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-100 border-l-4 border-red-500 text-red-700 p-6 rounded-lg shadow-2xl z-50">
+    <div class="flex items-center justify-center">
+        <i class="fa-solid fa-exclamation-circle mr-3 text-lg"></i>
+        <span class="font-medium text-center">{{ session('error') }}</span>
     </div>
 </div>
 @endif
@@ -360,26 +360,35 @@
         openModal();
     }
 
-    // Update article status dengan animasi
+    // Update article status dengan animasi yang lebih reliable
     function ubahstatus(id) {
         const form = document.getElementById('ubahstatusform' + id);
         const toggle = form.querySelector('.toggle-status');
         const label = form.querySelector('span');
+        const toggleDiv = toggle.nextElementSibling;
         
-        // Animasi loading
+        // Prevent multiple clicks
+        if (toggle.disabled) return;
+        
+        // Disable toggle temporarily
         toggle.disabled = true;
         
-        // Submit form
-        form.submit();
+        // Get current state
+        const isChecked = toggle.checked;
         
-        // Update UI immediately for better UX
-        if (toggle.checked) {
+        // Update UI immediately for better responsiveness
+        if (isChecked) {
             label.textContent = 'Publikasi';
             label.className = 'mr-3 text-sm font-medium text-green-600';
+            toggleDiv.classList.add('peer-checked:bg-gradient-to-r', 'peer-checked:from-green-400', 'peer-checked:to-green-600');
         } else {
             label.textContent = 'Draft';
             label.className = 'mr-3 text-sm font-medium text-gray-500';
+            toggleDiv.classList.remove('peer-checked:bg-gradient-to-r', 'peer-checked:from-green-400', 'peer-checked:to-green-600');
         }
+        
+        // Submit form
+        form.submit();
     }
 
     // Delete article confirmation dengan animasi
@@ -473,16 +482,16 @@
         });
     }
     
-    // Fungsi untuk menampilkan toast notification
+    // Fungsi untuk menampilkan toast notification di tengah
     function showToast(message, type = 'success') {
         const toast = document.createElement('div');
         const bgColor = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
         
-        toast.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full opacity-0 transition-all duration-300`;
+        toast.className = `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${bgColor} text-white px-8 py-4 rounded-lg shadow-2xl z-50 scale-0 opacity-0 transition-all duration-300`;
         toast.innerHTML = `
-            <div class="flex items-center">
-                <i class="fa-solid fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}-circle mr-2"></i>
-                <span>${message}</span>
+            <div class="flex items-center justify-center">
+                <i class="fa-solid fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}-circle mr-3 text-lg"></i>
+                <span class="font-medium text-center">${message}</span>
             </div>
         `;
         
@@ -490,13 +499,13 @@
         
         // Animasi masuk
         setTimeout(() => {
-            toast.style.transform = 'translateX(0)';
+            toast.style.transform = 'translate(-50%, -50%) scale(1)';
             toast.style.opacity = '1';
         }, 100);
         
         // Auto remove
         setTimeout(() => {
-            toast.style.transform = 'translateX(full)';
+            toast.style.transform = 'translate(-50%, -50%) scale(0)';
             toast.style.opacity = '0';
             setTimeout(() => {
                 if (toast.parentNode) {
@@ -504,19 +513,19 @@
                 }
             }, 300);
         }, 3000);
-    }
-
-    // Auto-dismiss alerts after 5 seconds
+    }    // Auto-dismiss alerts after 5 seconds dengan animasi fade untuk posisi tengah
     setTimeout(function() {
         const successAlert = document.getElementById('successAlert');
         const errorAlert = document.getElementById('errorAlert');
         
         if (successAlert) {
+            successAlert.style.transform = 'translate(-50%, -50%) scale(0)';
             successAlert.style.opacity = '0';
             setTimeout(() => successAlert.remove(), 500);
         }
         
         if (errorAlert) {
+            errorAlert.style.transform = 'translate(-50%, -50%) scale(0)';
             errorAlert.style.opacity = '0';
             setTimeout(() => errorAlert.remove(), 500);
         }
