@@ -199,13 +199,13 @@
     // Load Data with staggered animation
     setTimeout(() => updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalJenisKelamin'), 200);
     setTimeout(() => updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}', 'totalAgama'), 500);
-    setTimeout(() => updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}'), 800);
+    setTimeout(() => updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "pekerjaan"]) }}'), 800);
 
     // Auto refresh every 30 seconds
     setInterval(() => {
         updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalJenisKelamin');
         updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}', 'totalAgama');
-        updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "profesi"]) }}');
+        updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "pekerjaan"]) }}');
     }, 30000);
 </script>
 @endsection
