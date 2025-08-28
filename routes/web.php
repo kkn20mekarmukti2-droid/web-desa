@@ -124,12 +124,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::delete('/rt/delete/{id}', [adminController::class, 'rtdelete'])->name('rt.delete');
 
     // Data Statistik CRUD
-    Route::get('/statistik', [App\Http\Controllers\StatistikController::class, 'index'])->name('statistik.index');
-    Route::get('/statistik/create', [App\Http\Controllers\StatistikController::class, 'create'])->name('statistik.create');
-    Route::post('/statistik', [App\Http\Controllers\StatistikController::class, 'store'])->name('statistik.store');
-    Route::get('/statistik/{statistik}/edit', [App\Http\Controllers\StatistikController::class, 'edit'])->name('statistik.edit');
-    Route::put('/statistik/{statistik}', [App\Http\Controllers\StatistikController::class, 'update'])->name('statistik.update');
-    Route::delete('/statistik/{statistik}', [App\Http\Controllers\StatistikController::class, 'destroy'])->name('statistik.destroy');
+    Route::resource('statistik', App\Http\Controllers\StatistikController::class)->names([
+        'index' => 'admin.statistik.index',
+        'create' => 'admin.statistik.create', 
+        'store' => 'admin.statistik.store',
+        'show' => 'admin.statistik.show',
+        'edit' => 'admin.statistik.edit',
+        'update' => 'admin.statistik.update',
+        'destroy' => 'admin.statistik.destroy'
+    ]);
 
     // Gambar & Profil
     Route::post('/img/upload', [adminController::class, 'uploadimg'])->name('img.upload');
