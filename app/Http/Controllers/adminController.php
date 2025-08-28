@@ -31,7 +31,17 @@ class adminController extends Controller
             ? artikelModel::with('getKategori')->orderByDesc('id')->get()
             : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->orderByDesc('id')->get();
         $kategori = kategoriModel::where('id','!=', 0)->get();
-        return view('admin.content.manage-clean', compact('profil', 'artikel', 'kategori'));
+        return view('admin.content.manage', compact('profil', 'artikel', 'kategori')); // Halaman manage lama
+    }
+    
+    public function manageContentClean()
+    {
+        $profil = Auth::user();
+        $artikel = (Auth::user()->role == 0)
+            ? artikelModel::with('getKategori')->orderByDesc('id')->get()
+            : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->orderByDesc('id')->get();
+        $kategori = kategoriModel::where('id','!=', 0)->get();
+        return view('admin.content.manage-clean', compact('profil', 'artikel', 'kategori')); // Halaman clean yang baru
     }
     public function addartikel()
     {
@@ -41,12 +51,12 @@ class adminController extends Controller
     public function deleteartikel($id)
     {
         $artikel = artikelModel::findOrFail($id);
-        if (Auth::user()->id != $artikel->created_by || Auth::user()->role != 0) {
-            return redirect()->route('dashboard')->with('error', 'Tidak Memiliki Akses');
+        if (Auth::user()->id != $artikel->created_by && Auth::user()->role != 0) {
+            return redirect()->route('content.manage')->with('error', 'Tidak Memiliki Akses');
         }
         $artikel->delete();
 
-        return redirect()->route('dashboard')->with('pesan', 'Berita Berhasil di Hapus');
+        return redirect()->route('content.manage')->with('success', 'Berita Berhasil di Hapus');
     }
     public function storeartikel(Request $request)
     {
@@ -90,7 +100,7 @@ class adminController extends Controller
         $artikel->created_by = Auth::user()->id;
         $artikel->save();
 
-        return redirect()->route('dashboard')->with('pesan', 'Artikel Berhasil Ditambahkan!');
+        return redirect()->route('content.manage')->with('success', 'Artikel Berhasil Ditambahkan!');
     }
     public function preview($id)
     {
@@ -164,13 +174,13 @@ class adminController extends Controller
         $artikel->status = $request->status;
         $artikel->save();
 
-        return redirect()->route('dashboard')->with('pesan', 'Artikel Berhasil Diedit!');
+        return redirect()->route('content.manage')->with('success', 'Artikel Berhasil Diedit!');
     }
 
     public function tambahkategori(Request $request)
     {
         if (Auth::user()->role != 0) {
-            return redirect()->route('dashboard')->with('error', 'tidak di izinkan');
+            return redirect()->route('content.manage')->with('error', 'tidak di izinkan');
         }
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -180,21 +190,21 @@ class adminController extends Controller
         $kategori->judul = $request->input('judul');
         $kategori->save();
 
-        return redirect()->route('dashboard')->with('pesan', 'Kategori Baru Berhasil di Tambahkan.');
+        return redirect()->route('content.manage')->with('success', 'Kategori Baru Berhasil di Tambahkan.');
     }
 
     public function deletekategori($id)
     {
         if (Auth::user()->role != 0) {
-            return redirect()->route('dashboard')->with('error', 'tidak di izinkan');
+            return redirect()->route('content.manage')->with('error', 'tidak di izinkan');
         }
         $kategori = kategoriModel::with('artikel')->findOrFail($id);
         if ($kategori->artikel->isNotEmpty()) {
-            return redirect()->route('dashboard')->with('error', 'Kategori tidak bisa dihapus, karena masih digunakan');
+            return redirect()->route('content.manage')->with('error', 'Kategori tidak bisa dihapus, karena masih digunakan');
         }
         $kategori->delete();
 
-        return redirect()->route('dashboard')->with('pesan', 'Kategori Berhasil Dihapus');
+        return redirect()->route('content.manage')->with('success', 'Kategori Berhasil Dihapus');
     }
 
     public function uploadimg(Request $request)
@@ -226,7 +236,7 @@ class adminController extends Controller
         $post = artikelModel::find($id);
         $post->status = $status;
         $post->save();
-        return redirect()->route('dashboard');
+        return redirect()->route('content.manage')->with('success', 'Status artikel berhasil diubah');
     }
     public function rtrw()
     {
