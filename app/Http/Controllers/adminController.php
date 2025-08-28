@@ -18,8 +18,8 @@ class adminController extends Controller
     {
         $profil = Auth::user();
         $artikel = (Auth::user()->role == 0)
-            ? artikelModel::with('getKategori')->get()
-            : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->get();
+            ? artikelModel::with('getKategori')->orderByDesc('id')->get()
+            : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->orderByDesc('id')->get();
         $kategori = kategoriModel::where('id','!=', 0)->get();
         return view('admin.content.manage', compact('profil', 'artikel', 'kategori'));
     }
@@ -28,8 +28,8 @@ class adminController extends Controller
     {
         $profil = Auth::user();
         $artikel = (Auth::user()->role == 0)
-            ? artikelModel::with('getKategori')->get()
-            : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->get();
+            ? artikelModel::with('getKategori')->orderByDesc('id')->get()
+            : artikelModel::with('getKategori')->where('created_by', Auth::user()->id)->orderByDesc('id')->get();
         $kategori = kategoriModel::where('id','!=', 0)->get();
         return view('admin.content.manage-clean', compact('profil', 'artikel', 'kategori'));
     }

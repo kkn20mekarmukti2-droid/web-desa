@@ -142,34 +142,34 @@
                 @endif
             </div>
             
-            <!-- Article Featured Media -->
-            <div class="mb-8">
-                <div class="media-card">
-                    <div class="aspect-[16/9] relative overflow-hidden">
-                        @if (strpos($artikel->sampul, 'youtube'))
+            <!-- Article Featured Media dengan ukuran terbatas -->
+            <div class="mb-8 flex justify-center">
+                <div class="w-full max-w-4xl" style="max-width: 70%;">
+                    @if (strpos($artikel->sampul, 'youtube'))
+                        <div class="relative overflow-hidden rounded-lg shadow-lg" style="aspect-ratio: 16/9;">
                             <iframe src="{{ $artikel->sampul }}" 
-                                class="absolute inset-0 w-full h-full" 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
                                 title="YouTube video player" 
                                 frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                 allowfullscreen>
                             </iframe>
-                        @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
-                            <div class="article-image-container">
-                                <img src="{{ asset('img/' . $artikel->sampul) }}" 
-                                    alt="{{ $artikel->judul }}" 
-                                    class="article-image" 
-                                    onclick="openLightbox('{{ asset('img/' . $artikel->sampul) }}')">
+                        </div>
+                    @elseif($artikel->sampul && file_exists(public_path('img/' . $artikel->sampul)))
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img src="{{ asset('img/' . $artikel->sampul) }}" 
+                                alt="{{ $artikel->judul }}" 
+                                style="width: 100%; height: 400px; object-fit: cover; cursor: pointer;" 
+                                onclick="openLightbox('{{ asset('img/' . $artikel->sampul) }}')">
+                        </div>
+                    @else
+                        <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;">
+                            <div class="text-center">
+                                <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
+                                <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
                             </div>
-                        @else
-                            <div class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                                <div class="text-center">
-                                    <i class="bi bi-newspaper text-blue-500" style="font-size: 4rem;"></i>
-                                    <p class="text-blue-600 mt-3 font-medium">{{ $artikel->judul }}</p>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </div>
             
@@ -228,72 +228,91 @@
         </div>
     </div>
     
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
-        <img id="lightbox-image" class="lightbox-content" src="" alt="Gambar artikel">
-    </div>
-    
     <script>
-        // Fungsi untuk menangani lightbox
+        // Fungsi lightbox yang lebih sederhana dan pasti
         function openLightbox(imageSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightbox-image');
-            
-            lightboxImage.src = imageSrc;
-            lightbox.classList.add('active');
-            
-            // Mencegah scroll pada body
+            // Buat elemen lightbox secara dinamis
+            const lightboxHTML = `
+                <div id="simple-lightbox" style="
+                    position: fixed; 
+                    top: 0; 
+                    left: 0; 
+                    width: 100%; 
+                    height: 100%; 
+                    background: rgba(0,0,0,0.9); 
+                    z-index: 9999; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center;
+                    cursor: pointer;
+                " onclick="closeLightbox()">
+                    <span style="
+                        position: absolute; 
+                        top: 20px; 
+                        right: 30px; 
+                        color: white; 
+                        font-size: 40px; 
+                        font-weight: bold; 
+                        cursor: pointer;
+                    ">&times;</span>
+                    <img src="${imageSrc}" style="
+                        max-width: 90%; 
+                        max-height: 90%; 
+                        object-fit: contain;
+                        border-radius: 8px;
+                    " onclick="event.stopPropagation()">
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', lightboxHTML);
             document.body.style.overflow = 'hidden';
         }
         
         function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            
-            // Mengembalikan scroll pada body
-            document.body.style.overflow = '';
+            const lightbox = document.getElementById('simple-lightbox');
+            if (lightbox) {
+                lightbox.remove();
+                document.body.style.overflow = '';
+            }
         }
         
-        // Close lightbox with ESC key
+        // Close with ESC key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeLightbox();
             }
         });
         
-        // Proses gambar dalam konten artikel
+        // Proses gambar dalam konten dengan pendekatan langsung
         document.addEventListener('DOMContentLoaded', function() {
-            // Mencari semua gambar dalam konten artikel
             const contentImages = document.querySelectorAll('.prose img');
             
             contentImages.forEach(img => {
-                // Membuat container untuk gambar
-                const container = document.createElement('div');
-                container.className = 'my-6';
+                // Terapkan style langsung ke gambar
+                img.style.maxWidth = '600px';
+                img.style.width = '100%';
+                img.style.height = 'auto';
+                img.style.display = 'block';
+                img.style.margin = '20px auto';
+                img.style.borderRadius = '8px';
+                img.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                img.style.cursor = 'pointer';
+                img.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
                 
-                // Membuat wrapper dengan styling konsisten
-                const wrapper = document.createElement('div');
-                wrapper.className = 'media-card';
+                // Tambahkan event hover
+                img.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+                });
                 
-                // Membuat div untuk aspect ratio
-                const aspectRatioDiv = document.createElement('div');
-                aspectRatioDiv.className = 'article-image-container';
+                img.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                });
                 
-                // Salin gambar ke dalam struktur baru
-                const newImg = document.createElement('img');
-                newImg.src = img.src;
-                newImg.alt = img.alt || 'Gambar artikel';
-                newImg.className = 'article-image';
-                newImg.setAttribute('onclick', `openLightbox('${img.src}')`);
-                
-                // Bangun struktur DOM
-                aspectRatioDiv.appendChild(newImg);
-                wrapper.appendChild(aspectRatioDiv);
-                container.appendChild(wrapper);
-                
-                // Gantikan gambar asli dengan struktur baru
-                img.parentNode.replaceChild(container, img);
+                // Tambahkan fungsi klik untuk lightbox
+                img.onclick = function() {
+                    openLightbox(this.src);
+                };
             });
         });
     </script>
