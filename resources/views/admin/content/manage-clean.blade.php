@@ -1,6 +1,57 @@
 @extends('layout.admin')
 
 @section('content')
+<style>
+    /* Custom styles untuk tombol dan animasi */
+    .notification-btn.active {
+        background: linear-gradient(45deg, #3B82F6, #1D4ED8) !important;
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+    }
+    
+    .notification-btn:hover {
+        transform: scale(1.1) !important;
+    }
+    
+    .toggle-status:checked + div {
+        background: linear-gradient(45deg, #10B981, #059669) !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+    }
+    
+    .toggle-status:checked + div::after {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    /* Animasi untuk tombol tambah berita */
+    .tambah-berita-btn {
+        background: linear-gradient(45deg, #3B82F6, #1D4ED8);
+        transition: all 0.3s ease;
+    }
+    
+    .tambah-berita-btn:hover {
+        background: linear-gradient(45deg, #1D4ED8, #1E40AF);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        transform: translateY(-2px);
+    }
+    
+    /* Hover effect untuk cards */
+    .article-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Loading animation */
+    @keyframes pulse-dot {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+    
+    .loading-dots::after {
+        content: '...';
+        animation: pulse-dot 1.5s infinite;
+    }
+</style>
+
 <main class="flex-1 bg-gray-50">
     <!-- Header Section -->
     <div class="bg-white border-b border-gray-200">
@@ -12,6 +63,11 @@
                         <p class="text-gray-600">Tambah, edit, dan kelola semua artikel website desa</p>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="{{ route('addartikel') }}" 
+                            class="tambah-berita-btn inline-flex items-center justify-center px-6 py-3 text-white rounded-lg font-semibold shadow-lg transform transition-all duration-200">
+                            <i class="fa-solid fa-newspaper mr-2"></i>
+                            Tambah Berita
+                        </a>
                         <a href="{{ route('addartikel') }}" 
                             class="inline-flex items-center justify-center px-4 py-2.5 bg-[#F59E0B] text-white rounded-lg font-medium hover:bg-orange-600 transition-colors shadow-sm">
                             <i class="fa-solid fa-plus mr-2"></i>
@@ -33,7 +89,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="space-y-5">
                 @forelse ($artikel as $i)
-                <div class="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all overflow-hidden">
+                <div class="article-card bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
                     <div class="flex flex-col md:flex-row">
                         <!-- Thumbnail Column -->
                         <div class="md:w-1/4 flex-shrink-0">
@@ -92,22 +148,23 @@
                                     <!-- Action Buttons -->
                                     <div class="flex items-center space-x-1">
                                         <button onclick="notif({{ $i->id }})" 
-                                            class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
-                                            title="Kirim Notifikasi">
-                                            <i class="fa-regular fa-bell"></i>
+                                            class="notification-btn p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200 transform hover:scale-110"
+                                            title="Kirim Notifikasi"
+                                            data-article-id="{{ $i->id }}">
+                                            <i class="fa-solid fa-bell text-sm"></i>
                                         </button>
                                         
                                         <a href="{{ route('artikel.edit', ['id'=>$i->id]) }}" 
-                                            class="p-2 text-gray-500 hover:text-[#F59E0B] hover:bg-orange-50 rounded-full transition-colors"
+                                            class="p-2 text-gray-500 hover:text-[#F59E0B] hover:bg-orange-50 rounded-full transition-all duration-200 transform hover:scale-110"
                                             title="Edit Artikel">
-                                            <i class="fa-regular fa-pen-to-square"></i>
+                                            <i class="fa-regular fa-pen-to-square text-sm"></i>
                                         </a>
                                         
                                         <button type="button"
                                             onclick="deleteArtikel({{ $i->id }},'{{ $i->judul }}')" 
-                                            class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                            class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200 transform hover:scale-110"
                                             title="Hapus Artikel">
-                                            <i class="fa-solid fa-trash"></i>
+                                            <i class="fa-solid fa-trash text-sm"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -131,12 +188,26 @@
                                         @csrf
                                         <input type="hidden" value="{{ $i->id }}" name="id">
                                         <label class="inline-flex items-center cursor-pointer">
-                                            <span class="mr-3 text-sm text-gray-600">{{ $i->status ? 'Publikasi' : 'Draft' }}</span>
+                                            <span class="mr-3 text-sm font-medium {{ $i->status ? 'text-green-600' : 'text-gray-500' }}">
+                                                {{ $i->status ? 'Publikasi' : 'Draft' }}
+                                            </span>
                                             <div class="relative">
-                                                <input type="checkbox" value="1" class="sr-only peer"
+                                                <input type="checkbox" value="1" class="sr-only peer toggle-status"
                                                     name="status" onchange="ubahstatus({{ $i->id }})"
+                                                    data-article-id="{{ $i->id }}"
                                                     @if ($i->status) checked @endif>
-                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#F59E0B] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#F59E0B]"></div>
+                                                <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer 
+                                                    peer-checked:after:translate-x-full peer-checked:after:border-white 
+                                                    after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                                                    after:bg-white after:border-gray-300 after:border after:rounded-full 
+                                                    after:h-6 after:w-6 after:transition-all after:duration-300
+                                                    peer-checked:bg-gradient-to-r peer-checked:from-green-400 peer-checked:to-green-600
+                                                    hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                                                </div>
+                                                <!-- Status indicator dot -->
+                                                <div class="absolute top-1 right-1 w-2 h-2 rounded-full {{ $i->status ? 'bg-white' : 'bg-gray-400' }} 
+                                                    transition-all duration-300 {{ $i->status ? 'opacity-100' : 'opacity-0' }}">
+                                                </div>
                                             </div>
                                         </label>
                                     </form>
@@ -292,14 +363,36 @@
         openModal();
     }
 
-    // Update article status
+    // Update article status dengan animasi
     function ubahstatus(id) {
-        document.getElementById('ubahstatusform' + id).submit();
+        const form = document.getElementById('ubahstatusform' + id);
+        const toggle = form.querySelector('.toggle-status');
+        const label = form.querySelector('span');
+        
+        // Animasi loading
+        toggle.disabled = true;
+        
+        // Submit form
+        form.submit();
+        
+        // Update UI immediately for better UX
+        if (toggle.checked) {
+            label.textContent = 'Publikasi';
+            label.className = 'mr-3 text-sm font-medium text-green-600';
+        } else {
+            label.textContent = 'Draft';
+            label.className = 'mr-3 text-sm font-medium text-gray-500';
+        }
     }
 
-    // Delete article confirmation
+    // Delete article confirmation dengan animasi
     function deleteArtikel(id, judul) {
         if (confirm(`Apakah Anda yakin ingin menghapus artikel "${judul}"?`)) {
+            // Tambahkan loading state
+            const deleteBtn = event.target.closest('button');
+            deleteBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-sm"></i>';
+            deleteBtn.disabled = true;
+            
             document.getElementById('delete-Artikel-' + id).submit();
         }
     }
@@ -311,10 +404,68 @@
         }
     }
 
-    // Send notification
+    // Fungsi notifikasi yang lebih interaktif
     function notif(id) {
-        // Your existing notification code or add new implementation
-        alert('Fitur notifikasi akan segera tersedia!');
+        const button = event.target.closest('.notification-btn');
+        const icon = button.querySelector('i');
+        
+        // Animasi klik
+        button.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            button.style.transform = 'scale(1)';
+        }, 150);
+        
+        // Ubah status tombol
+        if (button.classList.contains('active')) {
+            // Matikan notifikasi
+            button.classList.remove('active');
+            button.classList.remove('bg-blue-500', 'text-white');
+            button.classList.add('text-gray-500');
+            icon.className = 'fa-regular fa-bell text-sm';
+            
+            showToast('Notifikasi dinonaktifkan', 'info');
+        } else {
+            // Aktifkan notifikasi
+            button.classList.add('active');
+            button.classList.remove('text-gray-500');
+            button.classList.add('bg-blue-500', 'text-white', 'shadow-lg');
+            icon.className = 'fa-solid fa-bell text-sm';
+            
+            showToast('Notifikasi diaktifkan!', 'success');
+        }
+    }
+    
+    // Fungsi untuk menampilkan toast notification
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const bgColor = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+        
+        toast.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full opacity-0 transition-all duration-300`;
+        toast.innerHTML = `
+            <div class="flex items-center">
+                <i class="fa-solid fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}-circle mr-2"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Animasi masuk
+        setTimeout(() => {
+            toast.style.transform = 'translateX(0)';
+            toast.style.opacity = '1';
+        }, 100);
+        
+        // Auto remove
+        setTimeout(() => {
+            toast.style.transform = 'translateX(full)';
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300);
+        }, 3000);
     }
 
     // Auto-dismiss alerts after 5 seconds
@@ -332,5 +483,71 @@
             setTimeout(() => errorAlert.remove(), 500);
         }
     }, 5000);
+    
+    // Initialize pada document ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add hover effects to buttons
+        const buttons = document.querySelectorAll('.notification-btn, .tambah-berita-btn');
+        
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) translateY(-1px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'scale(1) translateY(0)';
+                }
+            });
+        });
+        
+        // Add ripple effect to buttons
+        const allButtons = document.querySelectorAll('button, a[class*="btn"]');
+        
+        allButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // Show welcome message
+        setTimeout(() => {
+            showToast('Dashboard Content Management siap digunakan!', 'success');
+        }, 1000);
+    });
+    
+    // Add CSS for ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 </script>
 @endsection
