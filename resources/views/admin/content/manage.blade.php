@@ -360,34 +360,16 @@
         openModal();
     }
 
-    // Update article status dengan animasi yang lebih reliable
+    // Update article status dengan logic yang diperbaiki
     function ubahstatus(id) {
         const form = document.getElementById('ubahstatusform' + id);
         const toggle = form.querySelector('.toggle-status');
         const label = form.querySelector('span');
-        const toggleDiv = toggle.nextElementSibling;
         
         // Prevent multiple clicks
         if (toggle.disabled) return;
         
-        // Disable toggle temporarily
-        toggle.disabled = true;
-        
-        // Get current state
-        const isChecked = toggle.checked;
-        
-        // Update UI immediately for better responsiveness
-        if (isChecked) {
-            label.textContent = 'Publikasi';
-            label.className = 'mr-3 text-sm font-medium text-green-600';
-            toggleDiv.classList.add('peer-checked:bg-gradient-to-r', 'peer-checked:from-green-400', 'peer-checked:to-green-600');
-        } else {
-            label.textContent = 'Draft';
-            label.className = 'mr-3 text-sm font-medium text-gray-500';
-            toggleDiv.classList.remove('peer-checked:bg-gradient-to-r', 'peer-checked:from-green-400', 'peer-checked:to-green-600');
-        }
-        
-        // Submit form
+        // Submit form immediately - let server handle the logic
         form.submit();
     }
 
