@@ -21,7 +21,14 @@ class StatistikModel extends Model
         return [
             'jenis_kelamin' => 'Data Penduduk berdasarkan Jenis Kelamin',
             'agama' => 'Data Penduduk berdasarkan Agama',
-            'pekerjaan' => 'Data Penduduk berdasarkan Pekerjaan'
+            'pekerjaan' => 'Data Penduduk berdasarkan Pekerjaan',
+            'kk' => 'Data Kartu Keluarga',
+            'pendidikan' => 'Data Pendidikan',
+            'kesehatan' => 'Data Kesehatan',
+            'siswa' => 'Data Siswa',
+            'klub' => 'Data Klub Olahraga',
+            'kesenian' => 'Data Grup Kesenian',
+            'sumberair' => 'Data Sumber Air'
         ];
     }
     

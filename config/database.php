@@ -64,6 +64,8 @@ return [
 
         ],
 
+        // Legacy MySQL connection - no longer used since statistik table implementation
+        /*
         'mysql_population' => [
             'driver' => 'mysql',
             'host' => env('MYSQL_POP_HOST', '127.0.0.1'),
@@ -83,6 +85,7 @@ return [
                 PDO::ATTR_PERSISTENT => true, 
             ]) : [],
         ],
+        */
 
         'mariadb' => [
             'driver' => 'mariadb',

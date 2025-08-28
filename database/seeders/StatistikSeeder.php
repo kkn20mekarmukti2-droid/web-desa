@@ -40,6 +40,12 @@ class StatistikSeeder extends Seeder
             ['kategori' => 'pekerjaan', 'label' => 'Ibu Rumah Tangga', 'jumlah' => 340, 'deskripsi' => 'Ibu rumah tangga'],
         ];
 
+        // Data Kartu Keluarga
+        $kkData = [
+            ['kategori' => 'kk', 'label' => 'KK Laki-laki', 'jumlah' => 420, 'deskripsi' => 'Kepala keluarga laki-laki'],
+            ['kategori' => 'kk', 'label' => 'KK Perempuan', 'jumlah' => 380, 'deskripsi' => 'Kepala keluarga perempuan'],
+        ];
+
         // Insert semua data
         foreach ($jenisKelaminData as $data) {
             StatistikModel::create($data);
@@ -50,6 +56,10 @@ class StatistikSeeder extends Seeder
         }
 
         foreach ($pekerjaanData as $data) {
+            StatistikModel::create($data);
+        }
+
+        foreach ($kkData as $data) {
             StatistikModel::create($data);
         }
     }
