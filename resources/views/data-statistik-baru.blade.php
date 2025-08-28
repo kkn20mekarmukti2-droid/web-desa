@@ -139,35 +139,128 @@
                     </div>
                 </div>
 
-                <!-- Chart 4: Kartu Keluarga -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card border-0 shadow h-100">
-                        <div class="card-header bg-info text-white">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-id-card me-2"></i>
-                                <h5 class="mb-0">Data Kartu Keluarga</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RT, RW, dan KK Statistics Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-dark">📍 Data Wilayah & Keluarga</h2>
+                <p class="text-muted">Informasi RT, RW, dan Kartu Keluarga di Desa</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Total RT -->
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="card-body text-center text-white">
+                            <div class="mb-2">
+                                <i class="fas fa-map-marker-alt fa-2x"></i>
                             </div>
+                            <h3 class="fw-bold" id="totalRT">-</h3>
+                            <p class="mb-0 small opacity-75">Total RT</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Total RW -->
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 bg-gradient" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="card-body text-center text-white">
+                            <div class="mb-2">
+                                <i class="fas fa-home fa-2x"></i>
+                            </div>
+                            <h3 class="fw-bold" id="totalRW">-</h3>
+                            <p class="mb-0 small opacity-75">Total RW</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Total Penduduk RT/RW -->
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 bg-gradient" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="card-body text-center text-white">
+                            <div class="mb-2">
+                                <i class="fas fa-users fa-2x"></i>
+                            </div>
+                            <h3 class="fw-bold" id="totalPendudukRTRW">-</h3>
+                            <p class="mb-0 small opacity-75">Penduduk RT/RW</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Total KK -->
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 bg-gradient" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="card-body text-center text-white">
+                            <div class="mb-2">
+                                <i class="fas fa-id-card fa-2x"></i>
+                            </div>
+                            <h3 class="fw-bold" id="totalKK">-</h3>
+                            <p class="mb-0 small opacity-75">Total KK</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- KK Kepala Laki-laki -->
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 bg-gradient" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <div class="card-body text-center text-white">
+                            <div class="mb-2">
+                                <i class="fas fa-male fa-2x"></i>
+                            </div>
+                            <h3 class="fw-bold" id="totalKKLaki">-</h3>
+                            <p class="mb-0 small opacity-75">KK Kepala ♂</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- KK Kepala Perempuan -->
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 bg-gradient" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                        <div class="card-body text-center text-white">
+                            <div class="mb-2">
+                                <i class="fas fa-female fa-2x"></i>
+                            </div>
+                            <h3 class="fw-bold" id="totalKKPerempuan">-</h3>
+                            <p class="mb-0 small opacity-75">KK Kepala ♀</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detail RT/RW Cards -->
+            <div class="row g-4 mt-4">
+                <div class="col-12">
+                    <h4 class="fw-bold text-center mb-4">📍 Detail per RT & RW</h4>
+                </div>
+                
+                <!-- RT Details -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-map-pin me-2"></i>Data per RT</h5>
                         </div>
                         <div class="card-body">
-                            <div class="chart-container" style="position: relative; height: 300px;">
-                                <canvas id="chartKK"></canvas>
+                            <div id="rtDetails" class="row g-3">
+                                <!-- RT data will be populated here -->
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Chart 5: RT dan RW -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card border-0 shadow h-100">
-                        <div class="card-header bg-secondary text-white">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-home me-2"></i>
-                                <h5 class="mb-0">Data RT dan RW</h5>
-                            </div>
+                
+                <!-- RW Details -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-home me-2"></i>Data per RW</h5>
                         </div>
                         <div class="card-body">
-                            <div class="chart-container" style="position: relative; height: 300px;">
-                                <canvas id="chartRTRW"></canvas>
+                            <div id="rwDetails" class="row g-3">
+                                <!-- RW data will be populated here -->
                             </div>
                         </div>
                     </div>
@@ -233,14 +326,6 @@ const colorSchemes = {
     },
     pekerjaan: {
         colors: ['#059669', '#DC2626', '#7C3AED', '#EA580C', '#6366F1', '#BE123C', '#0891B2', '#CA8A04'],
-        labels: []
-    },
-    kk: {
-        colors: ['#17A2B8', '#FFC107'],
-        labels: ['KK Kepala Laki-laki', 'KK Kepala Perempuan']
-    },
-    rt_rw: {
-        colors: ['#6C757D', '#495057', '#343A40', '#28A745', '#007BFF'],
         labels: []
     }
 };
@@ -408,18 +493,6 @@ const chartPekerjaan = createModernChart(
     colorSchemes.pekerjaan.colors
 );
 
-const chartKK = createModernChart(
-    document.getElementById('chartKK').getContext('2d'),
-    'kk',
-    colorSchemes.kk.colors
-);
-
-const chartRTRW = createModernChart(
-    document.getElementById('chartRTRW').getContext('2d'),
-    'rt_rw',
-    colorSchemes.rt_rw.colors
-);
-
 // Load Initial Data
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📄 DOM loaded, starting data load...');
@@ -437,14 +510,119 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTotalPekerja();
     }, 900);
     
+    // Load RT/RW/KK stats (not charts)
     setTimeout(() => {
-        updateChart(chartKK, '{{ route("getdatades", ["type" => "kk"]) }}');
+        updateRTRWKKStats();
     }, 1200);
-    
-    setTimeout(() => {
-        updateChart(chartRTRW, '{{ route("getdatades", ["type" => "rt_rw"]) }}');
-    }, 1500);
 });
+
+// Function to update RT/RW/KK statistics
+function updateRTRWKKStats() {
+    // Load KK data
+    fetch('{{ route("getdatades", ["type" => "kk"]) }}')
+        .then(response => response.json())
+        .then(data => {
+            let totalKK = 0;
+            let totalKKLaki = 0;
+            let totalKKPerempuan = 0;
+            
+            if (data.labels && data.data) {
+                for (let i = 0; i < data.labels.length; i++) {
+                    const value = parseInt(data.data[i]) || 0;
+                    totalKK += value;
+                    
+                    if (data.labels[i].toLowerCase().includes('laki')) {
+                        totalKKLaki = value;
+                    } else if (data.labels[i].toLowerCase().includes('perempuan')) {
+                        totalKKPerempuan = value;
+                    }
+                }
+            }
+            
+            document.getElementById('totalKK').textContent = totalKK.toLocaleString();
+            document.getElementById('totalKKLaki').textContent = totalKKLaki.toLocaleString();
+            document.getElementById('totalKKPerempuan').textContent = totalKKPerempuan.toLocaleString();
+        })
+        .catch(error => {
+            console.error('Error loading KK data:', error);
+            document.getElementById('totalKK').textContent = '0';
+            document.getElementById('totalKKLaki').textContent = '0';
+            document.getElementById('totalKKPerempuan').textContent = '0';
+        });
+    
+    // Load RT/RW data
+    fetch('{{ route("getdatades", ["type" => "rt_rw"]) }}')
+        .then(response => response.json())
+        .then(data => {
+            let totalRT = 0;
+            let totalRW = 0;
+            let totalPendudukRTRW = 0;
+            let rtData = [];
+            let rwData = [];
+            
+            if (data.labels && data.data) {
+                for (let i = 0; i < data.labels.length; i++) {
+                    const label = data.labels[i];
+                    const value = parseInt(data.data[i]) || 0;
+                    totalPendudukRTRW += value;
+                    
+                    if (label.toLowerCase().includes('rt')) {
+                        totalRT++;
+                        rtData.push({ label: label, value: value });
+                    } else if (label.toLowerCase().includes('rw')) {
+                        totalRW++;
+                        rwData.push({ label: label, value: value });
+                    }
+                }
+            }
+            
+            document.getElementById('totalRT').textContent = totalRT;
+            document.getElementById('totalRW').textContent = totalRW;
+            document.getElementById('totalPendudukRTRW').textContent = totalPendudukRTRW.toLocaleString();
+            
+            // Populate RT details
+            const rtDetailsContainer = document.getElementById('rtDetails');
+            rtDetailsContainer.innerHTML = '';
+            rtData.forEach(rt => {
+                const rtCard = `
+                    <div class="col-6">
+                        <div class="card bg-light border-0">
+                            <div class="card-body text-center py-2">
+                                <h6 class="fw-bold text-info">${rt.label}</h6>
+                                <h5 class="mb-0 text-dark">${rt.value.toLocaleString()}</h5>
+                                <small class="text-muted">Penduduk</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                rtDetailsContainer.innerHTML += rtCard;
+            });
+            
+            // Populate RW details
+            const rwDetailsContainer = document.getElementById('rwDetails');
+            rwDetailsContainer.innerHTML = '';
+            rwData.forEach(rw => {
+                const rwCard = `
+                    <div class="col-6">
+                        <div class="card bg-light border-0">
+                            <div class="card-body text-center py-2">
+                                <h6 class="fw-bold text-success">${rw.label}</h6>
+                                <h5 class="mb-0 text-dark">${rw.value.toLocaleString()}</h5>
+                                <small class="text-muted">Penduduk</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                rwDetailsContainer.innerHTML += rwCard;
+            });
+        })
+        .catch(error => {
+            console.error('Error loading RT/RW data:', error);
+            document.getElementById('totalRT').textContent = '0';
+            document.getElementById('totalRW').textContent = '0';
+            document.getElementById('totalPendudukRTRW').textContent = '0';
+        });
+}
 
 // Auto-refresh every 5 minutes
 setInterval(() => {
@@ -452,9 +630,8 @@ setInterval(() => {
     updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalPenduduk');
     updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}');
     updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "pekerjaan"]) }}');
-    updateChart(chartKK, '{{ route("getdatades", ["type" => "kk"]) }}');
-    updateChart(chartRTRW, '{{ route("getdatades", ["type" => "rt_rw"]) }}');
     updateTotalPekerja();
+    updateRTRWKKStats();
 }, 300000);
 </script>
 
