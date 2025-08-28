@@ -57,27 +57,24 @@
     <div class="bg-white border-b border-gray-200">
         <div class="px-6 py-8">
             <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                    <div>
+                <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                    <div class="flex-1">
                         <h1 class="text-2xl font-bold text-gray-900 mb-2">Kelola Konten</h1>
                         <p class="text-gray-600">Tambah, edit, dan kelola semua artikel website desa</p>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <a href="{{ route('addartikel') }}" 
-                            class="tambah-berita-btn inline-flex items-center justify-center px-6 py-3 text-white rounded-lg font-semibold shadow-lg transform transition-all duration-200">
-                            <i class="fa-solid fa-newspaper mr-2"></i>
-                            Tambah Berita
-                        </a>
-                        <a href="{{ route('addartikel') }}" 
-                            class="inline-flex items-center justify-center px-4 py-2.5 bg-[#F59E0B] text-white rounded-lg font-medium hover:bg-orange-600 transition-colors shadow-sm">
-                            <i class="fa-solid fa-plus mr-2"></i>
-                            Tambah Artikel
-                        </a>
-                        <button onclick="openModal()" 
-                            class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                            <i class="fa-solid fa-tag mr-2"></i>
-                            Kelola Kategori
-                        </button>
+                    <div class="flex-shrink-0">
+                        <div class="flex flex-col sm:flex-row gap-3 justify-end">
+                            <a href="{{ route('addartikel') }}" 
+                                class="tambah-berita-btn inline-flex items-center justify-center px-6 py-3 text-white rounded-lg font-semibold shadow-lg transform transition-all duration-200">
+                                <i class="fa-solid fa-newspaper mr-2"></i>
+                                Tambah Berita
+                            </a>
+                            <button onclick="openModal()" 
+                                class="inline-flex items-center justify-center px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                                <i class="fa-solid fa-tag mr-2"></i>
+                                Kelola Kategori
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -404,7 +401,7 @@
         }
     }
 
-    // Fungsi notifikasi yang lebih interaktif
+    // Fungsi notifikasi yang benar-benar mengirim push notification
     function notif(id) {
         const button = event.target.closest('.notification-btn');
         const icon = button.querySelector('i');
@@ -415,24 +412,75 @@
             button.style.transform = 'scale(1)';
         }, 150);
         
-        // Ubah status tombol
-        if (button.classList.contains('active')) {
-            // Matikan notifikasi
-            button.classList.remove('active');
-            button.classList.remove('bg-blue-500', 'text-white');
-            button.classList.add('text-gray-500');
-            icon.className = 'fa-regular fa-bell text-sm';
+        // Tampilkan loading state
+        const originalIcon = icon.className;
+        icon.className = 'fa-solid fa-spinner fa-spin text-sm';
+        button.disabled = true;
+        
+        // Kirim request ke server untuk mengirim push notification
+        fetch('{{ route("notif.send") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                artikel_id: id,
+                action: 'send_notification'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Restore button state
+            button.disabled = false;
             
-            showToast('Notifikasi dinonaktifkan', 'info');
-        } else {
-            // Aktifkan notifikasi
-            button.classList.add('active');
-            button.classList.remove('text-gray-500');
-            button.classList.add('bg-blue-500', 'text-white', 'shadow-lg');
-            icon.className = 'fa-solid fa-bell text-sm';
+            if (data.success) {
+                // Aktifkan notifikasi
+                button.classList.add('active');
+                button.classList.remove('text-gray-500');
+                button.classList.add('bg-green-500', 'text-white', 'shadow-lg');
+                icon.className = 'fa-solid fa-bell text-sm';
+                
+                showToast(data.message || 'Notifikasi berhasil dikirim!', 'success');
+                
+                // Reset button setelah 3 detik
+                setTimeout(() => {
+                    button.classList.remove('active', 'bg-green-500', 'text-white', 'shadow-lg');
+                    button.classList.add('text-gray-500');
+                    icon.className = 'fa-regular fa-bell text-sm';
+                }, 3000);
+            } else {
+                // Error state
+                icon.className = 'fa-solid fa-bell-slash text-sm';
+                button.classList.add('text-red-500');
+                showToast(data.message || 'Gagal mengirim notifikasi', 'error');
+                
+                // Reset ke state normal setelah 2 detik
+                setTimeout(() => {
+                    button.classList.remove('text-red-500');
+                    button.classList.add('text-gray-500');
+                    icon.className = originalIcon;
+                }, 2000);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
             
-            showToast('Notifikasi diaktifkan!', 'success');
-        }
+            // Restore button state
+            button.disabled = false;
+            icon.className = 'fa-solid fa-bell-slash text-sm';
+            button.classList.add('text-red-500');
+            
+            showToast('Terjadi kesalahan saat mengirim notifikasi', 'error');
+            
+            // Reset ke state normal setelah 2 detik
+            setTimeout(() => {
+                button.classList.remove('text-red-500');
+                button.classList.add('text-gray-500');
+                icon.className = originalIcon;
+            }, 2000);
+        });
     }
     
     // Fungsi untuk menampilkan toast notification
