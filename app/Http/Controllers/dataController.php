@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\dataModel;
 use App\Models\rwModel;
+use App\Models\StatistikModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,13 +51,17 @@ public function getChartData(Request $request)
 {
     $type = $request->query('type');
     
-    // Special handling for population and KK data from MySQL database
-    if ($type === 'penduduk') {
-        return $this->getPopulationDataFromMySQL();
-    }
-    
-    if ($type === 'kk') {
-        return $this->getKKDataFromMySQL();
+    // Special handling for data from admin statistik
+    switch ($type) {
+        case 'penduduk':
+            return $this->getStatistikData('jenis_kelamin');
+        case 'agama':
+            return $this->getStatistikData('agama');
+        case 'pekerjaan':
+            return $this->getStatistikData('pekerjaan');
+        case 'kk':
+            // Keep existing KK data from MySQL if needed, or create admin interface for this too
+            return $this->getKKDataFromMySQL();
     }
     
     // For other data types, use existing logic with local database
@@ -89,6 +94,52 @@ public function getChartData(Request $request)
         'labels' => $labels,
         'data' => $data,
     ]);
+}
+
+/**
+ * Get data from admin statistik table
+ */
+private function getStatistikData($kategori)
+{
+    try {
+        $statistik = StatistikModel::getDataByKategori($kategori);
+        
+        if ($statistik->count() > 0) {
+            $labels = $statistik->pluck('label')->toArray();
+            $data = $statistik->pluck('jumlah')->map(function($value) {
+                return (int) $value;
+            })->toArray();
+            
+            // Log the results
+            \Log::info("Statistik data from admin for {$kategori}", [
+                'labels' => $labels,
+                'data' => $data,
+                'total' => array_sum($data),
+                'source' => 'admin statistik table'
+            ]);
+            
+            return response()->json([
+                'labels' => $labels,
+                'data' => $data,
+            ]);
+        } else {
+            // Return empty data if no admin data found
+            \Log::warning("No admin statistik data found for kategori: {$kategori}");
+            return response()->json([
+                'labels' => [],
+                'data' => [],
+            ]);
+        }
+        
+    } catch (\Exception $e) {
+        \Log::error("Error getting statistik data for {$kategori}: " . $e->getMessage());
+        
+        // Fallback to empty data
+        return response()->json([
+            'labels' => [],
+            'data' => [],
+        ]);
+    }
 }
 
 private function getKKDataFromMySQL()
