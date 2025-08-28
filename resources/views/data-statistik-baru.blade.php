@@ -264,39 +264,7 @@
                     </div>
                 </div>
 
-                <!-- Chart 4: Kartu Keluarga -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card border-0 shadow h-100">
-                        <div class="card-header bg-info text-white">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-id-card me-2"></i>
-                                <h5 class="mb-0">Data Kartu Keluarga</h5>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container" style="position: relative; height: 300px;">
-                                <canvas id="chartKK"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chart 5: RT dan RW -->
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card border-0 shadow h-100">
-                        <div class="card-header bg-secondary text-white">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-home me-2"></i>
-                                <h5 class="mb-0">Data RT dan RW</h5>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container" style="position: relative; height: 300px;">
-                                <canvas id="chartRTRW"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
