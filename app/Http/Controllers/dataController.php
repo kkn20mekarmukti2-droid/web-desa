@@ -62,6 +62,8 @@ public function getChartData(Request $request)
         case 'kk':
             // KK data also uses admin statistik system now
             return $this->getStatistikData('kk');
+        case 'rt_rw':
+            return $this->getStatistikData('rt_rw');
         default:
             // For any other types, check if admin has configured data
             return $this->getStatistikData($type);

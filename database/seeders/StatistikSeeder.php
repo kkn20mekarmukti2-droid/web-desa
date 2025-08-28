@@ -40,10 +40,19 @@ class StatistikSeeder extends Seeder
             ['kategori' => 'pekerjaan', 'label' => 'Ibu Rumah Tangga', 'jumlah' => 340, 'deskripsi' => 'Ibu rumah tangga'],
         ];
 
-        // Data Kartu Keluarga
+        // Data RT dan RW
+        $rtRwData = [
+            ['kategori' => 'rt_rw', 'label' => 'RT 01', 'jumlah' => 45, 'deskripsi' => 'Rukun Tetangga 01'],
+            ['kategori' => 'rt_rw', 'label' => 'RT 02', 'jumlah' => 52, 'deskripsi' => 'Rukun Tetangga 02'],
+            ['kategori' => 'rt_rw', 'label' => 'RT 03', 'jumlah' => 38, 'deskripsi' => 'Rukun Tetangga 03'],
+            ['kategori' => 'rt_rw', 'label' => 'RW 01', 'jumlah' => 135, 'deskripsi' => 'Rukun Warga 01'],
+            ['kategori' => 'rt_rw', 'label' => 'RW 02', 'jumlah' => 142, 'deskripsi' => 'Rukun Warga 02'],
+        ];
+
+        // Update data KK dengan data yang lebih detail
         $kkData = [
-            ['kategori' => 'kk', 'label' => 'KK Laki-laki', 'jumlah' => 420, 'deskripsi' => 'Kepala keluarga laki-laki'],
-            ['kategori' => 'kk', 'label' => 'KK Perempuan', 'jumlah' => 380, 'deskripsi' => 'Kepala keluarga perempuan'],
+            ['kategori' => 'kk', 'label' => 'KK Kepala Laki-laki', 'jumlah' => 420, 'deskripsi' => 'Kartu keluarga dengan kepala keluarga laki-laki'],
+            ['kategori' => 'kk', 'label' => 'KK Kepala Perempuan', 'jumlah' => 180, 'deskripsi' => 'Kartu keluarga dengan kepala keluarga perempuan'],
         ];
 
         // Insert semua data
@@ -60,6 +69,10 @@ class StatistikSeeder extends Seeder
         }
 
         foreach ($kkData as $data) {
+            StatistikModel::create($data);
+        }
+
+        foreach ($rtRwData as $data) {
             StatistikModel::create($data);
         }
     }

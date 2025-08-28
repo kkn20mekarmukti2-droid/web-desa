@@ -23,6 +23,7 @@ class StatistikModel extends Model
             'agama' => 'Data Penduduk berdasarkan Agama',
             'pekerjaan' => 'Data Penduduk berdasarkan Pekerjaan',
             'kk' => 'Data Kartu Keluarga',
+            'rt_rw' => 'Data RT dan RW',
             'pendidikan' => 'Data Pendidikan',
             'kesehatan' => 'Data Kesehatan',
             'siswa' => 'Data Siswa',

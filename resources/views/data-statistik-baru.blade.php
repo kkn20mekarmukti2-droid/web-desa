@@ -123,7 +123,7 @@
                 </div>
 
                 <!-- Chart 3: Pekerjaan -->
-                <div class="col-lg-4 col-md-12 mb-4">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card border-0 shadow h-100">
                         <div class="card-header bg-warning text-white">
                             <div class="d-flex align-items-center">
@@ -134,6 +134,40 @@
                         <div class="card-body">
                             <div class="chart-container" style="position: relative; height: 300px;">
                                 <canvas id="chartPekerjaan"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart 4: Kartu Keluarga -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-header bg-info text-white">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-id-card me-2"></i>
+                                <h5 class="mb-0">Data Kartu Keluarga</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="chartKK"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart 5: RT dan RW -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-header bg-secondary text-white">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-home me-2"></i>
+                                <h5 class="mb-0">Data RT dan RW</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="chartRTRW"></canvas>
                             </div>
                         </div>
                     </div>
@@ -199,6 +233,14 @@ const colorSchemes = {
     },
     pekerjaan: {
         colors: ['#059669', '#DC2626', '#7C3AED', '#EA580C', '#6366F1', '#BE123C', '#0891B2', '#CA8A04'],
+        labels: []
+    },
+    kk: {
+        colors: ['#17A2B8', '#FFC107'],
+        labels: ['KK Kepala Laki-laki', 'KK Kepala Perempuan']
+    },
+    rt_rw: {
+        colors: ['#6C757D', '#495057', '#343A40', '#28A745', '#007BFF'],
         labels: []
     }
 };
@@ -366,6 +408,18 @@ const chartPekerjaan = createModernChart(
     colorSchemes.pekerjaan.colors
 );
 
+const chartKK = createModernChart(
+    document.getElementById('chartKK').getContext('2d'),
+    'kk',
+    colorSchemes.kk.colors
+);
+
+const chartRTRW = createModernChart(
+    document.getElementById('chartRTRW').getContext('2d'),
+    'rt_rw',
+    colorSchemes.rt_rw.colors
+);
+
 // Load Initial Data
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📄 DOM loaded, starting data load...');
@@ -382,6 +436,14 @@ document.addEventListener('DOMContentLoaded', function() {
         updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "pekerjaan"]) }}');
         updateTotalPekerja();
     }, 900);
+    
+    setTimeout(() => {
+        updateChart(chartKK, '{{ route("getdatades", ["type" => "kk"]) }}');
+    }, 1200);
+    
+    setTimeout(() => {
+        updateChart(chartRTRW, '{{ route("getdatades", ["type" => "rt_rw"]) }}');
+    }, 1500);
 });
 
 // Auto-refresh every 5 minutes
@@ -390,6 +452,8 @@ setInterval(() => {
     updateChart(chartJenisKelamin, '{{ route("getdatades", ["type" => "penduduk"]) }}', 'totalPenduduk');
     updateChart(chartAgama, '{{ route("getdatades", ["type" => "agama"]) }}');
     updateChart(chartPekerjaan, '{{ route("getdatades", ["type" => "pekerjaan"]) }}');
+    updateChart(chartKK, '{{ route("getdatades", ["type" => "kk"]) }}');
+    updateChart(chartRTRW, '{{ route("getdatades", ["type" => "rt_rw"]) }}');
     updateTotalPekerja();
 }, 300000);
 </script>
