@@ -401,7 +401,7 @@
         }
     }
 
-    // Fungsi notifikasi yang benar-benar mengirim push notification
+    // Fungsi notifikasi yang sesuai dengan halaman manage content asli
     function notif(id) {
         const button = event.target.closest('.notification-btn');
         const icon = button.querySelector('i');
@@ -417,50 +417,41 @@
         icon.className = 'fa-solid fa-spinner fa-spin text-sm';
         button.disabled = true;
         
-        // Kirim request ke server untuk mengirim push notification
+        // Kirim request sesuai dengan format asli manage content
         fetch('{{ route("notif.send") }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             body: JSON.stringify({
-                artikel_id: id,
-                action: 'send_notification'
+                id: id  // Pakai format yang sama seperti manage content asli
             })
         })
         .then(response => response.json())
         .then(data => {
             // Restore button state
             button.disabled = false;
+            icon.className = originalIcon;
             
             if (data.success) {
-                // Aktifkan notifikasi
-                button.classList.add('active');
-                button.classList.remove('text-gray-500');
-                button.classList.add('bg-green-500', 'text-white', 'shadow-lg');
-                icon.className = 'fa-solid fa-bell text-sm';
+                // Tampilkan pesan sukses sesuai format asli
+                showToast('Berhasil Mengirimkan Notifikasi ke ' + data.success + ' Subscriber', 'success');
                 
-                showToast(data.message || 'Notifikasi berhasil dikirim!', 'success');
-                
-                // Reset button setelah 3 detik
+                // Visual feedback button berhasil
+                button.classList.add('text-green-600');
                 setTimeout(() => {
-                    button.classList.remove('active', 'bg-green-500', 'text-white', 'shadow-lg');
+                    button.classList.remove('text-green-600');
                     button.classList.add('text-gray-500');
-                    icon.className = 'fa-regular fa-bell text-sm';
-                }, 3000);
+                }, 2000);
             } else {
-                // Error state
-                icon.className = 'fa-solid fa-bell-slash text-sm';
-                button.classList.add('text-red-500');
-                showToast(data.message || 'Gagal mengirim notifikasi', 'error');
+                showToast('Gagal Mengirimkan Notifikasi', 'error');
                 
-                // Reset ke state normal setelah 2 detik
+                // Visual feedback button error
+                button.classList.add('text-red-500');
                 setTimeout(() => {
                     button.classList.remove('text-red-500');
                     button.classList.add('text-gray-500');
-                    icon.className = originalIcon;
                 }, 2000);
             }
         })
@@ -469,16 +460,15 @@
             
             // Restore button state
             button.disabled = false;
-            icon.className = 'fa-solid fa-bell-slash text-sm';
+            icon.className = originalIcon;
+            
+            showToast('Gagal Mengirimkan Notifikasi', 'error');
+            
+            // Visual feedback button error
             button.classList.add('text-red-500');
-            
-            showToast('Terjadi kesalahan saat mengirim notifikasi', 'error');
-            
-            // Reset ke state normal setelah 2 detik
             setTimeout(() => {
                 button.classList.remove('text-red-500');
                 button.classList.add('text-gray-500');
-                icon.className = originalIcon;
             }, 2000);
         });
     }
