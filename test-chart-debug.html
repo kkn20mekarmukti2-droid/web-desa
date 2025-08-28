@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Debug Test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>🔍 Chart Debug Test Page</h1>
+    <div id="debug-output"></div>
+    <div id="json-output" style="background: #f0f0f0; padding: 20px; margin-top: 20px; font-family: monospace; white-space: pre-wrap;"></div>
+
+    <script>
+    console.log('=== CHART DEBUG TEST ===');
+    
+    const endpoints = [
+        { name: 'Penduduk (Jenis Kelamin)', url: '/getdatades?type=penduduk' },
+        { name: 'Agama', url: '/getdatades?type=agama' },
+        { name: 'Pekerjaan', url: '/getdatades?type=pekerjaan' }
+    ];
+    
+    const debugOutput = document.getElementById('debug-output');
+    const jsonOutput = document.getElementById('json-output');
+    
+    let debugLog = '';
+    
+    function addLog(message) {
+        console.log(message);
+        debugLog += message + '\n';
+        debugOutput.innerHTML = `<pre>${debugLog}</pre>`;
+        jsonOutput.textContent = debugLog;
+    }
+    
+    addLog('Testing Chart API Endpoints...\n');
+    
+    endpoints.forEach((endpoint, index) => {
+        setTimeout(() => {
+            addLog(`\n${index + 1}. Testing: ${endpoint.name}`);
+            addLog(`   URL: ${endpoint.url}`);
+            
+            fetch(endpoint.url)
+                .then(response => {
+                    addLog(`   Status: ${response.status} ${response.statusText}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    return response.json();
+                })
+                .then(data => {
+                    addLog(`   ✅ SUCCESS!`);
+                    addLog(`   Labels: [${data.labels ? data.labels.join(', ') : 'empty'}]`);
+                    addLog(`   Data: [${data.data ? data.data.join(', ') : 'empty'}]`);
+                    addLog(`   JSON: ${JSON.stringify(data)}`);
+                    
+                    // Check if data is empty
+                    if (!data.labels || data.labels.length === 0) {
+                        addLog(`   ⚠️ WARNING: Empty response for ${endpoint.name}`);
+                    }
+                })
+                .catch(error => {
+                    addLog(`   ❌ ERROR: ${error.message}`);
+                    
+                    // Additional debugging info
+                    if (error.message.includes('404')) {
+                        addLog(`   💡 Route not found - check routes/web.php`);
+                    } else if (error.message.includes('500')) {
+                        addLog(`   💡 Server error - check dataController.php`);
+                    }
+                });
+                
+        }, index * 1000); // Stagger requests
+    });
+    
+    // Test basic connectivity
+    setTimeout(() => {
+        addLog(`\n=== CONNECTIVITY TEST ===`);
+        
+        // Test if we can reach Laravel
+        fetch('/')
+            .then(response => {
+                addLog(`✅ Laravel app reachable (status: ${response.status})`);
+            })
+            .catch(error => {
+                addLog(`❌ Cannot reach Laravel: ${error.message}`);
+            });
+            
+    }, 4000);
+    
+    setTimeout(() => {
+        addLog(`\n=== DEBUG COMPLETE ===`);
+        addLog(`Copy this log and share for troubleshooting.`);
+    }, 5000);
+    </script>
+</body>
+</html>
