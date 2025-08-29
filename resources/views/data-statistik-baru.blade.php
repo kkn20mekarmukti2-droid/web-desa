@@ -153,10 +153,10 @@
             </div>
             
             <div class="row justify-content-center">
-                <div class="col-lg-8">
+                <div class="col-lg-10">
                     <div class="row text-center g-4">
                         <!-- RT Data -->
-                        <div class="col-md-3 col-sm-6">
+                        <div class="col-lg-2 col-md-4 col-sm-6">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -168,7 +168,7 @@
                         </div>
                         
                         <!-- RW Data -->
-                        <div class="col-md-3 col-sm-6">
+                        <div class="col-lg-2 col-md-4 col-sm-6">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-success rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -180,7 +180,7 @@
                         </div>
                         
                         <!-- Total KK -->
-                        <div class="col-md-3 col-sm-6">
+                        <div class="col-lg-2 col-md-4 col-sm-6">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -192,7 +192,7 @@
                         </div>
                         
                         <!-- KK Kepala Laki-laki -->
-                        <div class="col-md-3 col-sm-6">
+                        <div class="col-lg-2 col-md-4 col-sm-6">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-info rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -200,6 +200,18 @@
                                 </div>
                                 <h2 class="fw-bold text-info mb-1" id="totalKKLaki">-</h2>
                                 <p class="text-muted mb-0">KK Laki-laki</p>
+                            </div>
+                        </div>
+                        
+                        <!-- KK Kepala Perempuan -->
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center mb-3" 
+                                     style="width: 70px; height: 70px;">
+                                    <i class="fas fa-female fa-2x text-white"></i>
+                                </div>
+                                <h2 class="fw-bold text-danger mb-1" id="totalKKPerempuan">-</h2>
+                                <p class="text-muted mb-0">KK Perempuan</p>
                             </div>
                         </div>
                     </div>
@@ -488,6 +500,7 @@ function updateRTRWKKStats() {
         .then(data => {
             let totalKK = 0;
             let totalKKLaki = 0;
+            let totalKKPerempuan = 0;
             
             if (data.labels && data.data) {
                 for (let i = 0; i < data.labels.length; i++) {
@@ -496,17 +509,21 @@ function updateRTRWKKStats() {
                     
                     if (data.labels[i].toLowerCase().includes('laki')) {
                         totalKKLaki = value;
+                    } else if (data.labels[i].toLowerCase().includes('perempuan')) {
+                        totalKKPerempuan = value;
                     }
                 }
             }
             
             document.getElementById('totalKK').textContent = totalKK.toLocaleString();
             document.getElementById('totalKKLaki').textContent = totalKKLaki.toLocaleString();
+            document.getElementById('totalKKPerempuan').textContent = totalKKPerempuan.toLocaleString();
         })
         .catch(error => {
             console.error('Error loading KK data:', error);
             document.getElementById('totalKK').textContent = '0';
             document.getElementById('totalKKLaki').textContent = '0';
+            document.getElementById('totalKKPerempuan').textContent = '0';
         });
     
     // Load RT/RW data - now expecting just Total RT and Total RW
