@@ -84,8 +84,10 @@ Route::get('/refresh-csrf', [authController::class, 'refreshCsrf'])->name('refre
 */
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    // Dashboard
-    Route::get('/dashboard', [adminController::class, 'dashboard'])->name('dashboard');
+    // Dashboard - Redirect to Modern
+    Route::get('/dashboard', function() {
+        return redirect()->route('dashboard.modern');
+    })->name('dashboard');
     
     // Modern Admin Dashboard
     Route::get('/dashboard-modern', function() {
@@ -98,8 +100,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.dashboard-modern', $data);
     })->name('dashboard.modern');
     
-    // Content Management
-    Route::get('/content/manage', [adminController::class, 'manageContent'])->name('content.manage');
+    // Content Management - Redirect to Modern
+    Route::get('/content/manage', function() {
+        return redirect()->route('content.manage.modern');
+    })->name('content.manage');
     Route::get('/content/manage-modern', function() {
         $data = [
             'artikel' => \App\Models\artikel::with('getKategori')->get(),
@@ -113,8 +117,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Kelola Notifikasi
     Route::post('/send-notif', [NotificationTokenController::class, 'sendPushNotification'])->name('notif.send');
 
-    // Galeri
-    Route::get('/gallery', [galleryController::class, 'index'])->name('gallery.index');
+    // Galeri - Redirect to Modern
+    Route::get('/gallery', function() {
+        return redirect()->route('gallery.manage.modern');
+    })->name('gallery.index');
     Route::get('/gallery-modern', function() {
         $data = [
             'gallery' => \App\Models\gallery::orderBy('created_at', 'desc')->get(),
@@ -124,8 +130,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/gallery/add', [galleryController::class, 'store'])->name('gallery.store');
     Route::get('/gallery/destroy/{id}', [galleryController::class, 'destroy'])->name('gallery.delete');
 
-    // Manajemen Akun
-    Route::get('/manage-akun', [authController::class, 'index'])->name('akun.manage');
+    // Manajemen Akun - Redirect to Modern
+    Route::get('/manage-akun', function() {
+        return redirect()->route('users.manage.modern');
+    })->name('akun.manage');
     Route::get('/users-modern', function() {
         $data = [
             'users' => \App\Models\User::orderBy('created_at', 'desc')->get(),
