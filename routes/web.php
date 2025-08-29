@@ -92,10 +92,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Modern Admin Dashboard
     Route::get('/dashboard-modern', function() {
         $data = [
-            'artikel' => \App\Models\artikel::all(),
-            'gallery' => \App\Models\gallery::all(),
+            'artikel' => \App\Models\artikelModel::all(),
+            'gallery' => \App\Models\galleryModel::all(),
             'users' => \App\Models\User::all(),
-            'kategori' => \App\Models\kategori::all(),
+            'kategori' => \App\Models\kategoriModel::all(),
         ];
         return view('admin.dashboard-modern', $data);
     })->name('dashboard.modern');
@@ -106,8 +106,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     })->name('content.manage');
     Route::get('/content/manage-modern', function() {
         $data = [
-            'artikel' => \App\Models\artikel::with('getKategori')->get(),
-            'kategori' => \App\Models\kategori::all(),
+            'artikel' => \App\Models\artikelModel::with('getKategori')->get(),
+            'kategori' => \App\Models\kategoriModel::all(),
         ];
         return view('admin.content.manage-modern', $data);
     })->name('content.manage.modern');
@@ -123,7 +123,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     })->name('gallery.index');
     Route::get('/gallery-modern', function() {
         $data = [
-            'gallery' => \App\Models\gallery::orderBy('created_at', 'desc')->get(),
+            'gallery' => \App\Models\galleryModel::orderBy('created_at', 'desc')->get(),
         ];
         return view('admin.gallery.manage-modern', $data);
     })->name('gallery.manage.modern');
