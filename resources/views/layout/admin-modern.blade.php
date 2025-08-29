@@ -771,11 +771,17 @@
                     </li>
                     <li class="sidebar-menu-item">
                         <a href="{{ route('admin.data.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'admin.data') ? 'active' : '' }}">
-                            <i class="sidebar-menu-icon fas fa-chart-pie"></i>
+                            <i class="sidebar-menu-icon fas fa-chart-bar"></i>
                             <span>Data Statistik</span>
                         </a>
                     </li>
                     @if (Auth::user()->role == 0)
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('rtrw.manage.modern') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'rtrw') ? 'active' : '' }}">
+                            <i class="sidebar-menu-icon fas fa-home"></i>
+                            <span>Kelola RT/RW</span>
+                        </a>
+                    </li>
                     <li class="sidebar-menu-item">
                         <a href="{{ route('rtrw') }}" class="sidebar-menu-link {{ Request::route()->getName() == 'rtrw' ? 'active' : '' }}">
                             <i class="sidebar-menu-icon fas fa-users-cog"></i>

@@ -129,6 +129,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     })->name('gallery.manage.modern');
     Route::post('/gallery/add', [galleryController::class, 'store'])->name('gallery.store');
     Route::get('/gallery/destroy/{id}', [galleryController::class, 'destroy'])->name('gallery.delete');
+    Route::delete('/gallery/bulk-delete', [galleryController::class, 'bulkDestroy'])->name('gallery.bulk-delete');
 
     // Manajemen Akun - Redirect to Modern
     Route::get('/manage-akun', function() {
@@ -140,6 +141,27 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         ];
         return view('admin.users.manage-modern', $data);
     })->name('users.manage.modern');
+    
+    // User Management Routes
+    Route::post('/users/store', [authController::class, 'store'])->name('users.store');
+    Route::get('/users/{id}', [authController::class, 'show'])->name('users.show');
+    Route::patch('/users/{id}/toggle-status', [authController::class, 'toggleStatus'])->name('users.toggle-status');
+    Route::post('/users/{id}/reset-password', [authController::class, 'resetPassword'])->name('users.reset-password');
+    Route::delete('/users/{id}', [authController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/bulk-activate', [authController::class, 'bulkActivate'])->name('users.bulk-activate');
+    Route::post('/users/bulk-deactivate', [authController::class, 'bulkDeactivate'])->name('users.bulk-deactivate');
+    Route::post('/users/bulk-delete', [authController::class, 'bulkDelete'])->name('users.bulk-delete');
+    Route::get('/users/export', [authController::class, 'export'])->name('users.export');
+    
+    // RT/RW Management Routes
+    Route::get('/rtrw/manage', [rtRwController::class, 'manageModern'])->name('rtrw.manage.modern');
+    Route::post('/rw/store', [rtRwController::class, 'storeRW'])->name('rw.store');
+    Route::put('/rw/update/{id}', [rtRwController::class, 'updateRW'])->name('rw.update');
+    Route::delete('/rw/delete/{id}', [rtRwController::class, 'deleteRW'])->name('rw.delete');
+    Route::post('/rt/store', [rtRwController::class, 'storeRT'])->name('rt.store');
+    Route::put('/rt/update/{id}', [rtRwController::class, 'updateRT'])->name('rt.update');
+    Route::delete('/rt/delete/{id}', [rtRwController::class, 'deleteRT'])->name('rt.delete');
+    
     Route::get('/tambah-akun', [authController::class, 'create'])->name('akun.create');
     Route::post('/akun/update-role/{user}', [authController::class, 'updateRole'])->name('akun.roleupdate');
     Route::post('/akun/reset-password/{user}', [authController::class, 'resetPassword'])->name('akun.resetpass');
