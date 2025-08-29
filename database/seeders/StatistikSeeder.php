@@ -40,13 +40,10 @@ class StatistikSeeder extends Seeder
             ['kategori' => 'pekerjaan', 'label' => 'Ibu Rumah Tangga', 'jumlah' => 340, 'deskripsi' => 'Ibu rumah tangga'],
         ];
 
-        // Data RT dan RW
+        // Data RT dan RW - jumlah RT dan RW, bukan penduduk
         $rtRwData = [
-            ['kategori' => 'rt_rw', 'label' => 'RT 01', 'jumlah' => 45, 'deskripsi' => 'Rukun Tetangga 01'],
-            ['kategori' => 'rt_rw', 'label' => 'RT 02', 'jumlah' => 52, 'deskripsi' => 'Rukun Tetangga 02'],
-            ['kategori' => 'rt_rw', 'label' => 'RT 03', 'jumlah' => 38, 'deskripsi' => 'Rukun Tetangga 03'],
-            ['kategori' => 'rt_rw', 'label' => 'RW 01', 'jumlah' => 135, 'deskripsi' => 'Rukun Warga 01'],
-            ['kategori' => 'rt_rw', 'label' => 'RW 02', 'jumlah' => 142, 'deskripsi' => 'Rukun Warga 02'],
+            ['kategori' => 'rt_rw', 'label' => 'Total RT', 'jumlah' => 3, 'deskripsi' => 'Jumlah Rukun Tetangga di desa'],
+            ['kategori' => 'rt_rw', 'label' => 'Total RW', 'jumlah' => 2, 'deskripsi' => 'Jumlah Rukun Warga di desa'],
         ];
 
         // Update data KK dengan data yang lebih detail

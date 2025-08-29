@@ -39,7 +39,7 @@ class StatistikController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kategori' => 'required|in:jenis_kelamin,agama,pekerjaan',
+            'kategori' => 'required|in:jenis_kelamin,agama,pekerjaan,kk,rt_rw,pendidikan,kesehatan,siswa,klub,kesenian,sumberair',
             'label' => 'required|string|max:255',
             'jumlah' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string'
@@ -80,7 +80,7 @@ class StatistikController extends Controller
     public function update(Request $request, StatistikModel $statistik)
     {
         $request->validate([
-            'kategori' => 'required|in:jenis_kelamin,agama,pekerjaan',
+            'kategori' => 'required|in:jenis_kelamin,agama,pekerjaan,kk,rt_rw,pendidikan,kesehatan,siswa,klub,kesenian,sumberair',
             'label' => 'required|string|max:255',
             'jumlah' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string'
