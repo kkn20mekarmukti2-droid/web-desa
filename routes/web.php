@@ -86,7 +86,28 @@ Route::get('/refresh-csrf', [authController::class, 'refreshCsrf'])->name('refre
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [adminController::class, 'dashboard'])->name('dashboard');
+    
+    // Modern Admin Dashboard
+    Route::get('/dashboard-modern', function() {
+        $data = [
+            'artikel' => \App\Models\artikel::all(),
+            'gallery' => \App\Models\gallery::all(),
+            'users' => \App\Models\User::all(),
+            'kategori' => \App\Models\kategori::all(),
+        ];
+        return view('admin.dashboard-modern', $data);
+    })->name('dashboard.modern');
+    
+    // Content Management
     Route::get('/content/manage', [adminController::class, 'manageContent'])->name('content.manage');
+    Route::get('/content/manage-modern', function() {
+        $data = [
+            'artikel' => \App\Models\artikel::with('getKategori')->get(),
+            'kategori' => \App\Models\kategori::all(),
+        ];
+        return view('admin.content.manage-modern', $data);
+    })->name('content.manage.modern');
+    
     Route::get('/preview/{id}', [adminController::class, 'preview'])->name('preview');
 
     // Kelola Notifikasi
@@ -94,11 +115,23 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Galeri
     Route::get('/gallery', [galleryController::class, 'index'])->name('gallery.index');
+    Route::get('/gallery-modern', function() {
+        $data = [
+            'gallery' => \App\Models\gallery::orderBy('created_at', 'desc')->get(),
+        ];
+        return view('admin.gallery.manage-modern', $data);
+    })->name('gallery.manage.modern');
     Route::post('/gallery/add', [galleryController::class, 'store'])->name('gallery.store');
     Route::get('/gallery/destroy/{id}', [galleryController::class, 'destroy'])->name('gallery.delete');
 
     // Manajemen Akun
     Route::get('/manage-akun', [authController::class, 'index'])->name('akun.manage');
+    Route::get('/users-modern', function() {
+        $data = [
+            'users' => \App\Models\User::orderBy('created_at', 'desc')->get(),
+        ];
+        return view('admin.users.manage-modern', $data);
+    })->name('users.manage.modern');
     Route::get('/tambah-akun', [authController::class, 'create'])->name('akun.create');
     Route::post('/akun/update-role/{user}', [authController::class, 'updateRole'])->name('akun.roleupdate');
     Route::post('/akun/reset-password/{user}', [authController::class, 'resetPassword'])->name('akun.resetpass');
