@@ -154,13 +154,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/users/export', [authController::class, 'export'])->name('users.export');
     
     // RT/RW Management Routes
-    Route::get('/rtrw/manage', [rtRwController::class, 'manageModern'])->name('rtrw.manage.modern');
-    Route::post('/rw/store', [rtRwController::class, 'storeRW'])->name('rw.store');
-    Route::put('/rw/update/{id}', [rtRwController::class, 'updateRW'])->name('rw.update');
-    Route::delete('/rw/delete/{id}', [rtRwController::class, 'deleteRW'])->name('rw.delete');
-    Route::post('/rt/store', [rtRwController::class, 'storeRT'])->name('rt.store');
-    Route::put('/rt/update/{id}', [rtRwController::class, 'updateRT'])->name('rt.update');
-    Route::delete('/rt/delete/{id}', [rtRwController::class, 'deleteRT'])->name('rt.delete');
+    Route::get('/rtrw/manage', [\App\Http\Controllers\rtRwController::class, 'manageModern'])->name('rtrw.manage.modern');
+    Route::post('/rw/store', [\App\Http\Controllers\rtRwController::class, 'storeRW'])->name('rw.store');
+    Route::put('/rw/update/{id}', [\App\Http\Controllers\rtRwController::class, 'updateRW'])->name('rw.update');
+    Route::delete('/rw/delete/{id}', [\App\Http\Controllers\rtRwController::class, 'deleteRW'])->name('rw.delete');
+    Route::post('/rt/store', [\App\Http\Controllers\rtRwController::class, 'storeRT'])->name('rt.store');
+    Route::put('/rt/update/{id}', [\App\Http\Controllers\rtRwController::class, 'updateRT'])->name('rt.update');
+    Route::delete('/rt/delete/{id}', [\App\Http\Controllers\rtRwController::class, 'deleteRT'])->name('rt.delete');
     
     Route::get('/tambah-akun', [authController::class, 'create'])->name('akun.create');
     Route::post('/akun/update-role/{user}', [authController::class, 'updateRole'])->name('akun.roleupdate');

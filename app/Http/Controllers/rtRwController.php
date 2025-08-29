@@ -14,21 +14,6 @@ class rtRwController extends Controller
     {
         try {
             $rw = rwModel::orderBy('rw', 'asc')->get();
-            $rt = rtModel::with('rwModel')->orderBy('rt', 'asc')->get();
-            
-            return view('admin.rtrw.manage-modern', [
-                'rw' => $rw,
-                'rt' => $rt
-            ]);
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-        }
-    }
-
-    public function manageModern()
-    {
-        try {
-            $rw = rwModel::orderBy('rw', 'asc')->get();
             $rt = rtModel::orderBy('rt', 'asc')->get();
             
             return view('admin.rtrw.manage-modern', [
