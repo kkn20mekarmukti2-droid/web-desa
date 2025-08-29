@@ -154,9 +154,9 @@
             
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div class="row text-center g-4">
+                    <div class="d-flex flex-wrap justify-content-center gap-4">
                         <!-- RT Data -->
-                        <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="text-center" style="min-width: 120px;">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -168,7 +168,7 @@
                         </div>
                         
                         <!-- RW Data -->
-                        <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="text-center" style="min-width: 120px;">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-success rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -180,7 +180,7 @@
                         </div>
                         
                         <!-- Total KK -->
-                        <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="text-center" style="min-width: 120px;">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -192,7 +192,7 @@
                         </div>
                         
                         <!-- KK Kepala Laki-laki -->
-                        <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="text-center" style="min-width: 120px;">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-info rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -204,7 +204,7 @@
                         </div>
                         
                         <!-- KK Kepala Perempuan -->
-                        <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="text-center" style="min-width: 120px;">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center mb-3" 
                                      style="width: 70px; height: 70px;">
@@ -598,6 +598,36 @@ setInterval(() => {
     
     .display-4 {
         font-size: 2rem;
+    }
+    
+    /* Mobile adjustments for 5-column layout */
+    .d-flex.flex-wrap.justify-content-center.gap-4 > div {
+        min-width: 100px !important;
+        margin-bottom: 1rem;
+    }
+    
+    .d-flex.flex-wrap.justify-content-center.gap-4 > div h2 {
+        font-size: 1.5rem;
+    }
+    
+    .d-flex.flex-wrap.justify-content-center.gap-4 > div .rounded-circle {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .d-flex.flex-wrap.justify-content-center.gap-4 > div .rounded-circle i {
+        font-size: 1.5rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Stack items vertically on very small screens */
+    .d-flex.flex-wrap.justify-content-center.gap-4 {
+        gap: 2rem !important;
+    }
+    
+    .d-flex.flex-wrap.justify-content-center.gap-4 > div {
+        min-width: 80px !important;
     }
 }
 </style>
