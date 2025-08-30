@@ -1,234 +1,418 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Statistik - Admin Panel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .navbar-admin {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .form-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-        .form-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px 15px 0 0;
-            color: white;
-            padding: 20px 30px;
-        }
-        .btn-primary-custom {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            transition: all 0.3s ease;
-        }
-        .btn-primary-custom:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        .form-control, .form-select {
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-        }
-        .form-label {
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-    </style>
-</head>
-<body class="bg-light">
+@extends('layout.admin-modern')
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-admin">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('admin.statistik.index') }}">
-                <i class="fas fa-chart-bar me-2"></i>Kelola Data Statistik
+@section('title', 'Tambah Data Statistik')
+
+@section('content')
+<!-- Page Header -->
+<div class="page-header">
+    <div class="page-header-content">
+        <div>
+            <h1 class="page-title">➕ Tambah Data Statistik</h1>
+            <p class="page-subtitle">Tambahkan data statistik baru untuk kategori {{ $kategoriOptions[$kategori] }}</p>
+        </div>
+        <div class="page-actions">
+            <a href="{{ route('admin.statistik.index', ['kategori' => $kategori]) }}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i>
+                Kembali ke Daftar
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{{ route('admin.statistik.index', ['kategori' => $kategori]) }}">
-                    <i class="fas fa-arrow-left me-1"></i>Kembali ke Daftar
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
-        
-        <!-- Header -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <h2 class="text-dark">
-                    <i class="fas fa-plus-circle me-2 text-primary"></i>Tambah Data Statistik
-                </h2>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('admin.statistik.index') }}" class="text-decoration-none">Data Statistik</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('admin.statistik.index', ['kategori' => $kategori]) }}" class="text-decoration-none">
-                                {{ $kategoriOptions[$kategori] }}
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item active">Tambah Data</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-
-        <!-- Form -->
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="form-card">
-                    <div class="form-header">
-                        <h4 class="mb-0">
-                            @switch($kategori)
-                                @case('jenis_kelamin')
-                                    <i class="fas fa-users me-2"></i>
-                                    @break
-                                @case('agama')
-                                    <i class="fas fa-pray me-2"></i>
-                                    @break
-                                @case('pekerjaan')
-                                    <i class="fas fa-briefcase me-2"></i>
-                                    @break
-                            @endswitch
-                            Tambah {{ $kategoriOptions[$kategori] }}
-                        </h4>
-                        <small class="opacity-75">Isi form di bawah untuk menambah data statistik baru</small>
-                    </div>
-                    
-                    <div class="p-4">
-                        <form action="{{ route('admin.statistik.store') }}" method="POST">
-                            @csrf
-                            
-                            <!-- Hidden kategori field -->
-                            <input type="hidden" name="kategori" value="{{ $kategori }}">
-                            
-                            <!-- Kategori Display -->
-                            <div class="mb-4">
-                                <label class="form-label">
-                                    <i class="fas fa-tag me-2"></i>Kategori
-                                </label>
-                                <div class="form-control bg-light">
-                                    <strong class="text-primary">{{ $kategoriOptions[$kategori] }}</strong>
-                                </div>
-                            </div>
-
-                            <!-- Label -->
-                            <div class="mb-4">
-                                <label for="label" class="form-label">
-                                    <i class="fas fa-bookmark me-2"></i>Label / Nama Data
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" 
-                                       class="form-control @error('label') is-invalid @enderror" 
-                                       id="label" 
-                                       name="label" 
-                                       value="{{ old('label') }}"
-                                       placeholder="Contoh: {{ 
-                                           $kategori === 'jenis_kelamin' ? 'Laki-laki, Perempuan' :
-                                           ($kategori === 'agama' ? 'Islam, Kristen, Hindu, Buddha' : 
-                                           'Petani, PNS, Wiraswasta, Pelajar')
-                                       }}"
-                                       required>
-                                @error('label')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Nama yang akan ditampilkan pada chart statistik
-                                </div>
-                            </div>
-
-                            <!-- Jumlah -->
-                            <div class="mb-4">
-                                <label for="jumlah" class="form-label">
-                                    <i class="fas fa-calculator me-2"></i>Jumlah Data
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <input type="number" 
-                                       class="form-control @error('jumlah') is-invalid @enderror" 
-                                       id="jumlah" 
-                                       name="jumlah" 
-                                       value="{{ old('jumlah') }}"
-                                       min="0"
-                                       placeholder="Masukkan jumlah dalam angka"
-                                       required>
-                                @error('jumlah')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Jumlah data dalam angka (contoh: 1250)
-                                </div>
-                            </div>
-
-                            <!-- Deskripsi -->
-                            <div class="mb-4">
-                                <label for="deskripsi" class="form-label">
-                                    <i class="fas fa-sticky-note me-2"></i>Deskripsi
-                                    <small class="text-muted">(Opsional)</small>
-                                </label>
-                                <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
-                                          id="deskripsi" 
-                                          name="deskripsi" 
-                                          rows="3"
-                                          placeholder="Deskripsi tambahan atau keterangan...">{{ old('deskripsi') }}</textarea>
-                                @error('deskripsi')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Informasi tambahan untuk dokumentasi internal
-                                </div>
-                            </div>
-
-                            <!-- Action Buttons -->
-                            <div class="d-flex gap-3 pt-3 border-top">
-                                <button type="submit" class="btn btn-primary-custom">
-                                    <i class="fas fa-save me-2"></i>Simpan Data
-                                </button>
-                                <a href="{{ route('admin.statistik.index', ['kategori' => $kategori]) }}" 
-                                   class="btn btn-outline-secondary">
-                                    <i class="fas fa-times me-2"></i>Batal
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Info Box -->
-                <div class="alert alert-info mt-4" style="border-radius: 10px;">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-lightbulb me-3 fs-4"></i>
-                        <div>
-                            <strong>Tips:</strong>
-                            <ul class="mb-0 mt-2">
-                                <li>Gunakan nama yang jelas dan mudah dipahami untuk label</li>
-                                <li>Pastikan data jumlah akurat dan up-to-date</li>
-                                <li>Data akan langsung tampil di chart halaman utama setelah disimpan</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<!-- Form Card -->
+<div class="content-card">
+    <div class="card-header">
+        <h3 class="card-title">
+            @switch($kategori)
+                @case('jenis_kelamin')
+                    <i class="fas fa-users text-primary me-2"></i>
+                    @break
+                @case('agama')
+                    <i class="fas fa-pray text-primary me-2"></i>
+                    @break
+                @case('pekerjaan')
+                    <i class="fas fa-briefcase text-primary me-2"></i>
+                    @break
+                @case('kk')
+                    <i class="fas fa-home text-primary me-2"></i>
+                    @break
+                @case('rt_rw')
+                    <i class="fas fa-map-marked-alt text-primary me-2"></i>
+                    @break
+                @case('pendidikan')
+                    <i class="fas fa-graduation-cap text-primary me-2"></i>
+                    @break
+                @case('kesehatan')
+                    <i class="fas fa-heartbeat text-primary me-2"></i>
+                    @break
+                @case('siswa')
+                    <i class="fas fa-user-graduate text-primary me-2"></i>
+                    @break
+                @case('klub')
+                    <i class="fas fa-users-cog text-primary me-2"></i>
+                    @break
+                @case('kesenian')
+                    <i class="fas fa-palette text-primary me-2"></i>
+                    @break
+                @case('sumberair')
+                    <i class="fas fa-tint text-primary me-2"></i>
+                    @break
+                @default
+                    <i class="fas fa-chart-bar text-primary me-2"></i>
+            @endswitch
+            Form Data {{ $kategoriOptions[$kategori] }}
+        </h3>
+        <p class="card-subtitle">Lengkapi form dibawah untuk menambahkan data statistik baru</p>
+    </div>
+    
+    <div class="card-body">
+        <form action="{{ route('admin.statistik.store') }}" method="POST" class="modern-form">
+            @csrf
+            
+            <!-- Hidden Kategori Field -->
+            <input type="hidden" name="kategori" value="{{ $kategori }}">
+            
+            <div class="row">
+                <!-- Kategori Display (Read-only) -->
+                <div class="col-md-6 mb-4">
+                    <label class="form-label required">
+                        <i class="fas fa-tag me-1"></i>Kategori Data
+                    </label>
+                    <div class="form-control-static">
+                        <div class="category-display">
+                            <div class="category-icon">
+                                @switch($kategori)
+                                    @case('jenis_kelamin')
+                                        <i class="fas fa-users"></i>
+                                        @break
+                                    @case('agama')
+                                        <i class="fas fa-pray"></i>
+                                        @break
+                                    @case('pekerjaan')
+                                        <i class="fas fa-briefcase"></i>
+                                        @break
+                                    @case('kk')
+                                        <i class="fas fa-home"></i>
+                                        @break
+                                    @case('rt_rw')
+                                        <i class="fas fa-map-marked-alt"></i>
+                                        @break
+                                    @case('pendidikan')
+                                        <i class="fas fa-graduation-cap"></i>
+                                        @break
+                                    @case('kesehatan')
+                                        <i class="fas fa-heartbeat"></i>
+                                        @break
+                                    @case('siswa')
+                                        <i class="fas fa-user-graduate"></i>
+                                        @break
+                                    @case('klub')
+                                        <i class="fas fa-users-cog"></i>
+                                        @break
+                                    @case('kesenian')
+                                        <i class="fas fa-palette"></i>
+                                        @break
+                                    @case('sumberair')
+                                        <i class="fas fa-tint"></i>
+                                        @break
+                                    @default
+                                        <i class="fas fa-chart-bar"></i>
+                                @endswitch
+                            </div>
+                            <span class="category-name">{{ $kategoriOptions[$kategori] }}</span>
+                        </div>
+                    </div>
+                    <small class="form-text">Kategori yang dipilih untuk data statistik ini</small>
+                </div>
+
+                <!-- Change Category -->
+                <div class="col-md-6 mb-4">
+                    <label class="form-label">
+                        <i class="fas fa-exchange-alt me-1"></i>Ganti Kategori
+                    </label>
+                    <select class="form-select modern-select" onchange="changeCategory(this.value)">
+                        @foreach($kategoriOptions as $key => $label)
+                            <option value="{{ $key }}" {{ $kategori == $key ? 'selected' : '' }}>
+                                {{ $label }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <small class="form-text">Pilih kategori lain jika diperlukan</small>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Label Field -->
+                <div class="col-md-6 mb-4">
+                    <label for="label" class="form-label required">
+                        <i class="fas fa-tag me-1"></i>Label/Nama Data
+                    </label>
+                    <input type="text" 
+                           class="form-control modern-input @error('label') is-invalid @enderror" 
+                           id="label" 
+                           name="label" 
+                           value="{{ old('label') }}" 
+                           placeholder="Contoh: Laki-laki, Islam, Petani, dll"
+                           required>
+                    @error('label')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text">Nama atau label untuk data statistik ini</small>
+                </div>
+
+                <!-- Jumlah Field -->
+                <div class="col-md-6 mb-4">
+                    <label for="jumlah" class="form-label required">
+                        <i class="fas fa-calculator me-1"></i>Jumlah
+                    </label>
+                    <div class="input-group">
+                        <input type="number" 
+                               class="form-control modern-input @error('jumlah') is-invalid @enderror" 
+                               id="jumlah" 
+                               name="jumlah" 
+                               value="{{ old('jumlah') }}" 
+                               min="0" 
+                               placeholder="0"
+                               required>
+                        <span class="input-group-text">orang</span>
+                    </div>
+                    @error('jumlah')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text">Jumlah penduduk untuk kategori ini</small>
+                </div>
+            </div>
+
+            <!-- Deskripsi Field -->
+            <div class="mb-4">
+                <label for="deskripsi" class="form-label">
+                    <i class="fas fa-align-left me-1"></i>Deskripsi
+                    <span class="text-muted">(Opsional)</span>
+                </label>
+                <textarea class="form-control modern-input @error('deskripsi') is-invalid @enderror" 
+                          id="deskripsi" 
+                          name="deskripsi" 
+                          rows="4" 
+                          placeholder="Tambahkan deskripsi atau informasi tambahan tentang data ini...">{{ old('deskripsi') }}</textarea>
+                @error('deskripsi')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                <small class="form-text">Informasi tambahan tentang data statistik (opsional)</small>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-save me-2"></i>Simpan Data
+                </button>
+                <a href="{{ route('admin.statistik.index', ['kategori' => $kategori]) }}" 
+                   class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-times me-2"></i>Batal
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Helper Card -->
+<div class="content-card mt-4">
+    <div class="info-box info-box-success">
+        <div class="info-icon">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="info-content">
+            <h5>Tips Pengisian Data</h5>
+            <ul class="info-list">
+                <li><strong>Label:</strong> Gunakan nama yang jelas dan mudah dipahami</li>
+                <li><strong>Jumlah:</strong> Pastikan angka yang dimasukkan akurat dan terbaru</li>
+                <li><strong>Deskripsi:</strong> Tambahkan informasi tambahan jika diperlukan</li>
+                <li><strong>Kategori:</strong> Pilih kategori yang sesuai dengan data yang akan ditambahkan</li>
+            </ul>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('styles')
+<style>
+.form-control-static {
+    padding: 0.75rem;
+    background: var(--light-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.category-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.category-display .category-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.category-display .category-name {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.modern-form .form-label.required::after {
+    content: " *";
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.modern-input {
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.modern-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.modern-select {
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 2rem;
+}
+
+.input-group-text {
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
+    border-left: none;
+    color: var(--text-muted);
+}
+
+.info-box {
+    display: flex;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid;
+}
+
+.info-box-success {
+    background: rgba(16, 185, 129, 0.05);
+    border-left-color: var(--success-color);
+}
+
+.info-box-success .info-icon {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.info-content h5 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.info-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--text-muted);
+}
+
+.info-list li {
+    margin-bottom: 0.25rem;
+}
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function changeCategory(newKategori) {
+    if (newKategori !== '{{ $kategori }}') {
+        window.location.href = `{{ route('admin.statistik.create') }}?kategori=${newKategori}`;
+    }
+}
+
+// Form validation
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.modern-form');
+    const labelInput = document.getElementById('label');
+    const jumlahInput = document.getElementById('jumlah');
+    
+    form.addEventListener('submit', function(e) {
+        let isValid = true;
+        
+        // Validate label
+        if (!labelInput.value.trim()) {
+            isValid = false;
+            labelInput.classList.add('is-invalid');
+        } else {
+            labelInput.classList.remove('is-invalid');
+        }
+        
+        // Validate jumlah
+        if (!jumlahInput.value || jumlahInput.value < 0) {
+            isValid = false;
+            jumlahInput.classList.add('is-invalid');
+        } else {
+            jumlahInput.classList.remove('is-invalid');
+        }
+        
+        if (!isValid) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Form Tidak Valid',
+                text: 'Mohon lengkapi semua field yang diperlukan dengan benar.'
+            });
+        }
+    });
+    
+    // Real-time validation
+    labelInput.addEventListener('input', function() {
+        if (this.value.trim()) {
+            this.classList.remove('is-invalid');
+        }
+    });
+    
+    jumlahInput.addEventListener('input', function() {
+        if (this.value >= 0) {
+            this.classList.remove('is-invalid');
+        }
+    });
+});
+</script>
+@endpush
