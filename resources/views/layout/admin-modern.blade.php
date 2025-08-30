@@ -770,7 +770,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="{{ route('admin.data.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'admin.data') ? 'active' : '' }}">
+                        <a href="{{ route('admin.statistik.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'admin.statistik') ? 'active' : '' }}">
                             <i class="sidebar-menu-icon fas fa-chart-bar"></i>
                             <span>Data Statistik</span>
                         </a>
