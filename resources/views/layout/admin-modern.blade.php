@@ -775,6 +775,12 @@
                             <span>Data Statistik</span>
                         </a>
                     </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('admin.pengaduan.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'pengaduan') ? 'active' : '' }}">
+                            <i class="sidebar-menu-icon fas fa-envelope-open-text"></i>
+                            <span>Pengaduan</span>
+                        </a>
+                    </li>
                     @if (Auth::user()->role == 0)
                     <li class="sidebar-menu-item">
                         <a href="{{ url('/admin/rtrw/manage') }}" class="sidebar-menu-link {{ str_contains(Request::path(), 'rtrw') ? 'active' : '' }}">

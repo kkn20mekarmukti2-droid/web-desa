@@ -37,7 +37,7 @@ Route::get('/berita', [homeController::class, 'berita'])->name('berita');
 Route::get('/berita/{tanggal}/{judul}', [homeController::class, 'tampilberita'])->name('detailartikel');
 
 // Pengaduan
-Route::post('/pengaduan', [homeController::class, 'store'])->name('pengaduan.store');
+Route::post('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'store'])->name('pengaduan.store');
 // Data Desa
 Route::prefix('data')->group(function () {
     Route::get('/penduduk', [dataController::class, 'penduduk'])->name('data.penduduk');
@@ -130,6 +130,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/gallery/add', [galleryController::class, 'store'])->name('gallery.store');
     Route::get('/gallery/destroy/{id}', [galleryController::class, 'destroy'])->name('gallery.delete');
     Route::delete('/gallery/bulk-delete', [galleryController::class, 'bulkDestroy'])->name('gallery.bulk-delete');
+
+    // Pengaduan Management
+    Route::get('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'index'])->name('admin.pengaduan.index');
 
     // Manajemen Akun - Redirect to Modern
     Route::get('/manage-akun', function() {

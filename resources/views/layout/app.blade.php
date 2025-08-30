@@ -853,22 +853,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="pengaduanForm" method="POST" enctype="multipart/form-data">
+                    <form id="pengaduanForm" method="POST" action="{{ route('pengaduan.store') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-3">
                             <label class="form-label">Nama Lengkap</label>
                             <input type="text" name="nama" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">No. Telepon / WhatsApp</label>
-                            <input type="text" name="telepon" class="form-control" required>
+                            <label class="form-label">No. HP / WhatsApp</label>
+                            <input type="text" name="no_hp" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Alamat Lengkap</label>
+                            <textarea name="alamat_lengkap" class="form-control" rows="2" placeholder="Contoh: Jl. Merdeka No. 123, RT/RW 01/02, Desa Mekarmukti" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Isi Pengaduan</label>
-                            <textarea name="isi_pengaduan" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Lampiran (Opsional)</label>
-                            <input type="file" name="lampiran" class="form-control">
+                            <textarea name="isi" class="form-control" rows="4" placeholder="Tuliskan keluhan atau pengaduan Anda secara detail..." required></textarea>
                         </div>
                     </form>
                 </div>
@@ -1113,6 +1114,72 @@
     <script>
         // Professional hover dropdown - CSS-only animations
         console.log('Hover dropdown loaded - CSS animations active');
+    </script>
+    
+    <!-- Pengaduan Form Handler -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pengaduanForm = document.getElementById('pengaduanForm');
+            
+            if (pengaduanForm) {
+                pengaduanForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = pengaduanForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
+                    submitBtn.disabled = true;
+                    
+                    // Create FormData
+                    const formData = new FormData(pengaduanForm);
+                    
+                    fetch(pengaduanForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show success message
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('formPengaduan'));
+                            modal.hide();
+                            
+                            // Reset form
+                            pengaduanForm.reset();
+                            
+                            // Show success alert
+                            const alertHtml = `
+                                <div class="alert alert-success alert-dismissible fade show position-fixed" style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    <strong>Berhasil!</strong> Pengaduan Anda telah terkirim dan akan segera ditindaklanjuti.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            `;
+                            document.body.insertAdjacentHTML('afterbegin', alertHtml);
+                            
+                            // Auto remove alert after 5 seconds
+                            setTimeout(() => {
+                                const alert = document.querySelector('.alert');
+                                if (alert) {
+                                    alert.remove();
+                                }
+                            }, 5000);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat mengirim pengaduan. Silakan coba lagi.');
+                    })
+                    .finally(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    });
+                });
+            }
+        });
     </script>
     
     @stack('scripts')
