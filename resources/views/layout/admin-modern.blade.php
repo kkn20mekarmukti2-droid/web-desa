@@ -782,12 +782,6 @@
                             <span>Kelola RT/RW</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu-item">
-                        <a href="{{ route('rtrw') }}" class="sidebar-menu-link {{ Request::route()->getName() == 'rtrw' ? 'active' : '' }}">
-                            <i class="sidebar-menu-icon fas fa-users-cog"></i>
-                            <span>RT RW</span>
-                        </a>
-                    </li>
                     @endif
                 </ul>
             </div>

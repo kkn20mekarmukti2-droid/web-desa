@@ -178,15 +178,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/kategori/add', [adminController::class, 'tambahkategori'])->name('kategori.store');
     Route::delete('/kategori/delete/{id}', [adminController::class, 'deletekategori'])->name('kategori.delete');
 
-    // RT/RW
-    Route::get('/rtrw', [adminController::class, 'rtrw'])->name('rtrw');
-    Route::get('/rw/add', [adminController::class, 'rwadd'])->name('rw.create');
-    Route::post('/rw/store', [adminController::class, 'rwstore'])->name('rw.store');
-    Route::delete('/rw/delete/{id}', [adminController::class, 'rwdelete'])->name('rw.delete');
-    Route::get('/rt/add/{rw_id}', [adminController::class, 'rtadd'])->name('rt.create');
-    Route::post('/rt/store', [adminController::class, 'rtstore'])->name('rt.store');
-    Route::delete('/rt/delete/{id}', [adminController::class, 'rtdelete'])->name('rt.delete');
-
     // Data Statistik CRUD
     Route::resource('statistik', App\Http\Controllers\StatistikController::class)->names([
         'index' => 'admin.statistik.index',

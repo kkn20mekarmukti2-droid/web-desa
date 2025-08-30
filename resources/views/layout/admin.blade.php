@@ -116,24 +116,6 @@
                 </div>
                 
                 @if (Auth::user()->role == 0)
-                    <div
-                        class="w-full flex items-center gap-x-1.5 select-none group {{ Request::route()->getName() == 'rtrw' ? 'group-active' : '' }}">
-                        <div
-                            class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-                            <div
-                                class="absolute top-0 left-0 w-full h-[102%] group-hover:translate-y-0 {{ Request::route()->getName() == 'rtrw' ? 'translate-y-0' : 'translate-y-full' }}  group-active:scale-50 group-hover:translate-y-0 bg-red-600 transition-all duration-300">
-                            </div>
-                        </div>
-                        <a class="group-hover:bg-white/10 {{ Request::route()->getName() == 'rtrw' ? 'bg-white/10 text-white' : '' }} w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
-                            href="{{ route('rtrw') }}">
-                            <div
-                                class="h-5 w-5 group-hover:text-red-600 dark:text-gray-600  transition-colors duration-200 {{ Request::route()->getName() == 'rtrw' ? '!text-red-500' : '' }}">
-                                <i class="fa-solid fa-users-gear"></i>
-                            </div>
-
-                            <span class="font-QuicksandMedium">RT RW</span>
-                        </a>
-                    </div>
                 @endif
 
 
