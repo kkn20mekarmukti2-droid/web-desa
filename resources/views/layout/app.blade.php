@@ -1122,63 +1122,42 @@
             const pengaduanForm = document.getElementById('pengaduanForm');
             
             if (pengaduanForm) {
+                console.log('Pengaduan form found, adding event listener');
+                
                 pengaduanForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
+                    console.log('Form submitted');
                     
-                    const submitBtn = pengaduanForm.querySelector('button[type="submit"]');
+                    const submitBtn = this.querySelector('button[type="submit"]');
                     const originalText = submitBtn.innerHTML;
+                    
+                    // Show loading state
                     submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mengirim...';
                     submitBtn.disabled = true;
                     
-                    // Create FormData
-                    const formData = new FormData(pengaduanForm);
-                    
-                    fetch(pengaduanForm.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Show success message
-                            const modal = bootstrap.Modal.getInstance(document.getElementById('formPengaduan'));
-                            modal.hide();
-                            
-                            // Reset form
-                            pengaduanForm.reset();
-                            
-                            // Show success alert
-                            const alertHtml = `
-                                <div class="alert alert-success alert-dismissible fade show position-fixed" style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
-                                    <i class="fas fa-check-circle me-2"></i>
-                                    <strong>Berhasil!</strong> Pengaduan Anda telah terkirim dan akan segera ditindaklanjuti.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                </div>
-                            `;
-                            document.body.insertAdjacentHTML('afterbegin', alertHtml);
-                            
-                            // Auto remove alert after 5 seconds
-                            setTimeout(() => {
-                                const alert = document.querySelector('.alert');
-                                if (alert) {
-                                    alert.remove();
-                                }
-                            }, 5000);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Terjadi kesalahan saat mengirim pengaduan. Silakan coba lagi.');
-                    })
-                    .finally(() => {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    });
+                    // Let the form submit normally (no preventDefault)
+                    // The form will redirect and show success message via session flash
                 });
+            } else {
+                console.log('Pengaduan form not found');
             }
+            
+            // Show success message if exists
+            @if(session('success'))
+                const alertHtml = `
+                    <div class="alert alert-success alert-dismissible fade show position-fixed" style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>Berhasil!</strong> {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('afterbegin', alertHtml);
+                
+                // Auto remove alert after 5 seconds
+                setTimeout(() => {
+                    const alert = document.querySelector('.alert');
+                    if (alert) alert.remove();
+                }, 5000);
+            @endif
         });
     </script>
     
