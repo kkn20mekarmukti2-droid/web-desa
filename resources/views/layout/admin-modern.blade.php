@@ -776,12 +776,15 @@
                         </a>
                     </li>
                     @if (Auth::user()->role == 0)
+                    <!-- Menu Kelola RT/RW temporarily disabled due to route issues -->
+                    {{-- 
                     <li class="sidebar-menu-item">
                         <a href="{{ route('rtrw.manage.modern') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'rtrw') ? 'active' : '' }}">
                             <i class="sidebar-menu-icon fas fa-home"></i>
                             <span>Kelola RT/RW</span>
                         </a>
                     </li>
+                    --}}
                     @endif
                 </ul>
             </div>
