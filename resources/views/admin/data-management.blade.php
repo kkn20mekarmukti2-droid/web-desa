@@ -10,7 +10,7 @@
                     <button class="btn btn-success" onclick="refreshAllData()">
                         <i class="bi bi-arrow-clockwise me-1"></i>Refresh Data
                     </button>
-                    <a href="{{ route('village:populate-real-data') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.village:populate-real-data') }}" class="btn btn-primary">
                         <i class="bi bi-plus-circle me-1"></i>Reset ke Data Default
                     </a>
                 </div>

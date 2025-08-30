@@ -309,4 +309,23 @@ class adminController extends Controller
 
         return redirect()->route('rtrw')->with('pesan', 'RT Berhasil di Hapus.');
     }
+
+    /**
+     * Populate village data with real data
+     */
+    public function populateRealData()
+    {
+        try {
+            // Execute the artisan command to populate real data
+            \Artisan::call('village:populate-real-data', ['--reset' => true]);
+            
+            return redirect()->back()->with('success', 
+                'Data desa berhasil dipopulasi dengan data real. Semua tabel telah diperbarui.'
+            );
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 
+                'Gagal memproses data: ' . $e->getMessage()
+            );
+        }
+    }
 }

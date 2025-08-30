@@ -205,6 +205,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Ubah Status Artikel
     Route::post('/ubah/status', [adminController::class, 'ubahstatus'])->name('ubahstatus');
 
+    // Village Data Population
+    Route::get('/village/populate-real-data', [adminController::class, 'populateRealData'])->name('admin.village:populate-real-data');
+    
     // Logout
     Route::get('/logout', function () {
         Auth::logout();
