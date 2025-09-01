@@ -86,12 +86,10 @@
                     <div class="form-group mb-3">
                         <label for="gambar" class="form-label">Gambar Produk</label>
                         <div class="upload-area" onclick="document.getElementById('gambar').click();">
-                            @if($produk->gambar)
+                            @if($produk->gambar && file_exists(public_path('storage/' . $produk->gambar)))
                             <img src="{{ asset('storage/' . $produk->gambar) }}" id="preview" class="preview-image">
-                            <div class="upload-overlay">
-                                <i class="fas fa-camera"></i>
-                                <p>Klik untuk ganti gambar</p>
-                            </div>
+                            @elseif($produk->gambar)
+                            <img src="{{ asset($produk->gambar) }}" id="preview" class="preview-image">
                             @else
                             <div class="upload-content">
                                 <i class="fas fa-cloud-upload-alt mb-2"></i>
@@ -99,6 +97,13 @@
                                 <small class="text-muted">JPG, PNG, GIF (Max: 2MB)</small>
                             </div>
                             <img id="preview" class="preview-image" style="display: none;">
+                            @endif
+                            
+                            @if($produk->gambar)
+                            <div class="upload-overlay">
+                                <i class="fas fa-camera"></i>
+                                <p>Klik untuk ganti gambar</p>
+                            </div>
                             @endif
                         </div>
                         <input type="file" 

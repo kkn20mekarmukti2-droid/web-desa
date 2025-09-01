@@ -16,8 +16,10 @@
         <div class="md:flex">
             <!-- Product Image -->
             <div class="md:w-1/2">
-                @if($produk->gambar)
+                @if($produk->gambar && file_exists(public_path('storage/' . $produk->gambar)))
                 <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-full h-96 md:h-full object-cover">
+                @elseif($produk->gambar)
+                <img src="{{ asset($produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-full h-96 md:h-full object-cover">
                 @else
                 <div class="w-full h-96 md:h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                     <i class="fas fa-image text-gray-400 text-8xl"></i>
@@ -101,8 +103,10 @@
             @foreach($relatedProducts as $related)
             <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-gray-100">
                 <div class="relative overflow-hidden">
-                    @if($related->gambar)
+                    @if($related->gambar && file_exists(public_path('storage/' . $related->gambar)))
                     <img src="{{ asset('storage/' . $related->gambar) }}" alt="{{ $related->nama_produk }}" class="w-full h-48 object-cover">
+                    @elseif($related->gambar)
+                    <img src="{{ asset($related->gambar) }}" alt="{{ $related->nama_produk }}" class="w-full h-48 object-cover">
                     @else
                     <div class="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                         <i class="fas fa-image text-gray-400 text-4xl"></i>

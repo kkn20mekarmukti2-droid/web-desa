@@ -14,8 +14,10 @@
         <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-gray-100">
             <!-- Product Image -->
             <div class="relative overflow-hidden">
-                @if($produk->gambar)
+                @if($produk->gambar && file_exists(public_path('storage/' . $produk->gambar)))
                 <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-full h-48 object-cover">
+                @elseif($produk->gambar)
+                <img src="{{ asset($produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-full h-48 object-cover">
                 @else
                 <div class="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                     <i class="fas fa-image text-gray-400 text-4xl"></i>

@@ -31,8 +31,10 @@
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="product-card">
                     <div class="product-image">
-                        @if($produk->gambar)
+                        @if($produk->gambar && file_exists(public_path('storage/' . $produk->gambar)))
                         <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}">
+                        @elseif($produk->gambar)
+                        <img src="{{ asset($produk->gambar) }}" alt="{{ $produk->nama_produk }}">
                         @else
                         <div class="no-image">
                             <i class="fas fa-image"></i>

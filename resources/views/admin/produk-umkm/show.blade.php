@@ -29,8 +29,10 @@
             <!-- Product Image -->
             <div class="col-md-5">
                 <div class="product-image-container">
-                    @if($produk->gambar)
+                    @if($produk->gambar && file_exists(public_path('storage/' . $produk->gambar)))
                     <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="product-image">
+                    @elseif($produk->gambar)
+                    <img src="{{ asset($produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="product-image">
                     @else
                     <div class="no-image">
                         <i class="fas fa-image"></i>
