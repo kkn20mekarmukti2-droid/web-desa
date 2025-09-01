@@ -308,7 +308,7 @@
           <ul>
             <li><a href="{{ route('berita') }}">Berita</a></li>
             <li><a href="{{ route('galeri') }}">Galeri</a></li>
-            <li><a href="{{ route('potensidesa') }}">Potensi Desa</a></li>
+            <li><a href="{{ route('potensidesa') }}">Produk UMKM</a></li>
           </ul>
         </li>
 
@@ -494,7 +494,7 @@
                             transition: all 0.2s ease;
                         " onmouseover="this.style.color='#F59E0B'; this.style.backgroundColor='rgba(245, 158, 11, 0.05)'" 
                            onmouseout="this.style.color='#d1d5db'; this.style.backgroundColor='transparent'">
-                            Potensi Desa
+                            Produk UMKM
                         </a>
                     </div>
                 </div>

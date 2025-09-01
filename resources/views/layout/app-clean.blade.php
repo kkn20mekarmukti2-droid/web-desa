@@ -109,7 +109,7 @@
                         <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                             <a href="{{ route('berita') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 first:rounded-t-lg">Berita</a>
                             <a href="{{ route('galeri') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700">Galeri</a>
-                            <a href="{{ route('potensidesa') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 last:rounded-b-lg">Potensi Desa</a>
+                            <a href="{{ route('potensidesa') }}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-700 last:rounded-b-lg">Produk UMKM</a>
                         </div>
                     </div>
                     
@@ -183,7 +183,7 @@
                             <div id="informasiDropdown" class="hidden ml-6 space-y-1">
                                 <a href="{{ route('berita') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Berita</a>
                                 <a href="{{ route('galeri') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Galeri</a>
-                                <a href="{{ route('potensidesa') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Potensi Desa</a>
+                                <a href="{{ route('potensidesa') }}" class="block text-gray-300 hover:text-white hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors">Produk UMKM</a>
                             </div>
                         </div>
                         

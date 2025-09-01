@@ -25,6 +25,9 @@ Route::get('/potensi-desa', [homeController::class, 'potensidesa'])->name('poten
 Route::get('/visi', [homeController::class, 'visi'])->name('visi');
 Route::get('/sejarah', [homeController::class, 'sejarah'])->name('sejarah');
 
+// Produk UMKM
+Route::resource('produk-umkm', App\Http\Controllers\ProdukUmkmController::class);
+
 // Galeri
 Route::get('/galeri-desa', [galleryController::class, 'galeri'])->name('galeri');
 

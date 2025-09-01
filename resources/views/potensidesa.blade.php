@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('judul', 'Potensi Desa Mekarmukti')
+@section('judul', 'Produk UMKM Unggulan Desa Mekarmukti')
 @section('content')
 
     <main id="main">
@@ -8,10 +8,10 @@
             <div class="container">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Potensi Desa</h2>
+                    <h2>Produk UMKM</h2>
                     <ol>
                         <li><a href="index.html">Beranda</a></li>
-                        <li>Potensi Desa</li>
+                        <li>Produk UMKM</li>
                     </ol>
                 </div>
 
@@ -42,11 +42,11 @@
                                 @elseif($i->sampul && file_exists(public_path('img/' . $i->sampul)))
                                     <img src="{{ asset('img/' . $i->sampul) }}" alt="" class="card-img-top object-cover">
                                 @else
-                                    {{-- Placeholder untuk kartu potensi desa --}}
+                                    {{-- Placeholder untuk kartu produk UMKM --}}
                                     <div class="card-img-top bg-gradient-to-br from-green-100 to-green-200 d-flex align-items-center justify-content-center" style="height: 200px;">
                                         <div class="text-center">
                                             <i class="bi bi-gem text-green-600" style="font-size: 3rem;"></i>
-                                            <small class="d-block text-green-700 mt-2 fw-medium">Potensi Desa</small>
+                                            <small class="d-block text-green-700 mt-2 fw-medium">Produk UMKM</small>
                                         </div>
                                     </div>
                                 @endif

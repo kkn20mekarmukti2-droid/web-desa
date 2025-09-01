@@ -100,7 +100,7 @@
                             @endforeach
                                 </ul>
                         </li>
-                        <li><a href="{{ route('potensidesa') }}">Potensi Desa</a></li>
+                        <li><a href="{{ route('potensidesa') }}">Produk UMKM</a></li>
                         <li><a href="{{ route('galeri') }}">Galeri</a></li>
                         <li><a href="{{ route('berita') }}">Berita</a></li>
                         <li><a href="{{ route('kontak') }}">Kontak</a></li>
