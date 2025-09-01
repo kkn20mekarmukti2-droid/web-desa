@@ -793,6 +793,12 @@
                             <span>Produk UMKM</span>
                         </a>
                     </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('admin.struktur-pemerintahan.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'struktur-pemerintahan') ? 'active' : '' }}">
+                            <i class="sidebar-menu-icon fas fa-users-cog"></i>
+                            <span>Struktur Pemerintahan</span>
+                        </a>
+                    </li>
                     @if (Auth::user()->role == 0)
                     <li class="sidebar-menu-item">
                         <a href="{{ url('/admin/rtrw/manage') }}" class="sidebar-menu-link {{ str_contains(Request::path(), 'rtrw') ? 'active' : '' }}">
