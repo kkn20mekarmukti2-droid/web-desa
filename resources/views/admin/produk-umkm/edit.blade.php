@@ -86,10 +86,10 @@
                     <div class="form-group mb-3">
                         <label for="gambar" class="form-label">Gambar Produk</label>
                         <div class="upload-area" onclick="document.getElementById('gambar').click();">
-                            @if($produk->gambar && file_exists(public_path('storage/' . $produk->gambar)))
-                            <img src="{{ asset('storage/' . $produk->gambar) }}" id="preview" class="preview-image">
-                            @elseif($produk->gambar)
+                            @if($produk->gambar && file_exists(public_path($produk->gambar)))
                             <img src="{{ asset($produk->gambar) }}" id="preview" class="preview-image">
+                            @elseif($produk->gambar && file_exists(public_path('storage/' . $produk->gambar)))
+                            <img src="{{ asset('storage/' . $produk->gambar) }}" id="preview" class="preview-image">
                             @else
                             <div class="upload-content">
                                 <i class="fas fa-cloud-upload-alt mb-2"></i>
