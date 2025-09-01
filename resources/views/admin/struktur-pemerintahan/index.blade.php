@@ -222,8 +222,21 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border: 2px solid var(--border-light);
-    background: white;
+    border: 3px solid #ffffff;
+    background: #ffffff;
+    position: relative;
+}
+
+.user-avatar::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    z-index: -1;
 }
 
 .avatar-img {
@@ -231,6 +244,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    display: block;
 }
 
 .avatar-img:hover {
@@ -240,7 +254,7 @@
 .avatar-placeholder {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--bg-light) 0%, var(--border-color) 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: 4px;
     display: flex;
     align-items: center;

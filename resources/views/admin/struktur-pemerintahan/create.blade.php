@@ -241,19 +241,33 @@
 @section('styles')
 <style>
 .photo-upload-area {
-    border: 2px dashed var(--border-color);
+    border: 2px dashed var(--primary-color);
     border-radius: 12px;
     padding: 1.5rem;
     text-align: center;
     transition: all 0.3s ease;
-    background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
+    background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+    position: relative;
+}
+
+.photo-upload-area::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 12px;
+    z-index: -1;
+    opacity: 0.1;
 }
 
 .photo-upload-area:hover {
-    border-color: var(--primary-color);
-    background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+    border-color: var(--primary-dark);
+    background: linear-gradient(135deg, #e6f0ff 0%, #dae8ff 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
 }
 
 .photo-preview {
@@ -262,9 +276,22 @@
     margin: 0 auto 1rem;
     border-radius: 12px;
     overflow: hidden;
-    border: 2px solid var(--border-color);
+    border: 4px solid #ffffff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    background: white;
+    background: #ffffff;
+    position: relative;
+}
+
+.photo-preview::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    z-index: -1;
 }
 
 .photo-placeholder {
@@ -274,7 +301,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--bg-light) 0%, var(--border-color) 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     color: var(--text-muted);
 }
 
@@ -289,6 +316,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    display: block;
 }
 
 .photo-preview img:hover {

@@ -114,7 +114,12 @@ class StrukturPemerintahanController extends Controller
         }
 
         $struktur = StrukturPemerintahan::findOrFail($id);
-        return view('admin.struktur-pemerintahan.show', compact('struktur'));
+        
+        // Get statistics for the show page
+        $totalByCategory = StrukturPemerintahan::where('kategori', $struktur->kategori)->count();
+        $totalActive = StrukturPemerintahan::where('is_active', true)->count();
+        
+        return view('admin.struktur-pemerintahan.show', compact('struktur', 'totalByCategory', 'totalActive'));
     }
 
     /**
