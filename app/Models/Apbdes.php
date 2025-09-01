@@ -21,12 +21,12 @@ class Apbdes extends Model
         'tahun' => 'integer'
     ];
 
-    // Get active APBDes
+    // Get active APBDes with pagination
     public static function getActive()
     {
         return self::where('is_active', true)
                    ->orderBy('tahun', 'desc')
-                   ->get();
+                   ->paginate(9); // 9 items per page for 3x3 grid
     }
 
     // Get latest APBDes

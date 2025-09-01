@@ -12,8 +12,8 @@ class ApbdesController extends Controller
     // Frontend - Halaman Transparansi Anggaran
     public function transparansi()
     {
-        $apbdes = Apbdes::getActive();
-        return view('transparansi-anggaran', compact('apbdes'));
+        $apbdesList = Apbdes::getActive();
+        return view('transparansi-anggaran', compact('apbdesList'));
     }
 
     // Admin - List APBDes
