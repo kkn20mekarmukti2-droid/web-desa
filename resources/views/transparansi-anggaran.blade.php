@@ -1,122 +1,78 @@
-@extends('layout.app')
+@extends('layouts.app')
 
-@section('judul', 'Transparansi Anggaran APBDes')
+@section('title', 'Transparansi Anggaran APBDes - Desa Mekarmukti')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 py-12">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- Header Section -->
+        <!-- Page Header -->
         <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-6">
-                <i class="fas fa-chart-pie text-white text-2xl"></i>
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-600 rounded-full mb-6">
+                <i class="fas fa-chart-line text-white text-3xl"></i>
             </div>
             <h1 class="text-4xl font-bold text-gray-900 mb-4">
-                💰 Transparansi Anggaran
+                Transparansi Anggaran APBDes
             </h1>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Keterbukaan informasi mengenai Anggaran Pendapatan dan Belanja Desa (APBDes) 
-                sebagai wujud akuntabilitas pengelolaan keuangan desa
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Dokumen Anggaran Pendapatan dan Belanja Desa (APBDes) Desa Mekarmukti
+                untuk keterbukaan informasi publik dan akuntabilitas keuangan desa.
             </p>
         </div>
 
-        @if($apbdes->isEmpty())
-            <!-- Empty State -->
-            <div class="bg-white rounded-2xl shadow-lg p-12 text-center">
-                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-file-alt text-gray-400 text-3xl"></i>
-                </div>
-                <h3 class="text-2xl font-semibold text-gray-900 mb-4">
-                    Belum Ada Dokumen APBDes
-                </h3>
-                <p class="text-gray-600 mb-8 max-w-md mx-auto">
-                    Dokumen APBDes akan segera dipublikasikan untuk memastikan transparansi pengelolaan keuangan desa.
-                </p>
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-lg mx-auto">
-                    <h4 class="font-semibold text-blue-900 mb-2">📋 Informasi</h4>
-                    <p class="text-blue-700 text-sm">
-                        APBDes adalah dokumen perencanaan keuangan tahunan desa yang berisi rincian penerimaan dan pengeluaran untuk pembangunan dan pelayanan kepada masyarakat.
-                    </p>
-                </div>
-            </div>
-        @else
-            <!-- APBDes Gallery -->
-            <div class="space-y-8">
-                @foreach($apbdes as $item)
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        @if($apbdesList->count() > 0)
+            <!-- APBDes Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($apbdesList as $item)
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
                     
-                    <!-- Card Header -->
-                    <div class="bg-gradient-to-r from-blue-600 to-green-600 p-6">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <!-- Header -->
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-6">
+                        <div class="flex items-center justify-between">
                             <div>
-                                <h2 class="text-2xl font-bold text-white mb-2">{{ $item->title }}</h2>
-                                <div class="flex items-center space-x-4 text-blue-100">
-                                    <span class="flex items-center">
-                                        <i class="fas fa-calendar-alt mr-2"></i>
-                                        Tahun {{ $item->tahun }}
-                                    </span>
-                                    <span class="flex items-center">
-                                        <i class="fas fa-clock mr-2"></i>
-                                        {{ $item->created_at->format('d M Y') }}
-                                    </span>
+                                <h3 class="text-xl font-bold text-white mb-2">{{ $item->title }}</h3>
+                                <div class="flex items-center text-blue-100">
+                                    <i class="fas fa-calendar mr-2"></i>
+                                    <span>Tahun {{ $item->tahun }}</span>
                                 </div>
                             </div>
-                            <div class="mt-4 md:mt-0">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 text-white">
-                                    <i class="fas fa-eye mr-2"></i>
-                                    Publik
-                                </span>
+                            @if($item->is_active)
+                            <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                Aktif
                             </div>
+                            @endif
                         </div>
                     </div>
 
-                    <!-- Card Body -->
                     <div class="p-6">
+                        <!-- Description -->
                         @if($item->description)
-                            <div class="mb-6">
-                                <p class="text-gray-700 leading-relaxed">{{ $item->description }}</p>
-                            </div>
+                        <div class="mb-6">
+                            <p class="text-gray-600 leading-relaxed">{{ $item->description }}</p>
+                        </div>
                         @endif
 
-                        <!-- Image Display -->
-                        @if($item->image_path)
-                        <div class="relative group" id="image-container-{{ $item->id }}">
+                        <!-- Image Display - SIMPLE LIKE BERITA & STRUKTUR -->
+                        @if($item->image_path && file_exists(public_path($item->image_path)))
                             <img 
                                 src="{{ asset($item->image_path) }}" 
                                 alt="{{ $item->title }}"
-                                class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                                class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300 mb-6"
                                 onclick="openImageModal('{{ asset($item->image_path) }}', '{{ $item->title }}')"
-                                onerror="tryAlternatePaths(this, '{{ $item->image_path }}', '{{ $item->title }}', {{ $item->id }})"
-                                data-original-path="{{ $item->image_path }}"
-                                data-title="{{ $item->title }}"
-                                data-id="{{ $item->id }}"
+                                style="height: 300px; object-fit: cover;"
+                                loading="lazy"
                             >
-                            
-                            <!-- Overlay -->
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-lg transition-all duration-300 flex items-center justify-center">
-                                <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <button 
-                                        onclick="openImageModal(getCurrentImageSrc({{ $item->id }}), '{{ $item->title }}')"
-                                        class="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium shadow-lg hover:bg-gray-100 transition-colors"
-                                    >
-                                        <i class="fas fa-search-plus mr-2"></i>
-                                        Perbesar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                         @else
-                        <!-- No Image Fallback -->
-                        <div class="bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg p-12 text-center">
-                            <i class="fas fa-file-alt text-gray-400 text-6xl mb-4"></i>
-                            <h4 class="text-lg font-semibold text-gray-700 mb-2">Dokumen APBDes</h4>
-                            <p class="text-gray-600">Gambar tidak tersedia untuk dokumen ini</p>
+                        <!-- No Image Fallback - SIMPLE LIKE BERITA -->
+                        <div class="bg-gray-100 rounded-lg p-8 text-center mb-6">
+                            <i class="fas fa-file-alt text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-600">Gambar tidak tersedia</p>
                         </div>
                         @endif
 
                         <!-- Download Button -->
-                        @if($item->image_path)
-                        <div class="mt-6 text-center">
+                        @if($item->image_path && file_exists(public_path($item->image_path)))
+                        <div class="text-center">
                             <a 
                                 href="{{ asset($item->image_path) }}" 
                                 download="{{ $item->title }}.jpg"
@@ -124,7 +80,7 @@
                                 target="_blank"
                             >
                                 <i class="fas fa-download mr-2"></i>
-                                Download Gambar
+                                Download Dokumen
                             </a>
                         </div>
                         @endif
@@ -133,38 +89,35 @@
                 @endforeach
             </div>
 
-            <!-- Info Section -->
-            <div class="mt-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl shadow-lg text-white p-8">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-4">
-                            <i class="fas fa-info-circle mr-3"></i>
-                            Tentang APBDes
-                        </h3>
-                        <ul class="space-y-2 text-green-100">
-                            <li>• Anggaran Pendapatan dan Belanja Desa</li>
-                            <li>• Dokumen perencanaan keuangan tahunan</li>
-                            <li>• Berisi rincian penerimaan dan pengeluaran desa</li>
-                            <li>• Dasar pelaksanaan program pembangunan</li>
-                        </ul>
-                    </div>
-                    <div class="text-center md:text-right">
-                        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-4">
-                            <i class="fas fa-balance-scale text-3xl"></i>
-                        </div>
-                        <p class="text-green-100 font-medium">
-                            Transparansi adalah kunci kepercayaan masyarakat dalam pengelolaan keuangan desa
-                        </p>
-                    </div>
+            <!-- Pagination -->
+            @if($apbdesList->hasPages())
+            <div class="mt-12">
+                {{ $apbdesList->links() }}
+            </div>
+            @endif
+
+        @else
+            <!-- Empty State -->
+            <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                <div class="w-32 h-32 mx-auto mb-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-inbox text-gray-400 text-6xl"></i>
                 </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                    Belum Ada Dokumen APBDes
+                </h3>
+                <p class="text-gray-600 max-w-md mx-auto">
+                    Dokumen APBDes belum tersedia. Silakan periksa kembali nanti atau hubungi 
+                    administrasi desa untuk informasi lebih lanjut.
+                </p>
             </div>
         @endif
+
     </div>
 </div>
 
-<!-- Image Modal -->
-<div id="imageModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 p-4" style="display: none; align-items: center; justify-content: center;">
-    <div class="relative max-w-full max-h-full">
+<!-- Image Modal - SIMPLE -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4">
+    <div class="relative max-w-4xl max-h-full">
         <button 
             onclick="closeImageModal()" 
             class="absolute -top-12 right-0 text-white text-xl bg-black bg-opacity-50 w-10 h-10 rounded-full flex items-center justify-center hover:bg-opacity-70 transition-colors"
@@ -179,99 +132,13 @@
 </div>
 
 <script>
-// Try alternative image paths if main path fails
-function tryAlternatePaths(img, originalPath, title, id) {
-    const filename = originalPath.split('/').pop(); // Get just the filename
-    const alternativePaths = [
-        '/img/apbdes/' + filename,                    // Primary: Following berita/struktur pattern
-        '/serve-apbdes-image.php?img=' + filename,    // PHP server fallback (bypass restrictions)
-        '/images/apbdes/' + filename,                 // Old path fallback  
-        '/storage/' + originalPath,                   // Laravel storage path
-        '/images/' + originalPath,                    // Alternative images path  
-        '/' + originalPath                           // Direct path from root
-    ];
-    
-    let currentAttempt = 0;
-    
-    function tryNextPath() {
-        if (currentAttempt >= alternativePaths.length) {
-            // All paths failed, show fallback
-            const container = document.getElementById('image-container-' + id);
-            container.innerHTML = `
-                <div class="bg-gray-100 rounded-lg p-8 text-center">
-                    <i class="fas fa-image text-gray-400 text-4xl mb-4"></i>
-                    <p class="text-gray-600 mb-2">Gambar tidak dapat dimuat</p>
-                    <p class="text-sm text-gray-500 mb-2">Path: ${originalPath}</p>
-                    <p class="text-sm text-blue-600 mb-4">💡 Tip: Gambar perlu dicopy ke folder public/img/apbdes/</p>
-                    <div class="mt-4">
-                        <button onclick="retryImageLoad(${id}, '${originalPath}', '${title}')" 
-                                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                            <i class="fas fa-redo mr-2"></i>Coba Lagi
-                        </button>
-                    </div>
-                </div>
-            `;
-            return;
-        }
-        
-        const testImg = new Image();
-        testImg.onload = function() {
-            // Success! Update the original image
-            img.src = alternativePaths[currentAttempt];
-            img.onclick = function() { openImageModal(alternativePaths[currentAttempt], title); };
-            console.log('✅ Image loaded successfully from: ' + alternativePaths[currentAttempt]);
-        };
-        testImg.onerror = function() {
-            currentAttempt++;
-            tryNextPath();
-        };
-        testImg.src = alternativePaths[currentAttempt];
-    }
-    
-    tryNextPath();
-}
-
-// Get current image src for modal
-function getCurrentImageSrc(id) {
-    const img = document.querySelector(`#image-container-${id} img`);
-    return img ? img.src : '';
-}
-
-// Retry image load
-function retryImageLoad(id, originalPath, title) {
-    const container = document.getElementById('image-container-' + id);
-    container.innerHTML = `
-        <div class="relative group">
-            <img 
-                src="/storage/${originalPath}" 
-                alt="${title}"
-                class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
-                onclick="openImageModal('/storage/${originalPath}', '${title}')"
-                onerror="tryAlternatePaths(this, '${originalPath}', '${title}', ${id})"
-                data-original-path="${originalPath}"
-                data-title="${title}"
-                data-id="${id}"
-            >
-            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-lg transition-all duration-300 flex items-center justify-center">
-                <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button 
-                        onclick="openImageModal(getCurrentImageSrc(${id}), '${title}')"
-                        class="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium shadow-lg hover:bg-gray-100 transition-colors"
-                    >
-                        <i class="fas fa-search-plus mr-2"></i>Perbesar
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function openImageModal(imageSrc, title) {
+// SIMPLE APPROACH - EXACTLY LIKE BERITA & STRUKTUR
+function openImageModal(src, title) {
     const modal = document.getElementById('imageModal');
-    document.getElementById('modalImage').src = imageSrc;
-    document.getElementById('modalTitle').textContent = title;
     modal.classList.remove('hidden');
     modal.style.display = 'flex';
+    document.getElementById('modalImage').src = src;
+    document.getElementById('modalTitle').textContent = title;
     document.body.style.overflow = 'hidden';
 }
 
@@ -289,7 +156,7 @@ document.getElementById('imageModal').addEventListener('click', function(e) {
     }
 });
 
-// Close modal with Escape key
+// Close with Escape key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeImageModal();
