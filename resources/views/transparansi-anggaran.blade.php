@@ -80,20 +80,23 @@
 
                         <!-- Image Display -->
                         @if($item->image_path)
-                        <div class="relative group">
+                        <div class="relative group" id="image-container-{{ $item->id }}">
                             <img 
                                 src="{{ asset('storage/' . $item->image_path) }}" 
                                 alt="{{ $item->title }}"
                                 class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
                                 onclick="openImageModal('{{ asset('storage/' . $item->image_path) }}', '{{ $item->title }}')"
-                                onerror="this.parentElement.innerHTML='<div class=\'bg-gray-100 rounded-lg p-8 text-center\'><i class=\'fas fa-image text-gray-400 text-4xl mb-4\'></i><p class=\'text-gray-600\'>Gambar tidak dapat dimuat</p><p class=\'text-sm text-gray-500 mt-2\'>Path: {{ $item->image_path }}</p></div>'"
+                                onerror="tryAlternatePaths(this, '{{ $item->image_path }}', '{{ $item->title }}', {{ $item->id }})"
+                                data-original-path="{{ $item->image_path }}"
+                                data-title="{{ $item->title }}"
+                                data-id="{{ $item->id }}"
                             >
                             
                             <!-- Overlay -->
                             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-lg transition-all duration-300 flex items-center justify-center">
                                 <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <button 
-                                        onclick="openImageModal('{{ asset('storage/' . $item->image_path) }}', '{{ $item->title }}')"
+                                        onclick="openImageModal(getCurrentImageSrc({{ $item->id }}), '{{ $item->title }}')"
                                         class="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium shadow-lg hover:bg-gray-100 transition-colors"
                                     >
                                         <i class="fas fa-search-plus mr-2"></i>
@@ -176,6 +179,88 @@
 </div>
 
 <script>
+// Try alternative image paths if main path fails
+function tryAlternatePaths(img, originalPath, title, id) {
+    const alternativePaths = [
+        '/storage/' + originalPath,  // Direct storage path
+        '/images/' + originalPath,   // Alternative images path
+        '/' + originalPath          // Direct path from root
+    ];
+    
+    let currentAttempt = 0;
+    
+    function tryNextPath() {
+        if (currentAttempt >= alternativePaths.length) {
+            // All paths failed, show fallback
+            const container = document.getElementById('image-container-' + id);
+            container.innerHTML = `
+                <div class="bg-gray-100 rounded-lg p-8 text-center">
+                    <i class="fas fa-image text-gray-400 text-4xl mb-4"></i>
+                    <p class="text-gray-600 mb-2">Gambar tidak dapat dimuat</p>
+                    <p class="text-sm text-gray-500">Path: ${originalPath}</p>
+                    <div class="mt-4">
+                        <button onclick="retryImageLoad(${id}, '${originalPath}', '${title}')" 
+                                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            <i class="fas fa-redo mr-2"></i>Coba Lagi
+                        </button>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        const testImg = new Image();
+        testImg.onload = function() {
+            // Success! Update the original image
+            img.src = alternativePaths[currentAttempt];
+            img.onclick = function() { openImageModal(alternativePaths[currentAttempt], title); };
+            console.log('✅ Image loaded successfully from: ' + alternativePaths[currentAttempt]);
+        };
+        testImg.onerror = function() {
+            currentAttempt++;
+            tryNextPath();
+        };
+        testImg.src = alternativePaths[currentAttempt];
+    }
+    
+    tryNextPath();
+}
+
+// Get current image src for modal
+function getCurrentImageSrc(id) {
+    const img = document.querySelector(`#image-container-${id} img`);
+    return img ? img.src : '';
+}
+
+// Retry image load
+function retryImageLoad(id, originalPath, title) {
+    const container = document.getElementById('image-container-' + id);
+    container.innerHTML = `
+        <div class="relative group">
+            <img 
+                src="/storage/${originalPath}" 
+                alt="${title}"
+                class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                onclick="openImageModal('/storage/${originalPath}', '${title}')"
+                onerror="tryAlternatePaths(this, '${originalPath}', '${title}', ${id})"
+                data-original-path="${originalPath}"
+                data-title="${title}"
+                data-id="${id}"
+            >
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-lg transition-all duration-300 flex items-center justify-center">
+                <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button 
+                        onclick="openImageModal(getCurrentImageSrc(${id}), '${title}')"
+                        class="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium shadow-lg hover:bg-gray-100 transition-colors"
+                    >
+                        <i class="fas fa-search-plus mr-2"></i>Perbesar
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 function openImageModal(imageSrc, title) {
     const modal = document.getElementById('imageModal');
     document.getElementById('modalImage').src = imageSrc;
