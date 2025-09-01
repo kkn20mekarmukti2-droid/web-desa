@@ -79,12 +79,14 @@
                         @endif
 
                         <!-- Image Display -->
+                        @if($item->image_path)
                         <div class="relative group">
                             <img 
                                 src="{{ asset('storage/' . $item->image_path) }}" 
                                 alt="{{ $item->title }}"
                                 class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
                                 onclick="openImageModal('{{ asset('storage/' . $item->image_path) }}', '{{ $item->title }}')"
+                                onerror="this.parentElement.innerHTML='<div class=\'bg-gray-100 rounded-lg p-8 text-center\'><i class=\'fas fa-image text-gray-400 text-4xl mb-4\'></i><p class=\'text-gray-600\'>Gambar tidak dapat dimuat</p><p class=\'text-sm text-gray-500 mt-2\'>Path: {{ $item->image_path }}</p></div>'"
                             >
                             
                             <!-- Overlay -->
@@ -100,18 +102,29 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <!-- No Image Fallback -->
+                        <div class="bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg p-12 text-center">
+                            <i class="fas fa-file-alt text-gray-400 text-6xl mb-4"></i>
+                            <h4 class="text-lg font-semibold text-gray-700 mb-2">Dokumen APBDes</h4>
+                            <p class="text-gray-600">Gambar tidak tersedia untuk dokumen ini</p>
+                        </div>
+                        @endif
 
                         <!-- Download Button -->
+                        @if($item->image_path)
                         <div class="mt-6 text-center">
                             <a 
                                 href="{{ asset('storage/' . $item->image_path) }}" 
                                 download="{{ $item->title }}.jpg"
                                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+                                target="_blank"
                             >
                                 <i class="fas fa-download mr-2"></i>
                                 Download Gambar
                             </a>
                         </div>
+                        @endif
                     </div>
                 </div>
                 @endforeach
