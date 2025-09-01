@@ -82,10 +82,10 @@
                         @if($item->image_path)
                         <div class="relative group" id="image-container-{{ $item->id }}">
                             <img 
-                                src="{{ asset('storage/' . $item->image_path) }}" 
+                                src="{{ asset('images/apbdes/' . basename($item->image_path)) }}" 
                                 alt="{{ $item->title }}"
                                 class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
-                                onclick="openImageModal('{{ asset('storage/' . $item->image_path) }}', '{{ $item->title }}')"
+                                onclick="openImageModal('{{ asset('images/apbdes/' . basename($item->image_path)) }}', '{{ $item->title }}')"
                                 onerror="tryAlternatePaths(this, '{{ $item->image_path }}', '{{ $item->title }}', {{ $item->id }})"
                                 data-original-path="{{ $item->image_path }}"
                                 data-title="{{ $item->title }}"
@@ -118,7 +118,7 @@
                         @if($item->image_path)
                         <div class="mt-6 text-center">
                             <a 
-                                href="{{ asset('storage/' . $item->image_path) }}" 
+                                href="{{ asset('images/apbdes/' . basename($item->image_path)) }}" 
                                 download="{{ $item->title }}.jpg"
                                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
                                 target="_blank"
@@ -181,10 +181,12 @@
 <script>
 // Try alternative image paths if main path fails
 function tryAlternatePaths(img, originalPath, title, id) {
+    const filename = originalPath.split('/').pop(); // Get just the filename
     const alternativePaths = [
-        '/storage/' + originalPath,  // Direct storage path
-        '/images/' + originalPath,   // Alternative images path
-        '/' + originalPath          // Direct path from root
+        '/images/apbdes/' + filename,    // Primary: Direct images path like berita
+        '/storage/' + originalPath,      // Secondary: Laravel storage path
+        '/images/' + originalPath,       // Tertiary: Alternative images path  
+        '/' + originalPath              // Last resort: Direct path from root
     ];
     
     let currentAttempt = 0;
@@ -197,7 +199,8 @@ function tryAlternatePaths(img, originalPath, title, id) {
                 <div class="bg-gray-100 rounded-lg p-8 text-center">
                     <i class="fas fa-image text-gray-400 text-4xl mb-4"></i>
                     <p class="text-gray-600 mb-2">Gambar tidak dapat dimuat</p>
-                    <p class="text-sm text-gray-500">Path: ${originalPath}</p>
+                    <p class="text-sm text-gray-500 mb-2">Path: ${originalPath}</p>
+                    <p class="text-sm text-blue-600 mb-4">💡 Tip: Gambar perlu dicopy ke folder public/images/apbdes/</p>
                     <div class="mt-4">
                         <button onclick="retryImageLoad(${id}, '${originalPath}', '${title}')" 
                                 class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
