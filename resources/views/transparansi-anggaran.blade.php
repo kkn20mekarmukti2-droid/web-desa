@@ -21,10 +21,10 @@
         </div>
 
         @if($apbdesList->count() > 0)
-            <!-- APBDes Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- APBDes Grid - Centered Cards -->
+            <div class="flex flex-wrap justify-center gap-8">
                 @foreach($apbdesList as $item)
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <div class="w-full md:w-96 lg:w-80 bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
                     
                     <!-- Header -->
                     <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-6">
