@@ -297,25 +297,31 @@
 }
 
 .avatar-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
     object-fit: cover;
     border: 4px solid white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+
+.avatar-image:hover {
+    transform: scale(1.05);
 }
 
 .avatar-placeholder {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
     background: rgba(255,255,255,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
     border: 4px solid white;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .profile-status {
@@ -498,15 +504,15 @@
 .preview-avatar img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 8px;
     object-fit: cover;
 }
 
 .preview-placeholder {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    background: var(--border-color);
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--border-color) 0%, var(--bg-light) 100%);
     display: flex;
     align-items: center;
     justify-content: center;

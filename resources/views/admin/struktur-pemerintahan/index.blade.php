@@ -77,7 +77,7 @@
             </thead>
             <tbody>
                 @forelse($strukturList as $struktur)
-                <tr>
+                <tr class="table-row-hover">
                     <td>
                         <div class="user-avatar">
                             @if($struktur->foto && file_exists(public_path($struktur->foto)))
@@ -217,26 +217,36 @@
 }
 
 .user-avatar {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 2px solid var(--border-light);
+    background: white;
 }
 
 .avatar-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.avatar-img:hover {
+    transform: scale(1.05);
 }
 
 .avatar-placeholder {
     width: 100%;
     height: 100%;
-    background: var(--border-color);
-    border-radius: 50%;
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--border-color) 100%);
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
+    font-size: 1.25rem;
 }
 
 .user-info .user-name {
@@ -296,6 +306,16 @@
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-muted);
+}
+
+.table-row-hover {
+    transition: all 0.2s ease;
+}
+
+.table-row-hover:hover {
+    background-color: rgba(102, 126, 234, 0.02);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 </style>
 @endsection

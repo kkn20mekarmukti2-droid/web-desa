@@ -242,23 +242,29 @@
 <style>
 .photo-upload-area {
     border: 2px dashed var(--border-color);
-    border-radius: 8px;
-    padding: 1rem;
+    border-radius: 12px;
+    padding: 1.5rem;
     text-align: center;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
 }
 
 .photo-upload-area:hover {
     border-color: var(--primary-color);
+    background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
 }
 
 .photo-preview {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     margin: 0 auto 1rem;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: white;
 }
 
 .photo-placeholder {
@@ -268,19 +274,25 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--bg-light);
+    background: linear-gradient(135deg, var(--bg-light) 0%, var(--border-color) 100%);
     color: var(--text-muted);
 }
 
 .photo-placeholder i {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    opacity: 0.7;
 }
 
 .photo-preview img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-preview img:hover {
+    transform: scale(1.02);
 }
 
 .photo-actions {
