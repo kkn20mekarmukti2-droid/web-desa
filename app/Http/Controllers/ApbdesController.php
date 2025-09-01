@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Apbdes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ApbdesController extends Controller
 {
@@ -47,13 +48,24 @@ class ApbdesController extends Controller
         ]);
 
         try {
-            // Upload image
-            $imagePath = $request->file('image')->store('apbdes', 'public');
+            // Upload image directly to public/img/apbdes/ (following berita pattern)
+            $image = $request->file('image');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            
+            // Create directory if not exists
+            $targetDir = public_path('img/apbdes');
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0755, true);
+            }
+            
+            // Move image to public/img/apbdes/
+            $image->move($targetDir, $imageName);
+            $imagePath = 'img/apbdes/' . $imageName;
 
             // Create APBDes record
             Apbdes::create([
                 'title' => $request->title,
-                'image_path' => $imagePath,
+                'image_path' => $imagePath, // Store relative path from public/
                 'description' => $request->description,
                 'tahun' => $request->tahun,
                 'is_active' => $request->has('is_active')
@@ -94,13 +106,27 @@ class ApbdesController extends Controller
 
             // Handle image update
             if ($request->hasFile('image')) {
-                // Delete old image
+                // Delete old image from public/img/apbdes/
                 if ($apbdes->image_path) {
-                    Storage::disk('public')->delete($apbdes->image_path);
+                    $oldImagePath = public_path($apbdes->image_path);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
                 }
                 
-                // Upload new image
-                $data['image_path'] = $request->file('image')->store('apbdes', 'public');
+                // Upload new image directly to public/img/apbdes/
+                $image = $request->file('image');
+                $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                
+                // Create directory if not exists
+                $targetDir = public_path('img/apbdes');
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0755, true);
+                }
+                
+                // Move image to public/img/apbdes/
+                $image->move($targetDir, $imageName);
+                $data['image_path'] = 'img/apbdes/' . $imageName;
             }
 
             $apbdes->update($data);
@@ -121,9 +147,12 @@ class ApbdesController extends Controller
         try {
             $apbdes = Apbdes::findOrFail($id);
             
-            // Delete image file
+            // Delete image file from public/img/apbdes/
             if ($apbdes->image_path) {
-                Storage::disk('public')->delete($apbdes->image_path);
+                $imagePath = public_path($apbdes->image_path);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
             }
             
             $apbdes->delete();

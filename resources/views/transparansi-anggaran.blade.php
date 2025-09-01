@@ -82,10 +82,10 @@
                         @if($item->image_path)
                         <div class="relative group" id="image-container-{{ $item->id }}">
                             <img 
-                                src="{{ asset('img/apbdes/' . basename($item->image_path)) }}" 
+                                src="{{ asset($item->image_path) }}" 
                                 alt="{{ $item->title }}"
                                 class="w-full h-auto rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
-                                onclick="openImageModal('{{ asset('img/apbdes/' . basename($item->image_path)) }}', '{{ $item->title }}')"
+                                onclick="openImageModal('{{ asset($item->image_path) }}', '{{ $item->title }}')"
                                 onerror="tryAlternatePaths(this, '{{ $item->image_path }}', '{{ $item->title }}', {{ $item->id }})"
                                 data-original-path="{{ $item->image_path }}"
                                 data-title="{{ $item->title }}"
@@ -118,7 +118,7 @@
                         @if($item->image_path)
                         <div class="mt-6 text-center">
                             <a 
-                                href="{{ asset('img/apbdes/' . basename($item->image_path)) }}" 
+                                href="{{ asset($item->image_path) }}" 
                                 download="{{ $item->title }}.jpg"
                                 class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
                                 target="_blank"
