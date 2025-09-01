@@ -92,7 +92,9 @@ class homeController extends Controller
 
     public function pemerintahan()
     {
-        return view("pemerintahan");
+        // Use the new controller method
+        $controller = new \App\Http\Controllers\StrukturPemerintahanController();
+        return $controller->publicIndex();
     }
 
     public function potensidesa()

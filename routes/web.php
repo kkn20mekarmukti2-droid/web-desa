@@ -163,6 +163,17 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::patch('/{id}/toggle', [\App\Http\Controllers\ApbdesController::class, 'toggleActive'])->name('toggle');
     });
 
+    // Struktur Pemerintahan Management
+    Route::prefix('struktur-pemerintahan')->name('admin.struktur-pemerintahan.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\StrukturPemerintahanController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\StrukturPemerintahanController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\StrukturPemerintahanController::class, 'store'])->name('store');
+        Route::get('/{id}', [\App\Http\Controllers\StrukturPemerintahanController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [\App\Http\Controllers\StrukturPemerintahanController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\StrukturPemerintahanController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\StrukturPemerintahanController::class, 'destroy'])->name('destroy');
+    });
+
     // Produk UMKM Admin Management
     Route::prefix('produk-umkm')->name('admin.produk-umkm.')->group(function () {
         Route::get('/', [\App\Http\Controllers\ProdukUmkmController::class, 'index'])->name('index');
