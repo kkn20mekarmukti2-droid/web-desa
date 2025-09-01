@@ -183,11 +183,12 @@
 function tryAlternatePaths(img, originalPath, title, id) {
     const filename = originalPath.split('/').pop(); // Get just the filename
     const alternativePaths = [
-        '/img/apbdes/' + filename,       // Primary: Following berita/struktur pattern
-        '/images/apbdes/' + filename,    // Fallback: Old path  
-        '/storage/' + originalPath,      // Secondary: Laravel storage path
-        '/images/' + originalPath,       // Tertiary: Alternative images path  
-        '/' + originalPath              // Last resort: Direct path from root
+        '/img/apbdes/' + filename,                    // Primary: Following berita/struktur pattern
+        '/serve-apbdes-image.php?img=' + filename,    // PHP server fallback (bypass restrictions)
+        '/images/apbdes/' + filename,                 // Old path fallback  
+        '/storage/' + originalPath,                   // Laravel storage path
+        '/images/' + originalPath,                    // Alternative images path  
+        '/' + originalPath                           // Direct path from root
     ];
     
     let currentAttempt = 0;
