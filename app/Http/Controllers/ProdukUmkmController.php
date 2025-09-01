@@ -3,9 +3,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProdukUmkm;
+use Illuminate\Support\Str;
 
 class ProdukUmkmController extends Controller
 {
+    /**
+     * Delete physical image file if exists (supports both storage disk path and direct public path)
+     */
+    private function deleteImageIfExists(?string $path): void
+    {
+        if (!$path) return;
+
+        // Possible locations:
+        // 1. Stored via old logic: storage/app/public/umkm/filename (public/storage/umkm/filename accessible)
+        // 2. New logic (adapted to Apbdes style): public/img/umkm/filename (stored as img/umkm/filename)
+        $candidates = [];
+        // If path already includes 'img/umkm/' treat it as relative under public
+        if (str_starts_with($path, 'img/umkm/')) {
+            $candidates[] = public_path($path);
+        }
+        // If path starts with 'umkm/' (old disk relative), map to public/storage/umkm
+        if (str_starts_with($path, 'umkm/')) {
+            $candidates[] = public_path('storage/' . $path);
+        }
+        // Also if full path accidentally stored
+        if (file_exists($path)) {
+            $candidates[] = $path;
+        }
+
+        foreach (array_unique($candidates) as $file) {
+            if (is_file($file)) {
+                @unlink($file);
+            }
+        }
+    }
     // Tampilkan semua produk UMKM (untuk publik)
     public function index()
     {
@@ -45,10 +76,20 @@ class ProdukUmkmController extends Controller
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'nomor_telepon' => 'required',
         ]);
-        $data = $request->all();
+        $data = $request->only(['nama_produk','deskripsi','nomor_telepon']);
+
+        // Handle image (adapt Apbdes style: store under public/img/umkm)
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('umkm', 'public');
+            $image = $request->file('gambar');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $targetDir = public_path('img/umkm');
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0755, true);
+            }
+            $image->move($targetDir, $imageName);
+            $data['gambar'] = 'img/umkm/' . $imageName; // store relative path
         }
+
         ProdukUmkm::create($data);
         
         // Redirect berdasarkan context akses
@@ -100,9 +141,19 @@ class ProdukUmkmController extends Controller
             'nomor_telepon' => 'required',
         ]);
         $produk = ProdukUmkm::findOrFail($id);
-        $data = $request->all();
+        $data = $request->only(['nama_produk','deskripsi','nomor_telepon']);
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('umkm', 'public');
+            // Delete old image if exists
+            $this->deleteImageIfExists($produk->gambar);
+
+            $image = $request->file('gambar');
+            $imageName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $targetDir = public_path('img/umkm');
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0755, true);
+            }
+            $image->move($targetDir, $imageName);
+            $data['gambar'] = 'img/umkm/' . $imageName;
         }
         $produk->update($data);
         
@@ -122,8 +173,10 @@ class ProdukUmkmController extends Controller
             return redirect()->route('potensidesa')->with('error', 'Akses ditolak. Silakan login sebagai admin.');
         }
         
-        $produk = ProdukUmkm::findOrFail($id);
-        $produk->delete();
+    $produk = ProdukUmkm::findOrFail($id);
+    // Delete associated image file
+    $this->deleteImageIfExists($produk->gambar);
+    $produk->delete();
         
         // Redirect berdasarkan context akses
         if (request()->is('admin/*')) {
