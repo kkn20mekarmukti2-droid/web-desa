@@ -21,22 +21,6 @@
                     <i class="fas fa-image text-gray-400 text-4xl"></i>
                 </div>
                 @endif
-                
-                <!-- Admin Controls Overlay -->
-                @auth
-                <div class="absolute top-2 right-2 flex gap-1">
-                    <a href="{{ route('produk-umkm.edit', $produk->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full text-xs transition-colors">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <form action="{{ route('produk-umkm.destroy', $produk->id) }}" method="POST" onsubmit="return confirm('Yakin hapus produk {{ $produk->nama_produk }}?')" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-full text-xs transition-colors">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
-                </div>
-                @endauth
             </div>
 
             <!-- Product Info -->
@@ -67,12 +51,6 @@
                 <i class="fas fa-store text-gray-300 text-6xl mb-4"></i>
                 <h3 class="text-xl font-semibold text-gray-600 mb-2">Belum Ada Produk UMKM</h3>
                 <p class="text-gray-500 mb-4">Belum ada produk UMKM yang ditambahkan ke dalam sistem.</p>
-                @auth
-                <a href="{{ route('produk-umkm.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-                    <i class="fas fa-plus mr-2"></i>
-                    Tambah Produk Pertama
-                </a>
-                @endauth
             </div>
         </div>
         @endforelse
