@@ -788,7 +788,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="{{ route('produk-umkm.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'produk-umkm') ? 'active' : '' }}">
+                        <a href="{{ route('admin.produk-umkm.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'produk-umkm') ? 'active' : '' }}">
                             <i class="sidebar-menu-icon fas fa-store"></i>
                             <span>Produk UMKM</span>
                         </a>

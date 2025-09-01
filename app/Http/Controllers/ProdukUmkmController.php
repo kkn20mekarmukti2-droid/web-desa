@@ -6,17 +6,24 @@ use App\Models\ProdukUmkm;
 
 class ProdukUmkmController extends Controller
 {
-    // Tampilkan semua produk UMKM
+    // Tampilkan semua produk UMKM (untuk publik)
     public function index()
     {
         $produkList = ProdukUmkm::paginate(9);
+        
+        // Jika user adalah admin dan akses dari admin panel
+        if (auth()->check() && request()->is('admin/*')) {
+            return view('admin.produk-umkm.index', compact('produkList'));
+        }
+        
+        // Untuk akses publik
         return view('produk-umkm', compact('produkList'));
     }
 
     // Tampilkan form tambah produk
     public function create()
     {
-        return view('produk-umkm-create');
+        return view('admin.produk-umkm.create');
     }
 
     // Simpan produk baru
@@ -40,6 +47,13 @@ class ProdukUmkmController extends Controller
     public function show($id)
     {
         $produk = ProdukUmkm::findOrFail($id);
+        
+        // Jika user adalah admin dan akses dari admin panel
+        if (auth()->check() && request()->is('admin/*')) {
+            return view('admin.produk-umkm.show', compact('produk'));
+        }
+        
+        // Untuk akses publik
         return view('produk-umkm-show', compact('produk'));
     }
 
@@ -47,7 +61,7 @@ class ProdukUmkmController extends Controller
     public function edit($id)
     {
         $produk = ProdukUmkm::findOrFail($id);
-        return view('produk-umkm-edit', compact('produk'));
+        return view('admin.produk-umkm.edit', compact('produk'));
     }
 
     // Update produk

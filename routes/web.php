@@ -163,6 +163,17 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::patch('/{id}/toggle', [\App\Http\Controllers\ApbdesController::class, 'toggleActive'])->name('toggle');
     });
 
+    // Produk UMKM Admin Management
+    Route::prefix('produk-umkm')->name('admin.produk-umkm.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ProdukUmkmController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\ProdukUmkmController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\ProdukUmkmController::class, 'store'])->name('store');
+        Route::get('/{id}', [\App\Http\Controllers\ProdukUmkmController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [\App\Http\Controllers\ProdukUmkmController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\ProdukUmkmController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\ProdukUmkmController::class, 'destroy'])->name('destroy');
+    });
+
     // Manajemen Akun - Redirect to Modern
     Route::get('/manage-akun', function() {
         return redirect()->route('users.manage.modern');
