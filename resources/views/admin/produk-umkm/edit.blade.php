@@ -10,7 +10,7 @@
             <p class="page-subtitle">Update informasi produk: {{ $produk->nama_produk }}</p>
         </div>
         <div class="page-actions">
-            <a href="{{ route('produk-umkm.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('admin.produk-umkm.index') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i>
                 Kembali
             </a>
@@ -21,7 +21,7 @@
 <!-- Form Card -->
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('produk-umkm.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.produk-umkm.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             
@@ -136,7 +136,7 @@
 
             <!-- Submit Button -->
             <div class="d-flex justify-content-end gap-2 mt-4">
-                <a href="{{ route('produk-umkm.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.produk-umkm.index') }}" class="btn btn-secondary">
                     <i class="fas fa-times"></i>
                     Batal
                 </a>

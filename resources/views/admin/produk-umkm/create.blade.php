@@ -10,7 +10,7 @@
             <p class="page-subtitle">Tambahkan produk unggulan UMKM baru</p>
         </div>
         <div class="page-actions">
-            <a href="{{ route('produk-umkm.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('admin.produk-umkm.index') }}" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i>
                 Kembali
             </a>
@@ -21,7 +21,7 @@
 <!-- Form Card -->
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('produk-umkm.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.produk-umkm.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <div class="row">
@@ -118,7 +118,7 @@
 
             <!-- Submit Button -->
             <div class="d-flex justify-content-end gap-2 mt-4">
-                <a href="{{ route('produk-umkm.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.produk-umkm.index') }}" class="btn btn-secondary">
                     <i class="fas fa-times"></i>
                     Batal
                 </a>

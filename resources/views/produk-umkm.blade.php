@@ -8,16 +8,6 @@
         <p class="text-gray-600 text-lg">Dukung produk lokal UMKM Desa Mekarmukti</p>
     </div>
 
-    <!-- Add Product Button (Admin Only) -->
-    @auth
-    <div class="text-center mb-6">
-        <a href="{{ route('produk-umkm.create') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
-            <i class="fas fa-plus mr-2"></i>
-            Tambah Produk UMKM
-        </a>
-    </div>
-    @endauth
-
     <!-- Products Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @forelse($produkList as $produk)

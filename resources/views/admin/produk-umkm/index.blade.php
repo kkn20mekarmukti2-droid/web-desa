@@ -10,7 +10,7 @@
             <p class="page-subtitle">Manajemen produk unggulan UMKM Desa Mekarmukti</p>
         </div>
         <div class="page-actions">
-            <a href="{{ route('produk-umkm.create') }}" class="btn btn-primary">
+            <a href="{{ route('admin.produk-umkm.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Tambah Produk
             </a>
@@ -51,10 +51,10 @@
                     
                     <div class="product-actions">
                         <div class="btn-group w-100">
-                            <a href="{{ route('produk-umkm.show', $produk->id) }}" class="btn btn-sm btn-outline-info">
+                            <a href="{{ route('admin.produk-umkm.show', $produk->id) }}" class="btn btn-sm btn-outline-info">
                                 <i class="fas fa-eye"></i> Detail
                             </a>
-                            <a href="{{ route('produk-umkm.edit', $produk->id) }}" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ route('admin.produk-umkm.edit', $produk->id) }}" class="btn btn-sm btn-outline-primary">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteProduct({{ $produk->id }}, '{{ $produk->nama_produk }}')">
@@ -86,7 +86,7 @@
             </div>
             <h4 class="text-muted">Belum Ada Produk UMKM</h4>
             <p class="text-muted mb-4">Mulai tambahkan produk unggulan UMKM Desa Mekarmukti</p>
-            <a href="{{ route('produk-umkm.create') }}" class="btn btn-primary">
+            <a href="{{ route('admin.produk-umkm.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Tambah Produk Pertama
             </a>
@@ -188,7 +188,7 @@
 function deleteProduct(id, name) {
     if (confirm(`Apakah Anda yakin ingin menghapus produk "${name}"?`)) {
         const form = document.getElementById('deleteForm');
-        form.action = `{{ url('produk-umkm') }}/${id}`;
+        form.action = `{{ url('admin/produk-umkm') }}/${id}`;
         form.submit();
     }
 }
