@@ -781,6 +781,12 @@
                             <span>Pengaduan</span>
                         </a>
                     </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('admin.apbdes.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'apbdes') ? 'active' : '' }}">
+                            <i class="sidebar-menu-icon fas fa-chart-pie"></i>
+                            <span>APBDes</span>
+                        </a>
+                    </li>
                     @if (Auth::user()->role == 0)
                     <li class="sidebar-menu-item">
                         <a href="{{ url('/admin/rtrw/manage') }}" class="sidebar-menu-link {{ str_contains(Request::path(), 'rtrw') ? 'active' : '' }}">

@@ -38,6 +38,10 @@ Route::get('/berita/{tanggal}/{judul}', [homeController::class, 'tampilberita'])
 
 // Pengaduan
 Route::post('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'store'])->name('pengaduan.store');
+
+// Transparansi Anggaran APBDes
+Route::get('/transparansi-anggaran', [\App\Http\Controllers\ApbdesController::class, 'transparansi'])->name('transparansi.anggaran');
+
 // Data Desa
 Route::prefix('data')->group(function () {
     Route::get('/penduduk', [dataController::class, 'penduduk'])->name('data.penduduk');
@@ -133,6 +137,28 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Pengaduan Management
     Route::get('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'index'])->name('admin.pengaduan.index');
+
+    // APBDes Management
+    Route::prefix('apbdes')->name('apbdes.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ApbdesController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\ApbdesController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\ApbdesController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [\App\Http\Controllers\ApbdesController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\ApbdesController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\ApbdesController::class, 'destroy'])->name('destroy');
+        Route::patch('/{id}/toggle', [\App\Http\Controllers\ApbdesController::class, 'toggleActive'])->name('toggle');
+    });
+    
+    // Alias admin routes with admin prefix
+    Route::prefix('apbdes')->name('admin.apbdes.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ApbdesController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\ApbdesController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\ApbdesController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [\App\Http\Controllers\ApbdesController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\ApbdesController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\ApbdesController::class, 'destroy'])->name('destroy');
+        Route::patch('/{id}/toggle', [\App\Http\Controllers\ApbdesController::class, 'toggleActive'])->name('toggle');
+    });
 
     // Manajemen Akun - Redirect to Modern
     Route::get('/manage-akun', function() {

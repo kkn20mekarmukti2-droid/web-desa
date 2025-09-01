@@ -572,6 +572,19 @@
                                 <i class="bi bi-gem" style="color: #F59E0B; margin-right: 8px;"></i>
                                 Potensi Desa
                             </a>
+                            <a href="{{ route('transparansi-anggaran') }}" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 16px;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 8px;
+                                margin: 2px 0;
+                                transition: all 0.3s ease;
+                            " class="dropdown-link">
+                                <i class="bi bi-pie-chart-fill" style="color: #F59E0B; margin-right: 8px;"></i>
+                                Transparansi Anggaran
+                            </a>
                         </div>
                     </div>
                     
@@ -680,6 +693,9 @@
                                 </a>
                                 <a href="{{ route('potensidesa') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
                                     <i class="bi bi-gem me-2"></i>Potensi Desa
+                                </a>
+                                <a href="{{ route('transparansi-anggaran') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                    <i class="bi bi-pie-chart-fill me-2"></i>Transparansi Anggaran
                                 </a>
                             </div>
                         </div>
