@@ -1,4 +1,4 @@
-@extends('admin.layout.admin-modern')
+@extends('layout.admin-modern')
 
 @section('title', 'Tambah APBDes')
 
