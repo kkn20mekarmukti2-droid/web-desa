@@ -787,6 +787,12 @@
                             <span>APBDes</span>
                         </a>
                     </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('produk-umkm.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'produk-umkm') ? 'active' : '' }}">
+                            <i class="sidebar-menu-icon fas fa-store"></i>
+                            <span>Produk UMKM</span>
+                        </a>
+                    </li>
                     @if (Auth::user()->role == 0)
                     <li class="sidebar-menu-item">
                         <a href="{{ url('/admin/rtrw/manage') }}" class="sidebar-menu-link {{ str_contains(Request::path(), 'rtrw') ? 'active' : '' }}">

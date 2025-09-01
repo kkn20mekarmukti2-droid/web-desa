@@ -21,7 +21,7 @@ Route::get('/', [homeController::class, 'index'])->name('home');
 // Profil Desa
 Route::get('/about', [homeController::class, 'about'])->name('about');
 Route::get('/pemerintahan', [homeController::class, 'pemerintahan'])->name('pemerintahan');
-Route::get('/potensi-desa', [homeController::class, 'potensidesa'])->name('potensidesa');
+Route::get('/potensi-desa', [\App\Http\Controllers\ProdukUmkmController::class, 'index'])->name('potensidesa');
 Route::get('/visi', [homeController::class, 'visi'])->name('visi');
 Route::get('/sejarah', [homeController::class, 'sejarah'])->name('sejarah');
 
