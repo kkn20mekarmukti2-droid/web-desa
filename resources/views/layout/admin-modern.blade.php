@@ -799,14 +799,14 @@
                             <span>Struktur Pemerintahan</span>
                         </a>
                     </li>
-                    @if (Auth::user()->role == 0)
+                    
                     <li class="sidebar-menu-item">
                         <a href="{{ url('/admin/rtrw/manage') }}" class="sidebar-menu-link {{ str_contains(Request::path(), 'rtrw') ? 'active' : '' }}">
                             <i class="sidebar-menu-icon fas fa-home"></i>
                             <span>Kelola RT/RW</span>
                         </a>
                     </li>
-                    @endif
+                    
                 </ul>
             </div>
 
