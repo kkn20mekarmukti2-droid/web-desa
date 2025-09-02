@@ -53,22 +53,40 @@ class authController extends Controller
     }
     public function index()
     {
+        // Check if user can manage users
+        if (!Auth::user() || !in_array(Auth::user()->role, ['SuperAdmin', 'Admin'])) {
+            return redirect()->route('dashboard')->with('error', 'Akses ditolak. Anda tidak memiliki permission untuk mengelola users.');
+        }
+        
         $users = User::where('id', '!=', auth()->id())->get();
         return view('admin.akun.manage-modern', compact('users'));
     }
 
     public function create()
     {
+        // Check if user can manage users
+        if (!Auth::user() || !in_array(Auth::user()->role, ['SuperAdmin', 'Admin'])) {
+            return redirect()->route('dashboard')->with('error', 'Akses ditolak.');
+        }
+        
         return view('admin.akun.add-modern');
     }
 
     public function store(Request $request)
     {
+        // Check if user can manage users
+        if (!Auth::user() || !in_array(Auth::user()->role, ['SuperAdmin', 'Admin'])) {
+            return redirect()->route('dashboard')->with('error', 'Akses ditolak.');
+        }
+        
+        // Get available roles based on current user role
+        $availableRoles = $this->getAvailableRoles();
+        
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|string|in:SuperAdmin,Admin,Writer,Editor',
+            'role' => 'required|string|in:' . implode(',', $availableRoles),
         ]);
 
         if ($validator->fails()) {
@@ -89,6 +107,11 @@ class authController extends Controller
 
     public function resetPassword(Request $request, User $user)
     {
+        // Check if current user can manage this specific user
+        if (!$this->canManageUser($user)) {
+            return redirect()->route('akun.manage')->with('error', 'Anda tidak memiliki permission untuk reset password user ini.');
+        }
+        
         $request->validate([
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -99,21 +122,7 @@ class authController extends Controller
         return redirect()->route('akun.manage')->with('pesan', 'Password berhasil direset.');
     }
 
-    public function updateRole(Request $request, User $user)
-    {
-        $request->validate([
-            'role' => 'required|string|in:SuperAdmin,Admin,Writer,Editor',
-        ]);
-        
-        if ($user->id === Auth::id()) {
-            return redirect()->route('akun.manage')->with('error', 'Tidak Bisa Merubah Role Akun Sendiri');
-        }
 
-        $user->role = $request->role;
-        $user->save();
-
-        return redirect()->route('akun.manage')->with('pesan', 'Update Role Berhasil.');
-    }
 
     public function show($id)
     {
@@ -144,8 +153,9 @@ class authController extends Controller
         try {
             $user = User::findOrFail($id);
             
-            if ($user->id === Auth::id()) {
-                return redirect()->route('akun.manage')->with('error', 'Tidak bisa mengedit akun sendiri');
+            // Check if current user can manage this specific user
+            if (!$this->canManageUser($user)) {
+                return redirect()->route('akun.manage')->with('error', 'Anda tidak memiliki permission untuk mengedit user ini.');
             }
             
             return view('admin.akun.edit-modern', compact('user'));
@@ -159,14 +169,18 @@ class authController extends Controller
         try {
             $user = User::findOrFail($id);
             
-            if ($user->id === Auth::id()) {
-                return redirect()->route('akun.manage')->with('error', 'Tidak bisa mengupdate akun sendiri');
+            // Check if current user can manage this specific user
+            if (!$this->canManageUser($user)) {
+                return redirect()->route('akun.manage')->with('error', 'Anda tidak memiliki permission untuk mengupdate user ini.');
             }
+            
+            // Get available roles based on current user role
+            $availableRoles = $this->getAvailableRoles();
             
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-                'role' => 'required|string|in:SuperAdmin,Admin,Writer,Editor',
+                'role' => 'required|string|in:' . implode(',', $availableRoles),
                 'password' => 'nullable|string|min:6|confirmed',
             ]);
 
@@ -192,14 +206,83 @@ class authController extends Controller
         }
     }
 
+    public function updateRole(Request $request, User $user)
+    {
+        // Check if current user can manage this specific user
+        if (!$this->canManageUser($user)) {
+            return redirect()->route('akun.manage')->with('error', 'Anda tidak memiliki permission untuk mengubah role user ini.');
+        }
+        
+        // Get available roles based on current user role
+        $availableRoles = $this->getAvailableRoles();
+        
+        $request->validate([
+            'role' => 'required|string|in:' . implode(',', $availableRoles),
+        ]);
+
+        $user->role = $request->role;
+        $user->save();
+
+        return redirect()->route('akun.manage')->with('pesan', 'Update Role Berhasil.');
+    }
+
     public function destroy(User $user)
     {
-        if ($user->id === Auth::id()) {
-            return redirect()->route('akun.manage')->with('error', 'Tidak bisa menghapus akun sendiri');
+        // Check if current user can manage this specific user
+        if (!$this->canManageUser($user)) {
+            return redirect()->route('akun.manage')->with('error', 'Anda tidak memiliki permission untuk menghapus user ini.');
         }
 
         $user->delete();
 
         return redirect()->route('akun.manage')->with('pesan', 'User berhasil dihapus.');
+    }
+
+    /**
+     * Check if current user can manage specific user
+     */
+    private function canManageUser($targetUser): bool
+    {
+        if (!Auth::check()) return false;
+        
+        $currentUser = Auth::user();
+        
+        // User cannot manage themselves (except for profile updates)
+        if ($currentUser->id === $targetUser->id) {
+            return false;
+        }
+        
+        // SuperAdmin can manage everyone
+        if ($currentUser->role === 'SuperAdmin') {
+            return true;
+        }
+        
+        // Admin can manage everyone except SuperAdmin
+        if ($currentUser->role === 'Admin') {
+            return $targetUser->role !== 'SuperAdmin';
+        }
+        
+        // Writer and Editor cannot manage users
+        return false;
+    }
+
+    /**
+     * Get available roles for current user when creating/editing users
+     */
+    private function getAvailableRoles(): array
+    {
+        if (!Auth::check()) return [];
+        
+        $currentRole = Auth::user()->role;
+        
+        if ($currentRole === 'SuperAdmin') {
+            return ['SuperAdmin', 'Admin', 'Writer', 'Editor'];
+        }
+        
+        if ($currentRole === 'Admin') {
+            return ['Admin', 'Writer', 'Editor'];
+        }
+        
+        return [];
     }
 }

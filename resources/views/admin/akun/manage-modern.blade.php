@@ -138,19 +138,65 @@
                             <form action="{{ route('akun.roleupdate', $user) }}" method="POST" class="role-form">
                                 @csrf
                                 <div class="input-group input-group-sm" style="max-width: 200px;">
-                                    <select name="role" class="form-select form-select-sm role-select" onchange="this.form.submit()">
-                                        <option value="SuperAdmin" {{ $user->role == 'SuperAdmin' ? 'selected' : '' }}>SuperAdmin</option>
-                                        <option value="Admin" {{ $user->role == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                        <option value="Writer" {{ $user->role == 'Writer' ? 'selected' : '' }}>Writer</option>
-                                        <option value="Editor" {{ $user->role == 'Editor' ? 'selected' : '' }}>Editor</option>
+                                    <select name="role" class="form-select form-select-sm role-select" 
+                                            @if(Auth::user()->role === 'Admin' && $user->role === 'SuperAdmin') disabled @endif
+                                            onchange="this.form.submit()">
+                                        @php
+                                            $availableRoles = [];
+                                            if (Auth::user()->role === 'SuperAdmin') {
+                                                $availableRoles = [
+                                                    'SuperAdmin' => 'SuperAdmin',
+                                                    'Admin' => 'Admin', 
+                                                    'Writer' => 'Writer',
+                                                    'Editor' => 'Editor'
+                                                ];
+                                            } elseif (Auth::user()->role === 'Admin') {
+                                                $availableRoles = [
+                                                    'Admin' => 'Admin',
+                                                    'Writer' => 'Writer', 
+                                                    'Editor' => 'Editor'
+                                                ];
+                                            }
+                                            
+                                            // If current user is Admin and target is SuperAdmin, show current role only
+                                            if (Auth::user()->role === 'Admin' && $user->role === 'SuperAdmin') {
+                                                $availableRoles = ['SuperAdmin' => 'SuperAdmin'];
+                                            }
+                                        @endphp
+                                        
+                                        @foreach($availableRoles as $roleValue => $roleDisplay)
+                                            <option value="{{ $roleValue }}" {{ $user->role == $roleValue ? 'selected' : '' }}>
+                                                {{ $roleDisplay }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @if(!(Auth::user()->role === 'Admin' && $user->role === 'SuperAdmin'))
                                     <button type="submit" class="btn btn-outline-primary btn-sm">
                                         <i class="fas fa-save"></i>
                                     </button>
+                                    @else
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" disabled title="Tidak dapat mengubah SuperAdmin">
+                                        <i class="fas fa-lock"></i>
+                                    </button>
+                                    @endif
                                 </div>
                             </form>
                         </td>
                         <td class="px-4 py-3">
+                            @php
+                                $canResetPassword = false;
+                                
+                                // SuperAdmin can reset anyone's password except their own
+                                if (Auth::user()->role === 'SuperAdmin') {
+                                    $canResetPassword = ($user->id !== Auth::id());
+                                }
+                                // Admin can reset Writer and Editor passwords only
+                                elseif (Auth::user()->role === 'Admin') {
+                                    $canResetPassword = in_array($user->role, ['Writer', 'Editor']);
+                                }
+                            @endphp
+                            
+                            @if($canResetPassword)
                             <form action="{{ route('akun.resetpass', $user) }}" method="POST" class="password-form">
                                 @csrf
                                 <div class="input-group input-group-sm">
@@ -171,19 +217,62 @@
                                     </button>
                                 </div>
                             </form>
+                            @else
+                            <div class="text-muted small">
+                                @if($user->id === Auth::id())
+                                    <i class="fas fa-lock me-1"></i>Tidak dapat reset password sendiri
+                                @else
+                                    <i class="fas fa-ban me-1"></i>Tidak dapat reset password {{ $user->role }}
+                                @endif
+                            </div>
+                            @endif
                         </td>
                         <td class="px-4 py-3 text-center">
                             <div class="btn-group btn-group-sm">
                                 <button type="button" class="btn btn-outline-info" title="View Details" onclick="showUserDetails({{ $user->id }})">
                                     <i class="fas fa-eye"></i>
                                 </button>
+                                
+                                @php
+                                    $canEdit = false;
+                                    $canDelete = false;
+                                    
+                                    // SuperAdmin can edit/delete anyone except themselves for delete
+                                    if (Auth::user()->role === 'SuperAdmin') {
+                                        $canEdit = true;
+                                        $canDelete = ($user->id !== Auth::id()); // Can't delete themselves
+                                    }
+                                    // Admin can edit/delete Writer and Editor only
+                                    elseif (Auth::user()->role === 'Admin') {
+                                        $canEdit = in_array($user->role, ['Writer', 'Editor']);
+                                        $canDelete = in_array($user->role, ['Writer', 'Editor']);
+                                    }
+                                @endphp
+                                
                                 @if($user->id !== auth()->id())
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-primary" title="Edit User">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <button type="button" class="btn btn-outline-danger" title="Delete User" onclick="deleteUser('{{ $user->id }}', '{{ $user->name }}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                    <!-- Edit Button -->
+                                    @if($canEdit)
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-primary" title="Edit User">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    @else
+                                    <button type="button" class="btn btn-outline-secondary" disabled 
+                                            title="@if(Auth::user()->role === 'Admin' && in_array($user->role, ['SuperAdmin', 'Admin']))Tidak dapat mengedit {{ $user->role }}@else Aksi tidak diizinkan @endif">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    @endif
+                                    
+                                    <!-- Delete Button -->
+                                    @if($canDelete)
+                                    <button type="button" class="btn btn-outline-danger" title="Delete User" onclick="deleteUser('{{ $user->id }}', '{{ $user->name }}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    @else
+                                    <button type="button" class="btn btn-outline-secondary" disabled 
+                                            title="@if(Auth::user()->role === 'Admin' && in_array($user->role, ['SuperAdmin', 'Admin']))Tidak dapat menghapus {{ $user->role }}@else Aksi tidak diizinkan @endif">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    @endif
                                 @endif
                             </div>
                         </td>
