@@ -1,8 +1,6 @@
 @extends('layout.admin-modern')
 @section('title', 'Kelola Struktur Pemerintahan')
-@section('content            <div class="row g-3">
-                @foreach($strukturList as $struktur)
-                <div class="col-md-4 col-lg-3 col-xl-2">
+@section('content')
 
 <div class="container-fluid">
     <!-- Header Section -->
@@ -17,7 +15,7 @@
                     <i class="fas fa-plus"></i>
                     Tambah Aparatur
                 </a>
-                <a href="{{ route('pemerintahan') }}" class="btn btn-outline-primary" target="_blank">
+                <a href="{{ route('strukturorganisasi') }}" class="btn btn-outline-primary" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                     Lihat Halaman Publik
                 </a>
@@ -101,9 +99,9 @@
     <div class="card">
         <div class="card-body">
             @if($strukturList->count() > 0)
-            <div class="row g-4">
+            <div class="row g-3">
                 @foreach($strukturList as $struktur)
-                <div class="col-md-6 col-lg-4 col-xl-3">
+                <div class="col-md-4 col-lg-3 col-xl-2">
                     <div class="aparatur-card">
                         <div class="aparatur-image">
                             @if($struktur->foto && file_exists(public_path($struktur->foto)))
@@ -213,7 +211,7 @@
 <style>
 /* Card Layout - Same structure as UMKM Products */
 .aparatur-card {
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -261,12 +259,12 @@
 .aparatur-title {
     font-weight: 600;
     margin-bottom: 0.25rem;
-    color: #1f2937;
+    color: var(--dark-color);
     font-size: 1rem;
 }
 
 .aparatur-position {
-    color: #6b7280;
+    color: var(--text-muted);
     font-size: 0.85rem;
     margin-bottom: 0.5rem;
     line-height: 1.3;
@@ -278,7 +276,7 @@
 
 .aparatur-details {
     font-size: 0.8rem;
-    color: #6b7280;
+    color: var(--text-muted);
 }
 
 /* Actions - More compact */
