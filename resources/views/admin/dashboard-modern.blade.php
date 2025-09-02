@@ -275,7 +275,7 @@
 </div>
 
 <!-- Welcome Modal for First Time Users -->
-@if(session('first_login') || !session('welcome_shown'))
+@if(session('first_login') || !session('welcome_shown') || request()->has('show_welcome'))
 <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -288,12 +288,12 @@
                     </div>
                     <h4 class="modal-title text-primary fw-bold" id="welcomeModalLabel">Selamat Datang! 🎉</h4>
                 </div>
+                <button type="button" class="btn-close position-absolute top-0 end-0 mt-3 me-3" data-bs-dismiss="modal" aria-label="Close" onclick="closeWelcomeModal()"></button>
             </div>
             <div class="modal-body text-center">
-                <h5 class="mb-3">Halo, {{ Auth::user()->name }}!</h5>
+                <h5 class="mb-3">Hai, {{ Auth::user()->name }}! 👋</h5>
                 <p class="text-muted mb-4">
-                    Selamat datang di panel admin Desa Mekarmukti yang baru! 
-                    Kami telah merombak tampilan agar lebih modern dan mudah digunakan.
+                    Welcome back! Panel admin Desa Mekarmukti sudah diperbarui dengan tampilan yang lebih fresh dan user-friendly.
                 </p>
                 <div class="row g-2">
                     <div class="col-6">
@@ -323,9 +323,9 @@
                 </div>
             </div>
             <div class="modal-footer border-0 justify-content-center">
-                <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" onclick="closeWelcomeModal()">
                     <i class="fas fa-check me-1"></i>
-                    Mulai Menggunakan
+                    Oke, Siap!
                 </button>
             </div>
         </div>
@@ -396,16 +396,35 @@
     setInterval(updateTime, 1000);
     
     // Show welcome modal for first time users
-    @if(session('first_login') || !session('welcome_shown'))
+    @if(session('first_login') || !session('welcome_shown') || request()->has('show_welcome'))
+    let welcomeModalInstance;
     document.addEventListener('DOMContentLoaded', function() {
-        const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+        const welcomeModalEl = document.getElementById('welcomeModal');
+        welcomeModalInstance = new bootstrap.Modal(welcomeModalEl, {
+            backdrop: 'static',
+            keyboard: false
+        });
         setTimeout(() => {
-            welcomeModal.show();
+            welcomeModalInstance.show();
         }, 1000);
         
         // Mark welcome as shown
         sessionStorage.setItem('welcome_shown', 'true');
     });
+    
+    function closeWelcomeModal() {
+        if (welcomeModalInstance) {
+            welcomeModalInstance.hide();
+        }
+        // Also use Bootstrap's native method as backup
+        const welcomeModalEl = document.getElementById('welcomeModal');
+        if (welcomeModalEl) {
+            const modalInstance = bootstrap.Modal.getInstance(welcomeModalEl);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        }
+    }
     @endif
     
     // Add smooth scrolling to anchor links
