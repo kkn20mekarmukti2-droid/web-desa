@@ -185,6 +185,17 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::delete('/{id}', [\App\Http\Controllers\ProdukUmkmController::class, 'destroy'])->name('destroy');
     });
 
+    // Hero Images Admin Management
+    Route::prefix('hero-images')->name('admin.hero-images.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\HeroImageController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\HeroImageController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\HeroImageController::class, 'store'])->name('store');
+        Route::get('/{id}', [\App\Http\Controllers\HeroImageController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [\App\Http\Controllers\HeroImageController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\HeroImageController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\HeroImageController::class, 'destroy'])->name('destroy');
+    });
+
     // Manajemen Akun - Redirect to Modern
     Route::get('/manage-akun', function() {
         return redirect()->route('users.manage.modern');

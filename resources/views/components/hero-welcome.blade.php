@@ -1,25 +1,40 @@
 {{-- Hero Welcome Component - Desain Motekar dengan Layout Grid --}}
 {{-- Background slideshow dengan overlay gradasi dan konten kiri --}}
 
+@php
+    $heroImages = \App\Models\HeroImage::active()->ordered()->get();
+    $imageCount = $heroImages->count();
+@endphp
+
 <style>
 /* Hero Background Slideshow */
 .hero-bg {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    animation: bgSlideshow 35s ease-in-out infinite;
+    @if($imageCount > 0)
+        animation: bgSlideshow {{ $imageCount * 5 }}s ease-in-out infinite;
+    @else
+        background-image: url('{{ asset("img/DSC_0070.JPG") }}');
+    @endif
 }
 
+@if($imageCount > 0)
 @keyframes bgSlideshow {
-    0%, 13.28% { background-image: url('{{ asset("img/DSC_0070.JPG") }}'); }
-    14.28%, 27.56% { background-image: url('{{ asset("img/DSC_0108.jpg") }}'); }
-    28.56%, 41.84% { background-image: url('{{ asset("img/DSC_0828.JPG") }}'); }
-    42.84%, 56.12% { background-image: url('{{ asset("img/IMG_9152.png") }}'); }
-    57.12%, 70.40% { background-image: url('{{ asset("img/kades.jpg") }}'); }
-    71.40%, 84.68% { background-image: url('{{ asset("img/P1560599.JPG") }}'); }
-    85.68%, 99.96% { background-image: url('{{ asset("img/P1570155.JPG") }}'); }
-    100% { background-image: url('{{ asset("img/DSC_0070.JPG") }}'); }
+    @foreach($heroImages as $index => $image)
+        @php
+            $startPercent = ($index / $imageCount) * 100;
+            $endPercent = (($index + 1) / $imageCount) * 100 - 0.1;
+        @endphp
+        {{ number_format($startPercent, 2) }}%, {{ number_format($endPercent, 2) }}% { 
+            background-image: url('{{ asset($image->gambar) }}'); 
+        }
+    @endforeach
+    100% { 
+        background-image: url('{{ asset($heroImages->first()->gambar) }}'); 
+    }
 }
+@endif
 
 /* Content Animation */
 @keyframes fadeInLeft {
