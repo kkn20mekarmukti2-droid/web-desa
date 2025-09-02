@@ -120,18 +120,28 @@ class HeroImageController extends Controller
         /**
      * Display the specified resource.
      */
-    public function show(HeroImage $heroImage)
+    public function show($id)
     {
-        $image = $heroImage;
+        // Only allow admin access
+        if (!auth()->check()) {
+            return redirect()->route('admin.hero-images.index')->with('error', 'Akses ditolak. Silakan login sebagai admin.');
+        }
+        
+        $image = HeroImage::findOrFail($id);
         return view('admin.hero-images.show', compact('image'));
     }
 
         /**
      * Show the form for editing the specified resource.
      */
-    public function edit(HeroImage $heroImage)
+    public function edit($id)
     {
-        $image = $heroImage;
+        // Only allow admin access
+        if (!auth()->check()) {
+            return redirect()->route('admin.hero-images.index')->with('error', 'Akses ditolak. Silakan login sebagai admin.');
+        }
+        
+        $image = HeroImage::findOrFail($id);
         return view('admin.hero-images.edit', compact('image'));
     }
 
