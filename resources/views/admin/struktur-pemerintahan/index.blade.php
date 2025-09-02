@@ -1,6 +1,8 @@
 @extends('layout.admin-modern')
 @section('title', 'Kelola Struktur Pemerintahan')
-@section('content')
+@section('content            <div class="row g-3">
+                @foreach($strukturList as $struktur)
+                <div class="col-md-4 col-lg-3 col-xl-2">
 
 <div class="container-fluid">
     <!-- Header Section -->
@@ -226,9 +228,9 @@
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-/* Image Section - Same as UMKM */
+/* Image Section - Much smaller and compact */
 .aparatur-image {
-    height: 200px;
+    height: 120px;
     overflow: hidden;
     position: relative;
 }
@@ -250,47 +252,49 @@
     font-size: 2rem;
 }
 
-/* Info Section */
+/* Info Section - More compact */
 .aparatur-info {
-    padding: 1rem;
+    padding: 0.75rem;
     flex-grow: 1;
 }
 
 .aparatur-title {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     color: #1f2937;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .aparatur-position {
     color: #6b7280;
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
 }
 
 .aparatur-meta {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
 }
 
 .aparatur-details {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #6b7280;
 }
 
-/* Actions */
+/* Actions - More compact */
 .aparatur-actions {
-    padding: 0 1rem 1rem;
+    padding: 0 0.75rem 0.75rem;
     margin-top: auto;
     display: flex;
-    gap: 0.5rem;
+    gap: 0.25rem;
     flex-wrap: wrap;
 }
 
 .aparatur-actions .btn {
     flex: 1;
     min-width: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
 }
 
 /* Stats Cards */
@@ -315,10 +319,11 @@
     opacity: 0.5;
 }
 
-/* Badge Styling */
+/* Badge Styling - Smaller */
 .badge {
     font-weight: 500;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
 }
 
 /* Responsive */
