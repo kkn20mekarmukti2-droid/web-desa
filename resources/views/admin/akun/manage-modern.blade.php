@@ -7,7 +7,54 @@
     <div class="page-header-content">
         <div>
             <h1 class="page-title">👥 Manage Users</h1>
-            <p class="page-subtitle">Kelola akun pengguna dan permission sistem</p>
+   function showUserDetails(userId) {
+    // Show loading state
+    document.getElementById('userDetailName').textContent = 'Loading...';
+    document.getElementById('userDetailEmail').textContent = 'Loading...';
+    document.getElementById('userDetailRole').textContent = 'Loading...';
+    document.getElementById('userDetailCreated').textContent = 'Loading...';
+    document.getElementById('userDetailUpdated').textContent = 'Loading...';
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('userDetailsModal'));
+    modal.show();
+    
+    // Fetch user details
+    fetch(`/admin/users/${userId}`, {
+        method: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('userDetailName').textContent = data.user.name;
+            document.getElementById('userDetailEmail').textContent = data.user.email;
+            document.getElementById('userDetailRole').textContent = data.user.role;
+            document.getElementById('userDetailCreated').textContent = data.user.created_at;
+            document.getElementById('userDetailUpdated').textContent = data.user.updated_at;
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message || 'Gagal memuat detail user',
+            });
+            modal.hide();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Gagal memuat detail user',
+        });
+        modal.hide();
+    });
+}<p class="page-subtitle">Kelola akun pengguna dan permission sistem</p>
         </div>
         <div class="page-actions">
             <a href="{{ route('akun.create') }}" class="btn btn-primary">
@@ -127,10 +174,13 @@
                         </td>
                         <td class="px-4 py-3 text-center">
                             <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-outline-info" title="View Details" onclick="showUserDetails('{{ $user->name }}', '{{ $user->email }}', '{{ $user->role }}', '{{ $user->created_at->format('d/m/Y H:i') }}')">
+                                <button type="button" class="btn btn-outline-info" title="View Details" onclick="showUserDetails({{ $user->id }})">
                                     <i class="fas fa-eye"></i>
                                 </button>
                                 @if($user->id !== auth()->id())
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-primary" title="Edit User">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                                 <button type="button" class="btn btn-outline-danger" title="Delete User" onclick="deleteUser('{{ $user->id }}', '{{ $user->name }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -174,19 +224,23 @@
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label fw-semibold">Nama Lengkap</label>
-                        <div class="p-2 bg-light rounded" id="userName"></div>
+                        <div class="p-2 bg-light rounded" id="userDetailName"></div>
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold">Email</label>
-                        <div class="p-2 bg-light rounded" id="userEmail"></div>
+                        <div class="p-2 bg-light rounded" id="userDetailEmail"></div>
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold">Role</label>
-                        <div class="p-2 bg-light rounded" id="userRole"></div>
+                        <div class="p-2 bg-light rounded" id="userDetailRole"></div>
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold">Bergabung Sejak</label>
-                        <div class="p-2 bg-light rounded" id="userCreated"></div>
+                        <div class="p-2 bg-light rounded" id="userDetailCreated"></div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Terakhir Diupdate</label>
+                        <div class="p-2 bg-light rounded" id="userDetailUpdated"></div>
                     </div>
                 </div>
             </div>

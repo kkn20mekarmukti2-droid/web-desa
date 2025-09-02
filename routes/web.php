@@ -81,6 +81,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
 Route::get('/admin', [authController::class, 'formlogin'])->name('formlogin');
 Route::get('/login', fn () => redirect()->route('formlogin'));
+Route::get('/test-user-api', function() { return view('test-user-api'); });
 Route::post('/login', [authController::class, 'login'])->name('login');
 Route::get('/refresh-csrf', [authController::class, 'refreshCsrf'])->name('refresh-csrf');
 
@@ -210,6 +211,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // User Management Routes
     Route::post('/users/store', [authController::class, 'store'])->name('users.store');
     Route::get('/users/{id}', [authController::class, 'show'])->name('users.show');
+    Route::get('/users/{id}/edit', [authController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [authController::class, 'update'])->name('users.update');
     Route::patch('/users/{id}/toggle-status', [authController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::post('/users/{id}/reset-password', [authController::class, 'resetPassword'])->name('users.reset-password');
     Route::delete('/users/{id}', [authController::class, 'destroy'])->name('users.destroy');

@@ -115,6 +115,83 @@ class authController extends Controller
         return redirect()->route('akun.manage')->with('pesan', 'Update Role Berhasil.');
     }
 
+    public function show($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            
+            return response()->json([
+                'success' => true,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role,
+                    'created_at' => $user->created_at->format('d M Y, H:i'),
+                    'updated_at' => $user->updated_at->format('d M Y, H:i'),
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User tidak ditemukan'
+            ], 404);
+        }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            
+            if ($user->id === Auth::id()) {
+                return redirect()->route('akun.manage')->with('error', 'Tidak bisa mengedit akun sendiri');
+            }
+            
+            return view('admin.akun.edit-modern', compact('user'));
+        } catch (\Exception $e) {
+            return redirect()->route('akun.manage')->with('error', 'User tidak ditemukan');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            
+            if ($user->id === Auth::id()) {
+                return redirect()->route('akun.manage')->with('error', 'Tidak bisa mengupdate akun sendiri');
+            }
+            
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+                'role' => 'required|string|in:SuperAdmin,Admin,Writer,Editor',
+                'password' => 'nullable|string|min:6|confirmed',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                                 ->withErrors($validator)
+                                 ->withInput();
+            }
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->role = $request->role;
+            
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+            
+            $user->save();
+
+            return redirect()->route('akun.manage')->with('pesan', 'User berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->route('akun.manage')->with('error', 'User tidak ditemukan');
+        }
+    }
+
     public function destroy(User $user)
     {
         if ($user->id === Auth::id()) {
