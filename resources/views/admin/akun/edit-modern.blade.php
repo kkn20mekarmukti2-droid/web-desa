@@ -1,4 +1,4 @@
-@extends('layouts.admin-modern')
+@extends('layout.admin-modern')
 
 @section('title', 'Edit User')
 

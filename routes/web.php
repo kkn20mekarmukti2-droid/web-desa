@@ -81,7 +81,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
 Route::get('/admin', [authController::class, 'formlogin'])->name('formlogin');
 Route::get('/login', fn () => redirect()->route('formlogin'));
-Route::get('/test-user-api', function() { return view('test-user-api'); });
 Route::post('/login', [authController::class, 'login'])->name('login');
 Route::get('/refresh-csrf', [authController::class, 'refreshCsrf'])->name('refresh-csrf');
 
