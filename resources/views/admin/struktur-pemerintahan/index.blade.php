@@ -15,7 +15,7 @@
                     <i class="fas fa-plus"></i>
                     Tambah Aparatur
                 </a>
-                <a href="{{ route('strukturorganisasi') }}" class="btn btn-outline-primary" target="_blank">
+                <a href="{{ route('pemerintahan') }}" class="btn btn-outline-primary" target="_blank">
                     <i class="fas fa-external-link-alt"></i>
                     Lihat Halaman Publik
                 </a>
