@@ -211,7 +211,7 @@
 <style>
 /* Card Layout - Same structure as UMKM Products */
 .aparatur-card {
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -259,12 +259,12 @@
 .aparatur-title {
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #1f2937;
+    color: var(--dark-color);
     font-size: 1.1rem;
 }
 
 .aparatur-position {
-    color: #6b7280;
+    color: var(--text-muted);
     font-size: 0.9rem;
     margin-bottom: 0.75rem;
     line-height: 1.4;
@@ -276,7 +276,7 @@
 
 .aparatur-details {
     font-size: 0.85rem;
-    color: #6b7280;
+    color: var(--text-muted);
 }
 
 /* Actions */
