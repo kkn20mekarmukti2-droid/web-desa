@@ -228,14 +228,14 @@
 
 @section('styles')
 <style>
-/* Simple Photo Styling */
+/* Optimized Photo Styling - Similar to UMKM products */
 .profile-photo-large {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     margin: 0 auto;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
-    border: 3px solid #e9ecef;
+    border: 2px solid #dee2e6;
     background: #f8f9fa;
 }
 
@@ -254,7 +254,7 @@
     align-items: center;
     justify-content: center;
     color: #6c757d;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 /* Info Items */

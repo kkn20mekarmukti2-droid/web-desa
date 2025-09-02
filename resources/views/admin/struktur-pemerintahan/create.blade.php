@@ -272,8 +272,8 @@
 }
 
 .upload-preview {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     margin: 0 auto;
     border-radius: 8px;
     overflow: hidden;
@@ -281,6 +281,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid #dee2e6;
 }
 
 .upload-placeholder {

@@ -240,17 +240,18 @@
 
 @section('styles')
 <style>
-/* Photo Styling - Simple but Clear */
+/* Photo Styling - Smaller, consistent like UMKM products */
 .profile-photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
     overflow: hidden;
-    border: 2px solid #e9ecef;
+    border: 1px solid #dee2e6;
     background: #f8f9fa;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .profile-img {
@@ -268,7 +269,7 @@
     align-items: center;
     justify-content: center;
     color: #6c757d;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 /* Stats Cards */
@@ -312,8 +313,8 @@
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .profile-photo {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
     }
     
     .btn-group-sm > .btn {
