@@ -1,216 +1,180 @@
 @extends('layout.admin-modern')
-@section('title', 'Detail Aparatur')
+@section('title', 'Detail Aparatur Pemerintahan')
 @section('content')
 
-<div class="container-fluid">
-    <!-- Breadcrumb -->
-    <div class="row mb-3">
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('admin.struktur-pemerintahan.index') }}" class="text-decoration-none">
-                            <i class="fas fa-users me-1"></i>Struktur Pemerintahan
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ $struktur->nama }}</li>
-                </ol>
-            </nav>
+<!-- Page Header -->
+<div class="page-header">
+    <div class="page-header-content">
+        <div>
+            <h1 class="page-title">👁️ Detail Aparatur Pemerintahan</h1>
+            <p class="page-subtitle">Informasi lengkap: {{ $struktur->nama }}</p>
+        </div>
+        <div class="page-actions">
+            <a href="{{ route('admin.struktur-pemerintahan.index') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Kembali
+            </a>
+            <a href="{{ route('admin.struktur-pemerintahan.edit', $struktur->id) }}" class="btn btn-primary">
+                <i class="fas fa-edit"></i>
+                Edit Aparatur
+            </a>
         </div>
     </div>
+</div>
 
-    <!-- Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 class="h3 mb-1">👤 Detail Aparatur</h2>
-                    <p class="text-muted mb-0">Informasi lengkap {{ $struktur->nama }}</p>
-                </div>
-                <div class="d-flex gap-2">
-                    <a href="{{ route('admin.struktur-pemerintahan.edit', $struktur->id) }}" class="btn btn-primary">
-                        <i class="fas fa-edit me-1"></i>Edit
-                    </a>
-                    <a href="{{ route('admin.struktur-pemerintahan.index') }}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-1"></i>Kembali
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Profile Card -->
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <!-- Simple Photo Display -->
-                    <div class="profile-photo-large mb-3">
-                        @if($struktur->foto && file_exists(public_path($struktur->foto)))
-                            <img src="{{ asset($struktur->foto) }}" 
-                                 alt="{{ $struktur->nama }}" 
-                                 class="profile-photo-img">
-                        @else
-                            <div class="profile-photo-placeholder">
-                                <i class="fas fa-user"></i>
-                            </div>
-                        @endif
-                    </div>
-
-                    <h4 class="fw-bold mb-1">{{ $struktur->nama }}</h4>
-                    <p class="text-primary mb-2">{{ $struktur->jabatan }}</p>
-                    
-                    @if($struktur->nip)
-                        <p class="text-muted small mb-3">NIP: {{ $struktur->nip }}</p>
-                    @endif
-
-                    <!-- Status Badge -->
-                    @if($struktur->is_active)
-                        <span class="badge bg-success mb-3">
-                            <i class="fas fa-check me-1"></i>Status Aktif
-                        </span>
+<!-- Aparatur Detail Card -->
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <!-- Aparatur Photo -->
+            <div class="col-md-5">
+                <div class="product-image-container">
+                    @if($struktur->foto && file_exists(public_path($struktur->foto)))
+                    <img src="{{ asset($struktur->foto) }}" alt="{{ $struktur->nama }}" class="product-image">
                     @else
-                        <span class="badge bg-danger mb-3">
-                            <i class="fas fa-times me-1"></i>Tidak Aktif
-                        </span>
+                    <div class="no-image">
+                        <i class="fas fa-user"></i>
+                        <p>Tidak ada foto</p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Aparatur Info -->
+            <div class="col-md-7">
+                <div class="product-details">
+                    <!-- Aparatur Name -->
+                    <div class="detail-group mb-4">
+                        <h2 class="product-title">{{ $struktur->nama }}</h2>
+                        <div class="product-badge">
+                            <i class="fas fa-user-tie"></i>
+                            Aparatur Pemerintahan Desa Mekarmukti
+                        </div>
+                    </div>
+
+                    <!-- Position & Category -->
+                    <div class="detail-group mb-4">
+                        <h5 class="detail-label">
+                            <i class="fas fa-briefcase text-primary"></i>
+                            Jabatan & Kategori
+                        </h5>
+                        <p class="detail-content mb-2"><strong>{{ $struktur->jabatan }}</strong></p>
+                        <div>
+                            @switch($struktur->kategori)
+                                @case('kepala_desa')
+                                    <span class="badge bg-primary">Kepala Desa</span>
+                                    @break
+                                @case('sekretaris')
+                                    <span class="badge bg-success">Sekretaris</span>
+                                    @break
+                                @case('kepala_urusan')
+                                    <span class="badge bg-warning">Kepala Urusan</span>
+                                    @break
+                                @case('kepala_seksi')
+                                    <span class="badge bg-info">Kepala Seksi</span>
+                                    @break
+                                @case('kepala_dusun')
+                                    <span class="badge bg-secondary">Kepala Dusun</span>
+                                    @break
+                            @endswitch
+                            
+                            @if($struktur->is_active)
+                                <span class="badge bg-success ms-1">Aktif</span>
+                            @else
+                                <span class="badge bg-danger ms-1">Tidak Aktif</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Personal Info -->
+                    <div class="detail-group mb-4">
+                        <h5 class="detail-label">
+                            <i class="fas fa-id-card text-success"></i>
+                            Informasi Personal
+                        </h5>
+                        <div class="contact-info">
+                            @if($struktur->nip)
+                                <p class="detail-content mb-2"><strong>NIP:</strong> <span class="phone-number">{{ $struktur->nip }}</span></p>
+                            @endif
+                            @if($struktur->pendidikan)
+                                <p class="detail-content mb-2"><strong>Pendidikan:</strong> {{ $struktur->pendidikan }}</p>
+                            @endif
+                            @if($struktur->alamat)
+                                <p class="detail-content mb-2"><strong>Alamat:</strong> {{ $struktur->alamat }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    @if($struktur->telepon || $struktur->email)
+                    <div class="detail-group mb-4">
+                        <h5 class="detail-label">
+                            <i class="fas fa-phone text-info"></i>
+                            Informasi Kontak
+                        </h5>
+                        <div class="contact-info">
+                            @if($struktur->telepon)
+                                <p class="detail-content mb-2">
+                                    <strong>Telepon:</strong> 
+                                    <span class="phone-number">{{ $struktur->telepon }}</span>
+                                    <a href="tel:{{ $struktur->telepon }}" class="btn btn-success btn-sm ms-2">
+                                        <i class="fas fa-phone"></i>
+                                        Hubungi
+                                    </a>
+                                </p>
+                            @endif
+                            @if($struktur->email)
+                                <p class="detail-content mb-2">
+                                    <strong>Email:</strong> 
+                                    <a href="mailto:{{ $struktur->email }}" class="text-primary">{{ $struktur->email }}</a>
+                                </p>
+                            @endif
+                        </div>
+                    </div>
                     @endif
 
-                    <!-- Quick Actions -->
-                    <div class="d-grid gap-2">
-                        <a href="{{ route('admin.struktur-pemerintahan.edit', $struktur->id) }}" 
-                           class="btn btn-primary">
-                            <i class="fas fa-edit me-1"></i>Edit Data
+                    <!-- Timestamps -->
+                    <div class="detail-group mb-4">
+                        <h5 class="detail-label">
+                            <i class="fas fa-clock text-info"></i>
+                            Informasi Sistem
+                        </h5>
+                        <div class="timestamps">
+                            <small class="text-muted d-block">
+                                <strong>Dibuat:</strong> {{ $struktur->created_at ? $struktur->created_at->format('d/m/Y H:i') : 'Tidak tersedia' }}
+                            </small>
+                            <small class="text-muted d-block">
+                                <strong>Diperbarui:</strong> {{ $struktur->updated_at ? $struktur->updated_at->format('d/m/Y H:i') : 'Tidak tersedia' }}
+                            </small>
+                            <small class="text-muted d-block">
+                                <strong>Urutan:</strong> {{ $struktur->urutan }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="{{ route('admin.struktur-pemerintahan.edit', $struktur->id) }}" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>
+                            Edit Aparatur
                         </a>
-                        <button type="button" class="btn btn-outline-danger" 
-                                onclick="confirmDelete({{ $struktur->id }}, '{{ $struktur->nama }}')">
-                            <i class="fas fa-trash me-1"></i>Hapus Data
+                        
+                        <button type="button" class="btn btn-danger" onclick="deleteAparatur({{ $struktur->id }}, '{{ $struktur->nama }}')">
+                            <i class="fas fa-trash"></i>
+                            Hapus Aparatur
                         </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Details Cards -->
-        <div class="col-lg-8">
-            <!-- Basic Information -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white">
-                    <h5 class="card-title mb-0">📋 Informasi Dasar</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="info-item mb-3">
-                                <label class="text-muted small fw-bold">KATEGORI</label>
-                                <div>
-                                    @switch($struktur->kategori)
-                                        @case('kepala_desa')
-                                            <span class="badge bg-primary-subtle text-primary">Kepala Desa</span>
-                                            @break
-                                        @case('sekretaris')
-                                            <span class="badge bg-success-subtle text-success">Sekretaris</span>
-                                            @break
-                                        @case('kepala_urusan')
-                                            <span class="badge bg-warning-subtle text-warning">Kepala Urusan</span>
-                                            @break
-                                        @case('kepala_seksi')
-                                            <span class="badge bg-info-subtle text-info">Kepala Seksi</span>
-                                            @break
-                                        @case('kepala_dusun')
-                                            <span class="badge bg-secondary-subtle text-secondary">Kepala Dusun</span>
-                                            @break
-                                    @endswitch
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="info-item mb-3">
-                                <label class="text-muted small fw-bold">URUTAN</label>
-                                <div class="fw-bold">{{ $struktur->urutan }}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if($struktur->pendidikan)
-                    <div class="info-item mb-3">
-                        <label class="text-muted small fw-bold">PENDIDIKAN</label>
-                        <div class="fw-bold">{{ $struktur->pendidikan }}</div>
-                    </div>
-                    @endif
-                </div>
-            </div>
-
-            <!-- Contact Information -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white">
-                    <h5 class="card-title mb-0">📞 Informasi Kontak</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        @if($struktur->alamat)
-                        <div class="col-12">
-                            <div class="info-item mb-3">
-                                <label class="text-muted small fw-bold">ALAMAT</label>
-                                <div>{{ $struktur->alamat }}</div>
-                            </div>
-                        </div>
-                        @endif
-
+                        
                         @if($struktur->telepon)
-                        <div class="col-sm-6">
-                            <div class="info-item mb-3">
-                                <label class="text-muted small fw-bold">TELEPON</label>
-                                <div>
-                                    <a href="tel:{{ $struktur->telepon }}" class="text-decoration-none">
-                                        <i class="fas fa-phone me-1 text-success"></i>{{ $struktur->telepon }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="tel:{{ $struktur->telepon }}" class="btn btn-success">
+                            <i class="fas fa-phone"></i>
+                            Hubungi Telepon
+                        </a>
                         @endif
-
-                        @if($struktur->email)
-                        <div class="col-sm-6">
-                            <div class="info-item mb-3">
-                                <label class="text-muted small fw-bold">EMAIL</label>
-                                <div>
-                                    <a href="mailto:{{ $struktur->email }}" class="text-decoration-none">
-                                        <i class="fas fa-envelope me-1 text-primary"></i>{{ $struktur->email }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-
-                    @if(!$struktur->alamat && !$struktur->telepon && !$struktur->email)
-                    <div class="text-center text-muted py-3">
-                        <i class="fas fa-info-circle me-1"></i>
-                        Informasi kontak belum tersedia
-                    </div>
-                    @endif
-                </div>
-            </div>
-
-            <!-- System Information -->
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white">
-                    <h5 class="card-title mb-0">⚙️ Informasi Sistem</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="info-item mb-3">
-                                <label class="text-muted small fw-bold">DIBUAT</label>
-                                <div>{{ $struktur->created_at ? $struktur->created_at->format('d M Y H:i') : 'Tidak tersedia' }}</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="info-item mb-3">
-                                <label class="text-muted small fw-bold">DIPERBARUI</label>
-                                <div>{{ $struktur->updated_at ? $struktur->updated_at->format('d M Y H:i') : 'Tidak tersedia' }}</div>
-                            </div>
-                        </div>
+                        
+                        <a href="{{ route('pemerintahan') }}" target="_blank" class="btn btn-outline-info">
+                            <i class="fas fa-external-link-alt"></i>
+                            Lihat di Halaman Publik
+                        </a>
                     </div>
                 </div>
             </div>
@@ -218,84 +182,137 @@
     </div>
 </div>
 
-<!-- Delete Form -->
+<!-- Delete Confirmation Modal -->
 <form id="deleteForm" method="POST" style="display: none;">
     @csrf
     @method('DELETE')
 </form>
 
-@endsection
-
-@section('styles')
+<!-- Custom Styles - EXACT COPY FROM UMKM -->
 <style>
-/* Optimized Photo Styling - Similar to UMKM products */
-.profile-photo-large {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid #dee2e6;
+.product-image-container {
     background: #f8f9fa;
-}
-
-.profile-photo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.profile-photo-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-image {
+    text-align: center;
     color: #6c757d;
+}
+
+.no-image i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.product-details {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
     font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
 }
 
-/* Info Items */
-.info-item label {
-    display: block;
-    margin-bottom: 0.25rem;
-    letter-spacing: 0.5px;
+.product-badge {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    display: inline-block;
 }
 
-/* Badge Styling */
+.detail-group {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.detail-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detail-content {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.phone-number {
+    font-family: monospace;
+    background: #f8f9fa;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.action-buttons {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.timestamps small {
+    line-height: 1.4;
+}
+
 .badge {
     font-size: 0.75rem;
     font-weight: 500;
-    padding: 0.5rem 0.75rem;
 }
 
-/* Card Enhancements */
-.card-header {
-    border-bottom: 1px solid #dee2e6;
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+    }
 }
 </style>
-@endsection
 
-@section('scripts')
+<!-- JavaScript -->
 <script>
-// Delete Confirmation
-function confirmDelete(id, nama) {
-    if (confirm(`Hapus ${nama} dari struktur pemerintahan?\n\nData yang dihapus tidak dapat dikembalikan.`)) {
+function deleteAparatur(id, name) {
+    if (confirm(`Apakah Anda yakin ingin menghapus aparatur "${name}"?`)) {
         const form = document.getElementById('deleteForm');
-        form.action = `/admin/struktur-pemerintahan/${id}`;
+        form.action = `{{ url('admin/struktur-pemerintahan') }}/${id}`;
         form.submit();
     }
 }
-
-// Success/Error Messages
-@if(session('success'))
-    alert('✅ {{ session('success') }}');
-@endif
-
-@if(session('error'))
-    alert('❌ {{ session('error') }}');
-@endif
 </script>
+
 @endsection
