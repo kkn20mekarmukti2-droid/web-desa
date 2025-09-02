@@ -839,6 +839,42 @@
                 </div>
             </div>
             
+            <!-- Visitor Counter Section -->
+            <div class="text-center border-t border-gray-700 pt-6 mt-8 mb-6">
+                <div class="bg-gray-800 rounded-lg p-4 inline-block">
+                    <h5 class="text-primary-500 mb-3 flex items-center justify-center">
+                        <i class="bi bi-eye me-2"></i>
+                        Statistik Pengunjung
+                    </h5>
+                    <div class="row g-3" id="visitor-stats">
+                        <div class="col-md-3 col-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-white" id="visitors-today">0</div>
+                                <div class="text-xs text-gray-400">Hari Ini</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-white" id="visitors-total">0</div>
+                                <div class="text-xs text-gray-400">Total</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-success" id="visitors-online">0</div>
+                                <div class="text-xs text-gray-400">Online</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-primary-500" id="page-views">0</div>
+                                <div class="text-xs text-gray-400">Halaman</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Footer Bottom -->
             <div class="text-center border-t border-gray-700 pt-6 mt-8">
                 <div class="mb-4">
@@ -1174,6 +1210,67 @@
                     if (alert) alert.remove();
                 }, 5000);
             @endif
+        });
+    </script>
+
+    <!-- Real-time Visitor Counter Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Visitor counter initialized');
+            
+            // Function to update visitor statistics
+            function updateVisitorStats() {
+                fetch('/api/visitor-stats', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the counter elements
+                        document.getElementById('visitors-today').textContent = formatNumber(data.data.today.total);
+                        document.getElementById('visitors-total').textContent = formatNumber(data.data.all_time.total);
+                        document.getElementById('visitors-online').textContent = formatNumber(data.data.online_now);
+                        document.getElementById('page-views').textContent = formatNumber(data.data.today.page_views);
+                        
+                        // Add animation effect
+                        const counters = ['visitors-today', 'visitors-total', 'visitors-online', 'page-views'];
+                        counters.forEach(id => {
+                            const element = document.getElementById(id);
+                            element.classList.add('animate-pulse');
+                            setTimeout(() => {
+                                element.classList.remove('animate-pulse');
+                            }, 1000);
+                        });
+                        
+                        console.log('Visitor stats updated:', data.data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching visitor stats:', error);
+                });
+            }
+            
+            // Helper function to format numbers with commas
+            function formatNumber(num) {
+                return new Intl.NumberFormat('id-ID').format(num);
+            }
+            
+            // Initial load
+            updateVisitorStats();
+            
+            // Update every 30 seconds
+            setInterval(updateVisitorStats, 30000);
+            
+            // Update when page becomes visible again (user switches back to tab)
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    updateVisitorStats();
+                }
+            });
         });
     </script>
     
