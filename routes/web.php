@@ -231,6 +231,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/akun/update-role/{user}', [authController::class, 'updateRole'])->name('akun.roleupdate');
     Route::post('/akun/reset-password/{user}', [authController::class, 'resetPassword'])->name('akun.resetpass');
     Route::post('/akun/new-akun', [authController::class, 'store'])->name('akun.new');
+    Route::delete('/users/{user}', [authController::class, 'destroy'])->name('users.destroy');
 
     // Artikel & Konten
     Route::get('/content/add', [adminController::class, 'addartikel'])->name('addartikel');

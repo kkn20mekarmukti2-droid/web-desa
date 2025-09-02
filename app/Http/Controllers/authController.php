@@ -53,13 +53,13 @@ class authController extends Controller
     }
     public function index()
     {
-        $users = User::where('id', '!=', 1)->get();
-        return view('admin.akun.manage', compact('users'));
+        $users = User::where('id', '!=', auth()->id())->get();
+        return view('admin.akun.manage-modern', compact('users'));
     }
 
     public function create()
     {
-        return view('admin.akun.add');
+        return view('admin.akun.add-modern');
     }
 
     public function store(Request $request)
@@ -67,8 +67,8 @@ class authController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|integer',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|string|in:SuperAdmin,Admin,Writer,Editor',
         ]);
 
         if ($validator->fails()) {
@@ -84,7 +84,7 @@ class authController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('akun.manage')->with('pesan', 'User baru Berhasil dibuat');
+        return redirect()->route('akun.manage')->with('pesan', 'User baru berhasil dibuat');
     }
 
     public function resetPassword(Request $request, User $user)
@@ -102,15 +102,27 @@ class authController extends Controller
     public function updateRole(Request $request, User $user)
     {
         $request->validate([
-            'role' => 'required|integer|in:0,1',
+            'role' => 'required|string|in:SuperAdmin,Admin,Writer,Editor',
         ]);
+        
         if ($user->id === Auth::id()) {
             return redirect()->route('akun.manage')->with('error', 'Tidak Bisa Merubah Role Akun Sendiri');
-        };
+        }
 
         $user->role = $request->role;
         $user->save();
 
         return redirect()->route('akun.manage')->with('pesan', 'Update Role Berhasil.');
+    }
+
+    public function destroy(User $user)
+    {
+        if ($user->id === Auth::id()) {
+            return redirect()->route('akun.manage')->with('error', 'Tidak bisa menghapus akun sendiri');
+        }
+
+        $user->delete();
+
+        return redirect()->route('akun.manage')->with('pesan', 'User berhasil dihapus.');
     }
 }
