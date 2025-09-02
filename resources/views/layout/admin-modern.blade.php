@@ -819,14 +819,14 @@
             <div class="sidebar-section">
                 <div class="sidebar-section-title">Manajemen</div>
                 <ul class="sidebar-menu">
-                    @if (Auth::user()->role == 0)
+                    
                     <li class="sidebar-menu-item">
                         <a href="{{ route('users.manage.modern') }}" class="sidebar-menu-link {{ Request::route()->getName() == 'users.manage.modern' ? 'active' : '' }}">
                             <i class="sidebar-menu-icon fas fa-users"></i>
                             <span>Manage User</span>
                         </a>
                     </li>
-                    @endif
+                    
                 </ul>
             </div>
 
