@@ -1218,9 +1218,31 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Visitor counter initialized');
             
+            // Function to track visitor automatically
+            function trackVisitor() {
+                const currentPage = window.location.pathname;
+                fetch(`/visitor-api.php?action=track&page=${encodeURIComponent(currentPage)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Visitor tracked successfully');
+                        // Update stats after tracking
+                        updateVisitorStats();
+                    }
+                })
+                .catch(error => {
+                    console.log('Visitor tracking failed:', error);
+                });
+            }
+            
             // Function to update visitor statistics
             function updateVisitorStats() {
-                fetch('/api/visitor-stats', {
+                fetch('/visitor-api.php?action=stats', {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
@@ -1259,8 +1281,8 @@
                 return new Intl.NumberFormat('id-ID').format(num);
             }
             
-            // Initial load
-            updateVisitorStats();
+            // Initial load - track visitor then update stats
+            trackVisitor();
             
             // Update every 30 seconds
             setInterval(updateVisitorStats, 30000);

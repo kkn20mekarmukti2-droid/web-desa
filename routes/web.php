@@ -12,7 +12,7 @@ use App\Http\Controllers\NotificationTokenController;
 
 /*
 |--------------------------------------------------------------------------
-| Visitor API Routes
+| Visitor API Routes - Outside middleware for direct access
 |--------------------------------------------------------------------------
 */
 Route::get('/api/visitor-stats', [VisitorController::class, 'getStats'])->name('api.visitor.stats');
