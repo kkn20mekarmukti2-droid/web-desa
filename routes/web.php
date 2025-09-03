@@ -42,6 +42,9 @@ Route::get('/berita/{tanggal}/{judul}', [homeController::class, 'tampilberita'])
 Route::get('/pengaduan', [homeController::class, 'pengaduan'])->name('pengaduan');
 Route::post('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'store'])->name('pengaduan.store');
 
+// Majalah Desa
+Route::get('/majalah-desa', [\App\Http\Controllers\MajalahController::class, 'publicIndex'])->name('majalah.desa');
+
 // Transparansi Anggaran APBDes
 Route::get('/transparansi-anggaran', [\App\Http\Controllers\ApbdesController::class, 'transparansi'])->name('transparansi.anggaran');
 
@@ -200,6 +203,20 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/{id}/edit', [\App\Http\Controllers\HeroImageController::class, 'edit'])->name('edit');
         Route::put('/{id}', [\App\Http\Controllers\HeroImageController::class, 'update'])->name('update');
         Route::delete('/{id}', [\App\Http\Controllers\HeroImageController::class, 'destroy'])->name('destroy');
+    });
+
+    // Majalah Desa Admin Management
+    Route::prefix('majalah')->name('admin.majalah.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'index'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\MajalahController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\MajalahController::class, 'store'])->name('store');
+        Route::get('/{majalah}', [\App\Http\Controllers\MajalahController::class, 'show'])->name('show');
+        Route::get('/{majalah}/edit', [\App\Http\Controllers\MajalahController::class, 'edit'])->name('edit');
+        Route::put('/{majalah}', [\App\Http\Controllers\MajalahController::class, 'update'])->name('update');
+        Route::delete('/{majalah}', [\App\Http\Controllers\MajalahController::class, 'destroy'])->name('destroy');
+        Route::patch('/{majalah}/toggle', [\App\Http\Controllers\MajalahController::class, 'toggleActive'])->name('toggle');
+        Route::put('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'updatePage'])->name('page.update');
+        Route::delete('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'deletePage'])->name('page.delete');
     });
 
     // Manajemen Akun - Redirect to Modern
