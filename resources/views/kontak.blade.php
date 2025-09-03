@@ -128,7 +128,7 @@
                 </div>
                 <div class="map-container" style="height: 450px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                     <iframe
-                        src="https://www.google.com/maps/place/KANTOR+DESA+MEKARMUKTI/@-6.9316757,107.4620144,19z/data=!3m1!4b1!4m6!3m5!1s0x2e68fb7c39b424a3:0xe7640e0d1e691952!8m2!3d-6.9316757!4d107.4626581!16s%2Fg%2F11k3ds2_9q?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15842.647593887386!2d107.45339371215643!3d-6.930953939101659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68faa6e3c695a5%3A0xb8360e42309bb312!2sMekarmukti%2C%20Kec.%20Cihampelas%2C%20Kabupaten%20Bandung%20Barat%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1721359750373!5m2!1sid!2sid"
                         width="100%" 
                         height="450" 
                         frameborder="0" 
