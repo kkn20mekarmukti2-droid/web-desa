@@ -238,77 +238,274 @@
         </section>
         
         {{-- ======= Berita Terbaru Section ======= --}}
-        <section class="py-8 md:py-12 bg-white">
-            <div class="container">
-                <div class="section-title text-center" data-aos="fade-up">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3 md:mb-4">Berita Terbaru</h2>
-                    <p class="text-gray-600 mb-6 md:mb-8 text-sm md:text-base">Informasi terkini dari Desa Mekarmukti</p>
+        <section class="berita-section" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); position: relative; overflow: hidden;">
+            <!-- Background Pattern -->
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.05; background-image: radial-gradient(circle at 1px 1px, #F59E0B 1px, transparent 0); background-size: 20px 20px;"></div>
+            
+            <div class="container py-5" style="position: relative; z-index: 2;">
+                <!-- Enhanced Section Header -->
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <div class="d-inline-block mb-3">
+                        <span class="badge bg-primary px-4 py-2 rounded-pill text-uppercase fw-medium ls-1" style="font-size: 0.75rem; letter-spacing: 1px;">
+                            <i class="fas fa-newspaper me-2"></i>
+                            Informasi Terkini
+                        </span>
+                    </div>
+                    <h2 class="display-5 fw-bold text-gray-900 mb-4">
+                        📰 Berita Terbaru
+                    </h2>
+                    <p class="lead text-gray-600 max-w-2xl mx-auto">
+                        Dapatkan informasi terkini seputar kegiatan, program, dan perkembangan terbaru dari Desa Mekarmukti
+                    </p>
+                    <div class="divider mx-auto mt-4" style="width: 60px; height: 4px; background: linear-gradient(90deg, #F59E0B, #D97706); border-radius: 2px;"></div>
                 </div>
                 
-                <div class="row" data-aos="fade-up" data-aos-delay="100">
+                <!-- Modern News Cards Grid -->
+                <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
                     @if($artikel && $artikel->count() > 0)
-                        @foreach($artikel->take(3) as $berita)
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100 shadow-sm border-0">
-                                    @if($berita->sampul && file_exists(public_path('img/' . $berita->sampul)))
-                                        {{-- Gambar asli atau placeholder yang sudah ditetapkan --}}
-                                        <img src="{{ asset('img/' . $berita->sampul) }}" 
-                                             class="card-img-top img-fluid w-100" 
-                                             alt="{{ $berita->judul }}" 
-                                             style="height: 180px; object-fit: cover;"
-                                             loading="lazy">
-                                    @else
-                                        {{-- Fallback jika benar-benar tidak ada gambar --}}
-                                        <div class="card-img-top bg-gradient-to-br from-blue-100 to-blue-200 d-flex align-items-center justify-content-center" 
-                                             style="height: 180px;">
-                                            <div class="text-center">
-                                                <i class="bi bi-newspaper text-blue-500" style="font-size: 3rem;"></i>
-                                                <small class="d-block text-blue-600 mt-2 fw-medium">Artikel Berita</small>
+                        @foreach($artikel->take(3) as $index => $berita)
+                            <div class="col-lg-4 col-md-6">
+                                <article class="news-card h-100" style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); border: 0;">
+                                    <!-- Image Container with Overlay -->
+                                    <div class="position-relative overflow-hidden" style="height: 220px;">
+                                        @if($berita->sampul && file_exists(public_path('img/' . $berita->sampul)))
+                                            <img src="{{ asset('img/' . $berita->sampul) }}" 
+                                                 class="w-100 h-100" 
+                                                 alt="{{ $berita->judul }}" 
+                                                 style="object-fit: cover; transition: transform 0.4s ease;"
+                                                 loading="lazy">
+                                        @else
+                                            <div class="w-100 h-100 d-flex align-items-center justify-content-center" 
+                                                 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                                <div class="text-center text-white">
+                                                    <i class="fas fa-newspaper" style="font-size: 3rem; opacity: 0.9;"></i>
+                                                    <div class="mt-2 fw-medium">Artikel Berita</div>
+                                                </div>
                                             </div>
+                                        @endif
+                                        
+                                        <!-- Category Badge -->
+                                        <div class="position-absolute" style="top: 15px; left: 15px;">
+                                            <span class="badge bg-primary px-3 py-2 rounded-pill fw-medium" style="backdrop-filter: blur(10px); background: rgba(59, 130, 246, 0.9) !important;">
+                                                <i class="fas fa-tag me-1"></i>
+                                                Berita
+                                            </span>
                                         </div>
-                                    @endif
-                                    <div class="card-body d-flex flex-column p-3 md:p-4">
-                                        <small class="text-muted mb-2">{{ $berita->created_at->format('d M Y') }}</small>
-                                        <h5 class="card-title text-base md:text-lg">{{ Str::limit($berita->judul, 45) }}</h5>
-                                        <p class="card-text flex-grow-1 text-sm md:text-base">{{ Str::limit(strip_tags($berita->deskripsi), 80) }}</p>
-                                        <a href="{{ route('detailartikel', ['tanggal' => $berita->created_at->format('Y-m-d'), 'judul' => Str::slug($berita->judul)]) }}" 
-                                           class="btn btn-outline-primary mt-auto btn-sm">Baca Selengkapnya</a>
+                                        
+                                        <!-- Date Badge -->
+                                        <div class="position-absolute" style="top: 15px; right: 15px;">
+                                            <span class="badge bg-dark px-3 py-2 rounded-pill fw-medium" style="backdrop-filter: blur(10px); background: rgba(0, 0, 0, 0.7) !important;">
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                {{ $berita->created_at->format('d M') }}
+                                            </span>
+                                        </div>
+                                        
+                                        <!-- Gradient Overlay -->
+                                        <div class="position-absolute bottom-0 start-0 end-0" style="height: 60%; background: linear-gradient(transparent, rgba(0,0,0,0.7)); opacity: 0; transition: opacity 0.3s ease;"></div>
                                     </div>
-                                </div>
+                                    
+                                    <!-- Card Content -->
+                                    <div class="p-4">
+                                        <!-- Meta Information -->
+                                        <div class="d-flex align-items-center mb-3 text-muted" style="font-size: 0.875rem;">
+                                            <i class="fas fa-clock me-2 text-primary"></i>
+                                            <span>{{ $berita->created_at->format('d M Y') }}</span>
+                                            <span class="mx-2">•</span>
+                                            <i class="fas fa-user me-2 text-success"></i>
+                                            <span>Admin Desa</span>
+                                        </div>
+                                        
+                                        <!-- Title -->
+                                        <h5 class="card-title fw-bold mb-3" style="color: #1f2937; line-height: 1.4; font-size: 1.125rem;">
+                                            {{ Str::limit($berita->judul, 60) }}
+                                        </h5>
+                                        
+                                        <!-- Description -->
+                                        <p class="card-text text-gray-600 mb-4" style="line-height: 1.6; font-size: 0.95rem;">
+                                            {{ Str::limit(strip_tags($berita->deskripsi), 90) }}
+                                        </p>
+                                        
+                                        <!-- Action Button -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <a href="{{ route('detailartikel', ['tanggal' => $berita->created_at->format('Y-m-d'), 'judul' => Str::slug($berita->judul)]) }}" 
+                                               class="btn btn-primary btn-sm px-4 py-2 rounded-pill fw-medium" style="transition: all 0.3s ease; text-decoration: none;">
+                                                <i class="fas fa-arrow-right me-2"></i>
+                                                Baca Artikel
+                                            </a>
+                                            
+                                            <!-- Reading Time -->
+                                            <small class="text-muted d-flex align-items-center">
+                                                <i class="fas fa-book-open me-1"></i>
+                                                {{ ceil(str_word_count(strip_tags($berita->deskripsi)) / 200) }} min
+                                            </small>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Hover Effect Border -->
+                                    <div class="position-absolute top-0 start-0 end-0 bottom-0 rounded-4 pointer-events-none" style="border: 2px solid transparent; transition: border-color 0.3s ease;"></div>
+                                </article>
                             </div>
                         @endforeach
+                        
+                        <!-- Featured Article Banner (Conditional - if more than 3 articles) -->
+                        @if($artikel->count() > 3)
+                            <div class="col-12 mt-5" data-aos="fade-up" data-aos-delay="300">
+                                <div class="featured-banner p-4 rounded-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; position: relative; overflow: hidden;">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <h4 class="fw-bold mb-2">
+                                                <i class="fas fa-star me-2"></i>
+                                                Ada {{ $artikel->count() - 3 }} artikel menarik lainnya!
+                                            </h4>
+                                            <p class="mb-0 opacity-90">
+                                                Jangan lewatkan berita dan informasi penting lainnya dari Desa Mekarmukti
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                            <a href="{{ route('berita') }}" class="btn btn-light btn-lg px-4 py-2 rounded-pill fw-medium">
+                                                <i class="fas fa-newspaper me-2"></i>
+                                                Lihat Semua
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Background Pattern -->
+                                    <div class="position-absolute top-0 end-0" style="width: 200px; height: 200px; opacity: 0.1; background-image: radial-gradient(circle, white 2px, transparent 2px); background-size: 30px 30px;"></div>
+                                </div>
+                            </div>
+                        @endif
+                        
                     @else
-                        <div class="col-12 text-center">
-                            <p class="text-muted">Belum ada berita tersedia.</p>
+                        <!-- Empty State -->
+                        <div class="col-12">
+                            <div class="text-center py-5">
+                                <div class="mb-4">
+                                    <i class="fas fa-newspaper text-gray-400" style="font-size: 4rem;"></i>
+                                </div>
+                                <h4 class="text-gray-600 mb-3">Belum Ada Berita</h4>
+                                <p class="text-gray-500 mb-4">Berita dan artikel akan segera hadir. Pantau terus halaman ini untuk mendapatkan informasi terbaru!</p>
+                                <a href="{{ route('home') }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-home me-2"></i>
+                                    Kembali ke Beranda
+                                </a>
+                            </div>
                         </div>
                     @endif
                 </div>
                 
-                <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="200">
-                    <a href="{{ route('berita') }}" class="btn btn-primary btn-lg">Lihat Semua Berita</a>
-                </div>
+                <!-- Call to Action Section -->
+                @if($artikel && $artikel->count() > 0)
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-lg-8">
+                            <div class="cta-card text-center p-5 rounded-4" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border: 2px dashed #cbd5e1;" data-aos="fade-up" data-aos-delay="400">
+                                <div class="mb-4">
+                                    <i class="fas fa-bell text-warning" style="font-size: 3rem;"></i>
+                                </div>
+                                <h4 class="fw-bold text-gray-800 mb-3">Jangan Ketinggalan!</h4>
+                                <p class="text-gray-600 mb-4 lead">
+                                    Dapatkan notifikasi untuk berita dan pengumuman terbaru dari Desa Mekarmukti langsung di perangkat Anda.
+                                </p>
+                                <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                                    <a href="{{ route('berita') }}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill">
+                                        <i class="fas fa-newspaper me-2"></i>
+                                        Jelajahi Semua Berita
+                                    </a>
+                                    <button id="subscribeButton" class="btn btn-outline-warning btn-lg px-5 py-3 rounded-pill">
+                                        <i class="fas fa-bell me-2"></i>
+                                        Subscribe Notifikasi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </section>
+        
+        <style>
+        /* Modern News Cards Styling */
+        .news-card {
+            transform: translateY(0);
+            cursor: pointer;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+        }
+        
+        .news-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .news-card:hover .position-absolute.bottom-0 {
+            opacity: 1;
+        }
+        
+        .news-card:hover .position-absolute.top-0.start-0.end-0.bottom-0 {
+            border-color: #F59E0B;
+        }
+        
+        .news-card .btn-primary:hover {
+            transform: translateX(5px);
+        }
+        
+        /* Featured Banner Animation */
+        .featured-banner {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* CTA Card Hover */
+        .cta-card {
+            transition: all 0.3s ease;
+        }
+        
+        .cta-card:hover {
+            border-color: #F59E0B;
+            background: linear-gradient(135deg, #fff7ed 0%, #fef3e2 100%);
+        }
+        
+        /* Subscribe Button Animation */
+        #subscribeButton {
+            transition: all 0.3s ease;
+        }
+        
+        #subscribeButton:hover {
+            transform: translateY(-2px);
+        }
+        
+        #subscribeButton:hover i {
+            animation: ring 0.5s ease-in-out;
+        }
+        
+        @keyframes ring {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .news-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .featured-banner {
+                text-align: center;
+            }
+            
+            .display-5 {
+                font-size: 2rem;
+            }
+        }
+        </style>
         {{-- End Berita Section --}}
         
-        <div class="flex flex-col sm:flex-row items-center justify-between bg-gray-100 p-4 md:p-6 space-y-3 sm:space-y-0 max-w-6xl mx-auto rounded-md"
-            data-aos="fade-up" date-aos-delay="200">
-            <p class="text-center sm:text-left text-gray-700 text-base md:text-lg font-medium px-2">
-                Jangan ketinggalan! Subscribe untuk menerima notifikasi terkait artikel terbaru dari Desa Kami.
-            </p>
-            <button id="subscribeButton"
-                class="transform bg-blue-500 text-white font-bold py-3 px-6 md:py-2 md:px-6 rounded-lg shadow-lg transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-600 flex items-center space-x-2 group min-h-[48px]">
-                <i class="fa-solid fa-bell group-hover:animate-bounce transition-all"></i>
-                <span class="text-sm md:text-base">Subscribe</span>
-            </button>
-        </div>
-
-
-                </div>
-      </div>
-    </section><!-- End Services Section -->
-    
-    {{-- End Main Content --}}
+        {{-- End Main Content --}}
   </main><!-- End #main -->
 
     </main>
