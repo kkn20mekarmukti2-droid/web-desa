@@ -145,15 +145,31 @@
                     <!-- Image Thumbnail -->
                     <div class="gallery-thumbnail">
                         <div class="image-container">
-                            <img src="{{ asset('gallery/' . $item->gambar) }}" 
-                                 alt="{{ $item->judul }}"
-                                 class="gallery-image"
-                                 onclick="openImageModal('{{ asset('gallery/' . $item->gambar) }}', '{{ $item->judul }}')">
+                            @if($item->url && file_exists(public_path('galeri/' . $item->url)))
+                            <img src="{{ asset('galeri/' . $item->url) }}" alt="{{ $item->judul }}" class="gallery-image"
+                                 onclick="openImageModal('{{ asset('galeri/' . $item->url) }}', '{{ $item->judul }}')">
+                            @elseif($item->url && file_exists(public_path('storage/' . $item->url)))
+                            <img src="{{ asset('storage/' . $item->url) }}" alt="{{ $item->judul }}" class="gallery-image"
+                                 onclick="openImageModal('{{ asset('storage/' . $item->url) }}', '{{ $item->judul }}')">
+                            @elseif($item->url && file_exists(public_path('gallery/' . $item->url)))
+                            <img src="{{ asset('gallery/' . $item->url) }}" alt="{{ $item->judul }}" class="gallery-image"
+                                 onclick="openImageModal('{{ asset('gallery/' . $item->url) }}', '{{ $item->judul }}')">
+                            @else
+                            <div class="no-image d-flex align-items-center justify-content-center bg-light" style="height: 100%;">
+                                <i class="fas fa-image text-muted fa-2x"></i>
+                            </div>
+                            @endif
+                            
+                            @if($item->url && (file_exists(public_path('galeri/' . $item->url)) || file_exists(public_path('storage/' . $item->url)) || file_exists(public_path('gallery/' . $item->url))))
                             <div class="image-overlay">
-                                <button class="btn btn-light btn-sm" onclick="openImageModal('{{ asset('gallery/' . $item->gambar) }}', '{{ $item->judul }}')">
+                                <button class="btn btn-light btn-sm" onclick="openImageModal('{{ 
+                                    file_exists(public_path('galeri/' . $item->url)) ? asset('galeri/' . $item->url) :
+                                    (file_exists(public_path('storage/' . $item->url)) ? asset('storage/' . $item->url) : asset('gallery/' . $item->url))
+                                }}', '{{ $item->judul }}')">
                                     <i class="fas fa-expand"></i>
                                 </button>
                             </div>
+                            @endif
                         </div>
                     </div>
                     
@@ -190,7 +206,10 @@
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 
-                                <button onclick="downloadImage('{{ asset('gallery/' . $item->gambar) }}', '{{ $item->judul }}')"
+                                <button onclick="downloadImage('{{ 
+                                    file_exists(public_path('galeri/' . $item->url)) ? asset('galeri/' . $item->url) :
+                                    (file_exists(public_path('storage/' . $item->url)) ? asset('storage/' . $item->url) : asset('gallery/' . $item->url))
+                                }}', '{{ $item->judul }}')"
                                     class="btn btn-outline-info" title="Download">
                                     <i class="fas fa-download"></i>
                                 </button>
