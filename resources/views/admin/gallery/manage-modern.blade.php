@@ -73,12 +73,10 @@
             
             <div class="col-md-3 mb-3 mb-md-0">
                 <select class="form-select" id="albumFilter">
-                    <option value="">Semua Album</option>
-                    @foreach($gallery->groupBy('album') as $album => $photos)
-                        @if($album)
-                        <option value="{{ $album }}">{{ $album }} ({{ $photos->count() }})</option>
-                        @endif
-                    @endforeach
+                    <option value="">Semua Gallery</option>
+                    <option value="foto">Foto</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="tiktok">TikTok</option>
                 </select>
             </div>
             
@@ -133,7 +131,7 @@
         <div id="galleryContainer" class="gallery-list">
             @forelse ($gallery as $item)
             <div class="gallery-item" 
-                 data-album="{{ strtolower($item->album ?: '') }}"
+                 data-type="{{ strtolower($item->type ?: '') }}"
                  data-name="{{ strtolower($item->judul) }}"
                  data-date="{{ $item->created_at }}"
                  data-size="{{ $item->file_size ?? 0 }}">
@@ -205,7 +203,7 @@
                         <!-- Actions -->
                         <div class="gallery-actions">
                             <div class="btn-group btn-group-sm">
-                                <button onclick="editGalleryItem({{ $item->id }}, '{{ addslashes($item->judul) }}', '{{ $item->album }}')"
+                                <button onclick="editGalleryItem({{ $item->id }}, '{{ addslashes($item->judul) }}')"
                                     class="btn btn-outline-warning" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
@@ -292,9 +290,10 @@
                                     <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
                                     <h5 class="mb-2">Drop files here or click to upload</h5>
                                     <p class="text-muted mb-3">Support: JPG, JPEG, PNG, GIF (Max: 5MB per file)</p>
-                                    <input type="file" id="fileInput" name="photos[]" multiple accept="image/*" style="display: none;">
+                                    <input type="file" id="fileInput" name="url" accept="image/*" style="display: none;">
+                                    <input type="hidden" name="type" value="foto">
                                     <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
-                                        Choose Files
+                                        Choose File
                                     </button>
                                 </div>
                             </div>
@@ -307,23 +306,10 @@
                         </div>
                         
                         <div class="col-md-4">
-                            <!-- Album Selection -->
+                            <!-- Title Input -->
                             <div class="mb-3">
-                                <label for="albumSelect" class="form-label">Album</label>
-                                <select class="form-select" id="albumSelect" name="album">
-                                    <option value="">Pilih Album</option>
-                                    @foreach($gallery->groupBy('album') as $album => $photos)
-                                        @if($album)
-                                        <option value="{{ $album }}">{{ $album }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            
-                            <!-- New Album -->
-                            <div class="mb-3">
-                                <label for="newAlbum" class="form-label">Atau Buat Album Baru</label>
-                                <input type="text" class="form-control" id="newAlbum" name="new_album" placeholder="Nama album baru...">
+                                <label for="galleryTitle" class="form-label">Judul Foto</label>
+                                <input type="text" class="form-control" id="galleryTitle" name="judul" placeholder="Masukkan judul foto...">
                             </div>
                             
                             <!-- Upload Settings -->
@@ -377,10 +363,6 @@
                     <div class="mb-3">
                         <label for="editTitle" class="form-label">Judul Foto</label>
                         <input type="text" class="form-control" id="editTitle" name="judul" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editAlbum" class="form-label">Album</label>
-                        <input type="text" class="form-control" id="editAlbum" name="album">
                     </div>
                     <div class="mb-3">
                         <label for="editImage" class="form-label">Ganti Gambar (Opsional)</label>
@@ -697,18 +679,18 @@
 
     function filterGallery() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const albumFilter = document.getElementById('albumFilter').value.toLowerCase();
+        const typeFilter = document.getElementById('albumFilter').value.toLowerCase();
         const items = document.querySelectorAll('.gallery-item');
         let visibleCount = 0;
 
         items.forEach(item => {
             const name = item.dataset.name;
-            const album = item.dataset.album;
+            const type = item.dataset.type;
             
             const matchesSearch = !searchTerm || name.includes(searchTerm);
-            const matchesAlbum = !albumFilter || album === albumFilter;
+            const matchesType = !typeFilter || type === typeFilter;
 
-            if (matchesSearch && matchesAlbum) {
+            if (matchesSearch && matchesType) {
                 item.style.display = 'block';
                 item.classList.add('fade-in-up');
                 visibleCount++;
@@ -804,11 +786,10 @@
         modal.show();
     }
 
-    function editGalleryItem(id, title, album) {
+    function editGalleryItem(id, title) {
         const modal = new bootstrap.Modal(document.getElementById('editModal'));
         document.getElementById('editForm').action = `/admin/gallery/${id}`;
         document.getElementById('editTitle').value = title;
-        document.getElementById('editAlbum').value = album || '';
         modal.show();
     }
 

@@ -60,7 +60,6 @@ class galleryController extends Controller
     {
         $request->validate([
             'judul' => 'nullable|string|max:255',
-            'album' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -68,7 +67,6 @@ class galleryController extends Controller
         
         // Update basic fields
         $gallery->judul = $request->input('judul');
-        $gallery->album = $request->input('album');
 
         // Handle image upload if provided
         if ($request->hasFile('image')) {
