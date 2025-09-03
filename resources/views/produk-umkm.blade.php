@@ -28,15 +28,31 @@
             <!-- Product Info -->
             <div class="p-4">
                 <h3 class="font-bold text-lg text-gray-800 mb-2 line-clamp-2">{{ $produk->nama_produk }}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ $produk->deskripsi }}</p>
+                <p class="text-gray-600 text-sm mb-3 line-clamp-3">{{ $produk->deskripsi }}</p>
+                
+                <!-- Price Display -->
+                @if($produk->harga)
+                <div class="mb-4">
+                    <div class="flex items-center justify-between bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg px-3 py-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-tags text-green-600 mr-2"></i>
+                            <span class="text-sm font-medium text-gray-700">Harga</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-lg font-bold text-green-700">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                            <span class="text-sm text-gray-500 ml-1">/{{ $produk->satuan }}</span>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 
                 <!-- Action Buttons -->
                 <div class="flex flex-col gap-2">
-                    <a href="https://wa.me/{{ $produk->nomor_telepon }}?text=Halo,%20saya%20tertarik%20dengan%20produk%20{{ urlencode($produk->nama_produk) }}%20dari%20UMKM%20Desa%20Mekarmukti" 
+                    <a href="https://wa.me/{{ $produk->nomor_telepon }}?text=Halo,%20saya%20tertarik%20dengan%20produk%20{{ urlencode($produk->nama_produk) }}%20dari%20UMKM%20Desa%20Mekarmukti{{ $produk->harga ? '%20dengan%20harga%20Rp%20' . number_format($produk->harga, 0, ',', '.') . '/' . $produk->satuan : '' }}" 
                        target="_blank" 
                        class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 px-4 rounded-lg flex items-center justify-center transition-all duration-200 transform hover:scale-105">
                         <i class="fab fa-whatsapp mr-2"></i>
-                        Hubungi Penjual
+                        {{ $produk->harga ? 'Pesan Sekarang' : 'Hubungi Penjual' }}
                     </a>
                     <a href="{{ route('produk-umkm.show', $produk->id) }}" 
                        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-lg flex items-center justify-center transition-all duration-200">

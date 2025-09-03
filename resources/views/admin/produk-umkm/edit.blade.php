@@ -56,6 +56,52 @@
                         @enderror
                     </div>
 
+                    <!-- Harga dan Satuan -->
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <label for="harga" class="form-label">
+                                <i class="fas fa-tags text-success"></i>
+                                Harga Produk
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">
+                                    <i class="fas fa-rupiah-sign"></i>
+                                </span>
+                                <input type="number" 
+                                       name="harga" 
+                                       id="harga" 
+                                       class="form-control @error('harga') is-invalid @enderror" 
+                                       value="{{ old('harga', $produk->harga) }}" 
+                                       placeholder="Masukkan harga produk (opsional)"
+                                       min="0"
+                                       step="0.01">
+                            </div>
+                            @error('harga')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label for="satuan" class="form-label">Satuan</label>
+                            <select name="satuan" id="satuan" class="form-select @error('satuan') is-invalid @enderror">
+                                <option value="pcs" {{ old('satuan', $produk->satuan) == 'pcs' ? 'selected' : '' }}>pcs</option>
+                                <option value="kg" {{ old('satuan', $produk->satuan) == 'kg' ? 'selected' : '' }}>kg</option>
+                                <option value="gram" {{ old('satuan', $produk->satuan) == 'gram' ? 'selected' : '' }}>gram</option>
+                                <option value="liter" {{ old('satuan', $produk->satuan) == 'liter' ? 'selected' : '' }}>liter</option>
+                                <option value="botol" {{ old('satuan', $produk->satuan) == 'botol' ? 'selected' : '' }}>botol</option>
+                                <option value="bungkus" {{ old('satuan', $produk->satuan) == 'bungkus' ? 'selected' : '' }}>bungkus</option>
+                                <option value="kotak" {{ old('satuan', $produk->satuan) == 'kotak' ? 'selected' : '' }}>kotak</option>
+                                <option value="dus" {{ old('satuan', $produk->satuan) == 'dus' ? 'selected' : '' }}>dus</option>
+                            </select>
+                            @error('satuan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <small class="text-muted mb-3 d-block">
+                        <i class="fas fa-info-circle text-info"></i>
+                        Harga bersifat opsional. Kosongkan jika ingin menampilkan "Hubungi Penjual"
+                    </small>
+
                     <!-- Nomor Telepon -->
                     <div class="form-group mb-3">
                         <label for="nomor_telepon" class="form-label">Nomor WhatsApp <span class="text-danger">*</span></label>

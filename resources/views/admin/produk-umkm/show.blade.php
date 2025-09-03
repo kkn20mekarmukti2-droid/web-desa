@@ -54,6 +54,43 @@
                         </div>
                     </div>
 
+                    <!-- Price Information -->
+                    @if($produk->harga)
+                    <div class="detail-group mb-4">
+                        <h5 class="detail-label">
+                            <i class="fas fa-tags text-success"></i>
+                            Informasi Harga
+                        </h5>
+                        <div class="price-display bg-light rounded p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span class="price-amount">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                                    <span class="price-unit text-muted">/{{ $produk->satuan }}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-check-circle"></i>
+                                        Harga Tersedia
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <div class="detail-group mb-4">
+                        <h5 class="detail-label">
+                            <i class="fas fa-tags text-warning"></i>
+                            Informasi Harga
+                        </h5>
+                        <div class="price-display bg-light rounded p-3">
+                            <div class="text-center text-muted">
+                                <i class="fas fa-phone text-primary"></i>
+                                <span class="ms-2">Hubungi penjual untuk info harga</span>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                     <!-- Description -->
                     <div class="detail-group mb-4">
                         <h5 class="detail-label">
@@ -71,11 +108,11 @@
                         </h5>
                         <div class="contact-info">
                             <span class="phone-number">{{ $produk->nomor_telepon }}</span>
-                            <a href="https://wa.me/{{ $produk->nomor_telepon }}?text=Halo,%20saya%20tertarik%20dengan%20produk%20{{ urlencode($produk->nama_produk) }}%20dari%20UMKM%20Desa%20Mekarmukti" 
+                            <a href="https://wa.me/{{ $produk->nomor_telepon }}?text=Halo,%20saya%20tertarik%20dengan%20produk%20{{ urlencode($produk->nama_produk) }}%20dari%20UMKM%20Desa%20Mekarmukti{{ $produk->harga ? '%20dengan%20harga%20Rp%20' . number_format($produk->harga, 0, ',', '.') . '/' . $produk->satuan : '' }}" 
                                target="_blank" 
                                class="btn btn-success btn-sm ms-2">
                                 <i class="fab fa-whatsapp"></i>
-                                Chat Sekarang
+                                {{ $produk->harga ? 'Pesan Sekarang' : 'Chat Sekarang' }}
                             </a>
                         </div>
                     </div>

@@ -44,7 +44,23 @@
                     
                     <div class="product-info">
                         <h5 class="product-title">{{ $produk->nama_produk }}</h5>
-                        <p class="product-description">{{ Str::limit($produk->deskripsi, 100) }}</p>
+                        <p class="product-description">{{ Str::limit($produk->deskripsi, 80) }}</p>
+                        
+                        @if($produk->harga)
+                        <div class="product-price mb-2">
+                            <div class="d-flex align-items-center justify-content-between bg-light rounded p-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-tags text-success me-1"></i>
+                                    Harga
+                                </small>
+                                <div>
+                                    <span class="fw-bold text-success">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                                    <small class="text-muted">/{{ $produk->satuan }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        
                         <div class="product-contact">
                             <i class="fab fa-whatsapp text-success"></i>
                             <span>{{ $produk->nomor_telepon }}</span>

@@ -37,6 +37,28 @@
                     </div>
                 </div>
 
+                <!-- Price Display -->
+                @if($produk->harga)
+                <div class="mb-6">
+                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-tags text-green-600 mr-2"></i>
+                            Informasi Harga
+                        </h3>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-green-700">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                                <span class="text-gray-600 text-lg ml-2">/{{ $produk->satuan }}</span>
+                            </div>
+                            <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                <i class="fas fa-check-circle mr-1"></i>
+                                Harga Tersedia
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 <!-- Description -->
                 <div class="mb-6">
                     <h3 class="text-lg font-semibold text-gray-800 mb-3">Deskripsi Produk</h3>
@@ -54,11 +76,11 @@
 
                 <!-- Action Buttons -->
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <a href="https://wa.me/{{ $produk->nomor_telepon }}?text=Halo,%20saya%20tertarik%20dengan%20produk%20{{ urlencode($produk->nama_produk) }}%20dari%20UMKM%20Desa%20Mekarmukti" 
+                    <a href="https://wa.me/{{ $produk->nomor_telepon }}?text=Halo,%20saya%20tertarik%20dengan%20produk%20{{ urlencode($produk->nama_produk) }}%20dari%20UMKM%20Desa%20Mekarmukti{{ $produk->harga ? '%20dengan%20harga%20Rp%20' . number_format($produk->harga, 0, ',', '.') . '/' . $produk->satuan : '' }}" 
                        target="_blank" 
                        class="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center transition-all duration-200 transform hover:scale-105 shadow-lg">
                         <i class="fab fa-whatsapp mr-2"></i>
-                        Hubungi Penjual
+                        {{ $produk->harga ? 'Pesan Sekarang' : 'Hubungi Penjual' }}
                     </a>
                     <a href="{{ route('produk-umkm.index') }}" 
                        class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center transition-all duration-200">

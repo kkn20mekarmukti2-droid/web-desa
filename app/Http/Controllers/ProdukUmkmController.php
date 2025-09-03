@@ -73,10 +73,12 @@ class ProdukUmkmController extends Controller
         $request->validate([
             'nama_produk' => 'required',
             'deskripsi' => 'required',
+            'harga' => 'nullable|numeric|min:0',
+            'satuan' => 'nullable|string|max:20',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'nomor_telepon' => 'required',
         ]);
-        $data = $request->only(['nama_produk','deskripsi','nomor_telepon']);
+        $data = $request->only(['nama_produk','deskripsi','harga','satuan','nomor_telepon']);
 
         // Handle image (adapt Apbdes style: store under public/img/umkm)
         if ($request->hasFile('gambar')) {
@@ -137,11 +139,13 @@ class ProdukUmkmController extends Controller
         $request->validate([
             'nama_produk' => 'required',
             'deskripsi' => 'required',
+            'harga' => 'nullable|numeric|min:0',
+            'satuan' => 'nullable|string|max:20',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'nomor_telepon' => 'required',
         ]);
         $produk = ProdukUmkm::findOrFail($id);
-        $data = $request->only(['nama_produk','deskripsi','nomor_telepon']);
+        $data = $request->only(['nama_produk','deskripsi','harga','satuan','nomor_telepon']);
         if ($request->hasFile('gambar')) {
             // Delete old image if exists
             $this->deleteImageIfExists($produk->gambar);
