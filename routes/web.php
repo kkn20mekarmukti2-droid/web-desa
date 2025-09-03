@@ -33,7 +33,6 @@ Route::get('/galeri-desa', [galleryController::class, 'galeri'])->name('galeri')
 
 // Kontak
 Route::get('/kontak-desa', [homeController::class, 'kontak'])->name('kontak');
-Route::post('/kontak-desa', [homeController::class, 'sendkontak'])->name('send.message');
 
 // Berita
 Route::get('/berita', [homeController::class, 'berita'])->name('berita');

@@ -108,18 +108,6 @@ class homeController extends Controller
         return view("kontak");
     }
 
-    public function sendkontak(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'string|max:255',
-            'email' => 'email|max:255',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string',
-        ]);
-
-        // proses kirim email bisa ditambahkan di sini
-    }
-
     public function pengaduan()
     {
         return view("pengaduan");
