@@ -118,17 +118,38 @@ class homeController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'nullable|email|max:255',
-            'isi_pengaduan' => 'required|string',
+            'no_hp' => 'nullable|string|max:20',
+            'kategori' => 'required|string|in:infrastruktur,pelayanan,lingkungan,sosial,ekonomi,keamanan,lainnya',
+            'isi_pengaduan' => 'required|string|min:20|max:500',
+        ], [
+            'nama.required' => 'Nama lengkap harus diisi',
+            'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
+            'email.email' => 'Format email tidak valid',
+            'email.max' => 'Email tidak boleh lebih dari 255 karakter',
+            'no_hp.max' => 'Nomor HP tidak boleh lebih dari 20 karakter',
+            'kategori.required' => 'Kategori pengaduan harus dipilih',
+            'kategori.in' => 'Kategori yang dipilih tidak valid',
+            'isi_pengaduan.required' => 'Isi pengaduan harus diisi',
+            'isi_pengaduan.min' => 'Isi pengaduan minimal 20 karakter',
+            'isi_pengaduan.max' => 'Isi pengaduan maksimal 500 karakter',
         ]);
 
-        DB::table('pengaduan')->insert([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'isi_pengaduan' => $request->isi_pengaduan,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // Periksa apakah tabel pengaduan ada, jika tidak buat terlebih dahulu
+        try {
+            DB::table('pengaduan')->insert([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'no_hp' => $request->no_hp,
+                'kategori' => $request->kategori,
+                'isi_pengaduan' => $request->isi_pengaduan,
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
-        return redirect()->back()->with('success', 'Pengaduan berhasil dikirim!');
+            return redirect()->back()->with('success', 'Pengaduan Anda telah berhasil dikirim! Kami akan menindaklanjuti dalam waktu maksimal 3x24 jam kerja.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pengaduan. Silakan coba lagi atau hubungi administrator.')->withInput();
+        }
     }
 }
