@@ -51,9 +51,12 @@ class MajalahController extends Controller
             'pages.*' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        // Upload cover image ke public/majalah
+        // Upload cover image dengan teknik seperti gallery
         $coverFile = $request->file('cover_image');
-        $coverFileName = time() . '_cover_' . $coverFile->getClientOriginalName();
+        $originName = $coverFile->getClientOriginalName();
+        $fileName = pathinfo($originName, PATHINFO_FILENAME);
+        $extension = $coverFile->getClientOriginalExtension();
+        $coverFileName = $fileName . '_' . time() . '.' . $extension;
         $coverFile->move(public_path('majalah'), $coverFileName);
         $coverPath = 'majalah/' . $coverFileName;
 
@@ -75,7 +78,10 @@ class MajalahController extends Controller
             }
             
             foreach ($request->file('pages') as $index => $page) {
-                $pageFileName = 'page_' . ($index + 1) . '_' . time() . '.' . $page->getClientOriginalExtension();
+                $originName = $page->getClientOriginalName();
+                $fileName = pathinfo($originName, PATHINFO_FILENAME);
+                $extension = $page->getClientOriginalExtension();
+                $pageFileName = 'page_' . ($index + 1) . '_' . time() . '.' . $extension;
                 $page->move($pagesDir, $pageFileName);
                 $pagePath = 'majalah/pages/' . $majalah->id . '/' . $pageFileName;
                 
@@ -127,8 +133,12 @@ class MajalahController extends Controller
                 unlink(public_path($majalah->cover_image));
             }
             
+            // Upload new image dengan teknik gallery
             $coverFile = $request->file('cover_image');
-            $coverFileName = time() . '_cover_' . $coverFile->getClientOriginalName();
+            $originName = $coverFile->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $coverFile->getClientOriginalExtension();
+            $coverFileName = $fileName . '_' . time() . '.' . $extension;
             $coverFile->move(public_path('majalah'), $coverFileName);
             $updateData['cover_image'] = 'majalah/' . $coverFileName;
         }
