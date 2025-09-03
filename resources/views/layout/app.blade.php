@@ -648,7 +648,7 @@
                                 <i class="bi bi-pie-chart-fill" style="color: #F59E0B; margin-right: 8px;"></i>
                                 Transparansi Anggaran
                             </a>
-                            <a href="{{ route('majalah.desa') }}" style="
+                            <a href="{{ route('majalah') }}" style="
                                 display: flex;
                                 align-items: center;
                                 padding: 12px 16px;
@@ -774,7 +774,7 @@
                                 <a href="{{ route('transparansi.anggaran') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
                                     <i class="bi bi-pie-chart-fill me-2"></i>Transparansi Anggaran
                                 </a>
-                                <a href="{{ route('majalah.desa') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
+                                <a href="{{ route('majalah') }}" class="mobile-menu-item block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-lg transition-all duration-300">
                                     <i class="bi bi-book-fill me-2"></i>Majalah Desa
                                 </a>
                             </div>

@@ -524,12 +524,12 @@
                             
                             <!-- Action Buttons -->
                             <div class="d-flex flex-column flex-sm-row gap-3">
-                                <a href="{{ route('majalah.desa') }}" 
+                                <a href="{{ route('majalah') }}" 
                                    class="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-medium">
                                     <i class="fas fa-book-open me-2"></i>
                                     Baca Sekarang
                                 </a>
-                                <a href="{{ route('majalah.desa') }}" 
+                                <a href="{{ route('majalah') }}" 
                                    class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-medium">
                                     <i class="fas fa-th-large me-2"></i>
                                     Lihat Koleksi
