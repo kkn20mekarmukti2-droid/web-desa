@@ -7,13 +7,26 @@ use App\Http\Controllers\dataController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\galleryController;
+use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\NotificationTokenController;
 
 /*
 |--------------------------------------------------------------------------
-| Rute Utama Publik
+| Visitor API Routes - Outside middleware for direct access
 |--------------------------------------------------------------------------
 */
+Route::get('/api/visitor-stats', [VisitorController::class, 'getStats'])->name('api.visitor.stats');
+Route::get('/api/visitor-popular', [VisitorController::class, 'getPopularPages'])->name('api.visitor.popular');
+Route::get('/api/visitor-dashboard', [VisitorController::class, 'getDashboardStats'])->name('api.visitor.dashboard');
+
+/*
+|--------------------------------------------------------------------------
+| Rute Utama Publik - dengan Visitor Tracking
+|--------------------------------------------------------------------------
+*/
+
+// Apply visitor middleware to all public routes
+Route::middleware(['visitor'])->group(function () {
 
 // Beranda
 Route::get('/', [homeController::class, 'index'])->name('home');
@@ -106,6 +119,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         ];
         return view('admin.dashboard-modern', $data);
     })->name('dashboard.modern');
+    
+    // Analytics Dashboard
+    Route::get('/analytics', function() {
+        return view('admin.analytics.dashboard');
+    })->name('analytics.dashboard');
     
     // Content Management - Redirect to Modern
     Route::get('/content/manage', function() {
@@ -274,17 +292,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         request()->session()->regenerateToken();
         return redirect()->route('formlogin', ['logout' => '1']);
     })->name('logout');
-});
+    
+}); // End admin routes group
+
+}); // End visitor middleware group
 
 Route::get('/panel', fn () => redirect()->away('https://mekarmukti.id:2083'));
 Route::get('/cpanel', fn () => abort(404));
 
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-
+// Admin password reset route (for emergency)
 Route::get('/reset-password-admin', function () {
-    $user = User::find(1); // ID admin
-    $user->password = Hash::make('Kyura2133'); // password baru
+    $user = \App\Models\User::find(1); // ID admin
+    $user->password = \Illuminate\Support\Facades\Hash::make('Kyura2133'); // password baru
     $user->save();
     return 'Password admin berhasil direset!';
 });

@@ -14,7 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Register custom middleware aliases
         $middleware->alias([
-            'role' => \App\Http\Middleware\RoleMiddleware::class,
+                    // Custom Middleware Aliases
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'visitor' => \App\Http\Middleware\VisitorMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
