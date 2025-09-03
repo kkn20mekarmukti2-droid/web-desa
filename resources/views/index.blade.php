@@ -1,6 +1,7 @@
 @extends('layout.app')
 
 @section('title', 'Beranda - Desa Mekarmukti')
+@section('body-class', 'home-hero-override')
 
 @section('content')
 

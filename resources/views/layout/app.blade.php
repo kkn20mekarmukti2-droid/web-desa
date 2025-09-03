@@ -408,12 +408,62 @@
                 gap: 2rem !important;
             }
         }
+        
+        /* ===== CONSISTENT MARGINS FOR ALL PAGES ===== */
+        /* Apply consistent spacing to main content, but allow override for specific pages */
+        #main {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Desktop margins */
+        @media (min-width: 768px) {
+            #main {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            #main {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            #main {
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+        }
+        
+        /* Max width untuk content readability */
+        #main > * {
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Special override untuk homepage hero - tetap full width */
+        .home-hero-override #main {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin: 0 !important;
+            margin-top: 0 !important;
+        }
+        
+        .home-hero-override #main > * {
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
+        }
     </style>
     
     @stack('styles')
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased @yield('body-class')">
     <!-- Header -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4">
