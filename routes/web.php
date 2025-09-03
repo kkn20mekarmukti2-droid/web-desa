@@ -205,15 +205,21 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::delete('/{id}', [\App\Http\Controllers\HeroImageController::class, 'destroy'])->name('destroy');
     });
 
-    // Majalah Desa Admin Management
-    Route::prefix('majalah')->name('admin.majalah.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'index'])->name('index');
-        Route::get('/create', [\App\Http\Controllers\MajalahController::class, 'create'])->name('create');
+    // Majalah Desa Admin Management - Modern Routes (Simple Gallery-like)
+    Route::prefix('majalah')->name('majalah.')->group(function () {
+        Route::get('/manage', [\App\Http\Controllers\MajalahController::class, 'index'])->name('index');
         Route::post('/', [\App\Http\Controllers\MajalahController::class, 'store'])->name('store');
+        Route::put('/{id}', [\App\Http\Controllers\MajalahController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\MajalahController::class, 'destroy'])->name('destroy');
+        Route::delete('/bulk-delete', [\App\Http\Controllers\MajalahController::class, 'bulkDelete'])->name('bulk-delete');
+    });
+
+    // Legacy Majalah Desa Admin Management
+    Route::prefix('majalah-legacy')->name('admin.majalah.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'legacyIndex'])->name('index');
+        Route::get('/create', [\App\Http\Controllers\MajalahController::class, 'create'])->name('create');
         Route::get('/{majalah}', [\App\Http\Controllers\MajalahController::class, 'show'])->name('show');
         Route::get('/{majalah}/edit', [\App\Http\Controllers\MajalahController::class, 'edit'])->name('edit');
-        Route::put('/{majalah}', [\App\Http\Controllers\MajalahController::class, 'update'])->name('update');
-        Route::delete('/{majalah}', [\App\Http\Controllers\MajalahController::class, 'destroy'])->name('destroy');
         Route::patch('/{majalah}/toggle', [\App\Http\Controllers\MajalahController::class, 'toggleActive'])->name('toggle');
         Route::put('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'updatePage'])->name('page.update');
         Route::delete('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'deletePage'])->name('page.delete');

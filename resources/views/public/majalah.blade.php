@@ -20,13 +20,13 @@
                         <div class="row text-center">
                             <div class="col-4">
                                 <div class="stat-item text-white">
-                                    <h3 class="fw-bold">{{ $totalMajalah }}</h3>
+                                    <h3 class="fw-bold">{{ $majalah->count() }}</h3>
                                     <small>Edisi</small>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="stat-item text-white">
-                                    <h3 class="fw-bold">{{ $totalHalaman }}</h3>
+                                    <h3 class="fw-bold">{{ $majalah->count() * 8 }}</h3>
                                     <small>Halaman</small>
                                 </div>
                             </div>
@@ -62,22 +62,30 @@
                 <div class="col-lg-4 col-md-6 mb-4" id="majalah-{{ $magazine->id }}">
                     <div class="magazine-card h-100">
                         <div class="magazine-cover-wrapper">
-                            @if($magazine->cover_image && file_exists(public_path($magazine->cover_image)))
-                                <img src="{{ asset($magazine->cover_image) }}" 
+                            @if($magazine->cover_image && file_exists(public_path('majalah/' . basename($magazine->cover_image))))
+                                <img src="{{ asset('majalah/' . basename($magazine->cover_image)) }}" 
                                      alt="Cover {{ $magazine->judul }}"
                                      class="magazine-cover-image">
-                            @elseif($magazine->cover_image && file_exists(public_path('storage/' . $magazine->cover_image)))
-                                <img src="{{ asset('storage/' . $magazine->cover_image) }}" 
+                            @elseif($magazine->cover_image && file_exists(public_path('storage/' . basename($magazine->cover_image))))
+                                <img src="{{ asset('storage/' . basename($magazine->cover_image)) }}" 
                                      alt="Cover {{ $magazine->judul }}"
                                      class="magazine-cover-image">
-                            @elseif($magazine->cover_image && file_exists(public_path('galeri/' . str_replace('majalah/', '', $magazine->cover_image))))
-                                <img src="{{ asset('galeri/' . str_replace('majalah/', '', $magazine->cover_image)) }}" 
+                            @elseif($magazine->cover_image && file_exists(public_path('galeri/' . basename($magazine->cover_image))))
+                                <img src="{{ asset('galeri/' . basename($magazine->cover_image)) }}" 
                                      alt="Cover {{ $magazine->judul }}"
                                      class="magazine-cover-image">
                             @elseif($magazine->cover_image)
                                 <img src="{{ asset($magazine->cover_image) }}" 
                                      alt="Cover {{ $magazine->judul }}"
-                                     class="magazine-cover-image">
+                                     class="magazine-cover-image"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="magazine-cover-image d-flex align-items-center justify-content-center" 
+                                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: none;">
+                                    <div class="text-center text-white">
+                                        <i class="fas fa-book fa-3x mb-3"></i>
+                                        <h6>{{ $magazine->judul }}</h6>
+                                    </div>
+                                </div>
                             @else
                                 <div class="magazine-cover-image d-flex align-items-center justify-content-center" 
                                      style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
@@ -94,16 +102,16 @@
                                 </button>
                             </div>
                             <div class="magazine-badge">
-                                <span class="badge bg-success">{{ $magazine->total_pages }} Halaman</span>
+                                <span class="badge bg-success">{{ $magazine->type ?? 'Majalah' }}</span>
                             </div>
                         </div>
                         <div class="magazine-info">
                             <h5 class="magazine-title">{{ $magazine->judul }}</h5>
-                            <p class="magazine-description">{{ Str::limit($magazine->deskripsi, 100) }}</p>
+                            <p class="magazine-description">{{ $magazine->type ? 'Kategori: ' . $magazine->type : 'Majalah digital desa' }}</p>
                             <div class="magazine-meta">
                                 <small class="text-muted">
                                     <i class="fas fa-calendar me-1"></i>
-                                    {{ $magazine->tanggal_terbit->format('d F Y') }}
+                                    {{ $magazine->created_at->format('d F Y') }}
                                 </small>
                             </div>
                         </div>

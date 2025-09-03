@@ -4,48 +4,50 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Majalah extends Model
 {
     use HasFactory;
 
     protected $table = 'majalah';
-    
+
     protected $fillable = [
         'judul',
-        'deskripsi', 
-        'cover_image',
+        'cover_image', // Change from 'url' to 'cover_image'  
+        'deskripsi',
         'is_active',
-        'tanggal_terbit'
+        'tanggal_terbit',
+        'created_by'
     ];
 
     protected $casts = [
+        'tanggal_terbit' => 'date',
         'is_active' => 'boolean',
-        'tanggal_terbit' => 'date'
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    // Relationship dengan halaman majalah
-    public function pages()
+    // Accessor for URL field (for backward compatibility with views)
+    public function getUrlAttribute()
     {
-        return $this->hasMany(MajalahPage::class)->orderBy('page_number');
+        return $this->cover_image;
     }
 
-    // Scope untuk majalah aktif
-    public function scopeActive($query)
+    // Mutator for URL field (for backward compatibility with forms)
+    public function setUrlAttribute($value)
     {
-        return $query->where('is_active', true);
+        $this->attributes['cover_image'] = $value;
     }
 
-    // Accessor untuk format tanggal terbit
-    public function getTanggalTerbitFormattedAttribute()
+    // Add type attribute for gallery compatibility
+    public function getTypeAttribute()
     {
-        return Carbon::parse($this->tanggal_terbit)->format('F Y');
+        return 'cover';
     }
 
-    // Accessor untuk total halaman
-    public function getTotalPagesAttribute()
+    // Add created_by for compatibility
+    public function getCreatedByAttribute()
     {
-        return $this->pages()->count();
+        return 'Admin Desa';
     }
 }
