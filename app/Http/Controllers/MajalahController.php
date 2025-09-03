@@ -14,14 +14,14 @@ class MajalahController extends Controller
     // Public view untuk halaman majalah desa
     public function publicIndex()
     {
-        $majalah = Majalah::active()
-            ->with('pages')
+        $majalah = Majalah::where('is_active', true)
             ->orderBy('tanggal_terbit', 'desc')
             ->get();
             
-        $currentMajalah = $majalah->first();
-        
-        return view('majalah-desa', compact('majalah', 'currentMajalah'));
+        $totalMajalah = $majalah->count();
+        $totalHalaman = $majalah->sum('total_pages');
+
+        return view('public.majalah', compact('majalah', 'totalMajalah', 'totalHalaman'));
     }
     
     // Admin CRUD Methods
@@ -191,6 +191,37 @@ class MajalahController extends Controller
             'success' => true, 
             'message' => "Majalah berhasil $status!",
             'is_active' => $majalah->is_active
+        ]);
+    }
+
+    /**
+     * API endpoint to get magazine pages for flipbook
+     */
+    public function getPages($id)
+    {
+        $majalah = Majalah::with('pages')->findOrFail($id);
+        
+        if (!$majalah->is_active) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Majalah tidak aktif'
+            ], 404);
+        }
+
+        $pages = $majalah->pages()
+            ->orderBy('page_number')
+            ->select('page_number', 'image_path', 'title', 'description')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'magazine' => [
+                'id' => $majalah->id,
+                'judul' => $majalah->judul,
+                'deskripsi' => $majalah->deskripsi,
+                'total_pages' => $majalah->total_pages
+            ],
+            'pages' => $pages
         ]);
     }
 }

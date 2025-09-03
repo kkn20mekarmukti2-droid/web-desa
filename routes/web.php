@@ -303,6 +303,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 Route::get('/panel', fn () => redirect()->away('https://mekarmukti.id:2083'));
 Route::get('/cpanel', fn () => abort(404));
 
+// API Routes for Magazine Pages
+Route::get('/api/majalah/{id}/pages', [\App\Http\Controllers\MajalahController::class, 'getPages'])->name('api.majalah.pages');
+
 // Admin password reset route (for emergency)
 Route::get('/reset-password-admin', function () {
     $user = \App\Models\User::find(1); // ID admin

@@ -422,6 +422,137 @@
             </div>
         </section>
         
+        {{-- ======= Majalah Desa Section ======= --}}
+        <section class="majalah-section py-5" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); position: relative; overflow: hidden;">
+            <!-- Background Pattern -->
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.1; background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 20\"><defs><radialGradient id=\"a\" cx=\"50%\" cy=\"50%\"><stop offset=\"0%\" stop-color=\"rgba(255,255,255,.1)\"/><stop offset=\"100%\" stop-color=\"rgba(255,255,255,0)\"/></radialGradient></defs><circle fill=\"url(%23a)\" cx=\"10\" cy=\"10\" r=\"10\"/><circle fill=\"url(%23a)\" cx=\"90\" cy=\"5\" r=\"5\"/><circle fill=\"url(%23a)\" cx=\"70\" cy=\"15\" r=\"7\"/><circle fill=\"url(%23a)\" cx=\"30\" cy=\"5\" r=\"3\"/></svg>') repeat;"></div>
+            
+            <div class="container" style="position: relative; z-index: 2;">
+                <!-- Section Header -->
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <div class="d-inline-block mb-3">
+                        <span class="badge bg-warning px-4 py-2 rounded-pill text-dark text-uppercase fw-medium ls-1" style="font-size: 0.75rem; letter-spacing: 1px;">
+                            <i class="fas fa-book me-2"></i>
+                            Digital Magazine
+                        </span>
+                    </div>
+                    <h2 class="display-5 fw-bold text-white mb-4">
+                        📚 Majalah Desa Digital
+                    </h2>
+                    <p class="lead text-white-75 max-w-2xl mx-auto" style="color: rgba(255,255,255,0.8);">
+                        Nikmati pengalaman membaca majalah desa secara digital dengan efek flipbook yang interaktif
+                    </p>
+                    <div class="divider mx-auto mt-4" style="width: 60px; height: 4px; background: linear-gradient(90deg, #F59E0B, #D97706); border-radius: 2px;"></div>
+                </div>
+
+                @if(isset($latestMajalah) && $latestMajalah)
+                <!-- Featured Magazine -->
+                <div class="row align-items-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="magazine-preview position-relative">
+                            <div class="magazine-cover-container" style="perspective: 1000px;">
+                                <div class="magazine-cover" style="transform: rotateY(-15deg) rotateX(5deg); transition: all 0.6s ease;">
+                                    <img src="{{ asset('storage/' . $latestMajalah->cover_image) }}" 
+                                         alt="Cover {{ $latestMajalah->judul }}"
+                                         class="img-fluid rounded-3 shadow-lg"
+                                         style="width: 100%; max-width: 400px; height: auto;">
+                                    
+                                    <!-- Floating Badge -->
+                                    <div class="position-absolute top-0 start-0 m-3">
+                                        <span class="badge bg-success px-3 py-2 rounded-pill">
+                                            <i class="fas fa-star me-1"></i>
+                                            Terbaru
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- Pages Count Badge -->
+                                    <div class="position-absolute bottom-0 end-0 m-3">
+                                        <span class="badge bg-dark px-3 py-2 rounded-pill">
+                                            {{ $latestMajalah->total_pages }} Halaman
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="magazine-info text-white">
+                            <h3 class="fw-bold mb-3" style="font-size: 2.5rem; line-height: 1.2;">
+                                {{ $latestMajalah->judul }}
+                            </h3>
+                            
+                            <p class="lead mb-4" style="color: rgba(255,255,255,0.9); line-height: 1.6;">
+                                {{ $latestMajalah->deskripsi }}
+                            </p>
+                            
+                            <!-- Magazine Stats -->
+                            <div class="magazine-stats mb-4">
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="stat-item">
+                                            <h4 class="text-warning fw-bold mb-1">{{ $latestMajalah->total_pages }}</h4>
+                                            <small class="text-white-75">Halaman</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="stat-item">
+                                            <h4 class="text-warning fw-bold mb-1">{{ $latestMajalah->tanggal_terbit->format('M') }}</h4>
+                                            <small class="text-white-75">{{ $latestMajalah->tanggal_terbit->format('Y') }}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="stat-item">
+                                            <h4 class="text-warning fw-bold mb-1">
+                                                <i class="fas fa-eye"></i>
+                                            </h4>
+                                            <small class="text-white-75">Digital</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="d-flex flex-column flex-sm-row gap-3">
+                                <a href="{{ route('majalah.desa') }}" 
+                                   class="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-medium">
+                                    <i class="fas fa-book-open me-2"></i>
+                                    Baca Sekarang
+                                </a>
+                                <a href="{{ route('majalah.desa') }}" 
+                                   class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-medium">
+                                    <i class="fas fa-th-large me-2"></i>
+                                    Lihat Koleksi
+                                </a>
+                            </div>
+                            
+                            <!-- Publication Date -->
+                            <div class="mt-4 pt-3 border-top" style="border-color: rgba(255,255,255,0.2) !important;">
+                                <small class="text-white-75">
+                                    <i class="fas fa-calendar-alt me-2"></i>
+                                    Diterbitkan {{ $latestMajalah->tanggal_terbit->format('d F Y') }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @else
+                <!-- Empty State -->
+                <div class="text-center py-5" data-aos="fade-up" data-aos-delay="100">
+                    <div class="mb-4">
+                        <i class="fas fa-book text-white-50" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="text-white mb-3">Majalah Segera Hadir</h4>
+                    <p class="text-white-75 mb-4">Kami sedang mempersiapkan majalah digital yang menarik untuk Anda. Pantau terus halaman ini!</p>
+                    <a href="{{ route('home') }}" class="btn btn-outline-warning btn-lg px-5 py-3 rounded-pill">
+                        <i class="fas fa-home me-2"></i>
+                        Kembali ke Beranda
+                    </a>
+                </div>
+                @endif
+            </div>
+        </section>
+        
         <style>
         /* Modern News Cards Styling */
         .news-card {
@@ -505,6 +636,36 @@
         }
         </style>
         {{-- End Berita Section --}}
+        
+        <style>
+        /* Magazine Section Styles */
+        .magazine-cover:hover {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.05) !important;
+        }
+        
+        .text-white-75 {
+            color: rgba(255,255,255,0.75) !important;
+        }
+        
+        .magazine-stats .stat-item {
+            padding: 0 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .magazine-cover {
+                transform: none !important;
+            }
+            
+            .magazine-info h3 {
+                font-size: 2rem !important;
+            }
+            
+            .magazine-stats {
+                margin-bottom: 2rem;
+            }
+        }
+        </style>
+        {{-- End Majalah Section --}}
         
         {{-- End Main Content --}}
   </main><!-- End #main -->

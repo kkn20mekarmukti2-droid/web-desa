@@ -30,11 +30,4 @@ class MajalahPage extends Model
     {
         return asset('storage/' . $this->image_path);
     }
-}space App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class MajalahPage extends Model
-{
-    //
 }
