@@ -1,22 +1,42 @@
 @extends('layout.app')
 @section('judul', 'Galeri Desa Mekarmukti')
 @section('content')
-    <main id="main">
+<main class="mt-20 w-full mb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- ======= Our Services Section ======= -->
-        <section class="breadcrumbs">
-            <div class="container">
-
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2>Galeri</h2>
-                    <ol>
-                        <li><a href="index.html">Beranda</a></li>
-                        <li>Galeri</li>
-                    </ol>
+        {{-- Hero Section with Breadcrumb --}}
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-600 via-blue-600 to-indigo-800 shadow-2xl mb-8">
+            <div class="absolute inset-0 bg-black/20"></div>
+            <div class="relative px-8 py-16 text-center">
+                <div class="mb-4">
+                    <nav class="flex justify-center" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 md:space-x-3 text-white/80">
+                            <li class="inline-flex items-center">
+                                <a href="{{ route('home') }}" class="text-white/70 hover:text-white transition-colors">
+                                    <i class="fa-solid fa-house"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-chevron-right text-white/60 mx-2"></i>
+                                    <span class="text-white font-medium">Galeri Desa</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
                 </div>
-
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                    Galeri Desa
+                </h1>
+                <p class="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                    Kumpulan dokumentasi kegiatan, momen berharga, dan kehidupan sehari-hari masyarakat Desa Mekarmukti
+                </p>
             </div>
-        </section>
+            <!-- Animated background elements -->
+            <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
+            <div class="absolute bottom-10 right-10 w-16 h-16 bg-white/5 rounded-full animate-bounce"></div>
+            <div class="absolute top-1/3 left-1/3 w-12 h-12 bg-white/5 rounded-full animate-ping"></div>
+        </div>
 
         <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
             <div class="container">
