@@ -56,12 +56,52 @@ class galleryController extends Controller
         return view("galeri", compact('gallery'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'nullable|string|max:255',
+            'album' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $gallery = galleryModel::findOrFail($id);
+        
+        // Update basic fields
+        $gallery->judul = $request->input('judul');
+        $gallery->album = $request->input('album');
+
+        // Handle image upload if provided
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($gallery->url && file_exists(public_path('galeri/' . $gallery->url))) {
+                unlink(public_path('galeri/' . $gallery->url));
+            }
+
+            // Upload new image
+            $originName = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $nama = $fileName . '_' . time() . '.' . $extension;
+            $request->file('image')->move(public_path('galeri'), $nama);
+            $gallery->url = $nama;
+        }
+
+        $gallery->save();
+
+        return redirect()->route('gallery.manage.modern')->with('success', 'Gallery berhasil diperbarui.');
+    }
 
     public function destroy($id)
     {
         $gallery = galleryModel::findOrFail($id);
+        
+        // Delete physical file if exists
+        if ($gallery->url && file_exists(public_path('galeri/' . $gallery->url))) {
+            unlink(public_path('galeri/' . $gallery->url));
+        }
+        
         $gallery->delete();
 
-        return redirect()->route('gallery.index')->with('success', 'Gallery item deleted successfully.');
+        return redirect()->route('gallery.manage.modern')->with('success', 'Gallery item deleted successfully.');
     }
 }

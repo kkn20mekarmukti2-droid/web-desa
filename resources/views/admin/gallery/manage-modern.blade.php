@@ -75,7 +75,9 @@
                 <select class="form-select" id="albumFilter">
                     <option value="">Semua Album</option>
                     @foreach($gallery->groupBy('album') as $album => $photos)
-                        <option value="{{ $album }}">{{ $album ?: 'No Album' }} ({{ $photos->count() }})</option>
+                        @if($album)
+                        <option value="{{ $album }}">{{ $album }} ({{ $photos->count() }})</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -131,7 +133,7 @@
         <div id="galleryContainer" class="gallery-list">
             @forelse ($gallery as $item)
             <div class="gallery-item" 
-                 data-album="{{ strtolower($item->album ?: 'no album') }}"
+                 data-album="{{ strtolower($item->album ?: '') }}"
                  data-name="{{ strtolower($item->judul) }}"
                  data-date="{{ $item->created_at }}"
                  data-size="{{ $item->file_size ?? 0 }}">
@@ -178,7 +180,9 @@
                         <div class="gallery-details">
                             <h6 class="gallery-title mb-1">{{ $item->judul }}</h6>
                             <div class="gallery-meta">
-                                <span class="badge badge-primary mb-2">{{ $item->album ?: 'No Album' }}</span>
+                                @if($item->album)
+                                <span class="badge badge-primary mb-2">{{ $item->album }}</span>
+                                @endif
                                 <div class="d-flex flex-wrap gap-2 text-sm text-muted">
                                     <span>
                                         <i class="fas fa-calendar-alt me-1"></i>
@@ -366,7 +370,7 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="editForm" method="POST">
+            <form id="editForm" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -377,6 +381,14 @@
                     <div class="mb-3">
                         <label for="editAlbum" class="form-label">Album</label>
                         <input type="text" class="form-control" id="editAlbum" name="album">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editImage" class="form-label">Ganti Gambar (Opsional)</label>
+                        <input type="file" class="form-control" id="editImage" name="image" accept="image/*">
+                        <div class="form-text">Biarkan kosong jika tidak ingin mengganti gambar</div>
+                        <div id="editImagePreview" class="mt-2" style="display: none;">
+                            <img id="editPreviewImage" src="" alt="Preview" class="img-thumbnail" style="max-height: 150px;">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -926,6 +938,29 @@
         }
     }
 
+    // Image preview for edit modal
+    function setupImagePreview() {
+        const editImageInput = document.getElementById('editImage');
+        if (editImageInput) {
+            editImageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                const previewContainer = document.getElementById('editImagePreview');
+                const previewImage = document.getElementById('editPreviewImage');
+                
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewContainer.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewContainer.style.display = 'none';
+                }
+            });
+        }
+    }
+
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize tooltips
@@ -937,6 +972,9 @@
 
         // Calculate initial storage
         setTimeout(calculateStorageUsed, 100);
+        
+        // Setup image preview
+        setupImagePreview();
 
         // Add event listeners for checkboxes
         document.addEventListener('change', function(e) {

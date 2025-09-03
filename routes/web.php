@@ -7,26 +7,13 @@ use App\Http\Controllers\dataController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\galleryController;
-use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\NotificationTokenController;
 
 /*
 |--------------------------------------------------------------------------
-| Visitor API Routes - Outside middleware for direct access
+| Rute Utama Publik
 |--------------------------------------------------------------------------
 */
-Route::get('/api/visitor-stats', [VisitorController::class, 'getStats'])->name('api.visitor.stats');
-Route::get('/api/visitor-popular', [VisitorController::class, 'getPopularPages'])->name('api.visitor.popular');
-Route::get('/api/visitor-dashboard', [VisitorController::class, 'getDashboardStats'])->name('api.visitor.dashboard');
-
-/*
-|--------------------------------------------------------------------------
-| Rute Utama Publik - dengan Visitor Tracking
-|--------------------------------------------------------------------------
-*/
-
-// Apply visitor middleware to all public routes
-Route::middleware(['visitor'])->group(function () {
 
 // Beranda
 Route::get('/', [homeController::class, 'index'])->name('home');
@@ -153,7 +140,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('admin.gallery.manage-modern', $data);
     })->name('gallery.manage.modern');
     Route::post('/gallery/add', [galleryController::class, 'store'])->name('gallery.store');
-    Route::get('/gallery/destroy/{id}', [galleryController::class, 'destroy'])->name('gallery.delete');
+    Route::put('/gallery/{id}', [galleryController::class, 'update'])->name('gallery.update');
+    Route::delete('/gallery/destroy/{id}', [galleryController::class, 'destroy'])->name('gallery.delete');
     Route::delete('/gallery/bulk-delete', [galleryController::class, 'bulkDestroy'])->name('gallery.bulk-delete');
 
     // Pengaduan Management
@@ -294,8 +282,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     })->name('logout');
     
 }); // End admin routes group
-
-}); // End visitor middleware group
 
 Route::get('/panel', fn () => redirect()->away('https://mekarmukti.id:2083'));
 Route::get('/cpanel', fn () => abort(404));

@@ -27,8 +27,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/RoleHelper.php",
-            "app/Services/VisitorService.php"
+            "app/Helpers/RoleHelper.php"
         ]
     },
     "autoload-dev": {
