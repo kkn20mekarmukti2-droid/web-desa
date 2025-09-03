@@ -39,6 +39,7 @@ Route::get('/berita', [homeController::class, 'berita'])->name('berita');
 Route::get('/berita/{tanggal}/{judul}', [homeController::class, 'tampilberita'])->name('detailartikel');
 
 // Pengaduan
+Route::get('/pengaduan', [homeController::class, 'pengaduan'])->name('pengaduan');
 Route::post('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'store'])->name('pengaduan.store');
 
 // Transparansi Anggaran APBDes
