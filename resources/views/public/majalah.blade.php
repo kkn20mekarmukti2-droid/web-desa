@@ -62,9 +62,19 @@
                 <div class="col-lg-4 col-md-6 mb-4" id="majalah-{{ $magazine->id }}">
                     <div class="magazine-card h-100">
                         <div class="magazine-cover-wrapper">
-                            <img src="{{ asset('storage/' . $magazine->cover_image) }}" 
-                                 alt="Cover {{ $magazine->judul }}"
-                                 class="magazine-cover-image">
+                            @if($magazine->cover_image && file_exists(public_path('storage/' . $magazine->cover_image)))
+                                <img src="{{ asset('storage/' . $magazine->cover_image) }}" 
+                                     alt="Cover {{ $magazine->judul }}"
+                                     class="magazine-cover-image">
+                            @else
+                                <div class="magazine-cover-image d-flex align-items-center justify-content-center" 
+                                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <div class="text-center text-white">
+                                        <i class="fas fa-book fa-3x mb-3"></i>
+                                        <h6>{{ $magazine->judul }}</h6>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="magazine-overlay">
                                 <button class="btn btn-primary btn-read" 
                                         onclick="openMagazine({{ $magazine->id }})">
@@ -358,7 +368,20 @@ function setupFlipbook(magazine, pages) {
     pages.forEach((page, index) => {
         const pageDiv = document.createElement('div');
         pageDiv.className = 'page';
-        pageDiv.innerHTML = `<img src="/storage/${page.image_path}" alt="Halaman ${page.page_number}">`;
+        
+        // Check if image exists approach - we'll use a different method for JS
+        const imgSrc = `/storage/${page.image_path}`;
+        pageDiv.innerHTML = `
+            <img src="${imgSrc}" 
+                 alt="Halaman ${page.page_number}"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                 style="width: 100%; height: 100%; object-fit: contain;">
+            <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); align-items: center; justify-content: center; flex-direction: column;">
+                <i class="fas fa-image text-gray-400" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h5 class="text-gray-600">Halaman ${page.page_number}</h5>
+                <p class="text-gray-500">${page.title || 'Gambar tidak tersedia'}</p>
+            </div>
+        `;
         flipbookContainer.appendChild(pageDiv);
     });
     

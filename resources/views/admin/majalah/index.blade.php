@@ -131,10 +131,17 @@
                                 <td><span class="badge bg-primary">{{ $index + 1 }}</span></td>
                                 <td>
                                     <div class="magazine-cover">
-                                        <img src="{{ asset('storage/' . $item->cover_image) }}" 
-                                             alt="Cover {{ $item->judul }}"
-                                             class="img-thumbnail"
-                                             style="width: 60px; height: 80px; object-fit: cover;">
+                                        @if($item->cover_image && file_exists(public_path('storage/' . $item->cover_image)))
+                                            <img src="{{ asset('storage/' . $item->cover_image) }}" 
+                                                 alt="Cover {{ $item->judul }}"
+                                                 class="img-thumbnail"
+                                                 style="width: 60px; height: 80px; object-fit: cover;">
+                                        @else
+                                            <div class="img-thumbnail d-flex align-items-center justify-content-center" 
+                                                 style="width: 60px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                                <i class="fas fa-book text-white"></i>
+                                            </div>
+                                        @endif
                                     </div>
                                 </td>
                                 <td>

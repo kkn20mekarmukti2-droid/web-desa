@@ -452,10 +452,20 @@
                         <div class="magazine-preview position-relative">
                             <div class="magazine-cover-container" style="perspective: 1000px;">
                                 <div class="magazine-cover" style="transform: rotateY(-15deg) rotateX(5deg); transition: all 0.6s ease;">
-                                    <img src="{{ asset('storage/' . $latestMajalah->cover_image) }}" 
-                                         alt="Cover {{ $latestMajalah->judul }}"
-                                         class="img-fluid rounded-3 shadow-lg"
-                                         style="width: 100%; max-width: 400px; height: auto;">
+                                    @if($latestMajalah->cover_image && file_exists(public_path('storage/' . $latestMajalah->cover_image)))
+                                        <img src="{{ asset('storage/' . $latestMajalah->cover_image) }}" 
+                                             alt="Cover {{ $latestMajalah->judul }}"
+                                             class="img-fluid rounded-3 shadow-lg"
+                                             style="width: 100%; max-width: 400px; height: auto;">
+                                    @else
+                                        <div class="img-fluid rounded-3 shadow-lg d-flex align-items-center justify-content-center" 
+                                             style="width: 100%; max-width: 400px; height: 500px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                            <div class="text-center text-white">
+                                                <i class="fas fa-book fa-4x mb-3"></i>
+                                                <h5>{{ $latestMajalah->judul }}</h5>
+                                            </div>
+                                        </div>
+                                    @endif
                                     
                                     <!-- Floating Badge -->
                                     <div class="position-absolute top-0 start-0 m-3">

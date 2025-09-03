@@ -4,8 +4,23 @@
 
 @section('content')
 <div class="main-content">
-    <div class="page-header">
-        <div class="page-header-content">
+    <div class="page-header"                                    <div class="page-image-wrapper">
+                                        @if($page->image_path && file_exists(public_path('storage/' . $page->image_path)))
+                                            <img src="{{ asset('storage/' . $page->image_path) }}" 
+                                                 alt="Page {{ $page->page_number }}"
+                                                 class="page-preview-image"
+                                                 onclick="openPageModal('{{ asset('storage/' . $page->image_path) }}', {{ $page->page_number }})">
+                                        @else
+                                            <div class="page-preview-image d-flex align-items-center justify-content-center" 
+                                                 style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+                                                <div class="text-center text-muted">
+                                                    <i class="fas fa-image fa-2x mb-2"></i>
+                                                    <p class="mb-0 small">Halaman {{ $page->page_number }}</p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="page-number-badge">{{ $page->page_number }}</div>
+                                    </div>    <div class="page-header-content">
             <h1 class="page-title">📚 {{ $majalah->judul }}</h1>
             <p class="page-subtitle">
                 Diterbitkan {{ $majalah->tanggal_terbit->format('d F Y') }} • 
@@ -44,10 +59,20 @@
                     <div class="card-body text-center">
                         <!-- Cover Image -->
                         <div class="magazine-cover mb-4">
-                            <img src="{{ asset('storage/' . $majalah->cover_image) }}" 
-                                 alt="Cover {{ $majalah->judul }}"
-                                 class="img-fluid rounded shadow-lg"
-                                 style="max-height: 400px;">
+                            @if($majalah->cover_image && file_exists(public_path('storage/' . $majalah->cover_image)))
+                                <img src="{{ asset('storage/' . $majalah->cover_image) }}" 
+                                     alt="Cover {{ $majalah->judul }}"
+                                     class="img-fluid rounded shadow-lg"
+                                     style="max-height: 400px;">
+                            @else
+                                <div class="img-fluid rounded shadow-lg d-flex align-items-center justify-content-center" 
+                                     style="max-height: 400px; height: 400px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <div class="text-center text-white">
+                                        <i class="fas fa-book fa-4x mb-3"></i>
+                                        <h5>{{ $majalah->judul }}</h5>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
 
                         <!-- Magazine Stats -->
@@ -166,10 +191,17 @@
                             <div class="page-list-item mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-2">
-                                        <img src="{{ asset('storage/' . $page->image_path) }}" 
-                                             alt="Page {{ $page->page_number }}"
-                                             class="img-thumbnail page-list-thumb"
-                                             onclick="openPageModal('{{ asset('storage/' . $page->image_path) }}', {{ $page->page_number }})">
+                                        @if($page->image_path && file_exists(public_path('storage/' . $page->image_path)))
+                                            <img src="{{ asset('storage/' . $page->image_path) }}" 
+                                                 alt="Page {{ $page->page_number }}"
+                                                 class="img-thumbnail page-list-thumb"
+                                                 onclick="openPageModal('{{ asset('storage/' . $page->image_path) }}', {{ $page->page_number }})">
+                                        @else
+                                            <div class="img-thumbnail page-list-thumb d-flex align-items-center justify-content-center" 
+                                                 style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+                                                <i class="fas fa-image text-muted"></i>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="col-md-8">
                                         <h6 class="mb-1">{{ $page->title ?: 'Halaman ' . $page->page_number }}</h6>

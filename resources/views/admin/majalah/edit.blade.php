@@ -125,10 +125,20 @@
                                     <i class="fas fa-image text-danger me-2"></i>Cover Saat Ini
                                 </label>
                                 <div class="current-cover mb-3">
-                                    <img src="{{ asset('storage/' . $majalah->cover_image) }}" 
-                                         alt="Current Cover" 
-                                         class="img-thumbnail" 
-                                         style="max-width: 200px; max-height: 250px;">
+                                    @if($majalah->cover_image && file_exists(public_path('storage/' . $majalah->cover_image)))
+                                        <img src="{{ asset('storage/' . $majalah->cover_image) }}" 
+                                             alt="Current Cover" 
+                                             class="img-thumbnail" 
+                                             style="max-width: 200px; max-height: 250px;">
+                                    @else
+                                        <div class="img-thumbnail d-flex align-items-center justify-content-center" 
+                                             style="max-width: 200px; height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                            <div class="text-center text-white">
+                                                <i class="fas fa-book fa-2x mb-2"></i>
+                                                <p class="mb-0 small">No Image</p>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -179,9 +189,19 @@
                             <div class="col-md-3 col-sm-4 col-6 mb-4" data-page-id="{{ $page->id }}">
                                 <div class="page-card">
                                     <div class="page-image-container">
-                                        <img src="{{ asset('storage/' . $page->image_path) }}" 
-                                             alt="Page {{ $page->page_number }}"
-                                             class="page-image">
+                                        @if($page->image_path && file_exists(public_path('storage/' . $page->image_path)))
+                                            <img src="{{ asset('storage/' . $page->image_path) }}" 
+                                                 alt="Page {{ $page->page_number }}"
+                                                 class="page-image">
+                                        @else
+                                            <div class="page-image d-flex align-items-center justify-content-center" 
+                                                 style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+                                                <div class="text-center text-muted">
+                                                    <i class="fas fa-image fa-2x mb-2"></i>
+                                                    <p class="mb-0 small">Page {{ $page->page_number }}</p>
+                                                </div>
+                                            </div>
+                                        @endif
                                         <div class="page-overlay">
                                             <div class="page-actions">
                                                 <button type="button" 
