@@ -217,6 +217,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::patch('/{majalah}/toggle', [\App\Http\Controllers\MajalahController::class, 'toggleActive'])->name('toggle');
         Route::put('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'updatePage'])->name('page.update');
         Route::delete('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'deletePage'])->name('page.delete');
+        
+        // Test images route
+        Route::get('/test-images', function() {
+            $majalah = \App\Models\Majalah::all();
+            return view('admin.majalah.test-images', compact('majalah'));
+        })->name('test.images');
     });
 
     // Manajemen Akun - Redirect to Modern

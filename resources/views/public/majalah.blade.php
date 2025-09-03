@@ -70,6 +70,14 @@
                                 <img src="{{ asset('storage/' . $magazine->cover_image) }}" 
                                      alt="Cover {{ $magazine->judul }}"
                                      class="magazine-cover-image">
+                            @elseif($magazine->cover_image && file_exists(public_path('galeri/' . str_replace('majalah/', '', $magazine->cover_image))))
+                                <img src="{{ asset('galeri/' . str_replace('majalah/', '', $magazine->cover_image)) }}" 
+                                     alt="Cover {{ $magazine->judul }}"
+                                     class="magazine-cover-image">
+                            @elseif($magazine->cover_image)
+                                <img src="{{ asset($magazine->cover_image) }}" 
+                                     alt="Cover {{ $magazine->judul }}"
+                                     class="magazine-cover-image">
                             @else
                                 <div class="magazine-cover-image d-flex align-items-center justify-content-center" 
                                      style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">

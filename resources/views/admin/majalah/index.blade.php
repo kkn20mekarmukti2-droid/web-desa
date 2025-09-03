@@ -136,6 +136,16 @@
                                                  alt="Cover {{ $item->judul }}"
                                                  class="img-thumbnail"
                                                  style="width: 60px; height: 80px; object-fit: cover;">
+                                        @elseif($item->cover_image && file_exists(public_path('storage/' . $item->cover_image)))
+                                            <img src="{{ asset('storage/' . $item->cover_image) }}" 
+                                                 alt="Cover {{ $item->judul }}"
+                                                 class="img-thumbnail"
+                                                 style="width: 60px; height: 80px; object-fit: cover;">
+                                        @elseif($item->cover_image && file_exists(public_path('galeri/' . str_replace('majalah/', '', $item->cover_image))))
+                                            <img src="{{ asset('galeri/' . str_replace('majalah/', '', $item->cover_image)) }}" 
+                                                 alt="Cover {{ $item->judul }}"
+                                                 class="img-thumbnail"
+                                                 style="width: 60px; height: 80px; object-fit: cover;">
                                         @else
                                             <div class="img-thumbnail d-flex align-items-center justify-content-center" 
                                                  style="width: 60px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">

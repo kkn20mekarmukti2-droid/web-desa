@@ -51,20 +51,19 @@ class MajalahController extends Controller
             'pages.*' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        // Upload cover image dengan teknik seperti gallery
+        // Upload cover image dengan pola yang sama seperti gallery
         $coverFile = $request->file('cover_image');
         $originName = $coverFile->getClientOriginalName();
         $fileName = pathinfo($originName, PATHINFO_FILENAME);
         $extension = $coverFile->getClientOriginalExtension();
         $coverFileName = $fileName . '_' . time() . '.' . $extension;
         $coverFile->move(public_path('majalah'), $coverFileName);
-        $coverPath = 'majalah/' . $coverFileName;
 
         // Create majalah
         $majalah = Majalah::create([
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'cover_image' => $coverPath,
+            'cover_image' => 'majalah/' . $coverFileName, // Save with majalah/ prefix
             'tanggal_terbit' => $request->tanggal_terbit,
             'is_active' => $request->boolean('is_active', true)
         ]);
