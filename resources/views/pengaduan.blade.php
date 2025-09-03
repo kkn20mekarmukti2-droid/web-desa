@@ -136,74 +136,53 @@
                                 @enderror
                             </div>
 
-                            {{-- Email --}}
-                            <div>
-                                <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    <i class="fa-solid fa-envelope text-blue-600 mr-2"></i>
-                                    Email (Opsional)
-                                </label>
-                                <input type="email" name="email" id="email"
-                                       value="{{ old('email') }}"
-                                       class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 {{ $errors->has('email') ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500' }}"
-                                       placeholder="contoh@email.com">
-                                @error('email')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-
                             {{-- No HP --}}
                             <div>
                                 <label for="no_hp" class="block text-sm font-semibold text-gray-700 mb-2">
                                     <i class="fa-solid fa-phone text-orange-600 mr-2"></i>
-                                    Nomor HP (Opsional)
+                                    Nomor HP / WhatsApp *
                                 </label>
-                                <input type="tel" name="no_hp" id="no_hp"
+                                <input type="tel" name="no_hp" id="no_hp" required
                                        value="{{ old('no_hp') }}"
                                        class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 {{ $errors->has('no_hp') ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-orange-500 focus:border-orange-500' }}"
-                                       placeholder="08xxxxxxxxx">
+                                       placeholder="Contoh: 08123456789">
                                 @error('no_hp')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            {{-- Kategori --}}
+                            {{-- Alamat Lengkap --}}
                             <div>
-                                <label for="kategori" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    <i class="fa-solid fa-tags text-purple-600 mr-2"></i>
-                                    Kategori Pengaduan *
+                                <label for="alamat_lengkap" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    <i class="fa-solid fa-map-marker-alt text-blue-600 mr-2"></i>
+                                    Alamat Lengkap *
                                 </label>
-                                <select name="kategori" id="kategori" required
-                                        class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 {{ $errors->has('kategori') ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-purple-500 focus:border-purple-500' }}">
-                                    <option value="">Pilih kategori pengaduan</option>
-                                    <option value="infrastruktur" {{ old('kategori') == 'infrastruktur' ? 'selected' : '' }}>Infrastruktur</option>
-                                    <option value="pelayanan" {{ old('kategori') == 'pelayanan' ? 'selected' : '' }}>Pelayanan Publik</option>
-                                    <option value="lingkungan" {{ old('kategori') == 'lingkungan' ? 'selected' : '' }}>Lingkungan</option>
-                                    <option value="sosial" {{ old('kategori') == 'sosial' ? 'selected' : '' }}>Sosial Kemasyarakatan</option>
-                                    <option value="ekonomi" {{ old('kategori') == 'ekonomi' ? 'selected' : '' }}>Ekonomi</option>
-                                    <option value="keamanan" {{ old('kategori') == 'keamanan' ? 'selected' : '' }}>Keamanan</option>
-                                    <option value="lainnya" {{ old('kategori') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
-                                </select>
-                                @error('kategori')
+                                <textarea name="alamat_lengkap" id="alamat_lengkap" rows="3" required
+                                          class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 resize-none {{ $errors->has('alamat_lengkap') ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500' }}"
+                                          placeholder="Contoh: Jl. Merdeka No. 123, RT/RW 01/02, Desa Mekarmukti, Kec. Cihampelas">{{ old('alamat_lengkap') }}</textarea>
+                                @error('alamat_lengkap')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             {{-- Isi Pengaduan --}}
                             <div>
-                                <label for="isi_pengaduan" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <label for="isi" class="block text-sm font-semibold text-gray-700 mb-2">
                                     <i class="fa-solid fa-file-text text-indigo-600 mr-2"></i>
                                     Isi Pengaduan *
                                 </label>
-                                <textarea name="isi_pengaduan" id="isi_pengaduan" rows="6" required
-                                          class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 resize-none {{ $errors->has('isi_pengaduan') ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500' }}"
-                                          placeholder="Jelaskan keluhan, saran, atau aspirasi Anda dengan detail...">{{ old('isi_pengaduan') }}</textarea>
+                                <textarea name="isi" id="isi" rows="6" required
+                                          class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 resize-none {{ $errors->has('isi') ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500' }}"
+                                          placeholder="Tuliskan keluhan, saran, atau aspirasi Anda secara detail dan jelas. Sertakan informasi seperti lokasi kejadian, waktu, dan hal-hal penting lainnya...">{{ old('isi') }}</textarea>
                                 <div class="flex justify-between items-center mt-2">
-                                    @error('isi_pengaduan')
+                                    @error('isi')
                                         <p class="text-red-500 text-sm">{{ $message }}</p>
                                     @else
-                                        <p class="text-gray-500 text-sm">Minimum 20 karakter</p>
+                                        <p class="text-gray-500 text-sm">
+                                            <i class="fa-solid fa-lightbulb mr-1"></i>
+                                            Tips: Berikan informasi yang lengkap agar kami dapat memproses pengaduan Anda dengan lebih baik
+                                        </p>
                                     @enderror
-                                    <p class="text-gray-400 text-sm" id="charCount">0/500</p>
                                 </div>
                             </div>
 
@@ -282,23 +261,6 @@
 @section('script')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Character counter for textarea
-        const textarea = document.getElementById('isi_pengaduan');
-        const charCount = document.getElementById('charCount');
-        
-        textarea.addEventListener('input', function() {
-            const count = this.value.length;
-            charCount.textContent = count + '/500';
-            
-            if (count > 500) {
-                charCount.classList.add('text-red-500');
-                charCount.classList.remove('text-gray-400');
-            } else {
-                charCount.classList.remove('text-red-500');
-                charCount.classList.add('text-gray-400');
-            }
-        });
-
         // Form validation and submission
         const form = document.getElementById('pengaduanForm');
         form.addEventListener('submit', function(e) {
@@ -307,20 +269,53 @@
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin mr-2"></i>Mengirim...';
         });
 
-        // Auto-resize textarea
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
+        // Auto-resize textareas
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
         });
+
+        // Phone number formatting
+        const phoneInput = document.querySelector('input[name="no_hp"]');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                // Ensure starts with 08 or 628
+                if (value.startsWith('8')) {
+                    value = '0' + value;
+                } else if (value.startsWith('628')) {
+                    // Keep as is (international format)
+                }
+                
+                e.target.value = value;
+            });
+        }
 
         // Form reset functionality
         const resetBtn = document.querySelector('button[type="reset"]');
-        resetBtn.addEventListener('click', function() {
-            charCount.textContent = '0/500';
-            charCount.classList.remove('text-red-500');
-            charCount.classList.add('text-gray-400');
-            textarea.style.height = 'auto';
-        });
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                textareas.forEach(textarea => {
+                    textarea.style.height = 'auto';
+                });
+            });
+        }
+
+        // Success message auto-hide
+        const successAlert = document.querySelector('.bg-green-50');
+        if (successAlert) {
+            setTimeout(() => {
+                successAlert.style.opacity = '0';
+                successAlert.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    successAlert.remove();
+                }, 300);
+            }, 5000);
+        }
     });
 </script>
 @endsection

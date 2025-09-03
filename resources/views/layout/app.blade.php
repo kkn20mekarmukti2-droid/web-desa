@@ -649,13 +649,11 @@
                     </a>
                     
                     <!-- Enhanced CTA Button -->
-                    <button type="button" 
-                            class="btn-enhanced px-6 py-3 text-sm font-semibold flex items-center space-x-2"
-                            data-bs-toggle="modal" 
-                            data-bs-target="#formPengaduan">
+                    <a href="{{ route('pengaduan') }}" 
+                       class="btn-enhanced px-6 py-3 text-sm font-semibold flex items-center space-x-2">
                         <i class="bi bi-chat-dots-fill"></i>
                         <span>Buat Pengaduan</span>
-                    </button>
+                    </a>
                 </nav>
                 
                 <!-- Enhanced Mobile Menu Button -->
@@ -764,13 +762,11 @@
                         
                         <!-- Enhanced CTA Button -->
                         <div class="pt-4 border-t border-gray-600 mt-6">
-                            <button type="button" 
-                                    class="btn-enhanced w-full px-6 py-4 text-center font-semibold flex items-center justify-center space-x-3"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#formPengaduan">
+                            <a href="{{ route('pengaduan') }}" 
+                               class="btn-enhanced w-full px-6 py-4 text-center font-semibold flex items-center justify-center space-x-3">
                                 <i class="bi bi-chat-dots-fill text-lg"></i>
                                 <span>Buat Pengaduan</span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </nav>
