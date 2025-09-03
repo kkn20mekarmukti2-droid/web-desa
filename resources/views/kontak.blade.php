@@ -9,7 +9,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Kontak Desa</h2>
                     <ol>
-                        <li><a href="{{ route('beranda') }}">Beranda</a></li>
+                        <li><a href="{{ route('home') }}">Beranda</a></li>
                         <li>Kontak</li>
                     </ol>
                 </div>
@@ -106,7 +106,7 @@
                                         <i class="fas fa-comment-dots me-2"></i>
                                         Buat Pengaduan
                                     </a>
-                                    <a href="{{ route('beranda') }}" class="btn btn-outline-light btn-lg">
+                                    <a href="{{ route('home') }}" class="btn btn-outline-light btn-lg">
                                         <i class="fas fa-home me-2"></i>
                                         Kembali ke Beranda
                                     </a>
