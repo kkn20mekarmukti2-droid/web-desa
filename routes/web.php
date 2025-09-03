@@ -213,7 +213,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/', [\App\Http\Controllers\MajalahController::class, 'adminIndex'])->name('index');
         Route::patch('/{id}/toggle', [\App\Http\Controllers\MajalahController::class, 'toggleStatus'])->name('toggle');
     });
-    });
 
     // Manajemen Akun - Redirect to Modern
     Route::get('/manage-akun', function() {
