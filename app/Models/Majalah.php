@@ -13,41 +13,28 @@ class Majalah extends Model
 
     protected $fillable = [
         'judul',
-        'cover_image', // Change from 'url' to 'cover_image'  
-        'deskripsi',
+        'deskripsi', 
+        'cover_image',
         'is_active',
-        'tanggal_terbit',
-        'created_by'
+        'tanggal_terbit'
     ];
 
     protected $casts = [
         'tanggal_terbit' => 'date',
         'is_active' => 'boolean',
         'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'updated_at' => 'datetime'
     ];
 
-    // Accessor for URL field (for backward compatibility with views)
-    public function getUrlAttribute()
+    // Relationship dengan halaman majalah
+    public function pages()
     {
-        return $this->cover_image;
+        return $this->hasMany(MajalahPage::class, 'majalah_id')->orderBy('page_number');
     }
 
-    // Mutator for URL field (for backward compatibility with forms)
-    public function setUrlAttribute($value)
+    // Helper untuk mendapatkan total halaman
+    public function getTotalPagesAttribute()
     {
-        $this->attributes['cover_image'] = $value;
-    }
-
-    // Add type attribute for gallery compatibility
-    public function getTypeAttribute()
-    {
-        return 'cover';
-    }
-
-    // Add created_by for compatibility
-    public function getCreatedByAttribute()
-    {
-        return 'Admin Desa';
+        return $this->pages()->count();
     }
 }

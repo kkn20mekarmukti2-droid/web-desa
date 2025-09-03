@@ -3,64 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Majalah;
+use App\Models\MajalahPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MajalahController extends Controller
 {
-    public function index()
+    public function adminIndex()
     {
         $majalah = Majalah::orderBy('created_at', 'desc')->get();
-        return view('admin.majalah.manage-modern', compact('majalah'));
-    }
-    
-    public function store(Request $request)
-    {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'url' => 'required|file|mimes:jpeg,png,jpg,gif|max:5120',
-        ]);
-
-        $majalah = new Majalah();
-        $majalah->judul = $request->input('judul');
-        $majalah->deskripsi = 'Cover majalah digital desa';
-        $majalah->is_active = true;
-        $majalah->tanggal_terbit = now();
-        
-        if ($request->hasFile('url')) {
-            $originName = $request->file('url')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('url')->getClientOriginalExtension();
-            $nama = $fileName . '_' . time() . '.' . $extension;
-            
-            // Try multiple directories for better compatibility
-            $uploaded = false;
-            $directories = ['majalah', 'galeri'];
-            
-            foreach ($directories as $dir) {
-                try {
-                    if (!file_exists(public_path($dir))) {
-                        mkdir(public_path($dir), 0755, true);
-                    }
-                    
-                    if ($request->file('url')->move(public_path($dir), $nama)) {
-                        $majalah->cover_image = $dir . '/' . $nama;
-                        $uploaded = true;
-                        break;
-                    }
-                } catch (Exception $e) {
-                    continue;
-                }
-            }
-            
-            if (!$uploaded) {
-                return redirect()->back()->with('error', 'Gagal mengupload file.');
-            }
-        }
-        
-        $majalah->save();
-
-        return redirect()->route('majalah.index')->with('success', 'Majalah berhasil ditambahkan.');
+        return view('admin.majalah.index', compact('majalah'));
     }
     
     public function publicIndex()
@@ -69,101 +21,54 @@ class MajalahController extends Controller
         return view("public.majalah", compact('majalah'));
     }
 
-    public function update(Request $request, $id)
+    public function getPages($id)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
-        ]);
-
-        $majalah = Majalah::findOrFail($id);
-        
-        // Update basic fields
-        $majalah->judul = $request->input('judul');
-
-        // Handle image upload if provided
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($majalah->cover_image) {
-                $oldImagePath = public_path($majalah->cover_image);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-
-            // Upload new image
-            $originName = $request->file('image')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $nama = $fileName . '_' . time() . '.' . $extension;
+        try {
+            $majalah = Majalah::findOrFail($id);
+            $pages = $majalah->pages()->orderBy('page_number')->get();
             
-            // Try multiple directories for better compatibility
-            $uploaded = false;
-            $directories = ['majalah', 'galeri'];
-            
-            foreach ($directories as $dir) {
-                try {
-                    if (!file_exists(public_path($dir))) {
-                        mkdir(public_path($dir), 0755, true);
-                    }
-                    
-                    if ($request->file('image')->move(public_path($dir), $nama)) {
-                        $majalah->cover_image = $dir . '/' . $nama;
-                        $uploaded = true;
-                        break;
-                    }
-                } catch (Exception $e) {
-                    continue;
-                }
-            }
-            
-            if (!$uploaded) {
-                return redirect()->back()->with('error', 'Gagal mengupload file.');
-            }
+            return response()->json([
+                'success' => true,
+                'magazine' => [
+                    'id' => $majalah->id,
+                    'judul' => $majalah->judul,
+                    'deskripsi' => $majalah->deskripsi,
+                    'total_pages' => $majalah->total_pages,
+                ],
+                'pages' => $pages->map(function($page) {
+                    return [
+                        'id' => $page->id,
+                        'title' => $page->title,
+                        'page_number' => $page->page_number,
+                        'image_path' => $page->image_path
+                    ];
+                })
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Majalah tidak ditemukan'
+            ], 404);
         }
-
-        $majalah->save();
-
-        return redirect()->route('majalah.index')->with('success', 'Majalah berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    public function toggleStatus($id)
     {
-        $majalah = Majalah::findOrFail($id);
-        
-        // Delete physical file if exists
-        if ($majalah->cover_image) {
-            $imagePath = public_path($majalah->cover_image);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+        try {
+            $majalah = Majalah::findOrFail($id);
+            $majalah->is_active = !$majalah->is_active;
+            $majalah->save();
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Status majalah berhasil diubah',
+                'is_active' => $majalah->is_active
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengubah status majalah'
+            ], 500);
         }
-        
-        $majalah->delete();
-
-        return redirect()->route('majalah.index')->with('success', 'Majalah berhasil dihapus.');
-    }
-
-    public function bulkDelete(Request $request)
-    {
-        $ids = explode(',', $request->input('ids'));
-        $deleted = 0;
-        
-        foreach ($ids as $id) {
-            $majalah = Majalah::find($id);
-            if ($majalah) {
-                // Delete physical file if exists
-                if ($majalah->cover_image) {
-                    $imagePath = public_path($majalah->cover_image);
-                    if (file_exists($imagePath)) {
-                        unlink($imagePath);
-                    }
-                }
-                $majalah->delete();
-                $deleted++;
-            }
-        }
-        
-        return redirect()->route('majalah.index')->with('success', "Berhasil menghapus {$deleted} majalah.");
     }
 }

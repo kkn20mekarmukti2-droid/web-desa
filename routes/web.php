@@ -31,6 +31,9 @@ Route::resource('produk-umkm', App\Http\Controllers\ProdukUmkmController::class)
 // Galeri
 Route::get('/galeri-desa', [galleryController::class, 'galeri'])->name('galeri');
 
+// Majalah
+Route::get('/majalah', [\App\Http\Controllers\MajalahController::class, 'publicIndex'])->name('majalah');
+
 // Kontak
 Route::get('/kontak-desa', [homeController::class, 'kontak'])->name('kontak');
 
@@ -41,9 +44,6 @@ Route::get('/berita/{tanggal}/{judul}', [homeController::class, 'tampilberita'])
 // Pengaduan
 Route::get('/pengaduan', [homeController::class, 'pengaduan'])->name('pengaduan');
 Route::post('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'store'])->name('pengaduan.store');
-
-// Majalah Desa
-Route::get('/majalah-desa', [\App\Http\Controllers\MajalahController::class, 'publicIndex'])->name('majalah.desa');
 
 // Transparansi Anggaran APBDes
 Route::get('/transparansi-anggaran', [\App\Http\Controllers\ApbdesController::class, 'transparansi'])->name('transparansi.anggaran');
@@ -66,6 +66,9 @@ Route::prefix('data')->group(function () {
 // API / Token / Grafik
 Route::get('/getdatades', [dataController::class, 'getChartData'])->name('getdatades');
 Route::post('/save-token', [NotificationTokenController::class, 'saveToken'])->name('save.token');
+
+// API Majalah untuk flipbook
+Route::get('/api/majalah/{id}/pages', [\App\Http\Controllers\MajalahController::class, 'getPages'])->name('api.majalah.pages');
 
 // Debug route for troubleshooting chart data
 Route::get('/debug-chart-data', function () {
@@ -205,31 +208,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::delete('/{id}', [\App\Http\Controllers\HeroImageController::class, 'destroy'])->name('destroy');
     });
 
-    // Majalah Desa Admin Management - Modern Routes (Simple Gallery-like)
-    Route::prefix('majalah')->name('majalah.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'index'])->name('index');
-        Route::get('/manage', [\App\Http\Controllers\MajalahController::class, 'index'])->name('manage');
-        Route::post('/', [\App\Http\Controllers\MajalahController::class, 'store'])->name('store');
-        Route::put('/{id}', [\App\Http\Controllers\MajalahController::class, 'update'])->name('update');
-        Route::delete('/{id}', [\App\Http\Controllers\MajalahController::class, 'destroy'])->name('destroy');
-        Route::delete('/bulk-delete', [\App\Http\Controllers\MajalahController::class, 'bulkDelete'])->name('bulk-delete');
+    // Majalah Admin Management
+    Route::prefix('majalah')->name('admin.majalah.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'adminIndex'])->name('index');
+        Route::patch('/{id}/toggle', [\App\Http\Controllers\MajalahController::class, 'toggleStatus'])->name('toggle');
     });
-
-    // Legacy Majalah Desa Admin Management
-    Route::prefix('majalah-legacy')->name('admin.majalah.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'legacyIndex'])->name('index');
-        Route::get('/create', [\App\Http\Controllers\MajalahController::class, 'create'])->name('create');
-        Route::get('/{majalah}', [\App\Http\Controllers\MajalahController::class, 'show'])->name('show');
-        Route::get('/{majalah}/edit', [\App\Http\Controllers\MajalahController::class, 'edit'])->name('edit');
-        Route::patch('/{majalah}/toggle', [\App\Http\Controllers\MajalahController::class, 'toggleActive'])->name('toggle');
-        Route::put('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'updatePage'])->name('page.update');
-        Route::delete('/page/{page}', [\App\Http\Controllers\MajalahController::class, 'deletePage'])->name('page.delete');
-        
-        // Test images route
-        Route::get('/test-images', function() {
-            $majalah = \App\Models\Majalah::all();
-            return view('admin.majalah.test-images', compact('majalah'));
-        })->name('test.images');
     });
 
     // Manajemen Akun - Redirect to Modern
