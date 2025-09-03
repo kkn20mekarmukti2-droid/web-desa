@@ -207,7 +207,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Majalah Desa Admin Management - Modern Routes (Simple Gallery-like)
     Route::prefix('majalah')->name('majalah.')->group(function () {
-        Route::get('/manage', [\App\Http\Controllers\MajalahController::class, 'index'])->name('index');
+        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'index'])->name('index');
+        Route::get('/manage', [\App\Http\Controllers\MajalahController::class, 'index'])->name('manage');
         Route::post('/', [\App\Http\Controllers\MajalahController::class, 'store'])->name('store');
         Route::put('/{id}', [\App\Http\Controllers\MajalahController::class, 'update'])->name('update');
         Route::delete('/{id}', [\App\Http\Controllers\MajalahController::class, 'destroy'])->name('destroy');

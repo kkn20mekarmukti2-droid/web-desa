@@ -10,11 +10,8 @@ class MajalahController extends Controller
 {
     public function index()
     {
-        $artikel = (Auth::user()->role == 0)
-        ? Majalah::all()
-        : Majalah::where('created_by', Auth::user()->id)->get();
-        $majalah = Majalah::all();
-        return view('admin.majalah.manage', compact('majalah'));
+        $majalah = Majalah::orderBy('created_at', 'desc')->get();
+        return view('admin.majalah.manage-modern', compact('majalah'));
     }
     
     public function store(Request $request)
@@ -68,8 +65,8 @@ class MajalahController extends Controller
     
     public function publicIndex()
     {
-        $majalah = Majalah::all();
-        return view("majalah", compact('majalah'));
+        $majalah = Majalah::where('is_active', true)->orderBy('created_at', 'desc')->get();
+        return view("public.majalah", compact('majalah'));
     }
 
     public function update(Request $request, $id)
