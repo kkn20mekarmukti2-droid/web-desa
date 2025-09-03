@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pengaduan;
+use Carbon\Carbon;
 
 class PengaduanController extends Controller {
     
@@ -18,7 +19,15 @@ class PengaduanController extends Controller {
             'isi.required' => 'Isi pengaduan harus diisi',
         ]);
         
-        Pengaduan::create($request->only(['nama','no_hp','alamat_lengkap','isi']));
+        // Create pengaduan with proper timezone
+        Pengaduan::create([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'alamat_lengkap' => $request->alamat_lengkap,
+            'isi' => $request->isi,
+            'created_at' => Carbon::now('Asia/Jakarta'),
+            'updated_at' => Carbon::now('Asia/Jakarta'),
+        ]);
         
         // Handle AJAX request
         if ($request->ajax()) {
