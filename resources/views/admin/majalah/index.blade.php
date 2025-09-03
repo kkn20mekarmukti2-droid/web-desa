@@ -131,8 +131,8 @@
                                 <td><span class="badge bg-primary">{{ $index + 1 }}</span></td>
                                 <td>
                                     <div class="magazine-cover">
-                                        @if($item->cover_image && file_exists(public_path('storage/' . $item->cover_image)))
-                                            <img src="{{ asset('storage/' . $item->cover_image) }}" 
+                                        @if($item->cover_image && file_exists(public_path($item->cover_image)))
+                                            <img src="{{ asset($item->cover_image) }}" 
                                                  alt="Cover {{ $item->judul }}"
                                                  class="img-thumbnail"
                                                  style="width: 60px; height: 80px; object-fit: cover;">

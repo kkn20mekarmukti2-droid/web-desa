@@ -51,8 +51,11 @@ class MajalahController extends Controller
             'pages.*' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        // Upload cover image
-        $coverPath = $request->file('cover_image')->store('majalah/covers', 'public');
+        // Upload cover image ke public/majalah
+        $coverFile = $request->file('cover_image');
+        $coverFileName = time() . '_cover_' . $coverFile->getClientOriginalName();
+        $coverFile->move(public_path('majalah'), $coverFileName);
+        $coverPath = 'majalah/' . $coverFileName;
 
         // Create majalah
         $majalah = Majalah::create([
@@ -63,10 +66,18 @@ class MajalahController extends Controller
             'is_active' => $request->boolean('is_active', true)
         ]);
 
-        // Upload pages
+        // Upload pages ke public/majalah/pages
         if ($request->hasFile('pages')) {
+            // Buat folder pages jika belum ada
+            $pagesDir = public_path('majalah/pages/' . $majalah->id);
+            if (!file_exists($pagesDir)) {
+                mkdir($pagesDir, 0755, true);
+            }
+            
             foreach ($request->file('pages') as $index => $page) {
-                $pagePath = $page->store('majalah/pages/' . $majalah->id, 'public');
+                $pageFileName = 'page_' . ($index + 1) . '_' . time() . '.' . $page->getClientOriginalExtension();
+                $page->move($pagesDir, $pageFileName);
+                $pagePath = 'majalah/pages/' . $majalah->id . '/' . $pageFileName;
                 
                 MajalahPage::create([
                     'majalah_id' => $majalah->id,
@@ -112,10 +123,14 @@ class MajalahController extends Controller
         // Update cover image if provided
         if ($request->hasFile('cover_image')) {
             // Delete old cover
-            if ($majalah->cover_image) {
-                Storage::disk('public')->delete($majalah->cover_image);
+            if ($majalah->cover_image && file_exists(public_path($majalah->cover_image))) {
+                unlink(public_path($majalah->cover_image));
             }
-            $updateData['cover_image'] = $request->file('cover_image')->store('majalah/covers', 'public');
+            
+            $coverFile = $request->file('cover_image');
+            $coverFileName = time() . '_cover_' . $coverFile->getClientOriginalName();
+            $coverFile->move(public_path('majalah'), $coverFileName);
+            $updateData['cover_image'] = 'majalah/' . $coverFileName;
         }
 
         $majalah->update($updateData);
@@ -127,13 +142,21 @@ class MajalahController extends Controller
     public function destroy(Majalah $majalah)
     {
         // Delete cover image
-        if ($majalah->cover_image) {
-            Storage::disk('public')->delete($majalah->cover_image);
+        if ($majalah->cover_image && file_exists(public_path($majalah->cover_image))) {
+            unlink(public_path($majalah->cover_image));
         }
 
         // Delete page images
         foreach ($majalah->pages as $page) {
-            Storage::disk('public')->delete($page->image_path);
+            if ($page->image_path && file_exists(public_path($page->image_path))) {
+                unlink(public_path($page->image_path));
+            }
+        }
+
+        // Delete page directory
+        $pagesDir = public_path('majalah/pages/' . $majalah->id);
+        if (is_dir($pagesDir)) {
+            rmdir($pagesDir);
         }
 
         $majalah->delete();
@@ -158,13 +181,19 @@ class MajalahController extends Controller
 
         if ($request->hasFile('image')) {
             // Delete old image
-            Storage::disk('public')->delete($page->image_path);
+            if ($page->image_path && file_exists(public_path($page->image_path))) {
+                unlink(public_path($page->image_path));
+            }
             
             // Upload new image
-            $updateData['image_path'] = $request->file('image')->store(
-                'majalah/pages/' . $page->majalah_id, 
-                'public'
-            );
+            $pageFile = $request->file('image');
+            $pageFileName = 'page_' . $page->page_number . '_' . time() . '.' . $pageFile->getClientOriginalExtension();
+            $pagesDir = public_path('majalah/pages/' . $page->majalah_id);
+            if (!file_exists($pagesDir)) {
+                mkdir($pagesDir, 0755, true);
+            }
+            $pageFile->move($pagesDir, $pageFileName);
+            $updateData['image_path'] = 'majalah/pages/' . $page->majalah_id . '/' . $pageFileName;
         }
 
         $page->update($updateData);
@@ -175,7 +204,9 @@ class MajalahController extends Controller
     // Method untuk delete halaman individual
     public function deletePage(MajalahPage $page)
     {
-        Storage::disk('public')->delete($page->image_path);
+        if ($page->image_path && file_exists(public_path($page->image_path))) {
+            unlink(public_path($page->image_path));
+        }
         $page->delete();
 
         return response()->json(['success' => true, 'message' => 'Halaman berhasil dihapus!']);

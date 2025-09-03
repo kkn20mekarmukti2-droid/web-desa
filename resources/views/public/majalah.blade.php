@@ -62,8 +62,8 @@
                 <div class="col-lg-4 col-md-6 mb-4" id="majalah-{{ $magazine->id }}">
                     <div class="magazine-card h-100">
                         <div class="magazine-cover-wrapper">
-                            @if($magazine->cover_image && file_exists(public_path('storage/' . $magazine->cover_image)))
-                                <img src="{{ asset('storage/' . $magazine->cover_image) }}" 
+                            @if($magazine->cover_image && file_exists(public_path($magazine->cover_image)))
+                                <img src="{{ asset($magazine->cover_image) }}" 
                                      alt="Cover {{ $magazine->judul }}"
                                      class="magazine-cover-image">
                             @else
@@ -369,8 +369,8 @@ function setupFlipbook(magazine, pages) {
         const pageDiv = document.createElement('div');
         pageDiv.className = 'page';
         
-        // Check if image exists approach - we'll use a different method for JS
-        const imgSrc = `/storage/${page.image_path}`;
+        // Use direct public path instead of storage
+        const imgSrc = `/${page.image_path}`;
         pageDiv.innerHTML = `
             <img src="${imgSrc}" 
                  alt="Halaman ${page.page_number}"
