@@ -45,13 +45,7 @@
 - **Image Optimization** - Kompresi otomatis untuk performa optimal
 - **Responsive Gallery** - Layout yang adaptif untuk semua device
 
-#### 📚 Majalah Digital
-- **E-Magazine System** - Publikasi majalah desa dalam format digital
-- **Page-by-Page Reader** - Reading experience seperti flip book
-- **Cover Management** - Upload dan manage cover majalah
-- **Archive System** - Koleksi majalah dari berbagai edisi
-
-#### 🛍️ UMKM & Ekonomi Desa
+#### ️ UMKM & Ekonomi Desa
 - **Produk UMKM** - Katalog produk lokal dengan foto dan deskripsi
 - **Kontak Penjual** - Informasi kontak langsung ke penjual
 - **Kategori Produk** - Organisasi produk berdasarkan jenis

@@ -770,12 +770,6 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="{{ route('admin.majalah.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'majalah') ? 'active' : '' }}">
-                            <i class="sidebar-menu-icon fas fa-book"></i>
-                            <span>Majalah Desa</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu-item">
                         <a href="{{ route('admin.statistik.index') }}" class="sidebar-menu-link {{ str_contains(Request::route()->getName(), 'admin.statistik') ? 'active' : '' }}">
                             <i class="sidebar-menu-icon fas fa-chart-bar"></i>
                             <span>Data Statistik</span>
