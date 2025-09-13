@@ -14,12 +14,7 @@ class homeController extends Controller
     {
         $artikel = artikelModel::orderByDesc('id')->where('status', true)->take(8)->get();
         
-        // Get latest active magazine for homepage teaser
-        $latestMajalah = \App\Models\Majalah::where('is_active', true)
-            ->orderBy('tanggal_terbit', 'desc')
-            ->first();
-        
-        return view("index", compact("artikel", "latestMajalah"));
+        return view("index", compact("artikel"));
     }
 
     public function berita()
