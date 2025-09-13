@@ -1,31 +1,65 @@
 # 🏛️ Web Desa Mekarmukti
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Laravel-11.16.0-red?style=for-the-badge&logo=laravel" alt="Laravel">
-  <img src="https://img.shields.io/badge/PHP-8.2+-blue?style=for-the-badge&logo=php" alt="PHP">
-  <img src="https://img.shields.io/badge/TailwindCSS-3.4.6-cyan?style=for-the-badge&logo=tailwindcss" alt="TailwindCSS">
-  <img src="https://img.shields.io/badge/SQLite-Production-green?style=for-the-badge&logo=sqlite" alt="SQLite">
-  <img src="https://img.shields.io/badge/Firebase-Cloud-orange?style=for-the-badge&logo=firebase" alt="Firebase">
-</p>
+<div align="center">
 
-<p align="center">
-  <strong>Sistem Informasi Desa Modern untuk Desa Mekarmukti</strong><br>
-  Portal komprehensif dengan CMS, transparansi keuangan, dan layanan digital untuk masyarakat desa
-</p>
+![Laravel](https://img.shields.io/badge/Laravel-11.16.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4.6-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Production-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-Cloud_Messaging-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+
+**Modern Village Information System for Mekarmukti Village**  
+*Comprehensive digital platform featuring CMS, financial transparency, and community services*
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Website-4CAF50?style=for-the-badge&logo=web&logoColor=white)](https://mekarmukti.id)
+[![GitHub](https://img.shields.io/badge/Source_Code-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kkn20mekarmukti2-droid/web-desa)
+
+</div>
 
 ---
 
-## 📋 Tentang Proyek
+## 📋 Project Overview
 
-**Web Desa Mekarmukti** adalah sistem informasi desa berbasis web yang dikembangkan untuk meningkatkan transparansi dan layanan publik di Desa Mekarmukti. Aplikasi ini menyediakan platform digital komprehensif untuk publikasi berita desa, transparansi keuangan APBDes, galeri kegiatan, profil desa, dan sistem pengaduan masyarakat dengan notifikasi real-time.
+**Web Desa Mekarmukti** is a comprehensive village information system built to enhance transparency and public services in Mekarmukti Village. This digital platform provides complete content management, financial transparency, community engagement, and administrative services with modern web technologies.
 
-### 🎯 Fitur Utama
+## 🚀 Key Features
 
-#### 📰 Content Management System (CMS)
-- **Manajemen Artikel Desa** - Editor WYSIWYG dengan upload gambar
-- **Sistem Kategori** - Organisasi konten berdasarkan topik
-- **Hero Section** - Slider dinamis untuk highlight informasi penting
-- **SEO Optimization** - Meta tags dan struktur URL yang SEO-friendly
+### � Content Management System
+- **📰 Article Management** - WYSIWYG editor with advanced media upload
+- **🏷️ Category System** - Organized content classification  
+- **🎯 Hero Sections** - Dynamic slider for important announcements
+- **🔍 SEO Optimized** - Meta tags and URL structure for better visibility
+- **🔍 SEO Optimized** - Meta tags and URL structure for better visibility
+
+### 💰 Financial Transparency
+- **📊 APBDes Dashboard** - Interactive budget visualization with charts
+- **📈 Budget Analytics** - Detailed breakdown by category with realization percentage
+- **📄 Document Upload** - Evidence and proof of fund utilization
+- **📋 Report Export** - Excel/PDF export functionality
+
+### 🏢 Village Profile & Information
+- **🎯 Village Data** - Complete profile with vision, mission, and history
+- **👥 Government Structure** - Organizational chart with photos and positions
+- **📊 Demographic Statistics** - Population data with interactive visualizations
+- **🗺️ RT/RW Data** - Detailed information per administrative area
+
+### 🖼️ Gallery & Media Management
+- **📸 Photo Gallery** - Event documentation with categorization system
+- **📤 Batch Upload** - Multiple file upload with preview functionality
+- **🖼️ Image Optimization** - Automatic compression for optimal performance
+- **📱 Responsive Gallery** - Adaptive layout for all devices
+
+### 🛍️ UMKM & Village Economy
+- **🏪 Product Catalog** - Local UMKM products with photos and descriptions
+- **📞 Direct Contact** - Immediate connection to sellers
+- **🏷️ Product Categories** - Organized product classification
+- **📢 Digital Marketing** - Platform for promoting local businesses
+
+### 📱 Digital Services
+- **📝 Public Complaints** - Online complaint submission system
+- **🔔 Push Notifications** - Real-time updates via Firebase Cloud Messaging  
+- **📊 Visitor Analytics** - Website traffic and engagement statistics
+- **📱 Mobile Responsive** - Optimized experience across all devices
 
 #### 💰 Transparansi Keuangan
 - **APBDes Dashboard** - Visualisasi anggaran dan realisasi dengan chart interaktif
@@ -57,50 +91,44 @@
 - **Visitor Counter** - Tracking statistik pengunjung website
 - **Responsive Design** - Optimal di desktop, tablet, dan mobile
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Technology Stack
+
+<div align="center">
 
 ### Backend Framework
-- **Laravel 11.16.0** - Modern PHP framework dengan Eloquent ORM
-- **PHP 8.2+** - Server-side scripting dengan type declarations
-- **SQLite** - Lightweight database untuk production (portable)
-- **Composer** - Dependency management dan autoloading
+![Laravel](https://img.shields.io/badge/Laravel-11.16.0-FF2D20?style=flat&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=flat&logo=sqlite&logoColor=white)
+![Composer](https://img.shields.io/badge/Composer-Dependency_Management-885630?style=flat&logo=composer&logoColor=white)
 
 ### Frontend & UI/UX
-- **TailwindCSS 3.4.6** - Utility-first CSS framework untuk rapid development
-- **Bootstrap 5** - UI components dan grid system (hybrid approach)
-- **Chart.js** - Interactive charts untuk visualisasi data APBDes
-- **Vite 5.0** - Modern build tool dengan HMR support
-- **JavaScript/jQuery** - Client-side interactions dan AJAX
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4.6-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat&logo=bootstrap&logoColor=white)
+![Chart.js](https://img.shields.io/badge/Chart.js-Data_Visualization-FF6384?style=flat&logo=chart.js&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat&logo=vite&logoColor=white)
 
 ### Cloud Services & Integrations
-- **Firebase Cloud Messaging** - Push notifications real-time
-- **Firebase Storage** - File storage dan CDN
-- **Google Charts API** - Advanced data visualization
-- **TinyMCE/CKEditor** - WYSIWYG editor untuk content management
+![Firebase](https://img.shields.io/badge/Firebase-Cloud_Messaging-FFCA28?style=flat&logo=firebase&logoColor=black)
+![Google Charts](https://img.shields.io/badge/Google_Charts-API-4285F4?style=flat&logo=google&logoColor=white)
 
-### DevOps & Deployment
-- **Git** - Version control dengan branching strategy
-- **Artisan CLI** - Laravel command-line tools
-- **NPM/Vite** - Asset compilation dan hot reload
-- **cPanel Integration** - Production deployment automation
+### DevOps & Security
+![Git](https://img.shields.io/badge/Git-Version_Control-F05032?style=flat&logo=git&logoColor=white)
+![Laravel Sanctum](https://img.shields.io/badge/Laravel_Sanctum-API_Auth-FF2D20?style=flat&logo=laravel&logoColor=white)
 
-### Security & Performance
-- **Laravel Sanctum** - API authentication
-- **CSRF Protection** - Cross-site request forgery protection
-- **XSS Prevention** - Input sanitization dan output escaping
-- **Image Optimization** - Automatic image compression
-- **Database Indexing** - Optimized query performance
+</div>
 
-## 🚀 Instalasi & Setup
+## � Installation & Setup
 
 ### Prerequisites
-- PHP 8.2 atau lebih tinggi
-- Composer 2.0+
-- Node.js 18+ & NPM
-- SQLite (sudah included)
-- Web server (Apache/Nginx/Laravel Serve)
+```bash
+PHP 8.2+
+Composer 2.0+
+Node.js 18+ & NPM
+SQLite (included)
+Web Server (Apache/Nginx/Laravel Serve)
+```
 
-### Langkah Instalasi
+### Quick Start
 
 1. **Clone Repository**
    ```bash
@@ -110,129 +138,89 @@
 
 2. **Install Dependencies**
    ```bash
-   # Install PHP dependencies
    composer install
-   
-   # Install Node.js dependencies  
    npm install
    ```
 
 3. **Environment Setup**
    ```bash
-   # Copy environment file
    cp .env.example .env
-   
-   # Generate application key
    php artisan key:generate
    ```
 
 4. **Database Setup**
    ```bash
-   # Database sudah tersedia (SQLite)
-   # File: database/database.sqlite
-   
-   # Jika perlu migrasi ulang:
+   # Database ready to use (SQLite included)
+   # Optional: Reset database
    php artisan migrate:fresh --seed
    ```
 
-5. **Build Assets**
+5. **Build Assets & Start**
    ```bash
-   # Development build
-   npm run dev
-   
-   # Production build
-   npm run build
+   npm run dev          # Development
+   npm run build        # Production
+   php artisan serve    # Start development server
    ```
 
-6. **Storage Configuration**
-   ```bash
-   # Create storage link
-   php artisan storage:link
-   
-   # Set permissions (Linux/Mac)
-   chmod -R 775 storage bootstrap/cache
-   ```
+   🌐 **Access application at:** `http://localhost:8000`
 
-7. **Start Development Server**
-   ```bash
-   php artisan serve
-   ```
+## 🌐 Production Deployment
 
-   Akses aplikasi di: `http://localhost:8000`
-
-## 🌐 Deployment ke Production
-
-### Quick Deployment
-Aplikasi siap deploy dengan database SQLite yang sudah termasuk dalam repository.
+### Simple Deployment
+Application ready to deploy with included SQLite database.
 
 ```bash
-# Upload semua file ke hosting
-# Set permissions untuk storage dan cache
+# Upload all files to hosting
+# Set permissions for storage and cache
 chmod -R 775 storage bootstrap/cache
 
-# Install dependencies (jika diperlukan)
+# Install dependencies (if needed)
 composer install --no-dev --optimize-autoloader
 
 # Build assets
 npm run build
 
-# Clear cache
+# Cache optimization
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
 
 ### cPanel Deployment
-1. **Upload via File Manager atau FTP**
-   - Upload semua file ke `public_html` atau folder domain
-   - Database SQLite akan ikut terupload
+1. **Upload Files** - Upload via File Manager or FTP to `public_html`
+2. **Set Permissions** - `chmod -R 775 storage bootstrap/cache`
+3. **Environment** - Rename `.env.production` to `.env`
 
-2. **Set Permissions**
-   ```bash
-   # Via terminal cPanel
-   chmod -R 775 storage
-   chmod -R 775 bootstrap/cache
-   ```
+### Firebase Setup (Optional)
+For push notifications:
+- Upload `firebase_credentials.json` to `config/`
+- Update Firebase config in `.env`
+- Copy `firebase-messaging-sw.js` to `public/`
 
-3. **Environment Production**
-   - Rename `.env.production` menjadi `.env`
-   - Atau edit `.env` sesuai environment production
+## � Admin Panel & User Management
 
-### Firebase Configuration (Optional)
-Jika menggunakan push notifications:
-1. Upload `firebase_credentials.json` ke folder `config/`
-2. Update Firebase config di `.env`
-3. Copy `firebase-messaging-sw.js` ke folder `public/`
+### Admin Access
+- **🌐 URL:** `/admin` or `/login`
+- **� Authentication:** Contact village administration for admin credentials
 
-## 👨‍💼 Admin Panel & User Management
-
-### Login Admin
-- **URL:** `/admin` atau `/login`
-- **Default Admin:**
-  - Email: `admin@webdesa.com`
-  - Password: `admin123`
-
-### Fitur Admin Dashboard
-- **Dashboard Analytics** - Visitor stats, content metrics
-- **Content Management** - CRUD artikel dengan rich text editor
-- **Media Management** - Upload dan organize galeri foto
-- **UMKM Management** - Kelola produk dan kontak UMKM
-- **APBDes Management** - Input dan update data anggaran
-- **User Management** - Kelola akun admin dan permissions
-- **Pengaduan Management** - Monitor dan respon pengaduan
-- **Data Desa** - Update profil dan struktur pemerintahan
-
-### Role System
-- **Super Admin** - Full access ke semua fitur
-- **Admin** - Access terbatas untuk content management
-- **Editor** - Hanya bisa edit artikel dan galeri
+### Dashboard Features
+| Feature | Description |
+|---------|-------------|
+| 📊 **Analytics Dashboard** | Visitor stats, content metrics, performance insights |
+| 📝 **Content Management** | CRUD operations with rich text editor |
+| 🖼️ **Media Management** | Upload, organize, and manage gallery photos |
+| 🛍️ **UMKM Management** | Manage products and seller contacts |
+| 💰 **APBDes Management** | Budget input, tracking, and reporting |
+| 👥 **User Management** | Admin accounts and permissions control |
+| 📧 **Complaints Management** | Monitor and respond to public submissions |
+| 🏢 **Village Data** | Update profiles and government structure |
 
 ### Security Features
-- **CSRF Protection** pada semua form
-- **Input Validation** dengan Laravel Form Requests
-- **File Upload Security** dengan validasi type dan size
-- **Session Management** dengan timeout otomatis
-- **Password Hashing** menggunakan bcrypt
+- 🛡️ **CSRF Protection** on all forms
+- ✅ **Input Validation** with Laravel Form Requests  
+- 📁 **File Upload Security** with type and size validation
+- ⏰ **Session Management** with automatic timeout
+- 🔒 **Password Hashing** using bcrypt algorithm
 
 ## 📁 Struktur Project
 
@@ -422,82 +410,83 @@ Dokumentasi mencakup:
 - Performance optimization
 - Troubleshooting common issues
 
-## 📞 Support & Kontak
+## 📞 Contact & Support
 
-**Tim Pengembang KKN 2024-2025 Desa Mekarmukti**
+**🚀 Development Team - KKN 2024-2025**
 
-### Repository & Issues
-- **GitHub Repository:** [kkn20mekarmukti2-droid/web-desa](https://github.com/kkn20mekarmukti2-droid/web-desa)
-- **Report Issues:** [GitHub Issues](https://github.com/kkn20mekarmukti2-droid/web-desa/issues)
-- **Feature Requests:** Gunakan GitHub Issues dengan label `enhancement`
+### 📧 Development Contact
+For technical inquiries and development collaboration:
+- **📧 Email:** Contact via repository issues
+- **💻 GitHub Issues:** [Report Issues](https://github.com/kkn20mekarmukti2-droid/web-desa/issues)
+- **🔧 Feature Requests:** Use GitHub Issues with `enhancement` label
 
-### Social Media & Community
-- **Instagram Desa:** [@mekarmukti_id](https://www.instagram.com/mekarmukti_id/)
-- **Instagram KKN Politeknik LP3I:** [@kkn_mekarmuktiplb](https://www.instagram.com/kkn_mekarmuktiplb/)
-- **Instagram KKN UMBandung:** [@kkn20mekarmukti2](https://www.instagram.com/kkn20mekarmukti2/)
-- **YouTube Desa:** [Desa Mekarmukti](https://www.youtube.com/@desamekarmukti3378)
+### 🌐 Social Media & Community
+- **📸 Instagram Desa:** [@mekarmukti_id](https://www.instagram.com/mekarmukti_id/)
+- **🎓 Instagram KKN Politeknik LP3I:** [@kkn_mekarmuktiplb](https://www.instagram.com/kkn_mekarmuktiplb/)
+- **🎓 Instagram KKN UMBandung:** [@kkn20mekarmukti2](https://www.instagram.com/kkn20mekarmukti2/)
+- **📺 YouTube Desa:** [Desa Mekarmukti](https://www.youtube.com/@desamekarmukti3378)
 
-### Contact Information
-- **Email:** desamotekar00@gmail.com
-- **Telepon:** +62 851-5762-2980
-- **Alamat:** Desa Mekarmukti, Kec. Cihampelas, Bandung Barat 40562
+### 🏢 Village Office Contact
+- **📧 Email:** desamotekar00@gmail.com
+- **📞 Phone:** +62 851-5762-2980
+- **📍 Address:** Desa Mekarmukti, Kec. Cihampelas, Bandung Barat 40562
 
-### Technical Support
-- **Documentation:** Baca `DOKUMENTASI_LENGKAP.md` untuk troubleshooting
-- **Community:** Diskusi via GitHub Discussions
-- **Emergency Issues:** Gunakan label `bug` dan `urgent` di GitHub Issues
+### 🛠️ Technical Support
+- **📖 Documentation:** Read `DOKUMENTASI_LENGKAP.md` for troubleshooting
+- **💬 Community:** Discussion via GitHub Discussions
+- **🚨 Emergency Issues:** Use `bug` and `urgent` labels on GitHub Issues
 
-## 🏆 Credits & Acknowledgments
+## 🏆 Project Credits
 
-### Development Team KKN 2024-2025
-Dikembangkan sejak tahun 2024 dan terus dipelihara hingga 2025 oleh:
-- **Tim KKN Politeknik LP3I Bandung** - [@kkn_mekarmuktiplb](https://www.instagram.com/kkn_mekarmuktiplb/)
-- **Tim KKN Universitas Muhammadiyah Bandung** - [@kkn20mekarmukti2](https://www.instagram.com/kkn20mekarmukti2/)
-- **Kelompok 20 Mekarmukti (Kelompok ke-2)** - Collaborative development
+### 👨‍💻 Development Team (2024-2025)
+**Collaborative development by:**
+- **🎓 KKN Politeknik LP3I Bandung** - [@kkn_mekarmuktiplb](https://www.instagram.com/kkn_mekarmuktiplb/)
+- **🎓 KKN Universitas Muhammadiyah Bandung** - [@kkn20mekarmukti2](https://www.instagram.com/kkn20mekarmukti2/)
+- **👥 Kelompok 20 Mekarmukti (Group 2)** - Multi-institutional collaboration
 
-### Contribution Areas
-- **Full-Stack Development:** Laravel + TailwindCSS implementation
-- **UI/UX Design:** Responsive design dan user experience optimization
-- **Database Design:** Schema design dan data modeling
-- **DevOps:** Deployment automation dan server configuration
-- **Content Management:** CMS development dan admin panel
-- **Community Engagement:** Social media integration dan public relations
+### 🔧 Technical Contributions
+| Area | Contribution |
+|------|-------------|
+| **⚡ Full-Stack Development** | Laravel + TailwindCSS implementation |
+| **🎨 UI/UX Design** | Responsive design and user experience optimization |
+| **🗄️ Database Design** | Schema architecture and data modeling |
+| **🚀 DevOps** | Deployment automation and server configuration |
+| **📝 Content Management** | CMS development and admin panel creation |
+| **🤝 Community Engagement** | Social media integration and public relations |
 
-### Technologies & Libraries
-- **Laravel Framework** - Robust PHP framework untuk backend
-- **TailwindCSS** - Utility-first CSS framework
-- **Chart.js** - Beautiful charts untuk data visualization
-- **Firebase** - Cloud messaging dan notification services
-- **SQLite** - Lightweight database solution
-- **Vite** - Lightning fast build tool
+### 🛠️ Technologies & Frameworks
+Built with industry-standard technologies and open-source frameworks.
 
-### Special Thanks
-- **Desa Mekarmukti** - Dukungan dan kepercayaan untuk pengembangan sistem
-- **Sekretariat Desa** - Bantuan data dan koordinasi implementasi
-- **Masyarakat Desa** - Feedback dan testing aplikasi
-- **Laravel Community** - Documentation dan best practices
-- **Open Source Contributors** - Libraries dan tools yang digunakan
+### 🙏 Acknowledgments
+- **🏛️ Desa Mekarmukti** - Support and trust for system development
+- **🏢 Village Secretariat** - Data assistance and implementation coordination  
+- **👥 Village Community** - Feedback and application testing
+- **💻 Laravel Community** - Documentation and best practices
+- **🌐 Open Source Contributors** - Libraries and tools utilized
 
-## 📄 Lisensi
+## 📄 License & Copyright
 
-Proyek ini dikembangkan untuk kepentingan publik **Desa Mekarmukti**. 
-
-### License Information
-- **Project License:** Developed untuk public domain Desa Mekarmukti
+### 📋 License Information
+- **Project License:** Open development for public service
 - **Laravel Framework:** [MIT License](https://opensource.org/licenses/MIT)
-- **Dependencies:** Masing-masing library mengikuti license respective-nya
-- **Usage Rights:** Free untuk development dan modification sesuai kebutuhan desa
+- **Dependencies:** Each library follows respective licensing terms
+- **Usage Rights:** Open for development and modification as needed
 
-### Copyright Notice
+### 📝 Copyright Notice
 ```
-Copyright (c) 2024-2025 KKN Tim Pengembang Desa Mekarmukti
-Developed for public service - Desa Mekarmukti Digital Initiative
-Kelompok 20 Mekarmukti (Kelompok ke-2) • 2024-2025
+Copyright (c) 2024-2025 KKN Development Team - Desa Mekarmukti
+Digital Village Initiative - Kelompok 20 Mekarmukti (Group 2)
+Developed for public service and community advancement
 ```
 
 ---
 
-<p align="center">
-  <strong>🏛️ Dikembangkan dengan ❤️ untuk Desa Mekarmukti</strong><br>
-  <em>KKN 2024-2025 - Membangun Desa Digital Berkelanjutan</em>
-</p>
+<div align="center">
+
+**🏛️ Professional Development for Desa Mekarmukti**  
+*KKN 2024-2025 - Building Sustainable Digital Villages*
+
+[![Made with Laravel](https://img.shields.io/badge/Made_with-Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Built with TailwindCSS](https://img.shields.io/badge/Built_with-TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+
+</div>
