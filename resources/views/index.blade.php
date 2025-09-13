@@ -508,12 +508,12 @@
                             
                             <!-- Action Buttons -->
                             <div class="d-flex flex-column flex-sm-row gap-3">
-                                <a href="{{ route('umkm') }}" 
+                                <a href="{{ route('produk-umkm.index') }}" 
                                    class="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-medium">
                                     <i class="fas fa-shopping-cart me-2"></i>
                                     Lihat Produk
                                 </a>
-                                <a href="{{ route('umkm') }}" 
+                                <a href="{{ route('potensidesa') }}" 
                                    class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-medium">
                                     <i class="fas fa-store me-2"></i>
                                     Jelajahi UMKM
