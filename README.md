@@ -492,7 +492,6 @@ For technical inquiries and development collaboration:
 **Collaborative development by:**
 - **🎓 KKN Politeknik LP3I Bandung** - [@kkn_mekarmuktiplb](https://www.instagram.com/kkn_mekarmuktiplb/)
 - **🎓 KKN Universitas Muhammadiyah Bandung** - [@kkn20mekarmukti2](https://www.instagram.com/kkn20mekarmukti2/)
-- **👥 Kelompok 20 Mekarmukti (Group 2)** - Multi-institutional collaboration
 
 ### 🔧 Technical Contributions
 | Area | Contribution |
@@ -524,8 +523,8 @@ Built with industry-standard technologies and open-source frameworks.
 
 ### 📝 Copyright Notice
 ```
-Copyright (c) 2024-2025 KKN Development Team - Desa Mekarmukti
-Digital Village Initiative - Kelompok 20 Mekarmukti (Group 2)
+Copyright (c) 2024-2025 KKN LP3I Development Team - Desa Mekarmukti
+Digital Village Initiative - Kelompok 20 KKN Mekarmukti 2025
 Developed for public service and community advancement
 ```
 
