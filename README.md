@@ -1,4 +1,6 @@
-# 🏛️ Web Desa Mekarmukt## 🚀 Fitur Utama
+# 🏛️ Web Desa Mekarmukt## 🚀 Fitur## 🚀 Fitur Utama
+
+### 🎯 Sistem Manajemen Kontenama
 
 ### 📝 Sistem Manajemen Konten
 - **📰 Manajemen Artikel** - Editor WYSIWYG dengan upload media canggih
@@ -36,8 +38,8 @@
 ## 🚀 Key Features
 
 ### � Content Management System
-- **📰 Article Management** - WYSIWYG editor with advanced media upload
-- **🏷️ Category System** - Organized content classification  
+- **📰 Manajemen Artikel** - WYSIWYG editor dengan upload media canggih
+- **🏷️ Sistem Kategori** - Klasifikasi konten yang terorganisir  
 - **🎯 Hero Sections** - Dynamic slider for important announcements
 - **🔍 SEO Optimized** - Meta tags and URL structure for better visibility
 - **🔍 SEO Optimized** - Meta tags and URL structure for better visibility
@@ -76,7 +78,7 @@
 
 <div align="center">
 
-### Backend Framework
+### Framework Backend
 ![Laravel](https://img.shields.io/badge/Laravel-11.16.0-FF2D20?style=flat&logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=flat&logo=sqlite&logoColor=white)
