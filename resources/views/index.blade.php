@@ -422,9 +422,16 @@
             </div>
         </section>
         
-        {{-- ======= UMKM Desa Section ======= --}}
-        <section class="umkm-section py-5" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); position: relative; overflow: hidden;">
-            <!-- Background Pattern -->
+        {{-- End Berita Section --}}
+        
+        {{-- UMKM Section Removed - Using existing Produk UMKM navigation instead --}}
+        
+        {{-- End Main Content --}}
+  </main><!-- End #main -->
+
+    </main>
+@endsection
+@section('script')
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.1; background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 20\"><defs><radialGradient id=\"a\" cx=\"50%\" cy=\"50%\"><stop offset=\"0%\" stop-color=\"rgba(255,255,255,.1)\"/><stop offset=\"100%\" stop-color=\"rgba(255,255,255,0)\"/></radialGradient></defs><circle fill=\"url(%23a)\" cx=\"10\" cy=\"10\" r=\"10\"/><circle fill=\"url(%23a)\" cx=\"90\" cy=\"5\" r=\"5\"/><circle fill=\"url(%23a)\" cx=\"70\" cy=\"15\" r=\"7\"/><circle fill=\"url(%23a)\" cx=\"30\" cy=\"5\" r=\"3\"/></svg>') repeat;"></div>
             
             <div class="container" style="position: relative; z-index: 2;">
