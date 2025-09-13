@@ -31,6 +31,9 @@ Route::resource('produk-umkm', App\Http\Controllers\ProdukUmkmController::class)
 // Galeri
 Route::get('/galeri-desa', [galleryController::class, 'galeri'])->name('galeri');
 
+// Majalah
+Route::get('/majalah', [\App\Http\Controllers\MajalahController::class, 'publicIndex'])->name('majalah');
+
 // Kontak
 Route::get('/kontak-desa', [homeController::class, 'kontak'])->name('kontak');
 
@@ -63,6 +66,9 @@ Route::prefix('data')->group(function () {
 // API / Token / Grafik
 Route::get('/getdatades', [dataController::class, 'getChartData'])->name('getdatades');
 Route::post('/save-token', [NotificationTokenController::class, 'saveToken'])->name('save.token');
+
+// API Majalah untuk flipbook
+Route::get('/api/majalah/{id}/pages', [\App\Http\Controllers\MajalahController::class, 'getPages'])->name('api.majalah.pages');
 
 // Debug route for troubleshooting chart data
 Route::get('/debug-chart-data', function () {
@@ -202,6 +208,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::delete('/{id}', [\App\Http\Controllers\HeroImageController::class, 'destroy'])->name('destroy');
     });
 
+    // Majalah Admin Management
+    Route::prefix('majalah')->name('admin.majalah.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\MajalahController::class, 'adminIndex'])->name('index');
+        Route::patch('/{id}/toggle', [\App\Http\Controllers\MajalahController::class, 'toggleStatus'])->name('toggle');
+    });
+
     // Manajemen Akun - Redirect to Modern
     Route::get('/manage-akun', function() {
         return redirect()->route('users.manage.modern');
@@ -285,6 +297,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
 Route::get('/panel', fn () => redirect()->away('https://mekarmukti.id:2083'));
 Route::get('/cpanel', fn () => abort(404));
+
+// API Routes for Magazine Pages
+Route::get('/api/majalah/{id}/pages', [\App\Http\Controllers\MajalahController::class, 'getPages'])->name('api.majalah.pages');
 
 // Admin password reset route (for emergency)
 Route::get('/reset-password-admin', function () {
