@@ -1,6 +1,10 @@
-# 🏛️ Web Desa Mekarmukti
+# 🏛️ Web Desa Mekarmukt## 🚀 Fitur Utama
 
-<div align="center">
+### 📝 Sistem Manajemen Konten
+- **📰 Manajemen Artikel** - Editor WYSIWYG dengan upload media canggih
+- **🏷️ Sistem Kategori** - Klasifikasi konten yang terorganisir
+- **🎯 Bagian Hero** - Slider dinamis untuk pengumuman penting
+- **🔍 SEO Optimal** - Meta tags dan struktur URL untuk visibilitas yang lebih baikalign="center">
 
 ![Laravel](https://img.shields.io/badge/Laravel-11.16.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)
@@ -8,19 +12,19 @@
 ![SQLite](https://img.shields.io/badge/SQLite-Production-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-Cloud_Messaging-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
-**Modern Village Information System for Mekarmukti Village**  
-*Comprehensive digital platform featuring CMS, financial transparency, and community services*
+**Sistem Informasi Desa Modern untuk Desa Mekarmukti**  
+*Platform digital komprehensif dengan fitur CMS, transparansi keuangan, dan layanan masyarakat*
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Website-4CAF50?style=for-the-badge&logo=web&logoColor=white)](https://mekarmukti.id)
+[![Demo Langsung](https://img.shields.io/badge/Demo_Langsung-Kunjungi_Website-4CAF50?style=for-the-badge&logo=web&logoColor=white)](https://mekarmukti.id)
 [![GitHub](https://img.shields.io/badge/Source_Code-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kkn20mekarmukti2-droid/web-desa)
 
 </div>
 
 ---
 
-## 📋 Project Overview
+## 📋 Ringkasan Proyek
 
-**Web Desa Mekarmukti** is a comprehensive village information system built to enhance transparency and public services in Mekarmukti Village. This digital platform provides complete content management, financial transparency, community engagement, and administrative services with modern web technologies.
+**Web Desa Mekarmukti** adalah sistem informasi desa komprehensif yang dibangun untuk meningkatkan transparansi dan pelayanan publik di Desa Mekarmukti. Platform digital ini menyediakan manajemen konten lengkap, transparansi keuangan, keterlibatan masyarakat, dan layanan administratif dengan teknologi web modern.
 
 ## 🚀 Key Features
 
@@ -31,67 +35,37 @@
 - **🔍 SEO Optimized** - Meta tags and URL structure for better visibility
 - **🔍 SEO Optimized** - Meta tags and URL structure for better visibility
 
-### 💰 Financial Transparency
-- **📊 APBDes Dashboard** - Interactive budget visualization with charts
-- **📈 Budget Analytics** - Detailed breakdown by category with realization percentage
-- **📄 Document Upload** - Evidence and proof of fund utilization
-- **📋 Report Export** - Excel/PDF export functionality
+### 💰 Transparansi Keuangan
+- **📊 Dashboard APBDes** - Visualisasi anggaran interaktif dengan grafik
+- **📈 Analisis Anggaran** - Breakdown detail per kategori dengan persentase realisasi
+- **📄 Upload Dokumen** - Bukti dan dokumentasi penggunaan dana
+- **📋 Export Laporan** - Fungsionalitas export Excel/PDF
 
-### 🏢 Village Profile & Information
-- **🎯 Village Data** - Complete profile with vision, mission, and history
-- **👥 Government Structure** - Organizational chart with photos and positions
-- **📊 Demographic Statistics** - Population data with interactive visualizations
-- **🗺️ RT/RW Data** - Detailed information per administrative area
+### 🏢 Profil & Informasi Desa
+- **🎯 Data Desa** - Profil lengkap dengan visi, misi, dan sejarah
+- **👥 Struktur Pemerintahan** - Bagan organisasi dengan foto dan jabatan
+- **📊 Statistik Demografi** - Data populasi dengan visualisasi interaktif
+- **🗺️ Data RT/RW** - Informasi detail per wilayah administratif
 
-### 🖼️ Gallery & Media Management
-- **📸 Photo Gallery** - Event documentation with categorization system
-- **📤 Batch Upload** - Multiple file upload with preview functionality
-- **🖼️ Image Optimization** - Automatic compression for optimal performance
-- **📱 Responsive Gallery** - Adaptive layout for all devices
+### 🖼️ Galeri & Manajemen Media
+- **📸 Galeri Foto** - Dokumentasi kegiatan dengan sistem kategorisasi
+- **📤 Upload Batch** - Upload beberapa file dengan fungsi preview
+- **🖼️ Optimasi Gambar** - Kompresi otomatis untuk performa optimal
+- **📱 Galeri Responsif** - Layout adaptif untuk semua perangkat
 
-### 🛍️ UMKM & Village Economy
-- **🏪 Product Catalog** - Local UMKM products with photos and descriptions
-- **📞 Direct Contact** - Immediate connection to sellers
-- **🏷️ Product Categories** - Organized product classification
-- **📢 Digital Marketing** - Platform for promoting local businesses
+### 🛍️ UMKM & Ekonomi Desa
+- **🏪 Katalog Produk** - Produk UMKM lokal dengan foto dan deskripsi
+- **📞 Kontak Langsung** - Koneksi langsung ke penjual
+- **🏷️ Kategori Produk** - Klasifikasi produk yang terorganisir
+- **📢 Marketing Digital** - Platform untuk promosi bisnis lokal
 
-### 📱 Digital Services
-- **📝 Public Complaints** - Online complaint submission system
-- **🔔 Push Notifications** - Real-time updates via Firebase Cloud Messaging  
-- **📊 Visitor Analytics** - Website traffic and engagement statistics
-- **📱 Mobile Responsive** - Optimized experience across all devices
+### 📱 Layanan Digital
+- **📝 Pengaduan Publik** - Sistem pengaduan online masyarakat
+- **🔔 Push Notifications** - Update real-time via Firebase Cloud Messaging
+- **📊 Analitik Pengunjung** - Statistik traffic dan engagement website
+- **📱 Mobile Responsive** - Pengalaman optimal di semua perangkat
 
-#### 💰 Transparansi Keuangan
-- **APBDes Dashboard** - Visualisasi anggaran dan realisasi dengan chart interaktif
-- **Detail Anggaran** - Breakdown per kategori dengan persentase realisasi
-- **Upload Bukti** - Sistem upload dokumen dan foto bukti realisasi
-- **Export Data** - Fitur ekspor laporan dalam format Excel/PDF
-
-#### 🏢 Profil & Informasi Desa
-- **Data Desa** - Profil lengkap dengan visi, misi, dan sejarah
-- **Struktur Pemerintahan** - Organigram dengan foto dan jabatan
-- **Data Statistik** - Demografi penduduk dengan visualisasi chart
-- **Data RT/RW** - Informasi lengkap per wilayah
-
-#### 🖼️ Galeri & Media
-- **Galeri Foto** - Dokumentasi kegiatan dengan sistem kategorisasi
-- **Upload Batch** - Multiple file upload dengan preview
-- **Image Optimization** - Kompresi otomatis untuk performa optimal
-- **Responsive Gallery** - Layout yang adaptif untuk semua device
-
-#### ️ UMKM & Ekonomi Desa
-- **Produk UMKM** - Katalog produk lokal dengan foto dan deskripsi
-- **Kontak Penjual** - Informasi kontak langsung ke penjual
-- **Kategori Produk** - Organisasi produk berdasarkan jenis
-- **Promosi Digital** - Platform marketing untuk UMKM lokal
-
-#### 📱 Layanan Digital
-- **Sistem Pengaduan** - Portal pengaduan masyarakat online
-- **Notifikasi Push** - Firebase Cloud Messaging untuk update real-time
-- **Visitor Counter** - Tracking statistik pengunjung website
-- **Responsive Design** - Optimal di desktop, tablet, dan mobile
-
-## 🛠️ Technology Stack
+## �️ Stack Teknologi
 
 <div align="center">
 
@@ -148,9 +122,9 @@ Web Server (Apache/Nginx/Laravel Serve)
    php artisan key:generate
    ```
 
-4. **Database Setup**
+4. **Setup Database**
    ```bash
-   # Database ready to use (SQLite included)
+   # Database siap digunakan (SQLite sudah termasuk)
    # Optional: Reset database
    php artisan migrate:fresh --seed
    ```
@@ -162,12 +136,12 @@ Web Server (Apache/Nginx/Laravel Serve)
    php artisan serve    # Start development server
    ```
 
-   🌐 **Access application at:** `http://localhost:8000`
+   🌐 **Akses aplikasi di:** `http://localhost:8000`
 
-## 🌐 Production Deployment
+## 🌐 Deployment Production
 
-### Simple Deployment
-Application ready to deploy with included SQLite database.
+### Deployment Sederhana
+Aplikasi siap deploy dengan database SQLite yang sudah termasuk.
 
 ```bash
 # Upload all files to hosting
