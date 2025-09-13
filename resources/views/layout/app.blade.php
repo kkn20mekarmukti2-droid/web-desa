@@ -635,19 +635,6 @@
                                 <i class="bi bi-pie-chart-fill" style="color: #F59E0B; margin-right: 8px;"></i>
                                 Transparansi Anggaran
                             </a>
-                            <a href="{{ route('potensidesa') }}" style="
-                                display: flex;
-                                align-items: center;
-                                padding: 12px 16px;
-                                color: white;
-                                text-decoration: none;
-                                border-radius: 8px;
-                                margin: 2px 0;
-                                transition: all 0.3s ease;
-                            " class="dropdown-link">
-                                <i class="bi bi-shop" style="color: #F59E0B; margin-right: 8px;"></i>
-                                UMKM Desa
-                            </a>
                         </div>
                     </div>
                     
