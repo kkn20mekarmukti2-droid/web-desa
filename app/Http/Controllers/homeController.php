@@ -55,17 +55,22 @@ class homeController extends Controller
 
     public function tampilberita($tanggal, $judul)
     {
+        // Parse tanggal
         $tanggal = date('Y-m-d', strtotime($tanggal));
-        $judul = Str::slug($judul, ' ');
-
+        
+        // Cari artikel berdasarkan slug judul dan tanggal
         $artikel = artikelModel::with('creator')
-            ->whereRaw("TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(judul, '|', ''), '-', ''), '&', ''), '  ', ' '),'(',''),')','')) = ?", [$judul])
-            ->where('created_at', 'like', '%' . $tanggal . '%')
+            ->whereDate('created_at', $tanggal)
             ->where('status', true)
+            ->get()
+            ->filter(function ($item) use ($judul) {
+                return Str::slug($item->judul) === $judul;
+            })
             ->first();
 
+        // Jika artikel tidak ditemukan, redirect ke homepage
         if (!$artikel) {
-            return redirect()->intended('/');
+            return redirect()->route('home')->with('error', 'Artikel tidak ditemukan');
         }
 
         $rekomendasi = artikelModel::with('getKategori', 'creator')
